@@ -11,12 +11,12 @@ import type { ResidentIdentity } from '@/types/auth';
 export async function getIdentity(): Promise<ResidentIdentity | null> {
   if (!authConfigured()) return null;
   const { data, error } = await getNeonAuth().getSession();
-  if (error) throw new AppError(HTTP.unavailable, 'AUTH_UPSTREAM', 'No pudimos comprobar tu sesión con Neon. Volvé a intentar en un momento.');
+  if (error) throw new AppError(HTTP.unavailable, 'AUTH_UPSTREAM', 'No pudimos comprobar tu sesión. Volvé a intentar en un momento.');
   return data?.user ? { id: data.user.id, email: data.user.email, name: data.user.name, emailVerified: data.user.emailVerified } : null;
 }
 
 export async function requireAuth(): Promise<ResidentAccess> {
-  if (!authConfigured()) throw new AppError(HTTP.unavailable, 'AUTH_NOT_CONFIGURED', 'Neon Auth todavía no está configurado.');
+  if (!authConfigured()) throw new AppError(HTTP.unavailable, 'AUTH_NOT_CONFIGURED', 'El acceso no está disponible en este momento. Intentá más tarde.');
   const user = await getIdentity();
   if (!user) throw new AppError(HTTP.unauthorized, 'AUTH_REQUIRED', 'Ingresá de nuevo para continuar.');
   return resolveResidentAccess(await getDatabase(), user);

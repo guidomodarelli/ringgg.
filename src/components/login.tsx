@@ -56,7 +56,7 @@ export function Login({ configured = false, initialMessage = '', signedIn = fals
   return <main className="login-page"><Brand /><div className="login-layout"><section><span className="eyebrow">TU CASA, A UN TOQUE</span><h1>El timbre.<br />Ahora, con vos.</h1><p>Alguien llega. Tu celular te avisa.<br />Así de simple.</p><div className="bell-orbit"><div className="bell-shape"><span /><i /></div><span className="orbit-spark">✳</span></div></section>
     <form className="login-form" key={mode} onSubmit={(event) => { event.preventDefault(); void submit(event.currentTarget); }}>
       <div className="soft-icon"><LockKeyhole /></div><h2>{title}</h2><p>{signedIn ? 'Tu sesión está iniciada. El acceso requiere un correo verificado y autorizado.' : mode === 'verify' ? 'Ingresá el código que recibiste por correo.' : 'Ingresá con tu cuenta para administrar tu timbre.'}</p>
-      {!configured && <p className="feedback error" role="status">Falta conectar Neon Auth. Completá el acceso del CLI y ejecutá neon init y neon deploy.</p>}
+      {!configured && <p className="feedback error" role="status">El acceso no está disponible en este momento. Intentá más tarde.</p>}
       {!signedIn && <>
         {mode === 'sign-up' && <><label htmlFor="resident-name">Tu nombre</label><input id="resident-name" name="name" autoComplete="name" required maxLength={50} disabled={pending} /></>}
         {mode !== 'reset' && <><label htmlFor="email">Correo electrónico</label><input id="email" name="email" type="email" autoComplete="email" required value={email} maxLength={254} disabled={pending} onChange={(event) => { setEmail(event.target.value); setError(''); }} /></>}
@@ -71,6 +71,6 @@ export function Login({ configured = false, initialMessage = '', signedIn = fals
           {mode === 'verify' && <button className="text-button" type="button" disabled={pending || !email.trim() || !configured} onClick={() => action(async () => { const result = await authClient.emailOtp.sendVerificationOtp({ email: email.trim(), type: 'email-verification' }); if (!showError(result)) setMessage('Solicitamos un código nuevo. Revisá tu correo y la carpeta de spam.'); })}>Pedir código nuevo</button>}
           {mode !== 'sign-in' && <button className="text-button" type="button" disabled={pending} onClick={() => changeMode('sign-in')}>Volver a ingresar</button>}
         </>}
-      </div><small>Acceso con Neon Auth. Crear una cuenta no habilita una vivienda: el administrador debe autorizar tu correo.</small>
+      </div><small>Para acceder a una vivienda, uno de sus residentes debe autorizar tu correo.</small>
     </form></div><footer>Sin cables. Sin instalaciones. Más cerca.</footer></main>;
 }

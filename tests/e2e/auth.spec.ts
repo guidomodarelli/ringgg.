@@ -21,7 +21,7 @@ test('el acceso usa cuentas y muestra los flujos de registro, verificación y re
 test('sin Neon configurado no se acepta la clave anterior ni una cookie local falsificada', async ({ page, request }) => {
   test.skip(Boolean(process.env.E2E_NEON_AUTH_EMAIL && process.env.E2E_NEON_AUTH_PASSWORD), 'El modo sin proveedor se prueba sin credenciales reales.');
   await page.goto('/');
-  await expect(page.getByText('Falta conectar Neon Auth.', { exact: false })).toBeVisible();
+  await expect(page.getByText('El acceso no está disponible en este momento.', { exact: false })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Entrar a mi casa' })).toBeDisabled();
   const forged = await request.get('/api/dashboard', { headers: { cookie: 'ringgg-session=9999999999.forged-old-cookie' } });
   expect(forged.status()).toBe(503);

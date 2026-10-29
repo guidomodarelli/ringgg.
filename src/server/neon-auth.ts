@@ -11,7 +11,7 @@ export function authConfigured(): boolean {
 
 /** Lazy initialization allows builds without credentials, while all auth requests fail closed. */
 export function getNeonAuth() {
-  if (!authConfigured()) throw new AppError(HTTP.unavailable, 'AUTH_NOT_CONFIGURED', 'Falta conectar Neon Auth. Completá neon init y neon deploy y configurá NEON_AUTH_COOKIE_SECRET.');
+  if (!authConfigured()) throw new AppError(HTTP.unavailable, 'AUTH_NOT_CONFIGURED', 'El acceso no está disponible en este momento. Intentá más tarde.');
   auth ??= createNeonAuth({
     baseUrl: process.env.NEON_AUTH_BASE_URL!,
     cookies: { secret: process.env.NEON_AUTH_COOKIE_SECRET!, sessionDataTtl: AUTH.sessionCacheSeconds },
