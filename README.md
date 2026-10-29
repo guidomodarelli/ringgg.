@@ -2,6 +2,8 @@
 
 Timbre digital instalable: un QR en la puerta y notificaciones en los celulares de tu casa. MVP para una vivienda con hasta diez dispositivos.
 
+**Producción:** [ringgg-nine.vercel.app](https://ringgg-nine.vercel.app). Los cambios en `main` se despliegan automáticamente desde GitHub a Vercel.
+
 ## Desarrollo
 
 Requiere Node.js 22 o superior y npm.
@@ -66,7 +68,7 @@ Referencia: [connection pooling de Neon](https://neon.com/docs/connect/connectio
 
 ## Vercel + Neon
 
-El backend está conectado al proyecto Neon indicado; la web todavía no se publicó en Vercel.
+El backend está conectado al proyecto Neon indicado y la web está publicada en Vercel con Node.js 24. El origen de producción `https://ringgg-nine.vercel.app` está autorizado en Neon Auth. Las variables de producción se configuran en Vercel; `.env.local` conserva su origen localhost para desarrollo.
 
 1. Crear la base Neon y obtener su conexión pooled como se explica arriba.
 2. Configurar estas variables en Vercel:
