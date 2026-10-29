@@ -5,6 +5,9 @@ export const AUTH = {
   sessionCacheSeconds: 60,
   verificationCodeLength: 6,
   requestTimeoutMs: 15_000,
+  selfManagedDefaultSchema: 'ringgg_auth',
+  schemaNamePattern: /^[a-z_][a-z0-9_]*$/,
+  reservedSchemas: ['neon_auth', 'public', 'pg_catalog', 'information_schema'],
 };
 
 export type AuthFormMode = 'sign-in' | 'sign-up' | 'verify' | 'forgot' | 'reset';

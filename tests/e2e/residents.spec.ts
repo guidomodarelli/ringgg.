@@ -27,7 +27,7 @@ test('el administrador autoriza, confirma una revocación y recupera errores sin
       if (request.method === 'POST') {
         let text = ''; for await (const chunk of request) text += chunk;
         const input = JSON.parse(text);
-        if (input.action === 'add') { additions += 1; await addResident(database, currentIdentity, input.email); }
+        if (input.action === 'add') { additions += 1; await addResident(database, currentIdentity, input.email, settings); }
         else await removeResident(database, currentIdentity, input.email, settings);
       }
       response.end(JSON.stringify({ residents: await listResidents(database, currentIdentity, settings) }));

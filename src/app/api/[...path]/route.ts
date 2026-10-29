@@ -5,7 +5,7 @@ import { requireAuth, requireOrigin } from '@/server/auth';
 import { getDatabase } from '@/server/database';
 import { getConfig } from '@/server/config';
 import { snapshot, publicHome, registerVisit, readVisit, answerVisit, setDelivery } from '@/server/doorbell';
-import { sendPush, saveDevice, subscriptionSchema } from '@/server/push';
+import { sendPush, saveDevice, subscriptionSchema, hasRegisteredDevice } from '@/server/push';
 import { AppError, errorResponse } from '@/server/errors';
 import { addResident, listResidents, removeResident } from '@/server/residents';
 
@@ -43,11 +43,23 @@ async function handle(request: NextRequest, path: string[]) {
     if (mutate) {
       const input = z.object({ email: z.string(), action: z.enum(['add', 'remove']) }).parse(await body(request));
       if (input.action === 'add') await addResident(database, user, input.email);
-      else await removeResident(database, user, input.email);
+      else {
+        await removeResident(database, user, input.email);
+        if (input.email.trim().toLowerCase() === user.email.trim().toLowerCase()) return Response.json({ removedSelf: true });
+      }
     }
     return Response.json({ residents: await listResidents(database, user) });
   }
   if (route === 'push-key' && !mutate) return Response.json({ publicKey: getConfig().publicKey });
+  if (route === 'test-my-devices' && mutate) {
+    const result = await sendPush(database, 'Esta es una notificación de prueba de Ringgg.', undefined, undefined, user.email);
+    if (!result.accepted) throw new AppError(HTTP.unavailable, 'TEST_FAILED', 'No pudimos enviar la prueba. Revisá los dispositivos de tu cuenta.');
+    return Response.json({ accepted: result.accepted, total: result.total });
+  }
+  if (route === 'device-status' && mutate) {
+    const input = z.object({ endpoint: subscriptionSchema.shape.endpoint }).parse(await body(request));
+    return Response.json({ active: await hasRegisteredDevice(database, input.endpoint, user) });
+  }
   if (route === 'dashboard' && !mutate) return Response.json(await snapshot(database));
   if (route === 'settings' && mutate) {
     const input = z.object({ name: z.string().trim().min(1).max(DOORBELL.nameMaxLength), enabled: z.boolean() }).parse(await body(request));

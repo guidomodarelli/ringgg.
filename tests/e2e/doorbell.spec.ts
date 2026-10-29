@@ -33,10 +33,14 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await page.screenshot({ path: 'test-results/ringgg-resident-mobile.png', fullPage: true });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(await visitor.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.getByRole('link', { name: 'Configuración', exact: true }).click();
   await page.getByRole('button', { name: 'Pausar timbre', exact: true }).click();
+  await expect(page.getByText('Mientras el timbre esté pausado', { exact: false })).toBeVisible();
+  await page.getByRole('button', { name: 'Sí, pausar timbre', exact: true }).click();
   await visitor.reload();
   await expect(visitor.getByRole('heading', { name: 'El timbre está en pausa' })).toBeVisible();
   await page.getByRole('button', { name: 'Activar timbre', exact: true }).click();
+  await page.getByRole('link', { name: 'Mi código QR', exact: true }).click();
   await page.getByRole('button', { name: 'Regenerar QR', exact: true }).click();
   await page.getByRole('button', { name: 'Sí, crear nuevo QR' }).click();
   await expect(page.getByText('Nuevo QR creado.', { exact: false })).toBeVisible();

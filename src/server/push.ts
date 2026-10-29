@@ -16,6 +16,12 @@ export const subscriptionSchema = z.object({
   keys: z.object({ p256dh: z.string().length(87).regex(PUSH_KEY_PATTERN), auth: z.string().length(22).regex(PUSH_KEY_PATTERN) }),
 });
 
+/** A browser subscription is active only while it is registered to the current resident. */
+export async function hasRegisteredDevice(database: Database, endpoint: string, user: ResidentIdentity): Promise<boolean> {
+  const result = await database.query<{ present: boolean }>('SELECT EXISTS(SELECT 1 FROM devices WHERE endpoint = $1 AND resident_email = $2) AS present', [endpoint, user.email.trim().toLowerCase()]);
+  return result.rows[0].present;
+}
+
 export async function saveDevice(database: Database, name: string, subscription: webpush.PushSubscription, user: ResidentIdentity, settings = residentSettings()) {
   return database.transaction(async (transaction) => {
     await transaction.query('SELECT id FROM homes WHERE id = 1 FOR UPDATE');
@@ -28,9 +34,14 @@ export async function saveDevice(database: Database, name: string, subscription:
 }
 
 /** Each provider send is awaited; expired endpoints are removed and mixed outcomes stay explicit. */
-export async function sendPush(database: Database, message: string, visitId?: string, deviceId?: string): Promise<{ delivery: DeliveryStatus; accepted: number; total: number }> {
+export async function sendPush(database: Database, message: string, visitId?: string, deviceId?: string, residentEmail?: string): Promise<{ delivery: DeliveryStatus; accepted: number; total: number }> {
   const config = getConfig();
-  const devices = await database.query<{ id: string; subscription: webpush.PushSubscription }>(`SELECT id, subscription FROM devices${deviceId ? ' WHERE id = $1' : ''} LIMIT $${deviceId ? 2 : 1}`, deviceId ? [deviceId, DOORBELL.maxDevices] : [DOORBELL.maxDevices]);
+  const filters: string[] = [];
+  const parameters: unknown[] = [];
+  if (deviceId) { parameters.push(deviceId); filters.push(`id = $${parameters.length}`); }
+  if (residentEmail !== undefined) { parameters.push(residentEmail.trim().toLowerCase()); filters.push(`resident_email = $${parameters.length}`); }
+  parameters.push(DOORBELL.maxDevices);
+  const devices = await database.query<{ id: string; subscription: webpush.PushSubscription }>(`SELECT id, subscription FROM devices${filters.length ? ` WHERE ${filters.join(' AND ')}` : ''} LIMIT $${parameters.length}`, parameters);
   if (!config.publicKey || !config.privateKey || !devices.rows.length) return { delivery: 'unavailable', accepted: 0, total: devices.rows.length };
   const results = await Promise.allSettled(devices.rows.map(async (device) => {
     try {
