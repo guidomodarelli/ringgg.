@@ -1,0 +1,71 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": null,
+    "commit": null,
+    "fingerprint": "sha256:ec6acf3552b3eb60c63fb2272b4c926b23032be51740d0659e9cb474796e69e2",
+    "uncommittedFiles": [],
+    "fileCount": 8,
+    "inputCount": 43
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:21:46.710Z",
+      "source": "attested",
+      "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+    },
+    {
+      "command": "npm test",
+      "durationMs": 1741,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "996f4f058712de9b72b16d261248ed64ed6608611a077821d20600e4f3876e67",
+      "recordedAt": "2026-10-29T16:21:49.001Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:23:33.694Z",
+      "source": "attested",
+      "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-29T16:23:34.792Z",
+  "result": "verified",
+  "runId": "20261029T162146Z-d4c312",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.login: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Analisis completo, tests reales, typecheck segun skill y recorrido Playwright sobre codigo final.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T16:21:46.171Z",
+  "unitId": "ringgg.login"
+}

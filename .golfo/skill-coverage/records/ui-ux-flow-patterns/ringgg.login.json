@@ -1,0 +1,128 @@
+{
+  "latest": null,
+  "schemaVersion": 1,
+  "skill": "ui-ux-flow-patterns",
+  "unitId": "ringgg.login",
+  "verified": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": null,
+      "commit": null,
+      "files": {
+        "src/components/login.tsx": "b73771e59f450b38",
+        "src/server/auth.ts": "1637b3ddcb43ba87",
+        "src/components/brand.tsx": "7432f1f6c5ce44c2",
+        "src/lib/api.ts": "191049e1805571e4",
+        "src/server/config.ts": "6d5215ebffc9fd6b",
+        "src/constants/doorbell.ts": "58ce07f5141bb23f",
+        "src/server/errors.ts": "1ebd07c9c36fd4c9",
+        "src/server/database.ts": "c64c60c22f1e9782"
+      },
+      "fingerprint": "sha256:ec6acf3552b3eb60c63fb2272b4c926b23032be51740d0659e9cb474796e69e2",
+      "inputs": {
+        "src/components/login.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/login.tsx#Login": "bdbc7644a7f232bc",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:react": "f4529719455f2af2",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#matchesPassword": "ad6cf1308e09cb0b",
+        "src/server/auth.ts#createSession": "76b691164368ec0a",
+        "src/server/auth.ts#validSession": "b00091dfef618f13",
+        "src/server/auth.ts#authenticated": "d329496cb071d9aa",
+        "pkg:next": "530097ba2f134bc2",
+        "src/server/auth.ts#requireAuth": "27dec89d8a5de0fc",
+        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/server/auth.ts#limitLogin": "428eb12622ddac5a",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "e7ef62c74c1fc2f7",
+        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/api.ts#api": "e6c7de9ce730a924",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "f6a90536deb6f827",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "88912b41396c6e3f",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#SESSION~frame": "d92154c239582831",
+        "src/constants/doorbell.ts#SESSION.lifetimeSeconds": "baf8f4017c385178",
+        "src/constants/doorbell.ts#SESSION.cookie": "42486ae4b7679f05",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
+        "src/constants/doorbell.ts#SESSION.loginWindowSeconds": "68b3a990d6433e4a",
+        "src/constants/doorbell.ts#SESSION.maxLoginAttempts": "0654ea30d22ce33f",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "fb7ab0dd5ffc1dcd",
+        "src/server/database.ts#Database": "03faa2885be098b9",
+        "src/server/database.ts#connect": "4d32fa6df70bf533",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "pkg:pg": "bba8fb4b856406c4",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "8fefa83f9c8af249",
+        "src/constants/doorbell.ts#SESSION.minimumPasswordLength": "6ee9ead0c7e74663"
+      },
+      "uncommittedFiles": []
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:21:42.678Z",
+        "source": "attested",
+        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+      },
+      {
+        "command": "npm test",
+        "durationMs": 1722,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "1614853185f9e646f0730a009f0fa00398024da6f9c0c9064d96c0a8f53a8214",
+        "recordedAt": "2026-10-29T16:21:44.969Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:23:32.047Z",
+        "source": "attested",
+        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+      }
+    ],
+    "limitations": [],
+    "mode": "full",
+    "pendingChecks": [],
+    "recordedAt": "2026-10-29T16:23:33.113Z",
+    "result": "verified",
+    "runId": "20261029T162142Z-42c693",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "whole unit ringgg.login: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "9fc5ee4bb0e2e4e9",
+        "references/feedback-channels.md": "aa0394882f505308",
+        "references/flow-catalog.md": "77527b8062d13243",
+        "references/sources.md": "018203bece1d2e8a",
+        "references/state-matrix.md": "026b6005f6fa0cae",
+        "references/validation-feedback.md": "3e4fb5d227cacfbd"
+      },
+      "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+      "name": "ui-ux-flow-patterns",
+      "version": "1.5.0"
+    },
+    "summary": "Analisis completo, tests reales, typecheck segun skill y recorrido Playwright sobre codigo final.",
+    "report": "runs/20261029T162142Z-42c693.json"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "ringgg.visitor",
+  "kind": "ui-flow",
+  "hierarchy": {
+    "module": "Ringgg",
+    "page": "Timbre",
+    "section": null,
+    "subflow": "Tocar timbre y recibir respuesta"
+  },
+  "routes": [
+    "/t/[token]"
+  ],
+  "entries": [
+    {
+      "path": "src/components/visitor.tsx",
+      "symbol": "*"
+    },
+    {
+      "path": "src/server/doorbell.ts",
+      "symbol": "*"
+    }
+  ],
+  "origin": "manual"
+}

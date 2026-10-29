@@ -1,0 +1,75 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": null,
+    "commit": null,
+    "fingerprint": "sha256:3eb84575ec52225ddaee406083b5b0afa419808cadf36da33b239ddc22d4e053",
+    "uncommittedFiles": [],
+    "fileCount": 7,
+    "inputCount": 37
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:21:26.347Z",
+      "source": "attested",
+      "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+    },
+    {
+      "command": "npm test",
+      "durationMs": 1713,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "6bda6bf2fa5088af1140590b6d1d964befad8a1c7cb16ef34822c3f27a8fd0c0",
+      "recordedAt": "2026-10-29T16:21:28.604Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:23:25.397Z",
+      "source": "attested",
+      "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+    }
+  ],
+  "limitations": [
+    "Sin telefono fisico, lector de pantalla ni entrega Web Push real."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Probar permisos, notificacion con telefono bloqueado y recuperacion offline en HTTPS."
+  ],
+  "recordedAt": "2026-10-29T16:23:26.452Z",
+  "result": "partial",
+  "runId": "20261029T162022Z-5c7bb3",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.visitor: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Estados de visitas y configuracion verificados con integracion y E2E; limitaciones de dispositivo documentadas.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T16:20:22.549Z",
+  "unitId": "ringgg.visitor"
+}

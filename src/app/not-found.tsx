@@ -1,0 +1,1 @@
+export default function NotFound() { return <main className="message-page"><span className="eyebrow">ESTE TIMBRE NO ESTÁ ACÁ</span><h1>¿Otra puerta?</h1><p>El enlace no existe o el residente renovó su QR. Pedí el código actualizado.</p><a href="/" className="button primary">Ir al inicio</a></main>; }

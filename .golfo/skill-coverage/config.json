@@ -1,0 +1,20 @@
+{
+  "boundaries": [],
+  "ignore": [
+    "**/*.test.*",
+    "**/*.spec.*",
+    "tests/**",
+    "**/__tests__/**",
+    "**/*.stories.*"
+  ],
+  "schemaVersion": 1,
+  "sharedInputs": [],
+  "skills": {},
+  "sourceRoots": [
+    "app",
+    "src",
+    "components",
+    "lib",
+    "hooks"
+  ]
+}

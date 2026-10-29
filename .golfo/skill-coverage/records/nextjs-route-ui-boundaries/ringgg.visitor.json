@@ -1,0 +1,236 @@
+{
+  "latest": null,
+  "schemaVersion": 1,
+  "skill": "nextjs-route-ui-boundaries",
+  "unitId": "ringgg.visitor",
+  "verified": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": null,
+      "commit": null,
+      "files": {
+        "src/components/visitor.tsx": "0234523cd1f76285",
+        "src/server/doorbell.ts": "889a31bbbe707dbe",
+        "src/app/t/[token]/page.tsx": "419e648babdcc8f5",
+        "src/server/database.ts": "c64c60c22f1e9782",
+        "src/app/error.tsx": "25c1d21b3e4576a4",
+        "src/app/global-error.tsx": "9abfb1fa16e474f8",
+        "src/app/layout.tsx": "24c6fa6672a8105e",
+        "src/app/loading.tsx": "036cba12ba7c0374",
+        "src/app/not-found.tsx": "327b5151d946cd57",
+        "src/app/t/[token]/loading.tsx": "df891f4c7364219e",
+        "next.config.ts": "57dadbad7af16ab5",
+        "src/types/doorbell.ts": "0d02fbca75aa5b27",
+        "src/lib/api.ts": "191049e1805571e4",
+        "src/components/brand.tsx": "7432f1f6c5ce44c2",
+        "src/constants/doorbell.ts": "58ce07f5141bb23f",
+        "src/server/errors.ts": "1ebd07c9c36fd4c9",
+        "src/app/globals.css": "2bf7224fd83e19f8",
+        "src/components/pwa.tsx": "c7030612521a11f8"
+      },
+      "fingerprint": "sha256:a9992b0ddf4d39f5aa676f298faa727bce05e3371cad59841863e3de7fba03ff",
+      "inputs": {
+        "pkg:next": "530097ba2f134bc2",
+        "pkg:react": "f4529719455f2af2",
+        "pkg:react-dom": "7e691db2ae834e1c",
+        "src/components/visitor.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/visitor.tsx#Visitor/ring": "5a699da851b2f6df",
+        "src/components/visitor.tsx#Visitor~shell": "d177a7f3a82844cf",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
+        "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
+        "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
+        "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
+        "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
+        "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
+        "src/server/doorbell.ts#setDelivery": "282622686660677f",
+        "src/app/t/[token]/page.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/t/[token]/page.tsx#dynamic": "a45532c1af88ffc5",
+        "src/app/t/[token]/page.tsx#DoorPage": "3bf495ae8995286e",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "fb7ab0dd5ffc1dcd",
+        "src/server/database.ts#Database": "03faa2885be098b9",
+        "src/server/database.ts#connect": "4d32fa6df70bf533",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "pkg:pg": "bba8fb4b856406c4",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "8fefa83f9c8af249",
+        "src/app/error.tsx#<module>": "80e0e5af9bb4622c",
+        "src/app/error.tsx#ErrorPage": "a58c6a620756357e",
+        "src/app/global-error.tsx#<module>": "80e0e5af9bb4622c",
+        "src/app/global-error.tsx#GlobalError": "e5f249af88411bbc",
+        "src/app/layout.tsx#<module>": "3eec7190146f9ff3",
+        "src/app/layout.tsx#metadata.title": "ce45de5dc47ce715",
+        "src/app/layout.tsx#metadata.description": "fd147c72f4248e5d",
+        "src/app/layout.tsx#metadata.appleWebApp": "351abf90f7d21851",
+        "src/app/layout.tsx#metadata.icons": "7fc0301532417d8e",
+        "src/app/layout.tsx#metadata.robots": "5660b273061aab0c",
+        "src/app/layout.tsx#metadata~frame": "1715002a4a420b10",
+        "src/app/layout.tsx#viewport.width": "fac958c8538aefd2",
+        "src/app/layout.tsx#viewport.initialScale": "934e9c4d5cc59b4a",
+        "src/app/layout.tsx#viewport.themeColor": "a3f6f51f8f33712b",
+        "src/app/layout.tsx#viewport~frame": "a722dfd12858b1da",
+        "src/app/layout.tsx#RootLayout": "3c85851fca9aa4b8",
+        "src/app/loading.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/loading.tsx#Loading": "90e610d66cdb3340",
+        "src/app/not-found.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/not-found.tsx#NotFound": "1ae773d41ec54cec",
+        "src/app/t/[token]/loading.tsx#<module>": "2da3ec2294295eb1",
+        "next.config.ts#<module>": "2da3ec2294295eb1",
+        "next.config.ts#nextConfig.outputFileTracingExcludes": "cded7a2e918a49f8",
+        "next.config.ts#nextConfig.serverExternalPackages": "2928dcd0750d3c3f",
+        "next.config.ts#nextConfig.headers": "bcc9a074c8c4b5d3",
+        "next.config.ts#nextConfig~frame": "94bd7f163d17efa5",
+        "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/types/doorbell.ts#PublicVisit": "3ae7d2a9df3e5f33",
+        "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
+        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/api.ts#api": "e6c7de9ce730a924",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "e7ef62c74c1fc2f7",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
+        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
+        "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
+        "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
+        "src/types/doorbell.ts#Home": "86aac47c07bf864c",
+        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
+        "src/types/doorbell.ts#Device": "f56870e415b71da9",
+        "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/constants/doorbell.ts#DOORBELL.cooldownSeconds": "c6c07e0a039d9e06",
+        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
+        "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
+        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
+        "src/app/globals.css#*": "2bf7224fd83e19f8",
+        "src/components/pwa.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/pwa.tsx#Pwa": "d2a7fe3fb8455147"
+      },
+      "signals": {
+        "src/components/visitor.tsx#Visitor/ring": {
+          "awaits": 1
+        },
+        "src/components/visitor.tsx#Visitor~shell": {
+          "effects": 1,
+          "awaits": 1,
+          "timers": 2
+        },
+        "src/server/doorbell.ts#getHome": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#snapshot": {
+          "awaits": 1,
+          "database": 2
+        },
+        "src/server/doorbell.ts#publicHome": {
+          "awaits": 1
+        },
+        "src/server/doorbell.ts#registerVisit": {
+          "database": 6,
+          "awaits": 5
+        },
+        "src/server/doorbell.ts#readVisit": {
+          "awaits": 2,
+          "database": 1
+        },
+        "src/server/doorbell.ts#answerVisit": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#setDelivery": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/app/t/[token]/page.tsx#DoorPage": {
+          "awaits": 3,
+          "projectCalls": 1
+        },
+        "src/server/database.ts#getDatabase": {
+          "awaits": 1
+        },
+        "src/server/database.ts#connect": {
+          "awaits": 8,
+          "database": 8
+        },
+        "src/server/database.ts#initialize": {
+          "awaits": 6,
+          "database": 6
+        },
+        "src/app/error.tsx#ErrorPage": {
+          "effects": 1
+        },
+        "src/lib/api.ts#api": {
+          "awaits": 3,
+          "fetch": 1
+        },
+        "src/components/pwa.tsx#Pwa": {
+          "effects": 1
+        }
+      },
+      "uncommittedFiles": []
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:21:34.424Z",
+        "source": "attested",
+        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+      },
+      {
+        "command": "npm run typecheck",
+        "durationMs": 1624,
+        "exitCode": 0,
+        "kind": "command",
+        "outcome": "pass",
+        "outputSha256": "b0b761c704294ebf222af97f02b21401866e1c287dd4866353309dc7f0633ba2",
+        "recordedAt": "2026-10-29T16:21:36.608Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:23:28.675Z",
+        "source": "attested",
+        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+      }
+    ],
+    "limitations": [],
+    "mode": "full",
+    "pendingChecks": [],
+    "recordedAt": "2026-10-29T16:23:29.760Z",
+    "result": "verified",
+    "runId": "20261029T162133Z-3de740",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "whole unit ringgg.visitor (/t/[token]): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "e10abe05f2183949",
+        "references/decision-rules.md": "5340413b30d4e7a7",
+        "references/nextjs-apis.md": "f605e820b5b5f34e",
+        "references/server-client-split.md": "748fa0a77772932b",
+        "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+        "references/version-notes.md": "b6f6488947de60f0"
+      },
+      "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+      "name": "nextjs-route-ui-boundaries",
+      "version": "1.3.0"
+    },
+    "summary": "Analisis completo, tests reales, typecheck segun skill y recorrido Playwright sobre codigo final.",
+    "report": "runs/20261029T162133Z-3de740.json"
+  }
+}

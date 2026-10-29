@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "ringgg.login",
+  "kind": "ui-flow",
+  "hierarchy": {
+    "module": "Ringgg",
+    "page": "Acceso",
+    "section": null,
+    "subflow": "Ingresar con clave de residente"
+  },
+  "routes": [
+    "/"
+  ],
+  "entries": [
+    {
+      "path": "src/components/login.tsx",
+      "symbol": "*"
+    },
+    {
+      "path": "src/server/auth.ts",
+      "symbol": "*"
+    }
+  ],
+  "origin": "manual"
+}

@@ -1,0 +1,82 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": null,
+    "commit": null,
+    "fingerprint": "sha256:05ec2285fa20eac012bbc7afb4f2bcc2105d111cd695bc25fe69c4594de46fc7",
+    "uncommittedFiles": [],
+    "fileCount": 11,
+    "inputCount": 93
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:21:23.020Z",
+      "source": "attested",
+      "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+    },
+    {
+      "command": "npm test",
+      "durationMs": 1666,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "eedbfd11f475ffc39eff78050df0367e21a10bb48af043eae10cab95f62b10d2",
+      "recordedAt": "2026-10-29T16:21:25.223Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:23:23.759Z",
+      "source": "attested",
+      "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+    }
+  ],
+  "limitations": [
+    "Sin benchmark representativo de carga o Web Vitals en despliegue HTTPS."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Medir con PostgreSQL remoto y dispositivos reales."
+  ],
+  "recordedAt": "2026-10-29T16:23:24.825Z",
+  "result": "partial",
+  "runId": "20261029T162122Z-b908b2",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "Envios acotados a 10 destinos, lecturas SSR en paralelo, polling serial y pausado al ocultar panel; no se afirma mejora medida.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T16:21:22.487Z",
+  "unitId": "ringgg.resident"
+}

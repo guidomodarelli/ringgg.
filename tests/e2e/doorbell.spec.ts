@@ -1,0 +1,87 @@
+import { test, expect } from '@playwright/test';
+
+test('un visitante toca el QR y recibe la respuesta del residente; los ajustes revocan el enlace', async ({ page, browser }) => {
+  await page.goto('/');
+  await page.getByLabel('Clave de residente').fill('incorrecta');
+  await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
+  await expect(page.getByRole('alert').filter({ hasText: 'La clave no es correcta' })).toBeVisible();
+  await page.getByLabel('Clave de residente').fill('ringgg-test-password-only');
+  await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
+  await expect(page.getByRole('heading', { name: 'Tu casa te llama.' })).toBeVisible();
+  await expect(page.getByAltText(/QR para tocar/)).toBeVisible();
+  const publicUrl = await page.getByRole('link', { name: 'Ver mi timbre' }).getAttribute('href');
+  expect(publicUrl).toContain('/t/');
+  await page.screenshot({ path: 'test-results/ringgg-desktop.png', fullPage: true });
+  const visitorContext = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  const visitor = await visitorContext.newPage();
+  await visitor.goto(publicUrl!);
+  await visitor.getByLabel('¿Querés decir quién sos?').fill('Soy Juan, del delivery');
+  await visitor.screenshot({ path: 'test-results/ringgg-visitor-mobile.png', fullPage: true });
+  await visitor.getByRole('button', { name: 'Tocar timbre', exact: true }).dblclick();
+  await expect(visitor.getByRole('heading', { name: '¡Ding, dong!' })).toBeVisible();
+  await expect(visitor.getByText('Tu timbrazo quedó registrado, pero no pudimos enviar una notificación.')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Soy Juan, del delivery' })).toBeVisible({ timeout: 15_000 });
+  await visitor.clock.install();
+  await visitor.clock.pauseAt(new Date());
+  await page.getByRole('button', { name: 'Ya voy', exact: true }).click();
+  await visitor.clock.fastForward(121_000);
+  await expect(visitor.getByRole('heading', { name: '¡Ya van!' })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByText('Atendido', { exact: true })).toHaveCount(1);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: 'test-results/ringgg-resident-mobile.png', fullPage: true });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect(await visitor.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.getByRole('button', { name: 'Pausar timbre', exact: true }).click();
+  await visitor.reload();
+  await expect(visitor.getByRole('heading', { name: 'El timbre está en pausa' })).toBeVisible();
+  await page.getByRole('button', { name: 'Activar timbre', exact: true }).click();
+  await page.getByRole('button', { name: 'Regenerar QR', exact: true }).click();
+  await page.getByRole('button', { name: 'Sí, crear nuevo QR' }).click();
+  await expect(page.getByText('Nuevo QR creado.', { exact: false })).toBeVisible();
+  await visitor.reload();
+  await expect(visitor.getByRole('heading', { name: '¿Otra puerta?' })).toBeVisible();
+  await visitorContext.close();
+});
+
+test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el nombre actualizado', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Clave de residente').fill('ringgg-test-password-only');
+  await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
+  await expect(page.getByRole('heading', { name: 'Tu casa te llama.' })).toBeVisible();
+  let release!: () => void;
+  let captured!: () => void;
+  const held = new Promise<void>((resolve) => { release = resolve; });
+  const capturedResponse = new Promise<void>((resolve) => { captured = resolve; });
+  let first = true;
+  await page.route('**/api/dashboard', async (route) => {
+    if (!first) { await route.continue(); return; }
+    first = false;
+    const response = await route.fetch();
+    captured();
+    await held;
+    await route.fulfill({ response });
+  });
+  await capturedResponse;
+  await page.getByLabel('Nombre de tu casa').fill('Casa del patio');
+  await page.getByRole('button', { name: 'Guardar nombre' }).click();
+  await expect(page.getByText('Nombre actualizado.', { exact: true })).toBeVisible();
+  const delayed = page.waitForResponse((response) => response.url().endsWith('/api/dashboard'));
+  release();
+  await delayed;
+  await expect(page.locator('.qr-home')).toHaveText('Casa del patio');
+  await expect(page.locator('.house-selector strong')).toHaveText('Casa del patio');
+  await page.reload();
+  await expect(page.locator('.qr-home')).toHaveText('Casa del patio');
+});
+
+test('la API privada exige sesión y bloquea mutaciones de otro origen', async ({ request }) => {
+  const unauthenticated = await request.get('/api/dashboard');
+  expect(unauthenticated.status()).toBe(401);
+  const foreign = await request.post('/api/settings', { headers: { origin: 'https://otro-sitio.example' }, data: { name: 'Ajena', enabled: false } });
+  expect(foreign.status()).toBe(403);
+  const manifest = await request.get('/manifest.webmanifest');
+  expect(manifest.status()).toBe(200);
+  expect((await manifest.json()).display).toBe('standalone');
+  const icon = await request.get('/icons/icon-192.png');
+  expect(icon.headers()['content-type']).toContain('image/png');
+});

@@ -1,0 +1,97 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": null,
+    "commit": null,
+    "fingerprint": "sha256:8f68e3b2769c5220cf3c55fb9b87a3ed94316aa0716cc51110589d98cddb8c92",
+    "uncommittedFiles": [],
+    "fileCount": 11,
+    "inputCount": 77
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:21:10.303Z",
+      "source": "attested",
+      "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+    },
+    {
+      "command": "npm test",
+      "durationMs": 1675,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "89060e4d440827fd82f16d1ce1357cb853cae4869f8fc16ff95e670820062bfd",
+      "recordedAt": "2026-10-29T16:21:12.491Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npm run test:e2e",
+      "durationMs": 22600,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "c1a336746c9afe6d084caef26178176e797a919ad9bdf0f4b1ef01ce0b21a37b",
+      "recordedAt": "2026-10-29T16:22:21.428Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npm run test:e2e",
+      "durationMs": 21630,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "cfe353f3bc335a0294a56ff4b571f474c9142a28376f3f91d95868b938fb43c4",
+      "recordedAt": "2026-10-29T16:22:55.466Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:23:18.927Z",
+      "source": "attested",
+      "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+    }
+  ],
+  "limitations": [
+    "Sin telefono fisico, lector de pantalla ni entrega Web Push real."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Probar permisos, notificacion con telefono bloqueado y recuperacion offline en HTTPS."
+  ],
+  "recordedAt": "2026-10-29T16:23:19.986Z",
+  "result": "partial",
+  "runId": "20261029T162109Z-7afab4",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.resident: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Estados de visitas y configuracion verificados con integracion y E2E; limitaciones de dispositivo documentadas.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T16:21:09.772Z",
+  "unitId": "ringgg.resident"
+}

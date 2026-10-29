@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "ringgg.resident",
+  "kind": "ui-flow",
+  "hierarchy": {
+    "module": "Ringgg",
+    "page": "Panel",
+    "section": null,
+    "subflow": "Administrar vivienda, visitas y dispositivos"
+  },
+  "routes": [
+    "/"
+  ],
+  "entries": [
+    {
+      "path": "src/components/dashboard.tsx",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/[...path]/route.ts",
+      "symbol": "*"
+    }
+  ],
+  "origin": "manual"
+}

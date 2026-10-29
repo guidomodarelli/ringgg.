@@ -1,0 +1,296 @@
+{
+  "latest": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": null,
+      "commit": null,
+      "files": {
+        "src/components/dashboard.tsx": "e338f89d0f3a34aa",
+        "src/app/api/[...path]/route.ts": "63037e80f59ca090",
+        "src/constants/doorbell.ts": "58ce07f5141bb23f",
+        "src/types/doorbell.ts": "0d02fbca75aa5b27",
+        "src/lib/api.ts": "191049e1805571e4",
+        "src/server/errors.ts": "1ebd07c9c36fd4c9",
+        "src/server/doorbell.ts": "889a31bbbe707dbe",
+        "src/server/auth.ts": "1637b3ddcb43ba87",
+        "src/server/config.ts": "6d5215ebffc9fd6b",
+        "src/server/database.ts": "c64c60c22f1e9782",
+        "src/server/push.ts": "bb5a04186fb50f53"
+      },
+      "fingerprint": "sha256:05ec2285fa20eac012bbc7afb4f2bcc2105d111cd695bc25fe69c4594de46fc7",
+      "inputs": {
+        "src/components/dashboard.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/dashboard.tsx#visitTime": "f354bcc96505ee27",
+        "src/components/dashboard.tsx#Dashboard/action": "5fc8091763c57610",
+        "src/components/dashboard.tsx#Dashboard/subscribe": "1fbbe28ce4d5503c",
+        "src/components/dashboard.tsx#Dashboard~shell": "f6d27d94cd3a3865",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:qrcode": "eae5e9f465245e84",
+        "pkg:react": "f4529719455f2af2",
+        "pkg:next": "530097ba2f134bc2",
+        "src/app/api/[...path]/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/[...path]/route.ts#body": "0309d13722e6a20a",
+        "src/app/api/[...path]/route.ts#handle": "d23629e7861338c4",
+        "pkg:zod": "31d0566281954af7",
+        "src/app/api/[...path]/route.ts#endpoint": "a207a12cbe7afa96",
+        "src/app/api/[...path]/route.ts#GET": "6997859bd735ae90",
+        "src/app/api/[...path]/route.ts#POST": "21c540a1c282850c",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
+        "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
+        "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/types/doorbell.ts#DashboardData": "fcc13db7e1eb01f0",
+        "src/types/doorbell.ts#Device": "f56870e415b71da9",
+        "src/types/doorbell.ts#Home": "86aac47c07bf864c",
+        "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
+        "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
+        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/api.ts#api": "e6c7de9ce730a924",
+        "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
+        "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
+        "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
+        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/constants/doorbell.ts#SESSION~frame": "d92154c239582831",
+        "src/constants/doorbell.ts#SESSION.cookie": "42486ae4b7679f05",
+        "src/constants/doorbell.ts#SESSION.lifetimeSeconds": "baf8f4017c385178",
+        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#createSession": "76b691164368ec0a",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "f6a90536deb6f827",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "88912b41396c6e3f",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "fb7ab0dd5ffc1dcd",
+        "src/server/database.ts#Database": "03faa2885be098b9",
+        "src/server/database.ts#connect": "4d32fa6df70bf533",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "pkg:pg": "bba8fb4b856406c4",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "8fefa83f9c8af249",
+        "src/server/auth.ts#limitLogin": "428eb12622ddac5a",
+        "src/server/auth.ts#matchesPassword": "ad6cf1308e09cb0b",
+        "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
+        "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
+        "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
+        "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
+        "src/server/auth.ts#requireAuth": "27dec89d8a5de0fc",
+        "src/server/auth.ts#authenticated": "d329496cb071d9aa",
+        "src/server/auth.ts#validSession": "b00091dfef618f13",
+        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/server/push.ts#<module>": "2da3ec2294295eb1",
+        "src/server/push.ts#saveDevice": "1f667ca95e42f2de",
+        "src/server/push.ts#sendPush": "19c028b7cceb8181",
+        "src/server/doorbell.ts#setDelivery": "282622686660677f",
+        "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
+        "src/server/push.ts#subscriptionSchema": "562c1ed0224d75dd",
+        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
+        "src/constants/doorbell.ts#SESSION.minimumPasswordLength": "6ee9ead0c7e74663",
+        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
+        "src/constants/doorbell.ts#SESSION.loginWindowSeconds": "68b3a990d6433e4a",
+        "src/constants/doorbell.ts#SESSION.maxLoginAttempts": "0654ea30d22ce33f",
+        "src/types/doorbell.ts#PublicVisit": "3ae7d2a9df3e5f33",
+        "src/constants/doorbell.ts#DOORBELL.cooldownSeconds": "c6c07e0a039d9e06",
+        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/constants/doorbell.ts#DOORBELL.maxDevices": "414e4d84625b6ff3",
+        "src/constants/doorbell.ts#DOORBELL.pushTimeoutMs": "97b72476ee4ad5ba",
+        "src/constants/doorbell.ts#DOORBELL.pushTtlSeconds": "41bc5fb14de6470e",
+        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
+        "src/constants/doorbell.ts#PUSH_HOSTS": "69ab4faa3ad6ed3e",
+        "src/constants/doorbell.ts#PUSH_KEY_PATTERN": "83d48236c0052566",
+        "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef"
+      },
+      "signals": {
+        "src/components/dashboard.tsx#Dashboard/action": {
+          "awaits": 2
+        },
+        "src/components/dashboard.tsx#Dashboard/subscribe": {
+          "awaits": 8,
+          "fetch": 1,
+          "listeners": 1
+        },
+        "src/components/dashboard.tsx#Dashboard~shell": {
+          "effects": 2,
+          "awaits": 3,
+          "timers": 2
+        },
+        "src/app/api/[...path]/route.ts#body": {
+          "awaits": 1
+        },
+        "src/app/api/[...path]/route.ts#handle": {
+          "awaits": 25,
+          "projectCalls": 8,
+          "database": 3
+        },
+        "src/app/api/[...path]/route.ts#endpoint": {
+          "awaits": 2
+        },
+        "src/lib/api.ts#api": {
+          "awaits": 3,
+          "fetch": 1
+        },
+        "src/server/doorbell.ts#answerVisit": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/auth.ts#createSession": {
+          "database": 1,
+          "projectCalls": 2
+        },
+        "src/server/database.ts#getDatabase": {
+          "awaits": 1
+        },
+        "src/server/database.ts#connect": {
+          "awaits": 8,
+          "database": 8
+        },
+        "src/server/database.ts#initialize": {
+          "awaits": 6,
+          "database": 6
+        },
+        "src/server/auth.ts#limitLogin": {
+          "awaits": 2,
+          "projectCalls": 2,
+          "database": 2
+        },
+        "src/server/auth.ts#matchesPassword": {
+          "database": 2,
+          "projectCalls": 3
+        },
+        "src/server/doorbell.ts#publicHome": {
+          "awaits": 1
+        },
+        "src/server/doorbell.ts#getHome": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#readVisit": {
+          "awaits": 2,
+          "database": 1
+        },
+        "src/server/doorbell.ts#registerVisit": {
+          "database": 6,
+          "awaits": 5
+        },
+        "src/server/auth.ts#requireAuth": {
+          "awaits": 1
+        },
+        "src/server/auth.ts#authenticated": {
+          "awaits": 1
+        },
+        "src/server/auth.ts#validSession": {
+          "database": 1,
+          "projectCalls": 2
+        },
+        "src/server/auth.ts#requireOrigin": {
+          "projectCalls": 1
+        },
+        "src/server/push.ts#saveDevice": {
+          "database": 5,
+          "awaits": 4
+        },
+        "src/server/push.ts#sendPush": {
+          "projectCalls": 2,
+          "awaits": 4,
+          "database": 2,
+          "awaitInLoop": 1
+        },
+        "src/server/doorbell.ts#setDelivery": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#snapshot": {
+          "awaits": 1,
+          "database": 2
+        }
+      },
+      "uncommittedFiles": []
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:21:23.020Z",
+        "source": "attested",
+        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+      },
+      {
+        "command": "npm test",
+        "durationMs": 1666,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "eedbfd11f475ffc39eff78050df0367e21a10bb48af043eae10cab95f62b10d2",
+        "recordedAt": "2026-10-29T16:21:25.223Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:23:23.759Z",
+        "source": "attested",
+        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+      }
+    ],
+    "limitations": [
+      "Sin benchmark representativo de carga o Web Vitals en despliegue HTTPS."
+    ],
+    "mode": "full",
+    "pendingChecks": [
+      "Medir con PostgreSQL remoto y dispositivos reales."
+    ],
+    "recordedAt": "2026-10-29T16:23:24.825Z",
+    "result": "partial",
+    "runId": "20261029T162122Z-b908b2",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "e01f3a44c4f2901b",
+        "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+        "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+        "references/images-fonts-scripts.md": "693a7bf147c99358",
+        "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+        "references/large-lists-dom.md": "8c39b8868ea4dc47",
+        "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+        "references/measurement-tools.md": "12f1bb8923c65893",
+        "references/memory-leaks.md": "c4b83fb18b23d59b",
+        "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+        "references/requests-caching.md": "e3565440d17a8b6e",
+        "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+        "references/unnecessary-renders.md": "b7b15d98745bea71"
+      },
+      "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+      "name": "measured-performance-optimization",
+      "version": "1.7.0"
+    },
+    "summary": "Envios acotados a 10 destinos, lecturas SSR en paralelo, polling serial y pausado al ocultar panel; no se afirma mejora medida.",
+    "report": "runs/20261029T162122Z-b908b2.json"
+  },
+  "schemaVersion": 1,
+  "skill": "measured-performance-optimization",
+  "unitId": "ringgg.resident",
+  "verified": null
+}

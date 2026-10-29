@@ -1,0 +1,191 @@
+{
+  "latest": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": null,
+      "commit": null,
+      "files": {
+        "src/components/dashboard.tsx": "e338f89d0f3a34aa",
+        "src/app/api/[...path]/route.ts": "63037e80f59ca090",
+        "src/constants/doorbell.ts": "58ce07f5141bb23f",
+        "src/types/doorbell.ts": "0d02fbca75aa5b27",
+        "src/lib/api.ts": "191049e1805571e4",
+        "src/server/errors.ts": "1ebd07c9c36fd4c9",
+        "src/server/doorbell.ts": "889a31bbbe707dbe",
+        "src/server/auth.ts": "1637b3ddcb43ba87",
+        "src/server/config.ts": "6d5215ebffc9fd6b",
+        "src/server/database.ts": "c64c60c22f1e9782",
+        "src/server/push.ts": "bb5a04186fb50f53"
+      },
+      "fingerprint": "sha256:8f68e3b2769c5220cf3c55fb9b87a3ed94316aa0716cc51110589d98cddb8c92",
+      "inputs": {
+        "src/components/dashboard.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/dashboard.tsx#visitTime": "f354bcc96505ee27",
+        "src/components/dashboard.tsx#Dashboard/action": "5fc8091763c57610",
+        "src/components/dashboard.tsx#Dashboard/subscribe": "1fbbe28ce4d5503c",
+        "src/components/dashboard.tsx#Dashboard~shell": "f6d27d94cd3a3865",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:qrcode": "eae5e9f465245e84",
+        "pkg:react": "f4529719455f2af2",
+        "pkg:next": "530097ba2f134bc2",
+        "src/app/api/[...path]/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/[...path]/route.ts#body": "0309d13722e6a20a",
+        "src/app/api/[...path]/route.ts#handle": "d23629e7861338c4",
+        "pkg:zod": "31d0566281954af7",
+        "src/app/api/[...path]/route.ts#endpoint": "a207a12cbe7afa96",
+        "src/app/api/[...path]/route.ts#GET": "6997859bd735ae90",
+        "src/app/api/[...path]/route.ts#POST": "21c540a1c282850c",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
+        "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
+        "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/types/doorbell.ts#DashboardData": "fcc13db7e1eb01f0",
+        "src/types/doorbell.ts#Device": "f56870e415b71da9",
+        "src/types/doorbell.ts#Home": "86aac47c07bf864c",
+        "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
+        "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
+        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/api.ts#api": "e6c7de9ce730a924",
+        "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
+        "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
+        "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
+        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/constants/doorbell.ts#SESSION~frame": "d92154c239582831",
+        "src/constants/doorbell.ts#SESSION.cookie": "42486ae4b7679f05",
+        "src/constants/doorbell.ts#SESSION.lifetimeSeconds": "baf8f4017c385178",
+        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#createSession": "76b691164368ec0a",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "f6a90536deb6f827",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "88912b41396c6e3f",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "fb7ab0dd5ffc1dcd",
+        "src/server/database.ts#Database": "03faa2885be098b9",
+        "src/server/database.ts#connect": "4d32fa6df70bf533",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "pkg:pg": "bba8fb4b856406c4",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "8fefa83f9c8af249",
+        "src/server/auth.ts#limitLogin": "428eb12622ddac5a",
+        "src/server/auth.ts#matchesPassword": "ad6cf1308e09cb0b",
+        "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
+        "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
+        "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
+        "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
+        "src/server/auth.ts#requireAuth": "27dec89d8a5de0fc",
+        "src/server/auth.ts#authenticated": "d329496cb071d9aa",
+        "src/server/auth.ts#validSession": "b00091dfef618f13",
+        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/server/push.ts#<module>": "2da3ec2294295eb1",
+        "src/server/push.ts#saveDevice": "1f667ca95e42f2de",
+        "src/server/push.ts#sendPush": "19c028b7cceb8181",
+        "src/server/doorbell.ts#setDelivery": "282622686660677f",
+        "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
+        "src/server/push.ts#subscriptionSchema": "562c1ed0224d75dd",
+        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5"
+      },
+      "uncommittedFiles": []
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:21:10.303Z",
+        "source": "attested",
+        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+      },
+      {
+        "command": "npm test",
+        "durationMs": 1675,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "89060e4d440827fd82f16d1ce1357cb853cae4869f8fc16ff95e670820062bfd",
+        "recordedAt": "2026-10-29T16:21:12.491Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "command": "npm run test:e2e",
+        "durationMs": 22600,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "c1a336746c9afe6d084caef26178176e797a919ad9bdf0f4b1ef01ce0b21a37b",
+        "recordedAt": "2026-10-29T16:22:21.428Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "command": "npm run test:e2e",
+        "durationMs": 21630,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "cfe353f3bc335a0294a56ff4b571f474c9142a28376f3f91d95868b938fb43c4",
+        "recordedAt": "2026-10-29T16:22:55.466Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T16:23:18.927Z",
+        "source": "attested",
+        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+      }
+    ],
+    "limitations": [
+      "Sin telefono fisico, lector de pantalla ni entrega Web Push real."
+    ],
+    "mode": "full",
+    "pendingChecks": [
+      "Probar permisos, notificacion con telefono bloqueado y recuperacion offline en HTTPS."
+    ],
+    "recordedAt": "2026-10-29T16:23:19.986Z",
+    "result": "partial",
+    "runId": "20261029T162109Z-7afab4",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "whole unit ringgg.resident: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "9fc5ee4bb0e2e4e9",
+        "references/feedback-channels.md": "aa0394882f505308",
+        "references/flow-catalog.md": "77527b8062d13243",
+        "references/sources.md": "018203bece1d2e8a",
+        "references/state-matrix.md": "026b6005f6fa0cae",
+        "references/validation-feedback.md": "3e4fb5d227cacfbd"
+      },
+      "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+      "name": "ui-ux-flow-patterns",
+      "version": "1.5.0"
+    },
+    "summary": "Estados de visitas y configuracion verificados con integracion y E2E; limitaciones de dispositivo documentadas.",
+    "report": "runs/20261029T162109Z-7afab4.json"
+  },
+  "schemaVersion": 1,
+  "skill": "ui-ux-flow-patterns",
+  "unitId": "ringgg.resident",
+  "verified": null
+}

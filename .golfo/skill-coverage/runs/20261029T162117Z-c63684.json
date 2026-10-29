@@ -1,0 +1,71 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": null,
+    "commit": null,
+    "fingerprint": "sha256:06188b37827048f325f2024f38facde127a93ec3a9cfbb9c6b71fa4a9dfb1af8",
+    "uncommittedFiles": [],
+    "fileCount": 20,
+    "inputCount": 111
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:21:18.482Z",
+      "source": "attested",
+      "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+    },
+    {
+      "command": "npm run typecheck",
+      "durationMs": 2149,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "b0b761c704294ebf222af97f02b21401866e1c287dd4866353309dc7f0633ba2",
+      "recordedAt": "2026-10-29T16:21:21.176Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T16:23:22.147Z",
+      "source": "attested",
+      "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-29T16:23:23.212Z",
+  "result": "verified",
+  "runId": "20261029T162117Z-c63684",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.resident (/): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "summary": "Analisis completo, tests reales, typecheck segun skill y recorrido Playwright sobre codigo final.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T16:21:17.930Z",
+  "unitId": "ringgg.resident"
+}
