@@ -71,6 +71,6 @@ export function Login({ configured = false, initialMessage = '', signedIn = fals
           {mode === 'verify' && <button className="text-button" type="button" disabled={pending || !email.trim() || !configured} onClick={() => action(async () => { const result = await authClient.emailOtp.sendVerificationOtp({ email: email.trim(), type: 'email-verification' }); if (!showError(result)) setMessage('Solicitamos un código nuevo. Revisá tu correo y la carpeta de spam.'); })}>Pedir código nuevo</button>}
           {mode !== 'sign-in' && <button className="text-button" type="button" disabled={pending} onClick={() => changeMode('sign-in')}>Volver a ingresar</button>}
         </>}
-      </div><small>Para acceder a una vivienda, uno de sus residentes debe autorizar tu correo.</small>
+      </div><small>Para acceder a una vivienda, tu correo debe estar autorizado.</small>
     </form></div><footer>Sin cables. Sin instalaciones. Más cerca.</footer></main>;
 }
