@@ -1,0 +1,147 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:34f9a3eba79a8d71867485e54dc171083d2e763f2ed366dd4e4ead884d16e5d5",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/components/dashboard.tsx",
+      "src/components/resident-management.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/residents.ts",
+      "src/lib/auth-client.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/neon-auth.ts",
+      "src/server/push.ts",
+      "src/server/resident-access.ts",
+      "src/server/residents.ts",
+      "src/types/auth.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 23,
+    "inputCount": 131
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:54:49.862Z",
+      "source": "attested",
+      "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+    },
+    {
+      "command": "npm test -- tests/residents.test.ts",
+      "durationMs": 1961,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "8cc892681f241045f17f91d2bfe88e6d1e9f070143766c657192c819c4a9b5e0",
+      "recordedAt": "2026-10-29T21:54:51.989Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:55:38.906Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+    }
+  ],
+  "limitations": [
+    "No hubo benchmark representativo con el propietario autenticado."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Medir flujo real de listado y autorizacion en Neon con cuenta verificada."
+  ],
+  "recordedAt": "2026-10-29T21:55:39.301Z",
+  "result": "partial",
+  "runId": "20261029T215449Z-7267b1",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/[...path]/route.ts#handle",
+        "reason": "adds load: +4 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "adds load: +1 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "adds load: +2 awaited steps, +2 database queries"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#addResident",
+        "reason": "adds load: +5 awaited steps, +5 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidents",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#removeResident",
+        "reason": "adds load: +4 awaited steps, +4 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#resolveResidentAccess",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Medir flujo de panel con cuenta verificada y PostgreSQL remoto.",
+      "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "Sin nuevo polling; SSR paralelo, query indexada de membresia y mutaciones transaccionales acotadas. No se afirma mejora medida.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T21:54:49.663Z",
+  "unitId": "ringgg.resident"
+}

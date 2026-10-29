@@ -1,5 +1,379 @@
 {
-  "latest": null,
+  "latest": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": "main",
+      "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+      "files": {
+        "src/components/login.tsx": "2485868763a3dd87",
+        "src/server/auth.ts": "492761ac2a9f7a89",
+        "src/app/api/auth/[...path]/route.ts": "21d0812499c82c89",
+        "src/constants/auth.ts": "065319959dd17951",
+        "src/components/brand.tsx": "7432f1f6c5ce44c2",
+        "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
+        "src/server/errors.ts": "1ebd07c9c36fd4c9",
+        "src/constants/doorbell.ts": "a8a7ab58bd0eb226",
+        "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/server/neon-auth.ts": "2d380118c966c8d0",
+        "src/types/residents.ts": "5e92dc2596b6084e",
+        "src/server/database.ts": "7adb74e7cd42285e",
+        "src/server/residents.ts": "4a8b65ee22a9989d",
+        "src/server/config.ts": "275ccaef3e809db0",
+        "src/server/postgres.ts": "b8ad79581c146c4c",
+        "src/server/resident-access.ts": "24da31381b0b4774",
+        "src/config/database.ts": "cfab3a8bb039650a",
+        "src/constants/database.ts": "4f990a98f504bf0b"
+      },
+      "fingerprint": "sha256:dabd48174db9a26266ca2a906f16eb1d210e0a273248fec6768ad61083af505b",
+      "inputs": {
+        "src/components/login.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/login.tsx#Login/changeMode": "ae1225fd73ea29f6",
+        "src/components/login.tsx#Login/action": "b004ebdfd7d78183",
+        "src/components/login.tsx#Login/showError": "5fe238101b10d3c2",
+        "src/components/login.tsx#Login/submit": "c43dbc26f992e9ec",
+        "src/components/login.tsx#Login~shell": "c1bd96b5f7964ced",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:react": "f4529719455f2af2",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#getIdentity": "8e5ec7a8d67237a1",
+        "src/server/auth.ts#requireAuth": "6bcfe3e8e46cf6b5",
+        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/app/api/auth/[...path]/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/auth/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/auth/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/auth/[...path]/route.ts#handler": "cb70e19819baf1f9",
+        "src/app/api/auth/[...path]/route.ts#GET": "ea1d8525414863f6",
+        "src/app/api/auth/[...path]/route.ts#POST": "b50e3b3c92d005e9",
+        "src/app/api/auth/[...path]/route.ts#PUT": "01e793c9bf3fcc65",
+        "src/app/api/auth/[...path]/route.ts#PATCH": "ca48676dcdac20c5",
+        "src/app/api/auth/[...path]/route.ts#DELETE": "f75472d7785587c3",
+        "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD": "9259e41524b89c45",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD": "2e1ea81541bfb0b2",
+        "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED": "50dddb6a856c8b22",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS": "fd74ab5fb14c9620",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "90102861850ad609",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP": "84cb539c3c0aab34",
+        "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED": "58fb6c891061f2e9",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN": "21c1685fc2e9b261",
+        "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS": "3c4052195042dffa",
+        "src/constants/auth.ts#AUTH_ERRORS~frame": "2cd2b699cbf2da60",
+        "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
+        "src/constants/auth.ts#AUTH.maximumPasswordLength": "0edbbce1639c56c5",
+        "src/constants/auth.ts#AUTH.minimumPasswordLength": "8762210cff0cc574",
+        "src/constants/auth.ts#AUTH.verificationCodeLength": "b5d0d601347e0aef",
+        "src/constants/auth.ts#AuthFormMode": "82802408d5f6cdde",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "e7ef62c74c1fc2f7",
+        "src/lib/auth-client.ts#<module>": "3809ea0e66c9f036",
+        "pkg:@neondatabase/auth": "cb0784c3ee32091d",
+        "src/lib/auth-client.ts#authClient": "c58939e9975b814b",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/types/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/neon-auth.ts#authConfigured": "d3ec6209a40b4e8f",
+        "src/server/neon-auth.ts#getNeonAuth": "838f4cd429a8378d",
+        "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
+        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
+        "src/server/database.ts#Database": "2685f7243aa5fb29",
+        "src/server/database.ts#connect": "8e29d1391a673652",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "51138d2c55a04b3d",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#resolveResidentAccess": "4941046fcf62b877",
+        "src/server/residents.ts#emailList": "68719ecac844ab41",
+        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
+        "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
+        "pkg:pg": "bba8fb4b856406c4",
+        "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
+        "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
+        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
+        "src/config/database.ts#<module>": "2da3ec2294295eb1",
+        "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
+        "src/constants/database.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/database.ts#DATABASE~frame": "80e3de505091b6f6",
+        "src/constants/database.ts#DATABASE.applicationName": "864bc1f3cbdc260a",
+        "src/constants/database.ts#DATABASE.connectionTimeoutMs": "35e63deccca71478",
+        "src/constants/database.ts#DATABASE.idleTimeoutMs": "ad27bd0d0701150b",
+        "src/constants/database.ts#DATABASE.maxLifetimeSeconds": "632c610d6668d21c",
+        "src/constants/database.ts#DATABASE.neonSuffix": "75cb86c463bc046e",
+        "src/constants/database.ts#DATABASE.poolMax": "6435fe8d5244d63c",
+        "src/constants/database.ts#DATABASE.verifiedSslMode": "f2f9e918421d0a3f"
+      },
+      "uncommittedFiles": [
+        "src/app/api/auth/[...path]/route.ts",
+        "src/components/login.tsx",
+        "src/constants/auth.ts",
+        "src/constants/doorbell.ts",
+        "src/lib/auth-client.ts",
+        "src/server/auth.ts",
+        "src/server/config.ts",
+        "src/server/database.ts",
+        "src/server/neon-auth.ts",
+        "src/server/resident-access.ts",
+        "src/server/residents.ts",
+        "src/types/auth.ts",
+        "src/types/residents.ts"
+      ]
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T21:54:52.740Z",
+        "source": "attested",
+        "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+      },
+      {
+        "command": "npm test -- tests/residents.test.ts",
+        "durationMs": 1892,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "7f47c02e18262f028d7dfca2de766a7234fb081812459a987f1ab51b0d1d247a",
+        "recordedAt": "2026-10-29T21:54:54.791Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T21:55:39.633Z",
+        "source": "attested",
+        "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+      }
+    ],
+    "limitations": [
+      "Falta registro y verificacion real del propietario para recorrer el panel completo con su identidad."
+    ],
+    "mode": "full",
+    "pendingChecks": [
+      "Crear/verificar cuenta del propietario y recorrer Residentes desde el panel."
+    ],
+    "recordedAt": "2026-10-29T21:55:40.136Z",
+    "result": "partial",
+    "runId": "20261029T215452Z-110e4a",
+    "scope": {
+      "decision": "incremental",
+      "reasons": [
+        "previous run was partial"
+      ],
+      "relevantChangesAtBegin": [
+        {
+          "change": "added",
+          "key": "pkg:@electric-sql/pglite",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "pkg:pg",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/config/database.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/config/database.ts#getPostgresConfig",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.applicationName",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.connectionTimeoutMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.idleTimeoutMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.maxLifetimeSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.neonSuffix",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.poolMax",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.verifiedSslMode",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#requireAuth",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#connect",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#Database",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#databaseGlobal",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#getDatabase",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#initialize",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/postgres.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/postgres.ts#createPostgresPool",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#emailList",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#residentSettings",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#resolveResidentAccess",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentAccess",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentSettings",
+          "reason": "new visible or interactive code"
+        }
+      ],
+      "suggestedScope": [
+        "pending from the previous run: Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion.",
+        "package @electric-sql/pglite — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+        "package pg — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+        "src/config/database.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/config/database.ts › getPostgresConfig — behavior of this code in every state of the unit that uses it",
+        "src/constants/database.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/constants/database.ts › DATABASE.applicationName — copy or configuration read from this member, in every state that shows it",
+        "src/constants/database.ts › DATABASE.connectionTimeoutMs — copy or configuration read from this member, in every state that shows it",
+        "src/constants/database.ts › DATABASE.idleTimeoutMs — copy or configuration read from this member, in every state that shows it",
+        "src/constants/database.ts › DATABASE.maxLifetimeSeconds — copy or configuration read from this member, in every state that shows it",
+        "src/constants/database.ts › DATABASE.neonSuffix — copy or configuration read from this member, in every state that shows it",
+        "src/constants/database.ts › DATABASE.poolMax — copy or configuration read from this member, in every state that shows it",
+        "src/constants/database.ts › DATABASE.verifiedSslMode — copy or configuration read from this member, in every state that shows it",
+        "src/constants/database.ts › DATABASE (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/server/auth.ts › requireAuth — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/server/database.ts › connect — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › Database — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › databaseGlobal — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › getDatabase — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › initialize — behavior of this code in every state of the unit that uses it",
+        "src/server/postgres.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/server/postgres.ts › createPostgresPool — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/server/residents.ts › emailList — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › residentSettings — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › resolveResidentAccess — behavior of this code in every state of the unit that uses it",
+        "src/types/residents.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/types/residents.ts › ResidentAccess — behavior of this code in every state of the unit that uses it",
+        "src/types/residents.ts › ResidentSettings — behavior of this code in every state of the unit that uses it"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "9fc5ee4bb0e2e4e9",
+        "references/feedback-channels.md": "aa0394882f505308",
+        "references/flow-catalog.md": "77527b8062d13243",
+        "references/sources.md": "018203bece1d2e8a",
+        "references/state-matrix.md": "026b6005f6fa0cae",
+        "references/validation-feedback.md": "3e4fb5d227cacfbd"
+      },
+      "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+      "name": "ui-ux-flow-patterns",
+      "version": "1.5.0"
+    },
+    "summary": "Integracion real de reglas y componente aprobado; bootstrap protegido y revocacion probados. No se simulo Neon ni su verificacion.",
+    "report": "runs/20261029T215452Z-110e4a.json"
+  },
   "schemaVersion": 1,
   "skill": "ui-ux-flow-patterns",
   "unitId": "ringgg.login",

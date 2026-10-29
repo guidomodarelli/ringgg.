@@ -6,64 +6,99 @@
   "verified": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": null,
-      "commit": null,
+      "branch": "main",
+      "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
       "files": {
-        "src/components/login.tsx": "b73771e59f450b38",
-        "src/server/auth.ts": "1637b3ddcb43ba87",
-        "src/app/page.tsx": "11d32c1c01adac8a",
-        "src/server/config.ts": "6d5215ebffc9fd6b",
-        "src/server/database.ts": "c64c60c22f1e9782",
+        "src/components/login.tsx": "2485868763a3dd87",
+        "src/server/auth.ts": "492761ac2a9f7a89",
+        "src/app/api/auth/[...path]/route.ts": "21d0812499c82c89",
+        "src/app/page.tsx": "d77c4cae166eb024",
+        "src/app/reset-password/page.tsx": "25bbd74a8fa68a99",
+        "src/app/sign-in/page.tsx": "014e4fdc9ae292ee",
+        "src/server/residents.ts": "4a8b65ee22a9989d",
+        "src/server/config.ts": "275ccaef3e809db0",
+        "src/server/database.ts": "7adb74e7cd42285e",
         "src/server/doorbell.ts": "889a31bbbe707dbe",
+        "src/server/neon-auth.ts": "2d380118c966c8d0",
         "src/app/error.tsx": "25c1d21b3e4576a4",
         "src/app/global-error.tsx": "9abfb1fa16e474f8",
         "src/app/layout.tsx": "24c6fa6672a8105e",
         "src/app/loading.tsx": "036cba12ba7c0374",
         "src/app/not-found.tsx": "327b5151d946cd57",
+        "src/app/reset-password/loading.tsx": "c853b9cb3ffcb42a",
         "next.config.ts": "57dadbad7af16ab5",
+        "src/proxy.ts": "ae254f4b231c276b",
+        "src/constants/auth.ts": "065319959dd17951",
         "src/components/brand.tsx": "7432f1f6c5ce44c2",
-        "src/lib/api.ts": "191049e1805571e4",
-        "src/constants/doorbell.ts": "58ce07f5141bb23f",
+        "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
         "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/types/doorbell.ts": "0d02fbca75aa5b27",
-        "src/app/globals.css": "2bf7224fd83e19f8",
-        "src/components/pwa.tsx": "c7030612521a11f8"
+        "src/constants/doorbell.ts": "a8a7ab58bd0eb226",
+        "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/types/residents.ts": "5e92dc2596b6084e",
+        "src/server/resident-access.ts": "24da31381b0b4774",
+        "src/server/postgres.ts": "b8ad79581c146c4c",
+        "src/types/doorbell.ts": "8fea1dabc55bb52f",
+        "src/app/globals.css": "d0addf83f4e701a3",
+        "src/components/pwa.tsx": "c7030612521a11f8",
+        "src/config/database.ts": "cfab3a8bb039650a",
+        "src/constants/database.ts": "4f990a98f504bf0b"
       },
-      "fingerprint": "sha256:bab81e0babbff9f5ae3ab736c7fd8ec502e2e24f5f0618cc8e893a3e5d847abb",
+      "fingerprint": "sha256:b2d9e82e778c1d6208bd44ac027d6fc1bb8c54407db0e8904a1e6a0dcaed9378",
       "inputs": {
         "pkg:next": "530097ba2f134bc2",
         "pkg:react": "f4529719455f2af2",
         "pkg:react-dom": "7e691db2ae834e1c",
         "src/components/login.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/login.tsx#Login": "bdbc7644a7f232bc",
+        "src/components/login.tsx#Login/changeMode": "ae1225fd73ea29f6",
+        "src/components/login.tsx#Login/action": "b004ebdfd7d78183",
+        "src/components/login.tsx#Login/showError": "5fe238101b10d3c2",
+        "src/components/login.tsx#Login/submit": "c43dbc26f992e9ec",
+        "src/components/login.tsx#Login~shell": "c1bd96b5f7964ced",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#matchesPassword": "ad6cf1308e09cb0b",
-        "src/server/auth.ts#createSession": "76b691164368ec0a",
-        "src/server/auth.ts#validSession": "b00091dfef618f13",
-        "src/server/auth.ts#authenticated": "d329496cb071d9aa",
-        "src/server/auth.ts#requireAuth": "27dec89d8a5de0fc",
+        "src/server/auth.ts#getIdentity": "8e5ec7a8d67237a1",
+        "src/server/auth.ts#requireAuth": "6bcfe3e8e46cf6b5",
         "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
-        "src/server/auth.ts#limitLogin": "428eb12622ddac5a",
+        "src/app/api/auth/[...path]/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/auth/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/auth/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/auth/[...path]/route.ts#handler": "cb70e19819baf1f9",
+        "src/app/api/auth/[...path]/route.ts#GET": "ea1d8525414863f6",
+        "src/app/api/auth/[...path]/route.ts#POST": "b50e3b3c92d005e9",
+        "src/app/api/auth/[...path]/route.ts#PUT": "01e793c9bf3fcc65",
+        "src/app/api/auth/[...path]/route.ts#PATCH": "ca48676dcdac20c5",
+        "src/app/api/auth/[...path]/route.ts#DELETE": "f75472d7785587c3",
         "src/app/page.tsx#<module>": "2da3ec2294295eb1",
         "src/app/page.tsx#dynamic": "a45532c1af88ffc5",
-        "src/app/page.tsx#Page": "9d171b0304500d16",
+        "src/app/page.tsx#Page": "331020673077cdfe",
+        "src/app/reset-password/page.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/reset-password/page.tsx#ResetPasswordPage": "2af1453e52e6ba83",
+        "src/app/sign-in/page.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/sign-in/page.tsx#dynamic": "a45532c1af88ffc5",
+        "src/app/sign-in/page.tsx#SignInPage": "d384f0971a4e447e",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#resolveResidentAccess": "4941046fcf62b877",
+        "src/server/residents.ts#emailList": "68719ecac844ab41",
+        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
+        "src/server/residents.ts#listResidents": "0a451b92d4308f83",
+        "src/server/residents.ts#requireResidentAdmin": "b4db13f16d12251c",
         "src/server/config.ts#<module>": "2da3ec2294295eb1",
-        "src/server/config.ts#getConfig": "f6a90536deb6f827",
+        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
         "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
-        "src/server/config.ts#LocalSecrets": "88912b41396c6e3f",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
         "pkg:web-push": "6ab2287300696f64",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
-        "src/server/database.ts#getDatabase": "fb7ab0dd5ffc1dcd",
-        "src/server/database.ts#Database": "03faa2885be098b9",
-        "src/server/database.ts#connect": "4d32fa6df70bf533",
+        "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
+        "src/server/database.ts#Database": "2685f7243aa5fb29",
+        "src/server/database.ts#connect": "8e29d1391a673652",
         "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
-        "pkg:pg": "bba8fb4b856406c4",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "8fefa83f9c8af249",
+        "src/server/database.ts#initialize": "51138d2c55a04b3d",
         "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
         "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
+        "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/neon-auth.ts#authConfigured": "d3ec6209a40b4e8f",
         "src/app/error.tsx#<module>": "80e0e5af9bb4622c",
         "src/app/error.tsx#ErrorPage": "a58c6a620756357e",
         "src/app/global-error.tsx#<module>": "80e0e5af9bb4622c",
@@ -84,28 +119,58 @@
         "src/app/loading.tsx#Loading": "90e610d66cdb3340",
         "src/app/not-found.tsx#<module>": "2da3ec2294295eb1",
         "src/app/not-found.tsx#NotFound": "1ae773d41ec54cec",
+        "src/app/reset-password/loading.tsx#<module>": "2da3ec2294295eb1",
         "next.config.ts#<module>": "2da3ec2294295eb1",
         "next.config.ts#nextConfig.outputFileTracingExcludes": "cded7a2e918a49f8",
         "next.config.ts#nextConfig.serverExternalPackages": "2928dcd0750d3c3f",
         "next.config.ts#nextConfig.headers": "bcc9a074c8c4b5d3",
         "next.config.ts#nextConfig~frame": "94bd7f163d17efa5",
+        "src/proxy.ts#<module>": "2da3ec2294295eb1",
+        "src/proxy.ts#proxy": "eba7ad8b2c98d9bd",
+        "src/proxy.ts#config.matcher": "5b20dd32462d5fb3",
+        "src/proxy.ts#config~frame": "b3392b1b4137bd76",
+        "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD": "9259e41524b89c45",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD": "2e1ea81541bfb0b2",
+        "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED": "50dddb6a856c8b22",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS": "fd74ab5fb14c9620",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "90102861850ad609",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP": "84cb539c3c0aab34",
+        "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED": "58fb6c891061f2e9",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN": "21c1685fc2e9b261",
+        "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS": "3c4052195042dffa",
+        "src/constants/auth.ts#AUTH_ERRORS~frame": "2cd2b699cbf2da60",
+        "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
+        "src/constants/auth.ts#AUTH.maximumPasswordLength": "0edbbce1639c56c5",
+        "src/constants/auth.ts#AUTH.minimumPasswordLength": "8762210cff0cc574",
+        "src/constants/auth.ts#AUTH.verificationCodeLength": "b5d0d601347e0aef",
+        "src/constants/auth.ts#AuthFormMode": "82802408d5f6cdde",
         "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
         "src/components/brand.tsx#Brand": "e7ef62c74c1fc2f7",
-        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
-        "src/lib/api.ts#api": "e6c7de9ce730a924",
-        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/constants/doorbell.ts#SESSION~frame": "d92154c239582831",
-        "src/constants/doorbell.ts#SESSION.lifetimeSeconds": "baf8f4017c385178",
-        "src/constants/doorbell.ts#SESSION.cookie": "42486ae4b7679f05",
+        "src/lib/auth-client.ts#<module>": "3809ea0e66c9f036",
+        "pkg:@neondatabase/auth": "cb0784c3ee32091d",
+        "src/lib/auth-client.ts#authClient": "c58939e9975b814b",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/types/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/server/neon-auth.ts#getNeonAuth": "838f4cd429a8378d",
+        "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
         "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
         "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
-        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
-        "src/constants/doorbell.ts#SESSION.loginWindowSeconds": "68b3a990d6433e4a",
-        "src/constants/doorbell.ts#SESSION.maxLoginAttempts": "0654ea30d22ce33f",
-        "src/constants/doorbell.ts#SESSION.minimumPasswordLength": "6ee9ead0c7e74663",
+        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
+        "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
+        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
+        "src/types/residents.ts#ResidentEntry": "9031701226397462",
+        "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
+        "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
+        "pkg:pg": "bba8fb4b856406c4",
         "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
         "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
         "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
@@ -113,54 +178,75 @@
         "src/types/doorbell.ts#Home": "86aac47c07bf864c",
         "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
         "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
-        "src/app/globals.css#*": "2bf7224fd83e19f8",
+        "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/app/globals.css#*": "d0addf83f4e701a3",
         "src/components/pwa.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/pwa.tsx#Pwa": "d2a7fe3fb8455147"
+        "src/components/pwa.tsx#Pwa": "d2a7fe3fb8455147",
+        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/config/database.ts#<module>": "2da3ec2294295eb1",
+        "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
+        "src/constants/database.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/database.ts#DATABASE~frame": "80e3de505091b6f6",
+        "src/constants/database.ts#DATABASE.applicationName": "864bc1f3cbdc260a",
+        "src/constants/database.ts#DATABASE.connectionTimeoutMs": "35e63deccca71478",
+        "src/constants/database.ts#DATABASE.idleTimeoutMs": "ad27bd0d0701150b",
+        "src/constants/database.ts#DATABASE.maxLifetimeSeconds": "632c610d6668d21c",
+        "src/constants/database.ts#DATABASE.neonSuffix": "75cb86c463bc046e",
+        "src/constants/database.ts#DATABASE.poolMax": "6435fe8d5244d63c",
+        "src/constants/database.ts#DATABASE.verifiedSslMode": "f2f9e918421d0a3f"
       },
       "signals": {
-        "src/components/login.tsx#Login": {
+        "src/components/login.tsx#Login/action": {
           "awaits": 1
         },
-        "src/server/auth.ts#matchesPassword": {
-          "database": 2,
-          "projectCalls": 3
+        "src/components/login.tsx#Login/submit": {
+          "awaits": 6,
+          "projectCalls": 1
         },
-        "src/server/auth.ts#createSession": {
-          "database": 1,
-          "projectCalls": 2
+        "src/components/login.tsx#Login~shell": {
+          "awaits": 2
         },
-        "src/server/auth.ts#validSession": {
-          "database": 1,
-          "projectCalls": 2
-        },
-        "src/server/auth.ts#authenticated": {
-          "awaits": 1
+        "src/server/auth.ts#getIdentity": {
+          "awaits": 1,
+          "projectCalls": 1
         },
         "src/server/auth.ts#requireAuth": {
-          "awaits": 1
+          "awaits": 2,
+          "projectCalls": 1
         },
         "src/server/auth.ts#requireOrigin": {
           "projectCalls": 1
         },
-        "src/server/auth.ts#limitLogin": {
-          "awaits": 2,
-          "projectCalls": 2,
-          "database": 2
-        },
-        "src/app/page.tsx#Page": {
-          "projectCalls": 2,
-          "awaits": 3
-        },
-        "src/server/database.ts#getDatabase": {
+        "src/app/api/auth/[...path]/route.ts#handler": {
+          "projectCalls": 1,
           "awaits": 1
         },
+        "src/app/page.tsx#Page": {
+          "projectCalls": 5,
+          "awaits": 5
+        },
+        "src/app/reset-password/page.tsx#ResetPasswordPage": {
+          "awaits": 1
+        },
+        "src/server/residents.ts#resolveResidentAccess": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/residents.ts#listResidents": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/database.ts#getDatabase": {
+          "awaits": 2
+        },
         "src/server/database.ts#connect": {
+          "projectCalls": 1,
           "awaits": 8,
           "database": 8
         },
         "src/server/database.ts#initialize": {
-          "awaits": 6,
-          "database": 6
+          "awaits": 8,
+          "database": 8
         },
         "src/server/doorbell.ts#snapshot": {
           "awaits": 1,
@@ -173,57 +259,221 @@
         "src/app/error.tsx#ErrorPage": {
           "effects": 1
         },
-        "src/lib/api.ts#api": {
-          "awaits": 3,
-          "fetch": 1
+        "src/proxy.ts#proxy": {
+          "projectCalls": 1
+        },
+        "src/lib/auth-client.ts#<module>": {
+          "projectCalls": 1
+        },
+        "src/lib/auth-client.ts#authClient": {
+          "projectCalls": 1
+        },
+        "src/server/neon-auth.ts#getNeonAuth": {
+          "projectCalls": 1
+        },
+        "src/server/postgres.ts#createPostgresPool": {
+          "projectCalls": 1
         },
         "src/components/pwa.tsx#Pwa": {
           "effects": 1
         }
       },
-      "uncommittedFiles": []
+      "uncommittedFiles": [
+        "src/app/api/auth/[...path]/route.ts",
+        "src/app/globals.css",
+        "src/app/page.tsx",
+        "src/app/reset-password/loading.tsx",
+        "src/app/reset-password/page.tsx",
+        "src/app/sign-in/page.tsx",
+        "src/components/login.tsx",
+        "src/constants/auth.ts",
+        "src/constants/doorbell.ts",
+        "src/lib/auth-client.ts",
+        "src/proxy.ts",
+        "src/server/auth.ts",
+        "src/server/config.ts",
+        "src/server/database.ts",
+        "src/server/neon-auth.ts",
+        "src/server/resident-access.ts",
+        "src/server/residents.ts",
+        "src/types/auth.ts",
+        "src/types/doorbell.ts",
+        "src/types/residents.ts"
+      ]
     },
     "evidence": [
       {
         "kind": "review",
         "outcome": "pass",
-        "recordedAt": "2026-10-29T16:21:50.914Z",
+        "recordedAt": "2026-10-29T21:54:58.425Z",
         "source": "attested",
-        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+        "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
       },
       {
         "command": "npm run typecheck",
-        "durationMs": 1913,
+        "durationMs": 2147,
         "exitCode": 0,
         "kind": "command",
         "outcome": "pass",
         "outputSha256": "b0b761c704294ebf222af97f02b21401866e1c287dd4866353309dc7f0633ba2",
-        "recordedAt": "2026-10-29T16:21:53.450Z",
+        "recordedAt": "2026-10-29T21:55:00.745Z",
         "source": "witnessed",
         "summary": "exit code 0"
       },
       {
         "kind": "browser",
         "outcome": "pass",
-        "recordedAt": "2026-10-29T16:23:35.381Z",
+        "recordedAt": "2026-10-29T21:55:40.897Z",
         "source": "attested",
-        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+        "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
       }
     ],
     "limitations": [],
     "mode": "full",
     "pendingChecks": [],
-    "recordedAt": "2026-10-29T16:23:36.483Z",
+    "recordedAt": "2026-10-29T21:55:41.259Z",
     "result": "verified",
-    "runId": "20261029T162150Z-a16835",
+    "runId": "20261029T215458Z-6ae206",
     "scope": {
-      "decision": "full",
+      "decision": "incremental",
       "reasons": [
-        "no previous coverage: the whole unit is analyzed"
+        "22 relevant change(s) since the verified run"
       ],
-      "relevantChangesAtBegin": [],
+      "relevantChangesAtBegin": [
+        {
+          "change": "modified",
+          "key": "src/app/page.tsx#Page",
+          "reason": "adds awaited work to the render path (+2 calls to I/O helpers, +2 awaited steps): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.applicationName",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.connectionTimeoutMs",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.idleTimeoutMs",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.maxLifetimeSeconds",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.neonSuffix",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.poolMax",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE.verifiedSslMode",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/database.ts#DATABASE~frame",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#requireAuth",
+          "reason": "adds awaited work to the render path (+1 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#initialize",
+          "reason": "adds awaited work to the render path (+2 awaited steps, +2 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#emailList",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#listResidents",
+          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#requireResidentAdmin",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#residentSettings",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#resolveResidentAccess",
+          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentAccess",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentEntry",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentSettings",
+          "reason": "new code rendered by the route"
+        }
+      ],
       "suggestedScope": [
-        "whole unit ringgg.login (/): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+        "src/app/page.tsx › Page — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/constants/database.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/constants/database.ts › DATABASE.applicationName — route configuration read from this member, in every segment that uses it",
+        "src/constants/database.ts › DATABASE.connectionTimeoutMs — route configuration read from this member, in every segment that uses it",
+        "src/constants/database.ts › DATABASE.idleTimeoutMs — route configuration read from this member, in every segment that uses it",
+        "src/constants/database.ts › DATABASE.maxLifetimeSeconds — route configuration read from this member, in every segment that uses it",
+        "src/constants/database.ts › DATABASE.neonSuffix — route configuration read from this member, in every segment that uses it",
+        "src/constants/database.ts › DATABASE.poolMax — route configuration read from this member, in every segment that uses it",
+        "src/constants/database.ts › DATABASE.verifiedSslMode — route configuration read from this member, in every segment that uses it",
+        "src/constants/database.ts › DATABASE (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/server/auth.ts › requireAuth — server/client split and awaited work of this code in every route of the unit",
+        "src/server/database.ts › initialize — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/server/residents.ts › emailList — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › listResidents — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › requireResidentAdmin — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › residentSettings — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › resolveResidentAccess — server/client split and awaited work of this code in every route of the unit",
+        "src/types/residents.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/types/residents.ts › ResidentAccess — server/client split and awaited work of this code in every route of the unit",
+        "src/types/residents.ts › ResidentEntry — server/client split and awaited work of this code in every route of the unit",
+        "src/types/residents.ts › ResidentSettings — server/client split and awaited work of this code in every route of the unit"
       ]
     },
     "skill": {
@@ -239,7 +489,7 @@
       "name": "nextjs-route-ui-boundaries",
       "version": "1.3.0"
     },
-    "summary": "Analisis completo, tests reales, typecheck segun skill y recorrido Playwright sobre codigo final.",
-    "report": "runs/20261029T162150Z-a16835.json"
+    "summary": "Roster SSR solo para admin y en paralelo al dashboard; auth/origen y permiso admin en API antes de datos; typecheck y navegacion de formulario aprobados.",
+    "report": "runs/20261029T215458Z-6ae206.json"
   }
 }

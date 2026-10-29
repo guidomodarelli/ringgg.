@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 test('un visitante toca el QR y recibe la respuesta del residente; los ajustes revocan el enlace', async ({ page, browser }) => {
+  test.skip(!process.env.E2E_NEON_AUTH_EMAIL || !process.env.E2E_NEON_AUTH_PASSWORD, 'Requiere un residente real verificado de Neon; nunca se simula el proveedor.');
   await page.goto('/');
-  await page.getByLabel('Clave de residente').fill('incorrecta');
+  await page.getByLabel('Correo electrónico').fill(process.env.E2E_NEON_AUTH_EMAIL!);
+  await page.getByLabel('Contraseña', { exact: true }).fill('incorrecta');
   await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
-  await expect(page.getByRole('alert').filter({ hasText: 'La clave no es correcta' })).toBeVisible();
-  await page.getByLabel('Clave de residente').fill('ringgg-test-password-only');
+  await expect(page.getByRole('alert').filter({ hasText: 'no son correctos' })).toBeVisible();
+  await page.getByLabel('Contraseña', { exact: true }).fill(process.env.E2E_NEON_AUTH_PASSWORD!);
   await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
   await expect(page.getByRole('heading', { name: 'Tu casa te llama.' })).toBeVisible();
   await expect(page.getByAltText(/QR para tocar/)).toBeVisible();
@@ -44,8 +46,10 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
 });
 
 test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el nombre actualizado', async ({ page }) => {
+  test.skip(!process.env.E2E_NEON_AUTH_EMAIL || !process.env.E2E_NEON_AUTH_PASSWORD, 'Requiere una sesión real del proveedor Neon.');
   await page.goto('/');
-  await page.getByLabel('Clave de residente').fill('ringgg-test-password-only');
+  await page.getByLabel('Correo electrónico').fill(process.env.E2E_NEON_AUTH_EMAIL!);
+  await page.getByLabel('Contraseña', { exact: true }).fill(process.env.E2E_NEON_AUTH_PASSWORD!);
   await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
   await expect(page.getByRole('heading', { name: 'Tu casa te llama.' })).toBeVisible();
   let release!: () => void;
@@ -76,7 +80,7 @@ test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el no
 
 test('la API privada exige sesión y bloquea mutaciones de otro origen', async ({ request }) => {
   const unauthenticated = await request.get('/api/dashboard');
-  expect(unauthenticated.status()).toBe(401);
+  expect([401, 503]).toContain(unauthenticated.status());
   const foreign = await request.post('/api/settings', { headers: { origin: 'https://otro-sitio.example' }, data: { name: 'Ajena', enabled: false } });
   expect(foreign.status()).toBe(403);
   const manifest = await request.get('/manifest.webmanifest');

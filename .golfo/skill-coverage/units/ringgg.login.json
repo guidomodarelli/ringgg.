@@ -6,10 +6,10 @@
     "module": "Ringgg",
     "page": "Acceso",
     "section": null,
-    "subflow": "Ingresar con clave de residente"
+    "subflow": "Registro, ingreso, verificación y recuperación con Neon Auth"
   },
   "routes": [
-    "/"
+    "/", "/sign-in", "/reset-password"
   ],
   "entries": [
     {
@@ -18,6 +18,10 @@
     },
     {
       "path": "src/server/auth.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/auth/[...path]/route.ts",
       "symbol": "*"
     }
   ],

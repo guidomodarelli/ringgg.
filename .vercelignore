@@ -1,0 +1,13 @@
+.env
+.env.*
+.data
+.git
+.next
+node_modules
+.neon
+.golfo
+.agents
+.codex
+test-results
+playwright-report
+docs

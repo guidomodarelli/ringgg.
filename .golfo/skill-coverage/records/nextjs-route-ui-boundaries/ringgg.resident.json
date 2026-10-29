@@ -6,15 +6,16 @@
   "verified": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": null,
-      "commit": null,
+      "branch": "main",
+      "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
       "files": {
-        "src/components/dashboard.tsx": "e338f89d0f3a34aa",
-        "src/app/api/[...path]/route.ts": "63037e80f59ca090",
-        "src/app/page.tsx": "11d32c1c01adac8a",
-        "src/server/auth.ts": "1637b3ddcb43ba87",
-        "src/server/config.ts": "6d5215ebffc9fd6b",
-        "src/server/database.ts": "c64c60c22f1e9782",
+        "src/components/dashboard.tsx": "0d5368a7e6a29469",
+        "src/app/api/[...path]/route.ts": "b6422d93389c69f2",
+        "src/app/page.tsx": "d77c4cae166eb024",
+        "src/server/auth.ts": "492761ac2a9f7a89",
+        "src/server/residents.ts": "4a8b65ee22a9989d",
+        "src/server/config.ts": "275ccaef3e809db0",
+        "src/server/database.ts": "7adb74e7cd42285e",
         "src/server/doorbell.ts": "889a31bbbe707dbe",
         "src/app/error.tsx": "25c1d21b3e4576a4",
         "src/app/global-error.tsx": "9abfb1fa16e474f8",
@@ -22,15 +23,26 @@
         "src/app/loading.tsx": "036cba12ba7c0374",
         "src/app/not-found.tsx": "327b5151d946cd57",
         "next.config.ts": "57dadbad7af16ab5",
-        "src/constants/doorbell.ts": "58ce07f5141bb23f",
-        "src/types/doorbell.ts": "0d02fbca75aa5b27",
+        "src/proxy.ts": "ae254f4b231c276b",
+        "src/constants/doorbell.ts": "a8a7ab58bd0eb226",
+        "src/types/doorbell.ts": "8fea1dabc55bb52f",
         "src/lib/api.ts": "191049e1805571e4",
+        "src/components/resident-management.tsx": "d7be5aa63a437395",
+        "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
         "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/server/push.ts": "bb5a04186fb50f53",
-        "src/app/globals.css": "2bf7224fd83e19f8",
-        "src/components/pwa.tsx": "c7030612521a11f8"
+        "src/server/push.ts": "0fbb0c5110af6adc",
+        "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/server/neon-auth.ts": "2d380118c966c8d0",
+        "src/types/residents.ts": "5e92dc2596b6084e",
+        "src/server/resident-access.ts": "24da31381b0b4774",
+        "src/server/postgres.ts": "b8ad79581c146c4c",
+        "src/app/globals.css": "d0addf83f4e701a3",
+        "src/components/pwa.tsx": "c7030612521a11f8",
+        "src/constants/residents.ts": "9c43f4fc81ec3dd1",
+        "src/constants/auth.ts": "065319959dd17951",
+        "src/config/database.ts": "cfab3a8bb039650a"
       },
-      "fingerprint": "sha256:06188b37827048f325f2024f38facde127a93ec3a9cfbb9c6b71fa4a9dfb1af8",
+      "fingerprint": "sha256:895cdf14e1999a425fe538002e182c85b85acb6ce1f44a22bfb8eb8ff2631ddc",
       "inputs": {
         "pkg:next": "530097ba2f134bc2",
         "pkg:react": "f4529719455f2af2",
@@ -39,37 +51,41 @@
         "src/components/dashboard.tsx#visitTime": "f354bcc96505ee27",
         "src/components/dashboard.tsx#Dashboard/action": "5fc8091763c57610",
         "src/components/dashboard.tsx#Dashboard/subscribe": "1fbbe28ce4d5503c",
-        "src/components/dashboard.tsx#Dashboard~shell": "f6d27d94cd3a3865",
+        "src/components/dashboard.tsx#Dashboard~shell": "37259c684fffbc89",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "pkg:qrcode": "eae5e9f465245e84",
         "src/app/api/[...path]/route.ts#<module>": "2da3ec2294295eb1",
         "src/app/api/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
         "src/app/api/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
         "src/app/api/[...path]/route.ts#body": "0309d13722e6a20a",
-        "src/app/api/[...path]/route.ts#handle": "d23629e7861338c4",
+        "src/app/api/[...path]/route.ts#handle": "64f3d7366e74d383",
         "pkg:zod": "31d0566281954af7",
         "src/app/api/[...path]/route.ts#endpoint": "a207a12cbe7afa96",
         "src/app/api/[...path]/route.ts#GET": "6997859bd735ae90",
         "src/app/api/[...path]/route.ts#POST": "21c540a1c282850c",
         "src/app/page.tsx#<module>": "2da3ec2294295eb1",
         "src/app/page.tsx#dynamic": "a45532c1af88ffc5",
-        "src/app/page.tsx#Page": "9d171b0304500d16",
+        "src/app/page.tsx#Page": "331020673077cdfe",
         "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#authenticated": "d329496cb071d9aa",
-        "src/server/auth.ts#validSession": "b00091dfef618f13",
+        "src/server/auth.ts#getIdentity": "8e5ec7a8d67237a1",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#resolveResidentAccess": "4941046fcf62b877",
+        "src/server/residents.ts#emailList": "68719ecac844ab41",
+        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
+        "src/server/residents.ts#listResidents": "0a451b92d4308f83",
+        "src/server/residents.ts#requireResidentAdmin": "b4db13f16d12251c",
         "src/server/config.ts#<module>": "2da3ec2294295eb1",
-        "src/server/config.ts#getConfig": "f6a90536deb6f827",
+        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
         "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
-        "src/server/config.ts#LocalSecrets": "88912b41396c6e3f",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
         "pkg:web-push": "6ab2287300696f64",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
-        "src/server/database.ts#getDatabase": "fb7ab0dd5ffc1dcd",
-        "src/server/database.ts#Database": "03faa2885be098b9",
-        "src/server/database.ts#connect": "4d32fa6df70bf533",
+        "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
+        "src/server/database.ts#Database": "2685f7243aa5fb29",
+        "src/server/database.ts#connect": "8e29d1391a673652",
         "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
-        "pkg:pg": "bba8fb4b856406c4",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "8fefa83f9c8af249",
+        "src/server/database.ts#initialize": "51138d2c55a04b3d",
         "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
         "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
@@ -98,11 +114,15 @@
         "next.config.ts#nextConfig.serverExternalPackages": "2928dcd0750d3c3f",
         "next.config.ts#nextConfig.headers": "bcc9a074c8c4b5d3",
         "next.config.ts#nextConfig~frame": "94bd7f163d17efa5",
+        "src/proxy.ts#<module>": "2da3ec2294295eb1",
+        "src/proxy.ts#proxy": "eba7ad8b2c98d9bd",
+        "src/proxy.ts#config.matcher": "5b20dd32462d5fb3",
+        "src/proxy.ts#config~frame": "b3392b1b4137bd76",
         "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
         "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
         "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/types/doorbell.ts#DashboardData": "fcc13db7e1eb01f0",
+        "src/types/doorbell.ts#DashboardData": "ad7744edeb3cdadc",
         "src/types/doorbell.ts#Device": "f56870e415b71da9",
         "src/types/doorbell.ts#Home": "86aac47c07bf864c",
         "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
@@ -112,37 +132,63 @@
         "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
         "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
         "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
+        "src/components/resident-management.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/resident-management.tsx#ResidentManagement/update": "41d3467b990a2861",
+        "src/components/resident-management.tsx#ResidentManagement~shell": "3811d3c006b8ff42",
+        "src/lib/auth-client.ts#<module>": "3809ea0e66c9f036",
+        "pkg:@neondatabase/auth": "cb0784c3ee32091d",
+        "src/lib/auth-client.ts#authClient": "c58939e9975b814b",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
         "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
         "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
         "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
         "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
-        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
         "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
-        "src/constants/doorbell.ts#SESSION~frame": "d92154c239582831",
-        "src/constants/doorbell.ts#SESSION.cookie": "42486ae4b7679f05",
-        "src/constants/doorbell.ts#SESSION.lifetimeSeconds": "baf8f4017c385178",
+        "src/server/residents.ts#addResident": "559bc3258a301050",
+        "src/server/residents.ts#residentEmailSchema": "91742be39142d8b3",
         "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
-        "src/server/auth.ts#createSession": "76b691164368ec0a",
-        "src/server/auth.ts#limitLogin": "428eb12622ddac5a",
-        "src/server/auth.ts#matchesPassword": "ad6cf1308e09cb0b",
         "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
         "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
         "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
-        "src/server/auth.ts#requireAuth": "27dec89d8a5de0fc",
+        "src/server/residents.ts#removeResident": "64a86a5b537694d6",
+        "src/server/auth.ts#requireAuth": "6bcfe3e8e46cf6b5",
         "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
         "src/server/push.ts#<module>": "2da3ec2294295eb1",
-        "src/server/push.ts#saveDevice": "1f667ca95e42f2de",
+        "src/server/push.ts#saveDevice": "3f8ac7f6f40c1ab9",
         "src/server/push.ts#sendPush": "19c028b7cceb8181",
         "src/server/doorbell.ts#setDelivery": "282622686660677f",
         "src/server/push.ts#subscriptionSchema": "562c1ed0224d75dd",
         "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
-        "src/constants/doorbell.ts#SESSION.minimumPasswordLength": "6ee9ead0c7e74663",
+        "src/types/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/neon-auth.ts#authConfigured": "d3ec6209a40b4e8f",
+        "src/server/neon-auth.ts#getNeonAuth": "838f4cd429a8378d",
+        "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
+        "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
+        "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
+        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
+        "src/types/residents.ts#ResidentEntry": "9031701226397462",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
+        "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
+        "pkg:pg": "bba8fb4b856406c4",
         "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
-        "src/app/globals.css#*": "2bf7224fd83e19f8",
+        "src/app/globals.css#*": "d0addf83f4e701a3",
         "src/components/pwa.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/pwa.tsx#Pwa": "d2a7fe3fb8455147"
+        "src/components/pwa.tsx#Pwa": "d2a7fe3fb8455147",
+        "src/constants/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/residents.ts#RESIDENTS~frame": "402dfa054fe31525",
+        "src/constants/residents.ts#RESIDENTS.emailMaxLength": "538b1228808d4155",
+        "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
+        "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/config/database.ts#<module>": "2da3ec2294295eb1",
+        "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a"
       },
       "signals": {
         "src/components/dashboard.tsx#Dashboard/action": {
@@ -162,34 +208,40 @@
           "awaits": 1
         },
         "src/app/api/[...path]/route.ts#handle": {
-          "awaits": 25,
-          "projectCalls": 8,
+          "awaits": 28,
+          "projectCalls": 9,
           "database": 3
         },
         "src/app/api/[...path]/route.ts#endpoint": {
           "awaits": 2
         },
         "src/app/page.tsx#Page": {
-          "projectCalls": 2,
-          "awaits": 3
+          "projectCalls": 5,
+          "awaits": 5
         },
-        "src/server/auth.ts#authenticated": {
-          "awaits": 1
+        "src/server/auth.ts#getIdentity": {
+          "awaits": 1,
+          "projectCalls": 1
         },
-        "src/server/auth.ts#validSession": {
-          "database": 1,
-          "projectCalls": 2
+        "src/server/residents.ts#resolveResidentAccess": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/residents.ts#listResidents": {
+          "awaits": 1,
+          "database": 1
         },
         "src/server/database.ts#getDatabase": {
-          "awaits": 1
+          "awaits": 2
         },
         "src/server/database.ts#connect": {
+          "projectCalls": 1,
           "awaits": 8,
           "database": 8
         },
         "src/server/database.ts#initialize": {
-          "awaits": 6,
-          "database": 6
+          "awaits": 8,
+          "database": 8
         },
         "src/server/doorbell.ts#snapshot": {
           "awaits": 1,
@@ -202,26 +254,29 @@
         "src/app/error.tsx#ErrorPage": {
           "effects": 1
         },
+        "src/proxy.ts#proxy": {
+          "projectCalls": 1
+        },
         "src/lib/api.ts#api": {
           "awaits": 3,
           "fetch": 1
         },
+        "src/components/resident-management.tsx#ResidentManagement/update": {
+          "awaits": 1
+        },
+        "src/lib/auth-client.ts#<module>": {
+          "projectCalls": 1
+        },
+        "src/lib/auth-client.ts#authClient": {
+          "projectCalls": 1
+        },
+        "src/server/residents.ts#addResident": {
+          "awaits": 5,
+          "database": 5
+        },
         "src/server/doorbell.ts#answerVisit": {
           "awaits": 1,
           "database": 1
-        },
-        "src/server/auth.ts#createSession": {
-          "database": 1,
-          "projectCalls": 2
-        },
-        "src/server/auth.ts#limitLogin": {
-          "awaits": 2,
-          "projectCalls": 2,
-          "database": 2
-        },
-        "src/server/auth.ts#matchesPassword": {
-          "database": 2,
-          "projectCalls": 3
         },
         "src/server/doorbell.ts#publicHome": {
           "awaits": 1
@@ -234,15 +289,20 @@
           "database": 6,
           "awaits": 5
         },
+        "src/server/residents.ts#removeResident": {
+          "awaits": 4,
+          "database": 4
+        },
         "src/server/auth.ts#requireAuth": {
-          "awaits": 1
+          "awaits": 2,
+          "projectCalls": 1
         },
         "src/server/auth.ts#requireOrigin": {
           "projectCalls": 1
         },
         "src/server/push.ts#saveDevice": {
           "database": 5,
-          "awaits": 4
+          "awaits": 5
         },
         "src/server/push.ts#sendPush": {
           "projectCalls": 2,
@@ -254,53 +314,236 @@
           "awaits": 1,
           "database": 1
         },
+        "src/server/neon-auth.ts#getNeonAuth": {
+          "projectCalls": 1
+        },
+        "src/server/postgres.ts#createPostgresPool": {
+          "projectCalls": 1
+        },
         "src/components/pwa.tsx#Pwa": {
           "effects": 1
         }
       },
-      "uncommittedFiles": []
+      "uncommittedFiles": [
+        "src/app/api/[...path]/route.ts",
+        "src/app/globals.css",
+        "src/app/page.tsx",
+        "src/components/dashboard.tsx",
+        "src/components/resident-management.tsx",
+        "src/constants/auth.ts",
+        "src/constants/doorbell.ts",
+        "src/constants/residents.ts",
+        "src/lib/auth-client.ts",
+        "src/proxy.ts",
+        "src/server/auth.ts",
+        "src/server/config.ts",
+        "src/server/database.ts",
+        "src/server/neon-auth.ts",
+        "src/server/push.ts",
+        "src/server/resident-access.ts",
+        "src/server/residents.ts",
+        "src/types/auth.ts",
+        "src/types/doorbell.ts",
+        "src/types/residents.ts"
+      ]
     },
     "evidence": [
       {
         "kind": "review",
         "outcome": "pass",
-        "recordedAt": "2026-10-29T16:21:18.482Z",
+        "recordedAt": "2026-10-29T21:54:46.269Z",
         "source": "attested",
-        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+        "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
       },
       {
         "command": "npm run typecheck",
-        "durationMs": 2149,
+        "durationMs": 2598,
         "exitCode": 0,
         "kind": "command",
         "outcome": "pass",
         "outputSha256": "b0b761c704294ebf222af97f02b21401866e1c287dd4866353309dc7f0633ba2",
-        "recordedAt": "2026-10-29T16:21:21.176Z",
+        "recordedAt": "2026-10-29T21:54:49.045Z",
         "source": "witnessed",
         "summary": "exit code 0"
       },
       {
         "kind": "browser",
         "outcome": "pass",
-        "recordedAt": "2026-10-29T16:23:22.147Z",
+        "recordedAt": "2026-10-29T21:55:38.234Z",
         "source": "attested",
-        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+        "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
       }
     ],
     "limitations": [],
     "mode": "full",
     "pendingChecks": [],
-    "recordedAt": "2026-10-29T16:23:23.212Z",
+    "recordedAt": "2026-10-29T21:55:38.684Z",
     "result": "verified",
-    "runId": "20261029T162117Z-c63684",
+    "runId": "20261029T215446Z-cf72d4",
     "scope": {
-      "decision": "full",
+      "decision": "incremental",
       "reasons": [
-        "no previous coverage: the whole unit is analyzed"
+        "26 relevant change(s) since the verified run"
       ],
-      "relevantChangesAtBegin": [],
+      "relevantChangesAtBegin": [
+        {
+          "change": "modified",
+          "key": "src/app/api/[...path]/route.ts#handle",
+          "reason": "adds awaited work to the render path (+4 awaited steps, +2 calls to I/O helpers): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/page.tsx#Page",
+          "reason": "adds awaited work to the render path (+2 calls to I/O helpers, +2 awaited steps): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/dashboard.tsx#Dashboard~shell",
+          "reason": "component render changed: hooks, Suspense or client imports may differ"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#ResidentManagement/update",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+          "reason": "component render changed: hooks, Suspense or client imports may differ"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/residents.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/residents.ts#RESIDENTS.emailMaxLength",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/residents.ts#RESIDENTS~frame",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#requireAuth",
+          "reason": "adds awaited work to the render path (+1 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#initialize",
+          "reason": "adds awaited work to the render path (+2 awaited steps, +2 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/push.ts#saveDevice",
+          "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#addResident",
+          "reason": "adds awaited work to the render path (+5 awaited steps, +5 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#emailList",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#listResidents",
+          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#removeResident",
+          "reason": "adds awaited work to the render path (+4 awaited steps, +4 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#requireResidentAdmin",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#residentEmailSchema",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#residentSettings",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#resolveResidentAccess",
+          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#DashboardData",
+          "reason": "code rendered by the route changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentAccess",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentEntry",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentSettings",
+          "reason": "new code rendered by the route"
+        }
+      ],
       "suggestedScope": [
-        "whole unit ringgg.resident (/): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+        "src/app/api/[...path]/route.ts › handle — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/app/page.tsx › Page — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/resident-management.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/components/resident-management.tsx › ResidentManagement › update — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/constants/residents.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/constants/residents.ts › RESIDENTS.emailMaxLength — route configuration read from this member, in every segment that uses it",
+        "src/constants/residents.ts › RESIDENTS (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/server/auth.ts › requireAuth — server/client split and awaited work of this code in every route of the unit",
+        "src/server/database.ts › initialize — server/client split and awaited work of this code in every route of the unit",
+        "src/server/push.ts › saveDevice — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/server/residents.ts › addResident — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › emailList — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › listResidents — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › removeResident — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › requireResidentAdmin — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › residentEmailSchema — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › residentSettings — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › resolveResidentAccess — server/client split and awaited work of this code in every route of the unit",
+        "src/types/doorbell.ts › DashboardData — server/client split and awaited work of this code in every route of the unit",
+        "src/types/residents.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/types/residents.ts › ResidentAccess — server/client split and awaited work of this code in every route of the unit",
+        "src/types/residents.ts › ResidentEntry — server/client split and awaited work of this code in every route of the unit",
+        "src/types/residents.ts › ResidentSettings — server/client split and awaited work of this code in every route of the unit"
       ]
     },
     "skill": {
@@ -316,7 +559,7 @@
       "name": "nextjs-route-ui-boundaries",
       "version": "1.3.0"
     },
-    "summary": "Analisis completo, tests reales, typecheck segun skill y recorrido Playwright sobre codigo final.",
-    "report": "runs/20261029T162117Z-c63684.json"
+    "summary": "Roster SSR solo para admin y en paralelo al dashboard; auth/origen y permiso admin en API antes de datos; typecheck y navegacion de formulario aprobados.",
+    "report": "runs/20261029T215446Z-cf72d4.json"
   }
 }

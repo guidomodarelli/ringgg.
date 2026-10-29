@@ -1,0 +1,346 @@
+{
+  "latest": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": "main",
+      "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+      "files": {
+        "src/components/resident-management.tsx": "d7be5aa63a437395",
+        "src/server/residents.ts": "4a8b65ee22a9989d",
+        "src/app/api/[...path]/route.ts": "b6422d93389c69f2",
+        "src/types/residents.ts": "5e92dc2596b6084e",
+        "src/lib/api.ts": "191049e1805571e4",
+        "src/constants/residents.ts": "9c43f4fc81ec3dd1",
+        "src/server/resident-access.ts": "24da31381b0b4774",
+        "src/server/errors.ts": "1ebd07c9c36fd4c9",
+        "src/constants/doorbell.ts": "a8a7ab58bd0eb226",
+        "src/server/doorbell.ts": "889a31bbbe707dbe",
+        "src/server/config.ts": "275ccaef3e809db0",
+        "src/server/database.ts": "7adb74e7cd42285e",
+        "src/server/auth.ts": "492761ac2a9f7a89",
+        "src/server/push.ts": "0fbb0c5110af6adc",
+        "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/types/doorbell.ts": "8fea1dabc55bb52f",
+        "src/server/postgres.ts": "b8ad79581c146c4c",
+        "src/server/neon-auth.ts": "2d380118c966c8d0",
+        "src/config/database.ts": "cfab3a8bb039650a",
+        "src/constants/auth.ts": "065319959dd17951",
+        "src/constants/database.ts": "4f990a98f504bf0b"
+      },
+      "fingerprint": "sha256:0043152e2e09bc6760673e66a325232dcc5f2c5c4be764e2c06abfd753d0bad4",
+      "inputs": {
+        "src/components/resident-management.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/resident-management.tsx#ResidentManagement/update": "41d3467b990a2861",
+        "src/components/resident-management.tsx#ResidentManagement~shell": "3811d3c006b8ff42",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:react": "f4529719455f2af2",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#residentEmailSchema": "91742be39142d8b3",
+        "pkg:zod": "31d0566281954af7",
+        "src/server/residents.ts#emailList": "68719ecac844ab41",
+        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
+        "src/server/residents.ts#resolveResidentAccess": "4941046fcf62b877",
+        "src/server/residents.ts#requireResidentAdmin": "b4db13f16d12251c",
+        "src/server/residents.ts#listResidents": "0a451b92d4308f83",
+        "src/server/residents.ts#addResident": "559bc3258a301050",
+        "src/server/residents.ts#removeResident": "64a86a5b537694d6",
+        "src/app/api/[...path]/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/[...path]/route.ts#body": "0309d13722e6a20a",
+        "src/app/api/[...path]/route.ts#handle": "64f3d7366e74d383",
+        "src/app/api/[...path]/route.ts#endpoint": "a207a12cbe7afa96",
+        "src/app/api/[...path]/route.ts#GET": "6997859bd735ae90",
+        "src/app/api/[...path]/route.ts#POST": "21c540a1c282850c",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#ResidentEntry": "9031701226397462",
+        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/api.ts#api": "e6c7de9ce730a924",
+        "src/constants/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/residents.ts#RESIDENTS~frame": "402dfa054fe31525",
+        "src/constants/residents.ts#RESIDENTS.emailMaxLength": "538b1228808d4155",
+        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
+        "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
+        "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
+        "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
+        "src/constants/residents.ts#RESIDENTS.maximumInvitations": "cc843c9c6b46cb99",
+        "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
+        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
+        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
+        "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
+        "src/server/database.ts#Database": "2685f7243aa5fb29",
+        "src/server/database.ts#connect": "8e29d1391a673652",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "51138d2c55a04b3d",
+        "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
+        "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
+        "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
+        "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#requireAuth": "6bcfe3e8e46cf6b5",
+        "src/server/auth.ts#getIdentity": "8e5ec7a8d67237a1",
+        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/server/push.ts#<module>": "2da3ec2294295eb1",
+        "src/server/push.ts#saveDevice": "3f8ac7f6f40c1ab9",
+        "src/server/push.ts#sendPush": "19c028b7cceb8181",
+        "src/server/doorbell.ts#setDelivery": "282622686660677f",
+        "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
+        "src/server/push.ts#subscriptionSchema": "562c1ed0224d75dd",
+        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/types/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
+        "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
+        "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
+        "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
+        "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
+        "pkg:pg": "bba8fb4b856406c4",
+        "src/types/doorbell.ts#Home": "86aac47c07bf864c",
+        "src/types/doorbell.ts#PublicVisit": "3ae7d2a9df3e5f33",
+        "src/constants/doorbell.ts#DOORBELL.cooldownSeconds": "c6c07e0a039d9e06",
+        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
+        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
+        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
+        "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/neon-auth.ts#authConfigured": "d3ec6209a40b4e8f",
+        "src/server/neon-auth.ts#getNeonAuth": "838f4cd429a8378d",
+        "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
+        "pkg:@neondatabase/auth": "cb0784c3ee32091d",
+        "src/constants/doorbell.ts#DOORBELL.maxDevices": "414e4d84625b6ff3",
+        "src/constants/doorbell.ts#DOORBELL.pushTimeoutMs": "97b72476ee4ad5ba",
+        "src/constants/doorbell.ts#DOORBELL.pushTtlSeconds": "41bc5fb14de6470e",
+        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
+        "src/types/doorbell.ts#Device": "f56870e415b71da9",
+        "src/constants/doorbell.ts#PUSH_HOSTS": "69ab4faa3ad6ed3e",
+        "src/constants/doorbell.ts#PUSH_KEY_PATTERN": "83d48236c0052566",
+        "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef",
+        "src/config/database.ts#<module>": "2da3ec2294295eb1",
+        "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
+        "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
+        "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/constants/database.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/database.ts#DATABASE~frame": "80e3de505091b6f6",
+        "src/constants/database.ts#DATABASE.applicationName": "864bc1f3cbdc260a",
+        "src/constants/database.ts#DATABASE.connectionTimeoutMs": "35e63deccca71478",
+        "src/constants/database.ts#DATABASE.idleTimeoutMs": "ad27bd0d0701150b",
+        "src/constants/database.ts#DATABASE.maxLifetimeSeconds": "632c610d6668d21c",
+        "src/constants/database.ts#DATABASE.neonSuffix": "75cb86c463bc046e",
+        "src/constants/database.ts#DATABASE.poolMax": "6435fe8d5244d63c",
+        "src/constants/database.ts#DATABASE.verifiedSslMode": "f2f9e918421d0a3f"
+      },
+      "signals": {
+        "src/components/resident-management.tsx#ResidentManagement/update": {
+          "awaits": 1
+        },
+        "src/server/residents.ts#resolveResidentAccess": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/residents.ts#listResidents": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/residents.ts#addResident": {
+          "awaits": 5,
+          "database": 5
+        },
+        "src/server/residents.ts#removeResident": {
+          "awaits": 4,
+          "database": 4
+        },
+        "src/app/api/[...path]/route.ts#body": {
+          "awaits": 1
+        },
+        "src/app/api/[...path]/route.ts#handle": {
+          "awaits": 28,
+          "projectCalls": 9,
+          "database": 3
+        },
+        "src/app/api/[...path]/route.ts#endpoint": {
+          "awaits": 2
+        },
+        "src/lib/api.ts#api": {
+          "awaits": 3,
+          "fetch": 1
+        },
+        "src/server/doorbell.ts#answerVisit": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/database.ts#getDatabase": {
+          "awaits": 2
+        },
+        "src/server/database.ts#connect": {
+          "projectCalls": 1,
+          "awaits": 8,
+          "database": 8
+        },
+        "src/server/database.ts#initialize": {
+          "awaits": 8,
+          "database": 8
+        },
+        "src/server/doorbell.ts#publicHome": {
+          "awaits": 1
+        },
+        "src/server/doorbell.ts#getHome": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#readVisit": {
+          "awaits": 2,
+          "database": 1
+        },
+        "src/server/doorbell.ts#registerVisit": {
+          "database": 6,
+          "awaits": 5
+        },
+        "src/server/auth.ts#requireAuth": {
+          "awaits": 2,
+          "projectCalls": 1
+        },
+        "src/server/auth.ts#getIdentity": {
+          "awaits": 1,
+          "projectCalls": 1
+        },
+        "src/server/auth.ts#requireOrigin": {
+          "projectCalls": 1
+        },
+        "src/server/push.ts#saveDevice": {
+          "database": 5,
+          "awaits": 5
+        },
+        "src/server/push.ts#sendPush": {
+          "projectCalls": 2,
+          "awaits": 4,
+          "database": 2,
+          "awaitInLoop": 1
+        },
+        "src/server/doorbell.ts#setDelivery": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#snapshot": {
+          "awaits": 1,
+          "database": 2
+        },
+        "src/server/postgres.ts#createPostgresPool": {
+          "projectCalls": 1
+        },
+        "src/server/neon-auth.ts#getNeonAuth": {
+          "projectCalls": 1
+        }
+      },
+      "uncommittedFiles": [
+        "src/app/api/[...path]/route.ts",
+        "src/components/resident-management.tsx",
+        "src/constants/auth.ts",
+        "src/constants/doorbell.ts",
+        "src/constants/residents.ts",
+        "src/server/auth.ts",
+        "src/server/config.ts",
+        "src/server/database.ts",
+        "src/server/neon-auth.ts",
+        "src/server/push.ts",
+        "src/server/resident-access.ts",
+        "src/server/residents.ts",
+        "src/types/auth.ts",
+        "src/types/doorbell.ts",
+        "src/types/residents.ts"
+      ]
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T21:54:37.402Z",
+        "source": "attested",
+        "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+      },
+      {
+        "command": "npm test -- tests/residents.test.ts",
+        "durationMs": 2035,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "818ddbf575f842de12c0c45e0c6e21310e910ddec962d23dd71a85e257353171",
+        "recordedAt": "2026-10-29T21:54:39.620Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-10-29T21:55:36.415Z",
+        "source": "attested",
+        "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+      }
+    ],
+    "limitations": [
+      "No hubo benchmark representativo con el propietario autenticado."
+    ],
+    "mode": "full",
+    "pendingChecks": [
+      "Medir flujo real de listado y autorizacion en Neon con cuenta verificada."
+    ],
+    "recordedAt": "2026-10-29T21:55:36.796Z",
+    "result": "partial",
+    "runId": "20261029T215437Z-d0a571",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "e01f3a44c4f2901b",
+        "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+        "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+        "references/images-fonts-scripts.md": "693a7bf147c99358",
+        "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+        "references/large-lists-dom.md": "8c39b8868ea4dc47",
+        "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+        "references/measurement-tools.md": "12f1bb8923c65893",
+        "references/memory-leaks.md": "c4b83fb18b23d59b",
+        "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+        "references/requests-caching.md": "e3565440d17a8b6e",
+        "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+        "references/unnecessary-renders.md": "b7b15d98745bea71"
+      },
+      "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+      "name": "measured-performance-optimization",
+      "version": "1.7.0"
+    },
+    "summary": "Sin nuevo polling; SSR paralelo, query indexada de membresia y mutaciones transaccionales acotadas. No se afirma mejora medida.",
+    "report": "runs/20261029T215437Z-d0a571.json"
+  },
+  "schemaVersion": 1,
+  "skill": "measured-performance-optimization",
+  "unitId": "ringgg.residents.manage",
+  "verified": null
+}

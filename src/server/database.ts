@@ -43,7 +43,9 @@ async function connect(): Promise<Database> {
 export async function initialize(database: Database) {
   await database.query(`CREATE TABLE IF NOT EXISTS homes (id INTEGER PRIMARY KEY, name TEXT NOT NULL, token TEXT NOT NULL UNIQUE, enabled BOOLEAN NOT NULL DEFAULT TRUE)`);
   await database.query(`INSERT INTO homes (id, name, token) VALUES (1, 'Mi casa', $1) ON CONFLICT (id) DO NOTHING`, [crypto.randomUUID()]);
+  await database.query(`CREATE TABLE IF NOT EXISTS residents (email TEXT PRIMARY KEY, invited_by TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`);
   await database.query(`CREATE TABLE IF NOT EXISTS devices (id TEXT PRIMARY KEY, name TEXT NOT NULL, endpoint TEXT NOT NULL UNIQUE, subscription JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`);
+  await database.query(`ALTER TABLE devices ADD COLUMN IF NOT EXISTS resident_email TEXT`);
   await database.query(`CREATE TABLE IF NOT EXISTS visits (id TEXT PRIMARY KEY, message TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), answered_at TIMESTAMPTZ, delivery TEXT NOT NULL DEFAULT 'registered')`);
   await database.query(`CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, attempts INTEGER NOT NULL, expires_at TIMESTAMPTZ NOT NULL)`);
   await database.query(`CREATE INDEX IF NOT EXISTS visits_created_at_idx ON visits (created_at DESC)`);

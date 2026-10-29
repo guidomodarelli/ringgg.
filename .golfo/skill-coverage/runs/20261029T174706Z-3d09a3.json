@@ -1,0 +1,457 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:5327a6a8fc51f735cdd9afcf26c2872647bd549203b154aea6d55d5dd6c82cb9",
+    "uncommittedFiles": [
+      "src/app/api/auth/[...path]/route.ts",
+      "src/components/login.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/lib/auth-client.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/neon-auth.ts",
+      "src/server/resident-access.ts",
+      "src/types/auth.ts"
+    ],
+    "fileCount": 12,
+    "inputCount": 66
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:47:06.345Z",
+      "source": "attested",
+      "summary": "Migracion a Neon administrado: sign-in/signup/OTP/reset/logout pending, SDK oficial sin fallback; proxy renueva cookies, acceso privado exige sesion y correo verificado en allowlist antes de BD. Review independiente sin Important abiertos."
+    },
+    {
+      "command": "npm test -- tests/resident-access.test.ts",
+      "durationMs": 858,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "540296911b5dea75a486cad178991d29260b3a3c1f53c1d2c92996507b0d515a",
+      "recordedAt": "2026-10-29T17:47:07.362Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:48:27.689Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin: UI signin/signup/OTP/recuperacion y denegacion sin config; contra Neon real registro de cuenta sintetica, sesion, denegacion de vivienda sin verificar, logout y nuevo login. Cuenta eliminada por CLI. No se probaron OTP recibidos ni acceso privilegiado invitado."
+    }
+  ],
+  "limitations": [
+    "Falta correo real autorizado para OTP, recuperacion y acceso privilegiado; las E2E privilegiadas se omiten explicitamente."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion."
+  ],
+  "recordedAt": "2026-10-29T17:48:27.989Z",
+  "result": "partial",
+  "runId": "20261029T174706Z-3d09a3",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "70 of 62 parts changed: the unit is reviewed as a whole"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "removed",
+        "key": "pkg:@electric-sql/pglite",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "pkg:@neondatabase/auth",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "removed",
+        "key": "pkg:next",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "pkg:pg",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#DELETE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#GET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#handler",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#PATCH",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#PUT",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/components/login.tsx#Login",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/action",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/changeMode",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/showError",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/submit",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED",
+        "reason": "lifecycle configuration member (OTP_EXPIRED)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.cookieSecretMinimumLength",
+        "reason": "lifecycle configuration member (cookieSecretMinimumLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.maximumPasswordLength",
+        "reason": "lifecycle configuration member (maximumPasswordLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.minimumPasswordLength",
+        "reason": "lifecycle configuration member (minimumPasswordLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.sessionCacheSeconds",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.verificationCodeLength",
+        "reason": "lifecycle configuration member (verificationCodeLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AuthFormMode",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.internal",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.tooMany",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.unavailable",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.cookie",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.lifetimeSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.loginWindowSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.maxLoginAttempts",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.minimumPasswordLength",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION~frame",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/lib/api.ts#<module>",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/lib/api.ts#api",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#authClient",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#authenticated",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#createSession",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#limitLogin",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#matchesPassword",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#validSession",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#getConfig",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#LocalSecrets",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#<module>",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#connect",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#Database",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#databaseGlobal",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#initialize",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#errorResponse",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#auth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-access.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-access.ts#authorizeResident",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/auth.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/auth.ts#ResidentIdentity",
+        "reason": "new code reached by the unit"
+      }
+    ],
+    "suggestedScope": [
+      "whole unit ringgg.login: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Sesion Neon real, logout y denegacion no verificada aprobados. Sin mocks del proveedor ni fallback local.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T17:47:06.188Z",
+  "unitId": "ringgg.login"
+}

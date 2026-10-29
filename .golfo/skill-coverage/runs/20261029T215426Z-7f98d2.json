@@ -1,0 +1,99 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:f79a0e2228bc0004e7922942f8b025dc22c31004fe3a5be4b6b9935f2ff7c7ae",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/components/resident-management.tsx",
+      "src/constants/doorbell.ts",
+      "src/constants/residents.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/push.ts",
+      "src/server/resident-access.ts",
+      "src/server/residents.ts",
+      "src/types/auth.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 15,
+    "inputCount": 78
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:54:26.245Z",
+      "source": "attested",
+      "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+    },
+    {
+      "command": "npm test -- tests/residents.test.ts",
+      "durationMs": 2511,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "a73a10f432aa6cf8707d01e74f9c2ad2d434cf9fa4367e94afd8781ea5a95c5b",
+      "recordedAt": "2026-10-29T21:54:28.921Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/residents.spec.ts",
+      "durationMs": 6565,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "56ac56ccea0fa85802f681a630dd2c811ca0e71290b1d31a81dd167d59139777",
+      "recordedAt": "2026-10-29T21:55:10.300Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:55:34.848Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+    }
+  ],
+  "limitations": [
+    "Falta registro y verificacion real del propietario para recorrer el panel completo con su identidad."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Crear/verificar cuenta del propietario y recorrer Residentes desde el panel."
+  ],
+  "recordedAt": "2026-10-29T21:55:35.167Z",
+  "result": "partial",
+  "runId": "20261029T215426Z-7f98d2",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.residents.manage: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Integracion real de reglas y componente aprobado; bootstrap protegido y revocacion probados. No se simulo Neon ni su verificacion.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T21:54:26.080Z",
+  "unitId": "ringgg.residents.manage"
+}

@@ -1,0 +1,91 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:0043152e2e09bc6760673e66a325232dcc5f2c5c4be764e2c06abfd753d0bad4",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/components/resident-management.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/residents.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/neon-auth.ts",
+      "src/server/push.ts",
+      "src/server/resident-access.ts",
+      "src/server/residents.ts",
+      "src/types/auth.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 21,
+    "inputCount": 119
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:54:30.647Z",
+      "source": "attested",
+      "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+    },
+    {
+      "command": "npm test -- tests/residents.test.ts",
+      "durationMs": 2143,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "726071117b2b38f6ed8f29381cdd5b7d404fd787eb765ee228979d47f800b766",
+      "recordedAt": "2026-10-29T21:54:32.947Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:55:35.334Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+    }
+  ],
+  "limitations": [
+    "Falta registro y verificacion real del propietario para recorrer el panel completo con su identidad."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Crear/verificar cuenta del propietario y recorrer Residentes desde el panel."
+  ],
+  "recordedAt": "2026-10-29T21:55:35.656Z",
+  "result": "partial",
+  "runId": "20261029T215430Z-070866",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.residents.manage: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Integracion real de reglas y componente aprobado; bootstrap protegido y revocacion probados. No se simulo Neon ni su verificacion.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T21:54:30.398Z",
+  "unitId": "ringgg.residents.manage"
+}

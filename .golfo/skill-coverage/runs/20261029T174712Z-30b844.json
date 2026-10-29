@@ -1,0 +1,140 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:5327a6a8fc51f735cdd9afcf26c2872647bd549203b154aea6d55d5dd6c82cb9",
+    "uncommittedFiles": [
+      "src/app/api/auth/[...path]/route.ts",
+      "src/components/login.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/lib/auth-client.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/neon-auth.ts",
+      "src/server/resident-access.ts",
+      "src/types/auth.ts"
+    ],
+    "fileCount": 12,
+    "inputCount": 66
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:47:13.030Z",
+      "source": "attested",
+      "summary": "Migracion a Neon administrado: sign-in/signup/OTP/reset/logout pending, SDK oficial sin fallback; proxy renueva cookies, acceso privado exige sesion y correo verificado en allowlist antes de BD. Review independiente sin Important abiertos."
+    },
+    {
+      "command": "npm test -- tests/resident-access.test.ts",
+      "durationMs": 844,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "3d94e2106c38820295e230ea7b8efd3c7627dc15e5f8be03ff32ec9a4c0b6c8f",
+      "recordedAt": "2026-10-29T17:47:14.052Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:48:28.689Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin: UI signin/signup/OTP/recuperacion y denegacion sin config; contra Neon real registro de cuenta sintetica, sesion, denegacion de vivienda sin verificar, logout y nuevo login. Cuenta eliminada por CLI. No se probaron OTP recibidos ni acceso privilegiado invitado."
+    }
+  ],
+  "limitations": [
+    "No se midio un benchmark de latencia con residente verificado y carga representativa."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Medir flujo de panel con cuenta verificada y PostgreSQL remoto."
+  ],
+  "recordedAt": "2026-10-29T17:48:29.033Z",
+  "result": "partial",
+  "runId": "20261029T174712Z-30b844",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@neondatabase/auth",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#handler",
+        "reason": "adds load: +1 calls to I/O helpers, +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/action",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/submit",
+        "reason": "adds load: +6 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login~shell",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#<module>",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#authClient",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "adds load: +1 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "adds load: +1 calls to I/O helpers"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Medir con PostgreSQL remoto y dispositivos reales.",
+      "measure the complete flow /, /sign-in, /reset-password before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "SDK usa cache de sesion acotada; backend mantiene pg pooled. No se afirma mejora medida.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T17:47:12.886Z",
+  "unitId": "ringgg.login"
+}

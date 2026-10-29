@@ -1,0 +1,194 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:aec328fe6c7e91297d517cdfadc46e39f8e0b5d30029c9ab11163d527b10e663",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/components/dashboard.tsx",
+      "src/constants/doorbell.ts",
+      "src/lib/auth-client.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts"
+    ],
+    "fileCount": 12,
+    "inputCount": 71
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:47:14.678Z",
+      "source": "attested",
+      "summary": "Migracion a Neon administrado: sign-in/signup/OTP/reset/logout pending, SDK oficial sin fallback; proxy renueva cookies, acceso privado exige sesion y correo verificado en allowlist antes de BD. Review independiente sin Important abiertos."
+    },
+    {
+      "command": "npm test -- tests/resident-access.test.ts",
+      "durationMs": 901,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "6737a8bf328fe76cd4e955fd701514bc8ab185cf5b552229ab2ab4b37478d3c0",
+      "recordedAt": "2026-10-29T17:47:15.750Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:48:29.211Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin: UI signin/signup/OTP/recuperacion y denegacion sin config; contra Neon real registro de cuenta sintetica, sesion, denegacion de vivienda sin verificar, logout y nuevo login. Cuenta eliminada por CLI. No se probaron OTP recibidos ni acceso privilegiado invitado."
+    }
+  ],
+  "limitations": [
+    "Falta correo real autorizado para OTP, recuperacion y acceso privilegiado; las E2E privilegiadas se omiten explicitamente."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion."
+  ],
+  "recordedAt": "2026-10-29T17:48:29.524Z",
+  "result": "partial",
+  "runId": "20261029T174714Z-12c45c",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@neondatabase/auth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "pkg:pg",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/[...path]/route.ts#handle",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.unauthorized",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.cookie",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.lifetimeSeconds",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION~frame",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#authClient",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#authenticated",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#createSession",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#limitLogin",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#matchesPassword",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#validSession",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#getConfig",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#LocalSecrets",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#connect",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#Database",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "visible or interactive code changed"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Probar permisos, notificacion con telefono bloqueado y recuperacion offline en HTTPS.",
+      "whole unit ringgg.resident: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Sesion Neon real, logout y denegacion no verificada aprobados. Sin mocks del proveedor ni fallback local.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T17:47:14.523Z",
+  "unitId": "ringgg.resident"
+}

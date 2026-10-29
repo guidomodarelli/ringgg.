@@ -1,0 +1,250 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:34f9a3eba79a8d71867485e54dc171083d2e763f2ed366dd4e4ead884d16e5d5",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/components/dashboard.tsx",
+      "src/components/resident-management.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/residents.ts",
+      "src/lib/auth-client.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/neon-auth.ts",
+      "src/server/push.ts",
+      "src/server/resident-access.ts",
+      "src/server/residents.ts",
+      "src/types/auth.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 23,
+    "inputCount": 131
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:54:43.404Z",
+      "source": "attested",
+      "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+    },
+    {
+      "command": "npm test -- tests/residents.test.ts",
+      "durationMs": 1886,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "a056abf611cdfe4d129f47ef7dd4ff8a1b84d0f998556374fe74c6f78bcf98d3",
+      "recordedAt": "2026-10-29T21:54:45.456Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:55:37.576Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+    }
+  ],
+  "limitations": [
+    "Falta registro y verificacion real del propietario para recorrer el panel completo con su identidad."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Crear/verificar cuenta del propietario y recorrer Residentes desde el panel."
+  ],
+  "recordedAt": "2026-10-29T21:55:37.992Z",
+  "result": "partial",
+  "runId": "20261029T215443Z-477cae",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "previous run was partial"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/[...path]/route.ts#handle",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/residents.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/residents.ts#RESIDENTS.emailMaxLength",
+        "reason": "lifecycle configuration member (emailMaxLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/residents.ts#RESIDENTS.maximumInvitations",
+        "reason": "lifecycle configuration member (maximumInvitations)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/residents.ts#RESIDENTS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#addResident",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#emailList",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidents",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#removeResident",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#requireResidentAdmin",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#residentEmailSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#residentSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#resolveResidentAccess",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#DashboardData",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentAccess",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentEntry",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentSettings",
+        "reason": "new code reached by the unit"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion.",
+      "src/app/api/[...path]/route.ts › handle — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/resident-management.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/resident-management.tsx › ResidentManagement › update — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/constants/residents.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/constants/residents.ts › RESIDENTS.emailMaxLength — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/residents.ts › RESIDENTS.maximumInvitations — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/residents.ts › RESIDENTS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/server/auth.ts › requireAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › initialize — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › saveDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › addResident — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › emailList — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › listResidents — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › removeResident — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › requireResidentAdmin — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › residentEmailSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › residentSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › resolveResidentAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/types/doorbell.ts › DashboardData — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/residents.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/types/residents.ts › ResidentAccess — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/residents.ts › ResidentEntry — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/residents.ts › ResidentSettings — operations that reach this code: intent, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Integracion real de reglas y componente aprobado; bootstrap protegido y revocacion probados. No se simulo Neon ni su verificacion.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T21:54:43.228Z",
+  "unitId": "ringgg.resident"
+}

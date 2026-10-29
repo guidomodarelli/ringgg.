@@ -1,0 +1,98 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:0043152e2e09bc6760673e66a325232dcc5f2c5c4be764e2c06abfd753d0bad4",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/components/resident-management.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/residents.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/neon-auth.ts",
+      "src/server/push.ts",
+      "src/server/resident-access.ts",
+      "src/server/residents.ts",
+      "src/types/auth.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 21,
+    "inputCount": 119
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:54:37.402Z",
+      "source": "attested",
+      "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+    },
+    {
+      "command": "npm test -- tests/residents.test.ts",
+      "durationMs": 2035,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "818ddbf575f842de12c0c45e0c6e21310e910ddec962d23dd71a85e257353171",
+      "recordedAt": "2026-10-29T21:54:39.620Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:55:36.415Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+    }
+  ],
+  "limitations": [
+    "No hubo benchmark representativo con el propietario autenticado."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Medir flujo real de listado y autorizacion en Neon con cuenta verificada."
+  ],
+  "recordedAt": "2026-10-29T21:55:36.796Z",
+  "result": "partial",
+  "runId": "20261029T215437Z-d0a571",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "Sin nuevo polling; SSR paralelo, query indexada de membresia y mutaciones transaccionales acotadas. No se afirma mejora medida.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T21:54:37.113Z",
+  "unitId": "ringgg.residents.manage"
+}

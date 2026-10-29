@@ -68,8 +68,10 @@ test('las suscripciones rechazan endpoints privados y guardan un solo dispositiv
   assert.equal(subscriptionSchema.safeParse({ endpoint: 'https://fcm.googleapis.com.evil.example/send', keys }).success, false);
   const subscription = { endpoint: 'https://fcm.googleapis.com/fcm/send/test-device', keys };
   assert.equal(subscriptionSchema.safeParse(subscription).success, true);
-  await saveDevice(database, 'Mi celular', subscription);
-  await saveDevice(database, 'Mi teléfono', subscription);
+  const user = { id: 'device-test-user', email: 'device@example.com', emailVerified: true };
+  const settings = { adminEmails: '', residentEmails: user.email };
+  await saveDevice(database, 'Mi celular', subscription, user, settings);
+  await saveDevice(database, 'Mi teléfono', subscription, user, settings);
   const state = await snapshot(database);
   assert.equal(state.devices.length, 1);
   assert.equal(state.devices[0].name, 'Mi teléfono');

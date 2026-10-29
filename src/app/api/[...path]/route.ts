@@ -1,12 +1,13 @@
 import { NextRequest } from 'next/server';
 import { z } from 'zod';
-import { DOORBELL, HTTP, SESSION } from '@/constants/doorbell';
-import { requireAuth, requireOrigin, matchesPassword, createSession, limitLogin } from '@/server/auth';
+import { DOORBELL, HTTP } from '@/constants/doorbell';
+import { requireAuth, requireOrigin } from '@/server/auth';
 import { getDatabase } from '@/server/database';
 import { getConfig } from '@/server/config';
 import { snapshot, publicHome, registerVisit, readVisit, answerVisit, setDelivery } from '@/server/doorbell';
 import { sendPush, saveDevice, subscriptionSchema } from '@/server/push';
 import { AppError, errorResponse } from '@/server/errors';
+import { addResident, listResidents, removeResident } from '@/server/residents';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,16 +22,9 @@ async function handle(request: NextRequest, path: string[]) {
   const route = path.join('/');
   const mutate = request.method === 'POST';
   if (mutate) requireOrigin(request);
-  if (route === 'login' && mutate) {
-    await limitLogin(request);
-    const input = z.object({ password: z.string().max(256) }).parse(await body(request));
-    if (!matchesPassword(input.password)) throw new AppError(HTTP.unauthorized, 'INVALID_PASSWORD', 'La clave no es correcta. Revisala e intentá de nuevo.');
-    const response = Response.json({ ok: true });
-    response.headers.append('Set-Cookie', `${SESSION.cookie}=${createSession()}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${SESSION.lifetimeSeconds}${getConfig().origin.startsWith('https:') ? '; Secure' : ''}`);
-    return response;
-  }
-  const database = await getDatabase();
+  // Private data is opened only after authenticating and authorizing the resident.
   if (path[0] === 'door' && path[1]) {
+    const database = await getDatabase();
     if (!mutate && path.length === 2) return Response.json(await publicHome(database, path[1]));
     if (!mutate && path[2] === 'visits' && path[3]) return Response.json(await readVisit(database, path[1], path[3]));
     if (mutate && path.length === 2) {
@@ -43,10 +37,18 @@ async function handle(request: NextRequest, path: string[]) {
       return Response.json(await readVisit(database, path[1], input.id));
     }
   }
-  await requireAuth();
+  const user = await requireAuth();
+  const database = await getDatabase();
+  if (route === 'residents') {
+    if (mutate) {
+      const input = z.object({ email: z.string(), action: z.enum(['add', 'remove']) }).parse(await body(request));
+      if (input.action === 'add') await addResident(database, user, input.email);
+      else await removeResident(database, user, input.email);
+    }
+    return Response.json({ residents: await listResidents(database, user) });
+  }
   if (route === 'push-key' && !mutate) return Response.json({ publicKey: getConfig().publicKey });
   if (route === 'dashboard' && !mutate) return Response.json(await snapshot(database));
-  if (route === 'logout' && mutate) return new Response(null, { headers: { 'Set-Cookie': `${SESSION.cookie}=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0` } });
   if (route === 'settings' && mutate) {
     const input = z.object({ name: z.string().trim().min(1).max(DOORBELL.nameMaxLength), enabled: z.boolean() }).parse(await body(request));
     await database.query('UPDATE homes SET name = $1, enabled = $2 WHERE id = 1', [input.name, input.enabled]);
@@ -62,7 +64,7 @@ async function handle(request: NextRequest, path: string[]) {
   }
   if (route === 'subscribe' && mutate) {
     const input = z.object({ name: z.string().trim().min(1).max(DOORBELL.nameMaxLength), subscription: subscriptionSchema }).parse(await body(request));
-    await saveDevice(database, input.name, input.subscription);
+    await saveDevice(database, input.name, input.subscription, user);
     return Response.json({ ok: true });
   }
   if (route === 'remove-device' && mutate) {

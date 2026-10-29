@@ -5,6 +5,8 @@ import type { DeliveryStatus } from '@/types/doorbell';
 import type { Database } from './database';
 import { getConfig } from './config';
 import { AppError } from './errors';
+import { resolveResidentAccess, residentSettings } from './residents';
+import type { ResidentIdentity } from '../types/auth';
 
 export const subscriptionSchema = z.object({
   endpoint: z.url().max(2048).refine((endpoint) => {
@@ -14,13 +16,14 @@ export const subscriptionSchema = z.object({
   keys: z.object({ p256dh: z.string().length(87).regex(PUSH_KEY_PATTERN), auth: z.string().length(22).regex(PUSH_KEY_PATTERN) }),
 });
 
-export async function saveDevice(database: Database, name: string, subscription: webpush.PushSubscription) {
+export async function saveDevice(database: Database, name: string, subscription: webpush.PushSubscription, user: ResidentIdentity, settings = residentSettings()) {
   return database.transaction(async (transaction) => {
     await transaction.query('SELECT id FROM homes WHERE id = 1 FOR UPDATE');
+    await resolveResidentAccess(transaction, user, settings);
     const existing = await transaction.query('SELECT id FROM devices WHERE endpoint = $1', [subscription.endpoint]);
     const count = await transaction.query<{ count: string }>('SELECT COUNT(*)::text AS count FROM devices');
     if (!existing.rows.length && Number(count.rows[0].count) >= DOORBELL.maxDevices) throw new AppError(HTTP.conflict, 'DEVICE_LIMIT', 'Llegaste al límite de 10 celulares. Eliminá uno para agregar otro.');
-    await transaction.query('INSERT INTO devices (id, name, endpoint, subscription) VALUES ($1, $2, $3, $4::jsonb) ON CONFLICT (endpoint) DO UPDATE SET name = EXCLUDED.name, subscription = EXCLUDED.subscription', [crypto.randomUUID(), name, subscription.endpoint, JSON.stringify(subscription)]);
+    await transaction.query('INSERT INTO devices (id, name, endpoint, subscription, resident_email) VALUES ($1, $2, $3, $4::jsonb, $5) ON CONFLICT (endpoint) DO UPDATE SET name = EXCLUDED.name, subscription = EXCLUDED.subscription, resident_email = EXCLUDED.resident_email', [crypto.randomUUID(), name, subscription.endpoint, JSON.stringify(subscription), user.email.trim().toLowerCase()]);
   });
 }
 

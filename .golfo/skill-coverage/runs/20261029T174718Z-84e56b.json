@@ -1,0 +1,349 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:eb2a1c00c04c1cb5f27d419526220e86e37d73b68acc1176dcbd761a1b023e7a",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/app/globals.css",
+      "src/app/page.tsx",
+      "src/components/dashboard.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/lib/auth-client.ts",
+      "src/proxy.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/neon-auth.ts",
+      "src/server/resident-access.ts",
+      "src/types/auth.ts"
+    ],
+    "fileCount": 28,
+    "inputCount": 126
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:47:18.194Z",
+      "source": "attested",
+      "summary": "Migracion a Neon administrado: sign-in/signup/OTP/reset/logout pending, SDK oficial sin fallback; proxy renueva cookies, acceso privado exige sesion y correo verificado en allowlist antes de BD. Review independiente sin Important abiertos."
+    },
+    {
+      "command": "npm run typecheck",
+      "durationMs": 2148,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "b0b761c704294ebf222af97f02b21401866e1c287dd4866353309dc7f0633ba2",
+      "recordedAt": "2026-10-29T17:47:20.548Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:48:30.219Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin: UI signin/signup/OTP/recuperacion y denegacion sin config; contra Neon real registro de cuenta sintetica, sesion, denegacion de vivienda sin verificar, logout y nuevo login. Cuenta eliminada por CLI. No se probaron OTP recibidos ni acceso privilegiado invitado."
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-29T17:48:30.539Z",
+  "result": "verified",
+  "runId": "20261029T174718Z-84e56b",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "44 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@neondatabase/auth",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/[...path]/route.ts#handle",
+        "reason": "route file changed: segment layout, boundary or page"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/page.tsx#Page",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/config/database.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/config/database.ts#getPostgresConfig",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.cookieSecretMinimumLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.sessionCacheSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.forbidden",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.unauthorized",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.cookie",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.lifetimeSeconds",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.minimumPasswordLength",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION~frame",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#authClient",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#<module>",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#config.matcher",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#config~frame",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#proxy",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#authenticated",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#createSession",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#limitLogin",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#matchesPassword",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#validSession",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#getConfig",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#LocalSecrets",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#connect",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#Database",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#auth",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/postgres.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/postgres.ts#createPostgresPool",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-access.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-access.ts#authorizeResident",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/types/auth.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/auth.ts#ResidentIdentity",
+        "reason": "new code rendered by the route"
+      }
+    ],
+    "suggestedScope": [
+      "package @neondatabase/auth — whether what the route imports from this package runs on the server or needs a client island",
+      "src/app/api/[...path]/route.ts › handle — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+      "src/app/page.tsx › Page — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+      "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/config/database.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/config/database.ts › getPostgresConfig — server/client split and awaited work of this code in every route of the unit",
+      "src/constants/auth.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/constants/auth.ts › AUTH.cookieSecretMinimumLength — route configuration read from this member, in every segment that uses it",
+      "src/constants/auth.ts › AUTH.sessionCacheSeconds — route configuration read from this member, in every segment that uses it",
+      "src/constants/auth.ts › AUTH (object structure) — server/client split and awaited work of this code in every route of the unit",
+      "src/constants/doorbell.ts › HTTP.forbidden — route configuration read from this member, in every segment that uses it",
+      "src/constants/doorbell.ts › HTTP.unauthorized — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/constants/doorbell.ts › SESSION.cookie — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/constants/doorbell.ts › SESSION.lifetimeSeconds — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/constants/doorbell.ts › SESSION.minimumPasswordLength — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/constants/doorbell.ts › SESSION (object structure) — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/lib/auth-client.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/lib/auth-client.ts › authClient — server/client split and awaited work of this code in every route of the unit",
+      "src/proxy.ts (module directives and side effects) — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+      "src/proxy.ts › config.matcher — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+      "src/proxy.ts › config (object structure) — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+      "src/proxy.ts › proxy — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+      "src/server/auth.ts › authenticated — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/server/auth.ts › createSession — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/server/auth.ts › getIdentity — server/client split and awaited work of this code in every route of the unit",
+      "src/server/auth.ts › limitLogin — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/server/auth.ts › matchesPassword — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/server/auth.ts › requireAuth — server/client split and awaited work of this code in every route of the unit",
+      "src/server/auth.ts › validSession — what the route lost: a layout, a boundary, a Suspense fallback or a client island; check that each state still has its boundary",
+      "src/server/config.ts › getConfig — server/client split and awaited work of this code in every route of the unit",
+      "src/server/config.ts › LocalSecrets — server/client split and awaited work of this code in every route of the unit",
+      "src/server/database.ts › connect — server/client split and awaited work of this code in every route of the unit",
+      "src/server/database.ts › Database — server/client split and awaited work of this code in every route of the unit",
+      "src/server/database.ts › getDatabase — server/client split and awaited work of this code in every route of the unit",
+      "src/server/neon-auth.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/server/neon-auth.ts › auth — server/client split and awaited work of this code in every route of the unit",
+      "src/server/neon-auth.ts › authConfigured — server/client split and awaited work of this code in every route of the unit",
+      "src/server/neon-auth.ts › getNeonAuth — server/client split and awaited work of this code in every route of the unit",
+      "src/server/postgres.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/server/postgres.ts › createPostgresPool — server/client split and awaited work of this code in every route of the unit",
+      "src/server/resident-access.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/server/resident-access.ts › authorizeResident — server/client split and awaited work of this code in every route of the unit",
+      "src/types/auth.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/types/auth.ts › ResidentIdentity — server/client split and awaited work of this code in every route of the unit"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "summary": "Proxy oficial renueva cookies fuera de RSC; signin y reset publicos con limites correctos; typecheck y navegacion real contra Neon aprobados.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T17:47:18.024Z",
+  "unitId": "ringgg.resident"
+}

@@ -1,0 +1,474 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:ac90fe35b2a5cf4b43f580af3483f3ea49e558dbe6efb0b55e6b7515e6304d07",
+    "uncommittedFiles": [
+      "src/app/api/auth/[...path]/route.ts",
+      "src/components/login.tsx",
+      "src/constants/auth.ts",
+      "src/constants/doorbell.ts",
+      "src/lib/auth-client.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/neon-auth.ts",
+      "src/server/resident-access.ts",
+      "src/types/auth.ts"
+    ],
+    "fileCount": 12,
+    "inputCount": 65
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:47:04.665Z",
+      "source": "attested",
+      "summary": "Migracion a Neon administrado: sign-in/signup/OTP/reset/logout pending, SDK oficial sin fallback; proxy renueva cookies, acceso privado exige sesion y correo verificado en allowlist antes de BD. Review independiente sin Important abiertos."
+    },
+    {
+      "command": "npm test -- tests/resident-access.test.ts",
+      "durationMs": 832,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "4adac513a2ac08361c7da3887d9ef736da89804a275bd0738c034c6fb499c055",
+      "recordedAt": "2026-10-29T17:47:05.654Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npm run test:e2e",
+      "durationMs": 11017,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "1f29d72c01c0f142bef5fa96794227ec4a094119492131b8eb5401141c8a8631",
+      "recordedAt": "2026-10-29T17:47:33.523Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npm run test:neon",
+      "durationMs": 7557,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "f91b08a027d13675a7305aca927486683e65f901e17bcee6c3439925b1081a0e",
+      "recordedAt": "2026-10-29T17:47:41.286Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T17:48:27.209Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin: UI signin/signup/OTP/recuperacion y denegacion sin config; contra Neon real registro de cuenta sintetica, sesion, denegacion de vivienda sin verificar, logout y nuevo login. Cuenta eliminada por CLI. No se probaron OTP recibidos ni acceso privilegiado invitado."
+    }
+  ],
+  "limitations": [
+    "Falta correo real autorizado para OTP, recuperacion y acceso privilegiado; las E2E privilegiadas se omiten explicitamente."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion."
+  ],
+  "recordedAt": "2026-10-29T17:48:27.523Z",
+  "result": "partial",
+  "runId": "20261029T174704Z-311d93",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "69 of 61 parts changed: the unit is reviewed as a whole"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "removed",
+        "key": "pkg:@electric-sql/pglite",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "pkg:@neondatabase/auth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "pkg:next",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "pkg:pg",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#DELETE",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#dynamic",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#GET",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#handler",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#PATCH",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#POST",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#PUT",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/auth/[...path]/route.ts#runtime",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/components/login.tsx#Login",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/action",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/changeMode",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/showError",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/submit",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.cookieSecretMinimumLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.maximumPasswordLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.minimumPasswordLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.sessionCacheSeconds",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.verificationCodeLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AuthFormMode",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.tooMany",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.unavailable",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.cookie",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.lifetimeSeconds",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.loginWindowSeconds",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.maxLoginAttempts",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION.minimumPasswordLength",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#SESSION~frame",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/lib/api.ts#<module>",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/lib/api.ts#api",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/auth-client.ts#authClient",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#authenticated",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#createSession",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#limitLogin",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#matchesPassword",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#validSession",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#getConfig",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#LocalSecrets",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#<module>",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#connect",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#Database",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#databaseGlobal",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#initialize",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#errorResponse",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#auth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-access.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-access.ts#authorizeResident",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/types/auth.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/types/auth.ts#ResidentIdentity",
+        "reason": "new visible or interactive code"
+      }
+    ],
+    "suggestedScope": [
+      "whole unit ringgg.login: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Sesion Neon real, logout y denegacion no verificada aprobados. Sin mocks del proveedor ni fallback local.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T17:47:04.506Z",
+  "unitId": "ringgg.login"
+}

@@ -1,0 +1,201 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "main",
+    "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+    "fingerprint": "sha256:852407a37df84463d637aad83b7dcc12ed47b2b11af2c455b86e8814a239661d",
+    "uncommittedFiles": [
+      "src/app/api/[...path]/route.ts",
+      "src/components/dashboard.tsx",
+      "src/components/resident-management.tsx",
+      "src/constants/doorbell.ts",
+      "src/constants/residents.ts",
+      "src/lib/auth-client.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/push.ts",
+      "src/server/residents.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 16,
+    "inputCount": 87
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:54:40.374Z",
+      "source": "attested",
+      "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
+    },
+    {
+      "command": "npm test -- tests/residents.test.ts",
+      "durationMs": 2031,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "bd1f17fcbefc19f667eaddf5af722b5040069fc9c897b6e01d6245e1ce221ead",
+      "recordedAt": "2026-10-29T21:54:42.582Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-29T21:55:36.984Z",
+      "source": "attested",
+      "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+    }
+  ],
+  "limitations": [
+    "Falta registro y verificacion real del propietario para recorrer el panel completo con su identidad."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Crear/verificar cuenta del propietario y recorrer Residentes desde el panel."
+  ],
+  "recordedAt": "2026-10-29T21:55:37.362Z",
+  "result": "partial",
+  "runId": "20261029T215440Z-cf592c",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/[...path]/route.ts#handle",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/residents.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/residents.ts#RESIDENTS.emailMaxLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/residents.ts#RESIDENTS~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#addResident",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#emailList",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidents",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#removeResident",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#requireResidentAdmin",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#residentEmailSchema",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#residentSettings",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#DashboardData",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentEntry",
+        "reason": "new visible or interactive code"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion.",
+      "whole unit ringgg.resident: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Integracion real de reglas y componente aprobado; bootstrap protegido y revocacion probados. No se simulo Neon ni su verificacion.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T21:54:40.214Z",
+  "unitId": "ringgg.resident"
+}

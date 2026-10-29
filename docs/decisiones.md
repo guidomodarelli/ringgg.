@@ -5,7 +5,10 @@
 | `src/server/database.ts` | PostgreSQL externo y PostgreSQL embebido, esquema y transacciones |
 | `src/server/doorbell.ts` | Registro, idempotencia, cooldown y respuesta de visitas |
 | `src/server/push.ts` | Suscripciones válidas, envío acotado y resultados parciales |
-| `src/server/auth.ts` | Sesión, clave de residente, origen y límite de intentos |
+| `src/server/auth.ts` | Identidad de Neon, autorización del residente y origen de las mutaciones |
+| `src/server/neon-auth.ts` | SDK administrado de Neon y configuración de cookies |
+| `src/server/resident-access.ts` | Autorización de correos verificados para la vivienda |
+| `src/proxy.ts` | Renovación de sesiones antes del render del panel |
 | `src/app/api/[...path]/route.ts` | Autorización, validación y respuestas HTTP seguras |
 | `src/components/dashboard.tsx` | Acciones privadas, historial y dispositivos |
 | `src/components/visitor.tsx` | Tocar timbre y esperar una respuesta explícita |
@@ -24,3 +27,7 @@ Todas las mutaciones esperan confirmación del servidor. No se anticipan éxitos
 | Configuración | guardando, confirmado, error | conserva inputs, no adelanta éxito |
 
 No se conectó un sink de soporte externo porque no hay ninguno configurado. Los errores inesperados se correlacionan con un identificador seguro en la respuesta y logs JSON sin mensajes de visitantes, endpoints push ni credenciales. No se promete un reporte enviado a soporte.
+
+La autenticación anterior con clave compartida se reemplazó por Neon Managed Better Auth. `/api/auth/[...path]` usa el handler oficial; nunca se aceptan usuarios enviados por el navegador como identidad de servidor. La vivienda del MVP sigue siendo única y solo acceden correos verificados incluidos en `RESIDENT_EMAILS`, sin asignar automáticamente propiedad al primer registro. El proxy protege únicamente `/`; las API privadas revalidan identidad y autorización por separado antes de abrir la base.
+
+El SDK instalado fijaba dependencias Better Auth y Zod con avisos críticos/altos. Se fijaron parches compatibles mediante overrides, comprobados con typecheck, build y login real. Persisten avisos bajos transitivos del árbol de UI que el flujo propio no importa. No se utiliza el proveedor autohospedado de Better Auth ni se reemplaza el wrapper administrado de Neon.

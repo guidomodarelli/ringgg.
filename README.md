@@ -11,15 +11,19 @@ npm install
 npm run dev
 ```
 
-Abrir http://localhost:3000. Al cargar la página, la terminal muestra una **clave local aleatoria** para ingresar al panel. La clave y las claves VAPID automáticas duran hasta reiniciar el proceso. Para conservar sesiones y suscripciones entre reinicios, copiar `.env.example` a `.env.local` y configurar credenciales propias. Nunca subir ese archivo a Git.
+Abrir http://localhost:3000. El acceso usa **Better Auth administrado por Neon**, mediante correo y contraseña. Ya no se acepta la clave compartida anterior ni sus cookies. El código incluye registro, verificación por código, recuperación de contraseña y cierre de sesión.
 
-En esta entrega ya existe un `.env.local` privado con credenciales locales y claves VAPID estables. La clave de acceso está en `ADMIN_PASSWORD` de ese archivo. No se usa ninguna credencial de producción.
+`.env.local` contiene las URLs que obtiene `neon deploy`, un secreto local estable `NEON_AUTH_COOKIE_SECRET` y las claves VAPID. Nunca subir este archivo a Git. Para habilitar residentes, configurar `RESIDENT_EMAILS` con sus correos separados por coma. Cada correo debe estar verificado en Neon; registrarse por cuenta propia no concede acceso al panel.
 
-Los datos se guardan en PostgreSQL embebido (PGlite) en `.data/postgres`; sobreviven a reinicios. Sin `DATABASE_URL` no se contacta ningún servicio externo de base de datos. No abrir dos procesos contra el mismo directorio.
+El administrador inicial se configura en `RESIDENT_ADMIN_EMAILS`. Puede abrir **Residentes** en el panel para autorizar más correos y quitar accesos. Los nuevos permisos se guardan en PostgreSQL y funcionan sin reiniciar la app. Autorizar un correo no crea su cuenta ni envía un email: esa persona debe registrarse y verificarlo. Los residentes normales no pueden modificar esta lista.
+
+Al quitar un residente se revoca su acceso al panel y se eliminan los dispositivos que registró con su cuenta. Los dispositivos anteriores a esta asociación, si existen, se desconectan manualmente desde Dispositivos. Los accesos declarados en las variables de entorno se muestran protegidos y no se pueden eliminar desde la UI.
+
+La app usa el PostgreSQL remoto de Neon cuando existe `DATABASE_URL`. Sin esa variable, el desarrollo de datos puede usar PostgreSQL embebido (PGlite) en `.data/postgres`; esto no reemplaza a Neon Auth. Nunca se simula el proveedor de identidad ni se habilita un acceso alternativo. No abrir dos procesos contra el mismo directorio local.
 
 ## Uso
 
-1. Ingresar al panel. Cambiar el nombre de la casa en Configuración.
+1. Crear una cuenta o ingresar en `/sign-in`. Verificar el correo mediante el código de Neon. El administrador debe incluirlo en `RESIDENT_EMAILS`. Luego cambiar el nombre de la casa en Configuración.
 2. Instalar Ringgg desde el navegador. En iPhone: Compartir → Agregar a Inicio → abrir desde su ícono.
 3. En Dispositivos, nombrar el celular, activar las notificaciones y enviar una prueba.
 4. Descargar el QR y colocarlo en la puerta. El visitante no instala nada ni inicia sesión.
@@ -29,7 +33,21 @@ Los avisos se envían con Web Push nativo (`web-push`), urgencia alta y vencimie
 
 ## Conectar Neon
 
-La app ya está preparada para Neon usando el cliente PostgreSQL `pg`. No requiere una API key de Neon ni cambiar el frontend.
+El proyecto está vinculado a `broad-meadow-57190517`, organización `org-sparkling-rain-48651750`, rama `production`. `neon.ts` declara Auth; PostgreSQL forma parte de cada rama. Se conservan los Route Handlers de Next.js y el driver `pg`, con conexiones pooled para tráfico de la app y `DATABASE_URL_UNPOOLED` disponible para herramientas de esquema.
+
+```sh
+neon login
+neon init -y --no-agent-setup --org-id org-sparkling-rain-48651750 --project-id broad-meadow-57190517 --branch production --services "postgres,auth"
+neon deploy
+npm run db:check
+npm run auth:check
+```
+
+El login del CLI se completa en el navegador. `neon deploy` obtiene `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `NEON_BRANCH`, `NEON_AUTH_BASE_URL` y `NEON_AUTH_JWKS_URL`. El secreto de cookies es propio de la aplicación y debe tener al menos 32 caracteres; no se obtiene de Neon. Se generó uno local sin alterar las claves VAPID. El servicio acepta localhost; para publicar, agregar el origen HTTPS de la app a los dominios confiables de Neon Auth.
+
+La configuración de herramientas incluye `.codex/config.toml` con MCP OAuth limitado al proyecto, las skills `neon`, `neon-auth` y `neon-postgres` en `.agents/skills/` y `skills-lock.json`. No se guardan tokens en los archivos de configuración versionables.
+
+Si se configura manualmente la base, los pasos son:
 
 1. En tu proyecto de Neon, abrí **Connect** y seleccioná la rama, base de datos y rol que usará Ringgg. Para pruebas, conviene una rama de desarrollo separada de producción.
 2. Activá **Connection pooling** y copiá la URL completa (el servidor incluye `-pooler`). El rol debe poder crear tablas en esa base para la inicialización del MVP.
@@ -48,14 +66,16 @@ Referencia: [connection pooling de Neon](https://neon.com/docs/connect/connectio
 
 ## Vercel + Neon
 
-Este proyecto se prepara localmente para Vercel; no está desplegado ni vinculado a servicios pagos.
+El backend está conectado al proyecto Neon indicado; la web todavía no se publicó en Vercel.
 
 1. Crear la base Neon y obtener su conexión pooled como se explica arriba.
 2. Configurar estas variables en Vercel:
    - `DATABASE_URL`: conexión pooled de Neon. Obligatoria en Vercel; nunca se usa almacenamiento local allí. Configurar ramas diferentes para Preview y Production cuando se necesite aislamiento.
    - `APP_URL`: origen HTTPS definitivo, por ejemplo `https://timbre.example.com`. Se verifica para proteger las mutaciones. Usar un valor distinto para cada deployment de preview.
-   - `ADMIN_PASSWORD`: clave de residente, mínimo 12 caracteres. Todos los residentes de esta vivienda comparten esta clave.
-   - `SESSION_SECRET`: secreto aleatorio de al menos 32 caracteres. Cambiarlo invalida las sesiones.
+   - `NEON_AUTH_BASE_URL`: URL del servicio administrado de la misma rama.
+   - `NEON_AUTH_COOKIE_SECRET`: secreto estable aleatorio de al menos 32 caracteres; usar uno propio del entorno publicado.
+   - `RESIDENT_EMAILS`: lista de residentes de esta única vivienda, separados por coma. Deben tener el correo verificado.
+   - `RESIDENT_ADMIN_EMAILS`: administradores iniciales protegidos, separados por coma. Pueden gestionar residentes desde el panel; también deben verificar su correo.
    - `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`: par estable de claves generado con `npx web-push generate-vapid-keys`.
    - `VAPID_SUBJECT`: un contacto válido con formato `mailto:tu-email@example.com`.
 3. Build: `npm run build`. El esquema se inicializa de manera idempotente al primer acceso.
@@ -66,7 +86,7 @@ Web Push requiere HTTPS, excepto localhost. Una IP HTTP de la red local no sirve
 
 ## Contratos y límites
 
-- Panel protegido por cookie HttpOnly con firma HMAC, SameSite Strict y Secure bajo HTTPS; las mutaciones validan Origin.
+- Panel y endpoints privados protegidos con sesiones validadas por el SDK de Neon. El proxy de Next.js renueva cookies antes de renderizar el panel; login, recuperación, auth y QR público quedan fuera del matcher. La autorización exige correo verificado y allowlist; las mutaciones de negocio validan Origin.
 - El QR es una capacidad pública revocable: permite tocar el timbre, nunca administrar. No demuestra presencia física.
 - Cooldown global de 30 segundos con bloqueo transaccional; IDs de operación persistidos evitan duplicar timbrazos al reintentar.
 - Se espera a que finalicen los envíos a un máximo de diez dispositivos. Se distinguen envío total, parcial y no disponible; no se reenvía automáticamente un push de resultado incierto.
@@ -74,7 +94,7 @@ Web Push requiere HTTPS, excepto localhost. Una IP HTTP de la red local no sirve
 - El panel y la página de espera consultan cada cinco segundos; no se superponen consultas y el panel deja de consultar oculto. La espera del visitante termina a los dos minutos.
 - Se muestran hasta 50 visitas. Al registrar una nueva se purgan visitas con más de 30 días. No se guardan nombres de visitantes separados, teléfono, dirección ni IP de visitas.
 - El service worker solo guarda la pantalla sin conexión. No cachea el panel, mensajes ni respuestas privadas.
-- Para más viviendas, invitaciones o cuentas individuales, agregar un modelo multiusuario y autorización por vivienda antes de ampliar este MVP.
+- Ya existen cuentas individuales, todas asociadas mediante allowlist a esta única vivienda. Para más viviendas o administración de invitaciones desde la app, agregar membresías y permisos por vivienda antes de ampliar este MVP.
 
 ## Verificación
 
@@ -84,8 +104,13 @@ npm run typecheck
 npm run build
 npx playwright install chromium
 npm run test:e2e
+npm run db:check
+npm run auth:check
+npm run test:neon
 ```
 
-Las pruebas de integración ejecutan PostgreSQL real embebido, sin mocks de servicios internos. Las E2E recorren login, QR, doble toque, respuesta del residente, pausa, rotación, acceso privado y tamaños móviles. Cada ejecución E2E usa su propio directorio `.data/e2e-<pid>` para no alterar tus datos.
+Las pruebas de integración ejecutan PostgreSQL real embebido, sin mocks de servicios internos. Las E2E usan su propio directorio `.data/e2e-<pid>` para no alterar la vivienda remota. Las pruebas de acceso privilegiado requieren `E2E_NEON_AUTH_EMAIL` y `E2E_NEON_AUTH_PASSWORD` de una cuenta de prueba verificada; sin ellas se omiten explícitamente y no se inventan sesiones.
+
+`npm run test:neon` requiere la app iniciada y las variables reales. Crea una cuenta sintética temporal en el proveedor, prueba registro, login, sesión, logout y bloqueo del panel sin verificar, y la elimina mediante el CLI. Con la configuración actual de Neon no se envía automáticamente correo al registrar; la prueba nunca solicita OTP ni recuperación. La recepción de códigos y el ingreso de un residente verificado se completan con un correo real autorizado.
 
 El envío y la recepción física de Web Push deben validarse con un dispositivo real y credenciales estables. Las pruebas locales no afirman entrega por Apple/Google/Mozilla.
