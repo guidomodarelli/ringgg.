@@ -33,9 +33,12 @@ function serializeSnapshot({ home, visits, devices }: DashboardSnapshot) {
   return JSON.stringify({ home, visits, devices });
 }
 
-/** Visits still inside the answer window (plus one poll) need the clock to expire their buttons. */
-function awaitingAnswer(visits: Visit[]) {
-  return visits.some((visit) => !visit.answered_at && Date.now() - new Date(visit.created_at).getTime() < DOORBELL.responseWindowSeconds * 1000 + DOORBELL.pollIntervalMs);
+/**
+ * The clock must tick while the rendered clock still shows an answerable visit, so a tab resumed
+ * after the window advances once and hides the reply buttons before ticks stop.
+ */
+function awaitingAnswer(visits: Visit[], renderedNow: number | null) {
+  return visits.some((visit) => !visit.answered_at && (renderedNow === null || renderedNow - new Date(visit.created_at).getTime() < DOORBELL.responseWindowSeconds * 1000));
 }
 
 function statusLabel(home: DashboardSnapshot['home']) {
@@ -74,6 +77,8 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   const visitsRef = useRef(initial.visits);
   visitsRef.current = data.visits;
   const lastSnapshot = useRef(serializeSnapshot(initial));
+  const nowRef = useRef(now);
+  nowRef.current = now;
   useEffect(() => {
     let controller: AbortController | undefined;
     let timer: ReturnType<typeof setTimeout>;
@@ -82,7 +87,7 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
     async function refresh() {
       if (running || stopped) return;
       running = true; clearTimeout(timer);
-      if (awaitingAnswer(visitsRef.current)) setNow(Date.now());
+      if (awaitingAnswer(visitsRef.current, nowRef.current)) setNow(Date.now());
       if (document.visibilityState === 'visible' && !actionLock.current) {
         const generation = refreshGeneration.current;
         controller = new AbortController();
@@ -92,7 +97,7 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
           if (!stopped && !actionLock.current && generation === refreshGeneration.current && serialized !== lastSnapshot.current) {
             lastSnapshot.current = serialized;
             setData((previous) => ({ ...previous, ...fresh }));
-            if (awaitingAnswer(fresh.visits)) setNow(Date.now());
+            if (awaitingAnswer(fresh.visits, nowRef.current)) setNow(Date.now());
           }
         }
         catch (error) { if (!controller.signal.aborted && !stopped) setError(error instanceof Error ? error.message : 'No pudimos actualizar.'); }

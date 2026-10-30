@@ -49,6 +49,7 @@ test('el panel reconcilia cada acción con su propia respuesta y no re-renderiza
     const registration = { pushManager: { getSubscription: async () => ({ endpoint: 'https://fcm.googleapis.com/fcm/send/perf' }) } };
     Object.defineProperty(navigator, 'serviceWorker', { value: { register: async () => registration, ready: Promise.resolve(registration), addEventListener() {}, removeEventListener() {} } });
   });
+  await page.clock.install();
   try {
     await page.goto(`http://127.0.0.1:${port}/`);
     await page.waitForTimeout(1500);
@@ -62,6 +63,12 @@ test('el panel reconcilia cada acción con su propia respuesta y no re-renderiza
     await measureWindow('answer visit', async () => { await page.getByRole('button', { name: 'Ya voy', exact: true }).click(); await page.getByText('Atendido', { exact: true }).waitFor(); });
     await page.goto(`http://127.0.0.1:${port}/?view=qr`); await page.waitForTimeout(1000);
     await measureWindow('rotate QR', async () => { await page.getByRole('button', { name: 'Regenerar QR' }).click(); await page.getByRole('button', { name: 'Sí, crear nuevo QR' }).click(); await page.getByText('Nuevo QR creado', { exact: false }).waitFor(); });
+    // A tab suspended during the answer window resumes after it: the buttons must disappear.
+    const late = crypto.randomUUID(); await registerVisit(db, (await getHome(db)).token, late, 'Visita suspendida', 'perf-client-2');
+    await page.goto(`http://127.0.0.1:${port}/?view=history`);
+    await expect(page.getByRole('button', { name: 'Ya voy', exact: true })).toBeVisible();
+    await page.clock.fastForward('02:10');
+    await expect(page.getByRole('button', { name: 'Ya voy', exact: true })).toHaveCount(0, { timeout: 15_000 });
   } finally { server.close(); await pg.close(); }
   const r = results as Record<string, { requests: string[]; commits: number }>;
   expect(r.idle.requests).toEqual(['GET /api/dashboard', 'GET /api/dashboard']);
