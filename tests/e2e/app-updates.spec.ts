@@ -184,6 +184,28 @@ test('un cambio en vuelo de cualquier componente frena la recarga, y la navegaci
   } finally { await fixture.close(); }
 });
 
+test('si el formulario se cierra mientras guarda, la navegación que sigue a su respuesta no traba las recargas', async ({ page }) => {
+  const fixture = await serveDeployments();
+  try {
+    await openApp(page, fixture.url);
+    await page.getByRole('button', { name: 'Guardar cambio' }).click();
+    await expect.poll(() => fixture.held.saves.length).toBe(1);
+    // Switching homes closes the form; its save keeps going and still opens the next page.
+    await page.getByRole('button', { name: 'Cambiar de casa' }).click();
+    await expect(page.getByRole('button', { name: 'Guardar cambio' })).toHaveCount(0);
+    fixture.answerSaves();
+    await expect.poll(() => fixture.held.nextPages.length).toBe(1);
+    fixture.answerNextPages();
+    await expect(page).toHaveURL(`${fixture.url}${NEXT_PAGE}`);
+    await expect(page.getByRole('status')).toHaveText('Sin acciones');
+    expect(fixture.deployment.pageLoads).toEqual(['/']);
+    // The closed form left nothing counted, so the next return with a new deploy reloads.
+    fixture.deployment.version = 'deploy-2';
+    await leaveAndReturn(page);
+    await expect.poll(() => fixture.deployment.pageLoads).toEqual(['/', NEXT_PAGE]);
+  } finally { await fixture.close(); }
+});
+
 test('si se abre otra página mientras lee la versión no la corta: recarga en la próxima vuelta, ya en esa página', async ({ page }) => {
   const fixture = await serveDeployments();
   try {

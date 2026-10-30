@@ -20,18 +20,11 @@ interface NavigationEvent extends Event { navigationType: string }
   sessionStorage.setItem(RELOADS_STARTED_STORAGE_KEY, String(reloadsStarted + 1));
 });
 
-/**
- * A page that keeps the app busy on demand, like an action running in the panel, and that saves a
- * change on its own, like the forms that keep their own pending state. Once the change is saved it
- * opens another page, as creating a home does.
- */
-function AppUpdatesFixture() {
-  const [busy, setBusy] = useState(false);
-  const [saving, setSaving] = useState(false);
+/** The form that saves a change, like the one that creates a home; it keeps saving after it unmounts. */
+function ChangeEditor({ saving, onSavingChange }: { saving: boolean; onSavingChange: (saving: boolean) => void }) {
   const navigate = useTrackedNavigation();
-  useAppUpdates({ busy, loadedVersion });
   async function save() {
-    setSaving(true);
+    onSavingChange(true);
     try {
       const { next } = await api<{ next: string }>('slow-save', { change: 'name' });
       // Like a router push inside the panel's tracked navigation: the next page is read first, and
@@ -40,15 +33,29 @@ function AppUpdatesFixture() {
         await fetch(next, { headers: { RSC: '1' } });
         window.history.pushState(null, '', next);
       });
-    } finally { setSaving(false); }
+    } finally { onSavingChange(false); }
   }
+  return <button type="button" disabled={saving} onClick={() => { void save(); }}>Guardar cambio</button>;
+}
+
+/**
+ * A page that keeps the app busy on demand, like an action running in the panel, and that saves a
+ * change on its own, like the forms that keep their own pending state. Once the change is saved it
+ * opens another page, as creating a home does. Switching homes closes the form while it saves.
+ */
+function AppUpdatesFixture() {
+  const [busy, setBusy] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [editorOpen, setEditorOpen] = useState(true);
+  useAppUpdates({ busy, loadedVersion });
   let status = 'Sin acciones';
   if (busy) status = 'Acción en curso';
   else if (saving) status = 'Guardando cambio';
   return <main>
     <p role="status">{status}</p>
     <button type="button" onClick={() => setBusy((current) => !current)}>{busy ? 'Terminar acción' : 'Empezar acción'}</button>
-    <button type="button" disabled={saving} onClick={() => { void save(); }}>Guardar cambio</button>
+    {editorOpen && <ChangeEditor saving={saving} onSavingChange={setSaving} />}
+    <button type="button" onClick={() => setEditorOpen(false)}>Cambiar de casa</button>
   </main>;
 }
 
