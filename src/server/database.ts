@@ -139,6 +139,13 @@ export const MIGRATIONS: Migration[] = [
     `CREATE INDEX IF NOT EXISTS device_homes_home_idx ON device_homes (home_id)`,
     assignDevicesToOriginalHome,
   ],
+  [
+    // Ringing only from near the door: the spot a resident saved there and whether the home asks for it.
+    // Additive: the previous deployment ignores these columns.
+    `ALTER TABLE homes ADD COLUMN IF NOT EXISTS latitude DOUBLE PRECISION`,
+    `ALTER TABLE homes ADD COLUMN IF NOT EXISTS longitude DOUBLE PRECISION`,
+    `ALTER TABLE homes ADD COLUMN IF NOT EXISTS nearby_only BOOLEAN NOT NULL DEFAULT FALSE`,
+  ],
 ];
 async function runStep(database: Database, step: MigrationStep) {
   if (typeof step === 'string') await database.query(step);

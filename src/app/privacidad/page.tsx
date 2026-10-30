@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Brand } from '@/components/brand';
 import { DOORBELL } from '@/constants/doorbell';
 import { PRIVACY_POLICY } from '@/constants/legal';
+import { NEARBY_RINGING } from '@/constants/location';
 
 export const metadata: Metadata = {
   title: 'Política de privacidad · ringgg.',
@@ -25,7 +26,7 @@ export default function PrivacyPolicyPage() {
     <h2>Qué datos guardamos</h2>
     <ul>
       <li><strong>Tu cuenta:</strong> tu correo, tu nombre y si verificaste el correo. Si ingresás con Google, recibimos solo esos tres datos; no accedemos a tus contactos, archivos, calendario ni a ningún otro dato de tu cuenta de Google.</li>
-      <li><strong>Tus casas:</strong> el nombre de cada casa, los correos autorizados como residentes, el nombre con el que te ven en cada casa, su QR y su configuración (pausa y horario de descanso).</li>
+      <li><strong>Tus casas:</strong> el nombre de cada casa, los correos autorizados como residentes, el nombre con el que te ven en cada casa, su QR y su configuración (pausa, horario de descanso y, si la cargan, la ubicación de la puerta).</li>
       <li><strong>Tus dispositivos:</strong> el nombre que le pusiste a cada uno, de quién es, la suscripción de notificaciones que da el navegador (una dirección del servicio de avisos y sus claves de cifrado) y cuándo recibió el último aviso.</li>
       <li><strong>Las visitas:</strong> el momento del timbrazo, el mensaje que la visita quiera dejar (es opcional), la respuesta elegida, quién respondió y la nota que la visita deje si nadie atiende. Se borran solas a los {DOORBELL.retentionDays} días.</li>
       <li><strong>Las visitas no necesitan cuenta.</strong> Para evitar abusos guardamos una huella cifrada de su dirección de red, nunca la dirección, y vence a los pocos minutos.</li>
@@ -41,6 +42,9 @@ export default function PrivacyPolicyPage() {
       <li><strong>Google</strong>, solo si elegís ingresar con tu cuenta de Google.</li>
     </ul>
     <p>Las visitas nunca ven quién respondió ni datos de los residentes: solo la respuesta.</p>
+
+    <h2>Ubicación</h2>
+    <p>Solo se usa si una casa activa «Tocar solo desde la puerta». En ese caso guardamos la ubicación de la puerta que registró un residente, y al tocar el timbre le pedimos su ubicación a la visita: la comparamos con la de la puerta para confirmar que está a menos de {NEARBY_RINGING.radiusMeters} metros y la descartamos. No guardamos dónde estaba la visita ni se la mostramos a los residentes.</p>
 
     <h2>Cookies y almacenamiento en tu navegador</h2>
     <p>Usamos una cookie de sesión para mantenerte adentro y otra que recuerda la última casa que abriste. Si elegís seguir sin avisos en un dispositivo, el navegador lo recuerda localmente. No hay cookies de terceros ni de seguimiento.</p>

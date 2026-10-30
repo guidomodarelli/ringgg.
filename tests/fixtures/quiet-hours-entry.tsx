@@ -5,7 +5,7 @@ import type { RunAction } from '../../src/components/dashboard/types';
 import type { HomeState } from '../../src/types/doorbell';
 
 function Fixture() {
-  const [home, setHome] = useState<HomeState>({ id: 1, name: 'Casa', token: 't', enabled: true, paused_until: null, quiet_start: null, quiet_end: null, paused: false, quiet: false });
+  const [home, setHome] = useState<HomeState>({ id: 1, name: 'Casa', token: 't', enabled: true, paused_until: null, quiet_start: null, quiet_end: null, latitude: null, longitude: null, nearby_only: false, paused: false, quiet: false });
   const [pending, setPending] = useState('');
   const run: RunAction = async (key, work) => {
     setPending(key);

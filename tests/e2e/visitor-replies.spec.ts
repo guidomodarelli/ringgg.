@@ -2,7 +2,8 @@ import { test, expect } from '@playwright/test';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { PGlite } from '@electric-sql/pglite';
 import { initialize } from '../../src/server/database';
-import { answerVisit, getHome, leaveNote, readVisit, registerVisit, setDelivery, snapshot } from '../../src/server/doorbell';
+import { answerVisit, getHome, leaveNote, publicHome, readVisit, registerVisit, setDelivery, snapshot } from '../../src/server/doorbell';
+import { setHomeLocation, setNearbyOnly } from '../../src/server/location';
 import { AppError } from '../../src/server/errors';
 import { bundleFixture } from './support/bundle-fixture';
 import { FIXTURE_HOME } from './support/dashboard-initial';
@@ -127,5 +128,65 @@ test('el residente responde con una respuesta rápida y el historial muestra qui
     await expect(row).toContainText('Guido · Pidió dejarlo en la puerta · respondió en');
     await expect(row.getByRole('button')).toHaveCount(0);
     expect(answers).toBe(1);
+  } finally { await fixture.close(); await postgres.close(); }
+});
+
+test('si la casa pide estar en la puerta, sin ubicación no se puede tocar ni cerrar el aviso', async ({ page, context }) => {
+  const postgres = new PGlite();
+  const database = testDatabase(postgres);
+  await initialize(database);
+  const door = { latitude: -34.6037, longitude: -58.3816 };
+  await setHomeLocation(database, FIXTURE_HOME, { ...door, accuracy: 10 });
+  await setNearbyOnly(database, FIXTURE_HOME, true);
+  const home = await getHome(database, FIXTURE_HOME);
+  const fixture = await serve('tests/fixtures/visitor-entry.tsx', `window.__VISITOR__=${JSON.stringify({ home: await publicHome(database, home.token), token: home.token })}`, async (request, response, path) => {
+    if (request.method !== 'POST' || path !== `door/${home.token}`) return false;
+    const input = await readBody(request);
+    const result = await registerVisit(database, home.token, { id: input.id, message: input.message, client: 'fixture-client', position: input.position });
+    if (result.created) await setDelivery(database, input.id, 'unavailable');
+    response.end(JSON.stringify(await readVisit(database, home.token, input.id))); return true;
+  });
+  try {
+    await page.goto(fixture.url);
+    const gate = page.getByRole('dialog', { name: 'Este timbre necesita tu ubicación.' });
+    await expect(gate).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Tocar timbre', exact: true })).toHaveCount(0);
+    // The browser in the test denies an ungranted location, like a visitor who blocked it.
+    await gate.getByRole('button', { name: 'Permitir ubicación' }).click();
+    await expect(gate.getByRole('alert')).toContainText('Bloqueaste la ubicación para esta página');
+    await page.keyboard.press('Escape');
+    await expect(gate).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Tocar timbre', exact: true })).toHaveCount(0);
+    // Allowing it in the browser settings is noticed by the open page, from the door the visitor can ring.
+    await context.setGeolocation({ latitude: door.latitude + 0.0004, longitude: door.longitude, accuracy: 20 });
+    await context.grantPermissions(['geolocation'], { origin: fixture.url });
+    await expect(gate).toHaveCount(0);
+    await page.getByRole('button', { name: 'Tocar timbre', exact: true }).click();
+    await expect(page.getByRole('heading', { name: '¡Ding, dong!' })).toBeVisible();
+    expect((await snapshot(database, FIXTURE_HOME)).visits).toHaveLength(1);
+  } finally { await fixture.close(); await postgres.close(); }
+});
+
+test('si la casa pide estar en la puerta, desde lejos el visitante ve que tiene que acercarse', async ({ page, context }) => {
+  const postgres = new PGlite();
+  const database = testDatabase(postgres);
+  await initialize(database);
+  const door = { latitude: -34.6037, longitude: -58.3816 };
+  await setHomeLocation(database, FIXTURE_HOME, { ...door, accuracy: 10 });
+  await setNearbyOnly(database, FIXTURE_HOME, true);
+  const home = await getHome(database, FIXTURE_HOME);
+  const fixture = await serve('tests/fixtures/visitor-entry.tsx', `window.__VISITOR__=${JSON.stringify({ home: await publicHome(database, home.token), token: home.token })}`, async (request, response, path) => {
+    if (request.method !== 'POST' || path !== `door/${home.token}`) return false;
+    const input = await readBody(request);
+    await registerVisit(database, home.token, { id: input.id, message: input.message, client: 'fixture-client', position: input.position });
+    return false;
+  });
+  try {
+    await context.setGeolocation({ latitude: door.latitude + 0.02, longitude: door.longitude, accuracy: 20 });
+    await context.grantPermissions(['geolocation'], { origin: fixture.url });
+    await page.goto(fixture.url);
+    await page.getByRole('button', { name: 'Tocar timbre', exact: true }).click();
+    await expect(page.getByRole('alert')).toContainText('Acercate para tocar el timbre');
+    expect((await snapshot(database, FIXTURE_HOME)).visits).toHaveLength(0);
   } finally { await fixture.close(); await postgres.close(); }
 });

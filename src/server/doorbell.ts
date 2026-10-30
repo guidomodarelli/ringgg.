@@ -8,8 +8,9 @@ import { AppError } from './errors';
 import { enforceRingLimits } from './rate-limit';
 import { homeNameSchema, requireFreeHomeName } from './homes';
 import { listResidentHomes, residentSettings } from './residents';
+import { requireNearby, requiresNearby } from './location';
 
-const HOME_COLUMNS = 'id, name, token, enabled, paused_until, quiet_start, quiet_end';
+const HOME_COLUMNS = 'id, name, token, enabled, paused_until, quiet_start, quiet_end, latitude, longitude, nearby_only';
 const PUBLIC_VISIT_COLUMNS = 'id, created_at, answered_at, delivery, reply, note IS NOT NULL AS noted';
 const RECEIPTS_COLUMN = '(SELECT COUNT(*)::int FROM visit_receipts r WHERE r.visit_id = visits.id) AS receipts';
 const VISIT_COLUMNS = `id, message, created_at, answered_at, delivery, reply, answered_by, note, noted_at, ${RECEIPTS_COLUMN}`;
@@ -60,7 +61,7 @@ export async function snapshot(database: Database, homeId: number): Promise<Dash
 export async function publicHome(database: Database, token: string): Promise<PublicHome> {
   const home = await homeByToken(database, token);
   const quiet = isQuietTime(home);
-  return { name: home.name, paused: isPaused(home), pausedUntil: pauseEnd(home), quiet, quietUntil: quiet ? home.quiet_end : null };
+  return { name: home.name, paused: isPaused(home), pausedUntil: pauseEnd(home), quiet, quietUntil: quiet ? home.quiet_end : null, nearbyOnly: requiresNearby(home) };
 }
 
 function pausedMessage(home: Home) {
@@ -81,6 +82,7 @@ export async function registerVisit(database: Database, token: string, ring: Rin
     }
     if (isPaused(home)) throw new AppError(HTTP.conflict, 'PAUSED', pausedMessage(home));
     if (isQuietTime(home)) throw new AppError(HTTP.conflict, 'QUIET_HOURS', `Ahora es horario de descanso en esta casa. Probá después de las ${home.quiet_end}.`);
+    requireNearby(home, ring.position);
     await enforceRingLimits(transaction, home.id, ring.client);
     await transaction.query(`DELETE FROM visits WHERE home_id = $2 AND created_at < NOW() - $1 * INTERVAL '1 day'`, [DOORBELL.retentionDays, home.id]);
     const result = await transaction.query<PublicVisit>(`INSERT INTO visits (id, home_id, message) VALUES ($1, $2, $3) RETURNING ${PUBLIC_VISIT_COLUMNS}`, [ring.id, home.id, ring.message]);
