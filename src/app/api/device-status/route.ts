@@ -1,14 +1,17 @@
 import { z } from 'zod';
-import { requireAuth } from '@/server/auth';
+import { requireHome, requireIdentity } from '@/server/auth';
 import { getDatabase } from '@/server/database';
+import { homeIdSchema } from '@/server/homes';
 import { apiRoute, readJson } from '@/server/http';
-import { hasRegisteredDevice, subscriptionSchema } from '@/server/push';
+import { findOwnDevice, subscriptionSchema } from '@/server/push';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+/** Tells this browser whether it rings for this home under the current resident, and which device it is. */
 export const POST = apiRoute('device-status', async (request) => {
-  const user = await requireAuth();
-  const input = await readJson(request, z.object({ endpoint: subscriptionSchema.shape.endpoint }));
-  return Response.json({ active: await hasRegisteredDevice(await getDatabase(), input.endpoint, user) });
+  const user = await requireIdentity();
+  const input = await readJson(request, z.object({ home: homeIdSchema, endpoint: subscriptionSchema.shape.endpoint }));
+  const member = await requireHome(user, input.home);
+  return Response.json(await findOwnDevice(await getDatabase(), input.endpoint, member));
 });

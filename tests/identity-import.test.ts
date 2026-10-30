@@ -1,13 +1,10 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 import { PGlite } from '@electric-sql/pglite';
-import type { Database } from '../src/server/database';
 import { importVerifiedIdentities } from '../src/server/identity-import';
+import { testDatabase } from './support/test-database';
 
 const postgres = new PGlite();
-const database: Database = {
-  query: (sql, params) => postgres.query(sql, params),
-  transaction: (work) => postgres.transaction((transaction) => work({ query: (sql, params) => transaction.query(sql, params), transaction: async () => { throw new Error('Nested transactions are unsupported'); } })),
-};
+const database = testDatabase(postgres);
 const residentId = 'a7ce44b0-0042-44e5-b324-ab813024828b';
 beforeAll(async () => {
   for (const schema of ['neon_auth', 'ringgg_auth_test']) {

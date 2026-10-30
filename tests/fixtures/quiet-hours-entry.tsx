@@ -5,12 +5,12 @@ import type { RunAction } from '../../src/components/dashboard/types';
 import type { HomeState } from '../../src/types/doorbell';
 
 function Fixture() {
-  const [home, setHome] = useState<HomeState>({ id: 1, name: 'Casa', token: 't', enabled: true, quiet_start: null, quiet_end: null, quiet: false });
+  const [home, setHome] = useState<HomeState>({ id: 1, name: 'Casa', token: 't', enabled: true, paused_until: null, quiet_start: null, quiet_end: null, paused: false, quiet: false });
   const [pending, setPending] = useState('');
   const run: RunAction = async (key, work) => {
     setPending(key);
     try { setHome(await work() as HomeState); return true; } catch { return false; } finally { setPending(''); }
   };
-  return <main style={{ padding: '0 6%' }}><SettingsSection home={home} pending={pending} run={run} /></main>;
+  return <main style={{ padding: '0 6%' }}><SettingsSection home={home} homes={1} residents={1} pending={pending} run={run} /></main>;
 }
 createRoot(document.getElementById('root')!).render(<Fixture />);

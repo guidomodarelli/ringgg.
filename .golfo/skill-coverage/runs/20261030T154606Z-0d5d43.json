@@ -1,0 +1,86 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:18421ec7b3b97836a17a838c96d52758ffa291099062ce06ec837211fabc5b29",
+    "uncommittedFiles": [
+      "src/app/cartel/loading.tsx",
+      "src/app/cartel/page.tsx",
+      "src/components/print-button.tsx",
+      "src/constants/auth.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/lib/names.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/neon-auth.ts",
+      "src/server/panel-home.ts",
+      "src/server/postgres.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 26,
+    "inputCount": 130
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:59:38.638Z",
+      "source": "attested",
+      "summary": "Solo lecturas: sin optimismo. Checks de lectura revisados: carga en servidor con skeleton, sin respuestas fuera de orden (no hay fetch en el cliente) y la impresión es local."
+    },
+    {
+      "command": "npx playwright test tests/e2e/doorbell.spec.ts --reporter=line",
+      "durationMs": 35482,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "825aeaf52cb92695cfbdd22090bc1928ffd5b358cb73d2342d2b4dd3ad89697c",
+      "recordedAt": "2026-10-30T16:00:14.362Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T16:00:15.036Z",
+  "result": "verified",
+  "runId": "20261030T154606Z-0d5d43",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.poster: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:06.506Z",
+  "unitId": "ringgg.poster"
+}

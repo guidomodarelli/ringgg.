@@ -2,113 +2,209 @@
   "latest": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "main",
-      "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+      "branch": "feature/mejoras-revision",
+      "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
       "files": {
-        "src/components/login.tsx": "2485868763a3dd87",
-        "src/server/auth.ts": "492761ac2a9f7a89",
-        "src/app/api/auth/[...path]/route.ts": "21d0812499c82c89",
-        "src/constants/auth.ts": "065319959dd17951",
-        "src/components/brand.tsx": "7432f1f6c5ce44c2",
+        "src/components/login.tsx": "68e09cca665eb297",
+        "src/server/auth.ts": "12d87f7b42214a39",
+        "src/app/api/auth/[...path]/route.ts": "8a7830cf56cdb207",
+        "src/constants/auth.ts": "5ce7e906628ec790",
+        "src/constants/doorbell.ts": "2edd18d9afbb7d3f",
+        "src/components/login-shell.tsx": "481e227736689715",
         "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
-        "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/constants/doorbell.ts": "a8a7ab58bd0eb226",
+        "src/server/errors.ts": "45863b0b5c1144b1",
         "src/types/auth.ts": "f3635cf0c001ea99",
-        "src/server/neon-auth.ts": "2d380118c966c8d0",
-        "src/types/residents.ts": "5e92dc2596b6084e",
-        "src/server/database.ts": "7adb74e7cd42285e",
-        "src/server/residents.ts": "4a8b65ee22a9989d",
-        "src/server/config.ts": "275ccaef3e809db0",
-        "src/server/postgres.ts": "b8ad79581c146c4c",
+        "src/server/neon-auth.ts": "0853ae91019a62c7",
+        "src/server/self-auth.ts": "a9dc6601b8d539eb",
+        "src/server/auth-mode.ts": "55ab5ff52eeb427d",
+        "src/types/residents.ts": "b7a6c448a73bacc3",
+        "src/server/database.ts": "f11b89b5e9ccd3e8",
+        "src/server/residents.ts": "eda9c188112cf624",
+        "src/server/config.ts": "24322283cee795e4",
+        "src/components/brand.tsx": "0aca2f770c5b0b91",
+        "src/server/postgres.ts": "2355b8fc585ab8e4",
+        "src/constants/devices.ts": "92d451596518c800",
+        "src/constants/homes.ts": "564484a011173893",
+        "src/lib/names.ts": "5fefc809b3ce8988",
         "src/server/resident-access.ts": "24da31381b0b4774",
+        "src/constants/environment.ts": "56dcab8047d696a2",
         "src/config/database.ts": "cfab3a8bb039650a",
         "src/constants/database.ts": "4f990a98f504bf0b"
       },
-      "fingerprint": "sha256:0436b4e9a62ad526cfe3dd2f8a169863119cb72c4e0126a8fbff896bb5456c90",
+      "fingerprint": "sha256:21ee456ff91d233ac541b7faee7f7f058eb2d2b56cd4f4dbfef68ade5a90b691",
       "inputs": {
         "src/components/login.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/login.tsx#DEFAULT_HINT": "31284a9d79315086",
+        "src/components/login.tsx#MODE_COPY.sign-in": "48a3371d2431c024",
+        "src/components/login.tsx#MODE_COPY.sign-up": "e64397210592d9eb",
+        "src/components/login.tsx#MODE_COPY.verify": "7cb2a701f38bf433",
+        "src/components/login.tsx#MODE_COPY.forgot": "763bb5e97b5f6ac5",
+        "src/components/login.tsx#MODE_COPY.reset": "be4516bf1d73d070",
+        "src/components/login.tsx#MODE_COPY~frame": "cc036df0b695c778",
+        "src/components/login.tsx#SIGNED_IN_COPY.title": "4a4bc52809905953",
+        "src/components/login.tsx#SIGNED_IN_COPY.hint": "1f152989e558ef68",
+        "src/components/login.tsx#SIGNED_IN_COPY~frame": "6fd44d8b7d253f26",
+        "src/components/login.tsx#PASSWORD_MODES": "5899900938a7fcea",
+        "src/components/login.tsx#authFailure": "ae3ebfeda0a725af",
+        "src/components/login.tsx#formText": "c96d15379f0338c5",
+        "src/components/login.tsx#PasswordField": "76385824d10bd7b4",
+        "src/components/login.tsx#AuthFields": "ac6f233e254069b1",
+        "src/components/login.tsx#AuthOptionsProps": "1745b5772c6bcfb9",
+        "src/components/login.tsx#AuthOptions": "e4dc5e977c1117b7",
         "src/components/login.tsx#Login/changeMode": "ae1225fd73ea29f6",
-        "src/components/login.tsx#Login/action": "b004ebdfd7d78183",
-        "src/components/login.tsx#Login/showError": "5fe238101b10d3c2",
-        "src/components/login.tsx#Login/submit": "c43dbc26f992e9ec",
-        "src/components/login.tsx#Login~shell": "c1bd96b5f7964ced",
+        "src/components/login.tsx#Login/finish": "3810dc75755004dd",
+        "src/components/login.tsx#Login/goHome": "44f897f341de7d35",
+        "src/components/login.tsx#Login/action": "89afa7efd9af5c99",
+        "src/components/login.tsx#Login~shell": "2fab14034d2522f0",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "pkg:react": "f4529719455f2af2",
+        "pkg:next": "530097ba2f134bc2",
+        "src/components/login.tsx#Login/showError": "576a6b0c65e3804a",
+        "src/components/login.tsx#Login/submit": "f925ec8b4811c10a",
         "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#getIdentity": "8e5ec7a8d67237a1",
-        "src/server/auth.ts#requireAuth": "6bcfe3e8e46cf6b5",
-        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/server/auth.ts#getIdentity": "d7f7c2295120441f",
+        "src/server/auth.ts#requireIdentity": "1ad60dce0257fffd",
+        "src/server/auth.ts#requireHome": "c1db142c515f3cc3",
+        "src/server/auth.ts#requireOrigin": "f05fc0de84b9fee0",
         "src/app/api/auth/[...path]/route.ts#<module>": "2da3ec2294295eb1",
         "src/app/api/auth/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
         "src/app/api/auth/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
-        "src/app/api/auth/[...path]/route.ts#handler": "cb70e19819baf1f9",
+        "src/app/api/auth/[...path]/route.ts#handler": "68dbd5da86999b1c",
+        "pkg:better-auth": "a969211ec564af4d",
         "src/app/api/auth/[...path]/route.ts#GET": "ea1d8525414863f6",
         "src/app/api/auth/[...path]/route.ts#POST": "b50e3b3c92d005e9",
         "src/app/api/auth/[...path]/route.ts#PUT": "01e793c9bf3fcc65",
         "src/app/api/auth/[...path]/route.ts#PATCH": "ca48676dcdac20c5",
         "src/app/api/auth/[...path]/route.ts#DELETE": "f75472d7785587c3",
         "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD": "9259e41524b89c45",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD": "2e1ea81541bfb0b2",
-        "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED": "50dddb6a856c8b22",
-        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS": "fd74ab5fb14c9620",
-        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "90102861850ad609",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP": "84cb539c3c0aab34",
-        "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED": "58fb6c891061f2e9",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN": "21c1685fc2e9b261",
-        "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS": "3c4052195042dffa",
-        "src/constants/auth.ts#AUTH_ERRORS~frame": "2cd2b699cbf2da60",
+        "src/constants/auth.ts#AuthFormMode": "82802408d5f6cdde",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef",
         "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
         "src/constants/auth.ts#AUTH.maximumPasswordLength": "0edbbce1639c56c5",
         "src/constants/auth.ts#AUTH.minimumPasswordLength": "8762210cff0cc574",
         "src/constants/auth.ts#AUTH.verificationCodeLength": "b5d0d601347e0aef",
-        "src/constants/auth.ts#AuthFormMode": "82802408d5f6cdde",
-        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
-        "src/components/brand.tsx#Brand": "e7ef62c74c1fc2f7",
+        "src/components/login-shell.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/login-shell.tsx#LoginShell": "2363d0a1a436ca0d",
         "src/lib/auth-client.ts#<module>": "3809ea0e66c9f036",
         "pkg:@neondatabase/auth": "cb0784c3ee32091d",
         "src/lib/auth-client.ts#authClient": "c58939e9975b814b",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD": "10cd8f3854fdcc17",
+        "src/constants/auth.ts#MESSAGES~frame": "516c7db2f6a641e6",
+        "src/constants/auth.ts#MESSAGES.invalidCredentials": "a057ac0b6c21e607",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD": "2e1ea81541bfb0b2",
+        "src/constants/auth.ts#AUTH_ERRORS.invalid_credentials": "19b7f6171d08edff",
+        "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED": "dc91582c6bc97fa0",
+        "src/constants/auth.ts#MESSAGES.unverified": "25ec2ad7be79c309",
+        "src/constants/auth.ts#AUTH_ERRORS.email_not_confirmed": "b501ed37d0a9aa5f",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS": "a2dcf104c513d902",
+        "src/constants/auth.ts#MESSAGES.existing": "a0e156ddd3d86cf2",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "69f03e299bcc0c02",
+        "src/constants/auth.ts#AUTH_ERRORS.user_already_exists": "d027fe9e6d75921e",
+        "src/constants/auth.ts#AUTH_ERRORS.email_exists": "a8ace1931e142a15",
+        "src/constants/auth.ts#AUTH_ERRORS.weak_password": "097f88e057fd09d1",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP": "84cb539c3c0aab34",
+        "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED": "58fb6c891061f2e9",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN": "72388dc5d1130198",
+        "src/constants/auth.ts#MESSAGES.invalidLink": "c4d1346358c5b84d",
+        "src/constants/auth.ts#AUTH_ERRORS.bad_jwt": "62abdda59a1488b6",
+        "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS": "2e7f1680cfa2a790",
+        "src/constants/auth.ts#MESSAGES.tooMany": "d2b0fe7bf623f984",
+        "src/constants/auth.ts#AUTH_ERRORS.over_request_rate_limit": "b5dd2019da2b84fe",
+        "src/constants/auth.ts#AUTH_ERRORS.over_email_send_rate_limit": "214de43b3b59f4c5",
+        "src/constants/auth.ts#AUTH_ERRORS~frame": "2cd2b699cbf2da60",
+        "src/constants/auth.ts#UNVERIFIED_EMAIL_CODES": "f6e4948dcd4e1027",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
-        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
         "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
         "src/types/auth.ts#<module>": "2da3ec2294295eb1",
         "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
         "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/neon-auth.ts#authConfigured": "d3ec6209a40b4e8f",
-        "src/server/neon-auth.ts#getNeonAuth": "838f4cd429a8378d",
+        "src/server/neon-auth.ts#authConfigured": "4233244a1f43a905",
+        "src/server/neon-auth.ts#neonAuthSettings": "fd2fb55bae8e5e6e",
+        "src/server/neon-auth.ts#NeonAuthSettings": "f85a65ea9a977c5e",
+        "src/server/neon-auth.ts#getNeonAuth": "0dca5d26a6e67b14",
         "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
+        "src/server/self-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/self-auth.ts#getSelfAuth": "a5aad296fd80c2bc",
+        "src/server/self-auth.ts#auth": "ea23585755bb513f",
+        "src/server/self-auth.ts#createSelfAuth": "2250d374e686be5b",
+        "pkg:kysely": "62d68445b49f5341",
+        "src/server/self-auth.ts#selfAuthSettings": "d9827dce9c1cf518",
+        "src/server/self-auth.ts#SelfAuthSettings": "e0de8a1f5539a91d",
+        "src/server/auth-mode.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth-mode.ts#isSelfManagedAuth": "0ac5810e58f9e520",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
         "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
         "src/types/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
+        "src/types/residents.ts#HomeMember": "59f972b5b8eb78e4",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
-        "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
-        "src/server/database.ts#Database": "2685f7243aa5fb29",
-        "src/server/database.ts#connect": "8e29d1391a673652",
+        "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
+        "src/server/database.ts#Database": "578aba9512306538",
+        "src/server/database.ts#QueryResult": "2278ab1e0e7ca928",
+        "src/server/database.ts#connect": "a16b98c82ece5ce6",
         "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#nestedTransaction": "097720328480446e",
+        "src/server/database.ts#poolDatabase": "fedd878e554639d7",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "51138d2c55a04b3d",
+        "src/server/database.ts#initialize": "b63e6fa612388f19",
+        "src/server/database.ts#MIGRATIONS": "95212e268ff47ff1",
+        "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
+        "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
+        "src/server/database.ts#runStep": "b8d318e23891085b",
+        "src/server/database.ts#schemaVersion": "65d0240dc3c92d18",
+        "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
         "src/server/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/server/residents.ts#resolveResidentAccess": "4941046fcf62b877",
-        "src/server/residents.ts#emailList": "68719ecac844ab41",
-        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
-        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/server/residents.ts#resolveHomeAccess": "0b2dec8eda508b16",
+        "src/server/residents.ts#isBootstrap": "ed2221aada2e1745",
+        "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
+        "src/server/residents.ts#residentSettings": "090458f99e66a86c",
+        "src/server/residents.ts#emailList": "0021888d1f4f53a8",
         "src/server/config.ts#<module>": "2da3ec2294295eb1",
-        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
+        "src/server/config.ts#getConfig": "22f06e9ffdb6f3e7",
         "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
         "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "src/server/config.ts#httpsOrigin": "fd5040a991eedb92",
         "pkg:web-push": "6ab2287300696f64",
-        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/server/errors.ts#errorResponse": "6992e874d2c7c807",
+        "src/server/errors.ts#logError": "da59c8b8659e20b8",
+        "src/server/errors.ts#describeError": "f13cd6ca5b673395",
+        "src/server/errors.ts#LOG_LIMITS~frame": "9dc641c7148f46ea",
+        "src/server/errors.ts#LOG_LIMITS.causeDepth": "87444f7090799dc0",
+        "src/server/errors.ts#LOG_LIMITS.messageLength": "5a19ccff12e87686",
+        "src/server/errors.ts#LOG_LIMITS.stackLines": "bd18d006a53c3083",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "ed7a027c7b6ee6ac",
+        "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
         "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/server/self-auth.ts#selfAuthConfigured": "c3a318e0d6dcd17d",
         "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
         "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
-        "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
+        "src/server/postgres.ts#createPostgresPool": "c3f88729989ad244",
         "pkg:pg": "bba8fb4b856406c4",
+        "pkg:@vercel/functions": "e43505af744bef19",
+        "src/constants/auth.ts#AUTH.reservedSchemas": "96aeee1bb4d6e114",
+        "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
+        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
+        "src/constants/devices.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/devices.ts#DEVICES~frame": "eb8f63763177928a",
+        "src/constants/devices.ts#DEVICES.defaultName": "52ad5da0efc5311f",
+        "src/constants/devices.ts#DEVICES.nameMaxLength": "1310c99c650e5157",
+        "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
+        "src/constants/homes.ts#HOMES.originalId": "d9d7b64a16cba029",
+        "src/lib/names.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
+        "src/lib/names.ts#cleanName": "49186c6b44b377fb",
+        "src/lib/names.ts#uniqueName": "57ac10b978c09992",
         "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
         "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
-        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
-        "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef",
+        "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/constants/environment.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/environment.ts#LOCAL_DEFAULTS~frame": "5a1c7b91211fc6c8",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.origin": "060e2d02b491e60f",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject": "bcf01163df3d1130",
         "src/config/database.ts#<module>": "2da3ec2294295eb1",
         "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
         "src/constants/database.ts#<module>": "2da3ec2294295eb1",
@@ -125,27 +221,30 @@
         "src/components/login.tsx#Login/action": {
           "awaits": 1
         },
-        "src/components/login.tsx#Login/submit": {
-          "awaits": 6,
+        "src/components/login.tsx#Login~shell": {
+          "awaits": 7,
           "projectCalls": 1
         },
-        "src/components/login.tsx#Login~shell": {
-          "awaits": 2
+        "src/components/login.tsx#Login/submit": {
+          "awaits": 1
         },
         "src/server/auth.ts#getIdentity": {
-          "awaits": 1,
-          "projectCalls": 1
+          "awaits": 3,
+          "projectCalls": 2
         },
-        "src/server/auth.ts#requireAuth": {
-          "awaits": 2,
+        "src/server/auth.ts#requireIdentity": {
+          "awaits": 1
+        },
+        "src/server/auth.ts#requireHome": {
+          "awaits": 1,
           "projectCalls": 1
         },
         "src/server/auth.ts#requireOrigin": {
           "projectCalls": 1
         },
         "src/app/api/auth/[...path]/route.ts#handler": {
-          "projectCalls": 1,
-          "awaits": 1
+          "awaits": 2,
+          "projectCalls": 2
         },
         "src/lib/auth-client.ts#<module>": {
           "projectCalls": 1
@@ -156,19 +255,40 @@
         "src/server/neon-auth.ts#getNeonAuth": {
           "projectCalls": 1
         },
+        "src/server/self-auth.ts#createSelfAuth": {
+          "projectCalls": 1
+        },
         "src/server/database.ts#getDatabase": {
           "awaits": 2
         },
         "src/server/database.ts#connect": {
           "projectCalls": 1,
-          "awaits": 8,
-          "database": 8
+          "awaits": 1,
+          "database": 3
+        },
+        "src/server/database.ts#poolDatabase": {
+          "awaits": 7,
+          "database": 5
         },
         "src/server/database.ts#initialize": {
-          "awaits": 8,
-          "database": 8
+          "awaits": 5,
+          "database": 4,
+          "awaitInLoop": 2
         },
-        "src/server/residents.ts#resolveResidentAccess": {
+        "src/server/database.ts#assignDevicesToOriginalHome": {
+          "awaits": 1,
+          "database": 2,
+          "awaitInLoop": 1
+        },
+        "src/server/database.ts#runStep": {
+          "awaits": 3,
+          "database": 2
+        },
+        "src/server/database.ts#schemaVersion": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/residents.ts#resolveHomeAccess": {
           "awaits": 1,
           "database": 1
         },
@@ -177,58 +297,49 @@
         }
       },
       "uncommittedFiles": [
-        "src/app/api/auth/[...path]/route.ts",
+        "src/components/brand.tsx",
+        "src/components/login-shell.tsx",
         "src/components/login.tsx",
         "src/constants/auth.ts",
+        "src/constants/devices.ts",
         "src/constants/doorbell.ts",
-        "src/lib/auth-client.ts",
+        "src/constants/environment.ts",
+        "src/constants/homes.ts",
+        "src/lib/names.ts",
         "src/server/auth.ts",
         "src/server/config.ts",
         "src/server/database.ts",
+        "src/server/errors.ts",
         "src/server/neon-auth.ts",
-        "src/server/resident-access.ts",
+        "src/server/postgres.ts",
         "src/server/residents.ts",
-        "src/types/auth.ts",
+        "src/server/self-auth.ts",
         "src/types/residents.ts"
       ]
     },
     "evidence": [
       {
-        "kind": "review",
-        "outcome": "pass",
-        "recordedAt": "2026-10-29T21:55:01.474Z",
-        "source": "attested",
-        "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
-      },
-      {
-        "command": "npm test -- tests/residents.test.ts",
-        "durationMs": 1882,
+        "command": "npx vitest run tests/identity-import.test.ts tests/resident-access.test.ts tests/environment.test.ts",
+        "durationMs": 5928,
         "exitCode": 0,
         "kind": "test",
         "outcome": "pass",
-        "outputSha256": "92cabe255afb8fc14e7a6f0fd59e20c14b929785eda7573c16716f10e2d76886",
-        "recordedAt": "2026-10-29T21:55:03.509Z",
+        "outputSha256": "60fad08227368fd185231870e679e93aa62df3a06c3cc9c804c2c4c9f7583945",
+        "recordedAt": "2026-10-30T15:59:00.728Z",
         "source": "witnessed",
         "summary": "exit code 0"
-      },
-      {
-        "kind": "browser",
-        "outcome": "pass",
-        "recordedAt": "2026-10-29T21:55:41.473Z",
-        "source": "attested",
-        "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
       }
     ],
     "limitations": [
-      "No hubo benchmark representativo con el propietario autenticado."
+      "Sin medición del flujo de ingreso; esta sesión no le agregó carga."
     ],
     "mode": "full",
     "pendingChecks": [
-      "Medir flujo real de listado y autorizacion en Neon con cuenta verificada."
+      "Medir TTFB de /sign-in y el tiempo de login contra Neon Auth."
     ],
-    "recordedAt": "2026-10-29T21:55:41.823Z",
+    "recordedAt": "2026-10-30T15:59:01.517Z",
     "result": "partial",
-    "runId": "20261029T215501Z-a25b71",
+    "runId": "20261030T154605Z-888ec6",
     "scope": {
       "decision": "full",
       "reasons": [
@@ -237,47 +348,87 @@
       "relevantChangesAtBegin": [
         {
           "change": "added",
-          "key": "pkg:@electric-sql/pglite",
+          "key": "pkg:@vercel/functions",
           "reason": "new package in the flow (bundle or server cost)"
         },
         {
           "change": "added",
-          "key": "pkg:pg",
+          "key": "pkg:better-auth",
+          "reason": "new package in the flow (bundle or server cost)"
+        },
+        {
+          "change": "added",
+          "key": "pkg:kysely",
+          "reason": "new package in the flow (bundle or server cost)"
+        },
+        {
+          "change": "added",
+          "key": "pkg:next",
           "reason": "new package in the flow (bundle or server cost)"
         },
         {
           "change": "modified",
-          "key": "src/server/auth.ts#requireAuth",
+          "key": "src/app/api/auth/[...path]/route.ts#handler",
+          "reason": "adds load: +1 awaited steps, +1 calls to I/O helpers"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/login.tsx#Login~shell",
+          "reason": "adds load: +5 awaited steps, +1 calls to I/O helpers"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#getIdentity",
+          "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth.ts#requireHome",
           "reason": "adds load: +1 awaited steps, +1 calls to I/O helpers"
         },
         {
           "change": "added",
-          "key": "src/server/database.ts#connect",
-          "reason": "adds load: +1 calls to I/O helpers, +8 awaited steps, +8 database queries"
+          "key": "src/server/auth.ts#requireIdentity",
+          "reason": "adds load: +1 awaited steps"
         },
         {
           "change": "added",
-          "key": "src/server/database.ts#getDatabase",
-          "reason": "adds load: +2 awaited steps"
+          "key": "src/server/database.ts#assignDevicesToOriginalHome",
+          "reason": "adds load: +1 awaited steps, +2 database queries, +1 awaited calls inside a loop"
         },
         {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/database.ts#initialize",
-          "reason": "adds load: +8 awaited steps, +8 database queries"
+          "reason": "adds load: +2 awaited calls inside a loop"
         },
         {
           "change": "added",
-          "key": "src/server/postgres.ts#createPostgresPool",
-          "reason": "adds load: +1 calls to I/O helpers"
+          "key": "src/server/database.ts#poolDatabase",
+          "reason": "adds load: +7 awaited steps, +5 database queries"
         },
         {
           "change": "added",
-          "key": "src/server/residents.ts#resolveResidentAccess",
+          "key": "src/server/database.ts#runStep",
+          "reason": "adds load: +3 awaited steps, +2 database queries"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#schemaVersion",
           "reason": "adds load: +1 awaited steps, +1 database queries"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#resolveHomeAccess",
+          "reason": "adds load: +1 awaited steps, +1 database queries"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#createSelfAuth",
+          "reason": "adds load: +1 calls to I/O helpers"
         }
       ],
       "suggestedScope": [
-        "pending from the previous run: Medir flujo de panel con cuenta verificada y PostgreSQL remoto.",
+        "pending from the previous run: Medir flujo real de listado y autorizacion en Neon con cuenta verificada.",
         "measure the complete flow /, /sign-in, /reset-password before and after, same build, data and throttling; median of 3 for noisy metrics"
       ]
     },
@@ -301,8 +452,7 @@
       "name": "measured-performance-optimization",
       "version": "1.7.0"
     },
-    "summary": "Sin nuevo polling; SSR paralelo, query indexada de membresia y mutaciones transaccionales acotadas. No se afirma mejora medida.",
-    "report": "runs/20261029T215501Z-a25b71.json"
+    "report": "runs/20261030T154605Z-888ec6.json"
   },
   "schemaVersion": 1,
   "skill": "measured-performance-optimization",

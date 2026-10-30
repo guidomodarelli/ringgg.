@@ -5,7 +5,17 @@ import { NotificationOnboarding } from '../../src/components/notification-onboar
 function Fixture() {
   const [open, setOpen] = useState(true);
   const [permission, setPermission] = useState('default');
-  const [activated, setActivated] = useState(false);
-  return <><button onClick={() => setOpen(true)}>Mostrar activación</button><button onClick={() => { setPermission('denied'); setOpen(true); }}>Permiso bloqueado</button>{activated && <p>Activación solicitada</p>}{open && <NotificationOnboarding permission={permission} pending={false} error="" onActivate={() => { setActivated(true); setOpen(false); }} onRefresh={() => setPermission('default')} onSignOut={() => setOpen(false)} />}</>;
+  const [outcome, setOutcome] = useState('');
+  return <>
+    <button onClick={() => setOpen(true)}>Mostrar activación</button>
+    <button onClick={() => { setPermission('denied'); setOpen(true); }}>Permiso bloqueado</button>
+    <button onClick={() => { setPermission('granted'); setOpen(true); }}>Permiso concedido</button>
+    {outcome && <p>{outcome}</p>}
+    {open && <NotificationOnboarding permission={permission} homeName="Casa de prueba" pending={false} error=""
+      onActivate={() => { setOutcome('Activación solicitada'); setOpen(false); }}
+      onRefresh={() => setPermission('default')}
+      onSkip={() => { setOutcome('Sigue sin avisos'); setOpen(false); }}
+      onSignOut={() => { setOutcome('Sesión cerrada'); setOpen(false); }} />}
+  </>;
 }
 createRoot(document.getElementById('root')!).render(<Fixture />);

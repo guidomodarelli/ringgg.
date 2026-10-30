@@ -59,6 +59,22 @@
     {
       "path": "src/app/api/push-key/route.ts",
       "symbol": "*"
+    },
+    {
+      "path": "src/app/api/pause/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/rename-device/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/push-receipt/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/service-worker/service-worker.ts",
+      "symbol": "*"
     }
   ],
   "origin": "manual"

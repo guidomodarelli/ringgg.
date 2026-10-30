@@ -4,15 +4,9 @@ export const DOORBELL = {
   nameMaxLength: 50,
   answeredByMaxLength: 60,
   responseWindowSeconds: 120,
-  /** Visitors can leave a note on an unanswered or "away" visit for this long after ringing. */
-  noteWindowSeconds: 15 * 60,
-  pushTtlSeconds: 90,
-  pushTimeoutMs: 8_000,
-  pollIntervalMs: 5_000,
-  /** While the doorbell is paused or in quiet hours, the visitor page rechecks availability this often. */
-  availabilityPollMs: 60_000,
+  /** Visitors can leave a note on an unanswered or "away" visit for this long after ringing (15 minutes). */
+  noteWindowSeconds: 900,
   historyLimit: 50,
-  maxDevices: 10,
   retentionDays: 30,
   timeZone: 'America/Argentina/Buenos_Aires',
 };
@@ -23,10 +17,16 @@ export const DOORBELL = {
  */
 export const RING_LIMITS = {
   clientCooldownSeconds: 30,
-  clientWindowSeconds: 10 * 60,
+  /** 10 minutes. */
+  clientWindowSeconds: 600,
   clientMaxPerWindow: 4,
-  homeWindowSeconds: 10 * 60,
+  /** 10 minutes. */
+  homeWindowSeconds: 600,
   homeMaxPerWindow: 12,
+  /** Characters kept from the client's salted hash: enough to tell clients apart. */
+  clientKeyLength: 32,
+  /** Only for local development: deployments must salt the client hash with an auth secret. */
+  developmentSalt: 'ringgg-local-development',
 };
 
 export const VISIT_REPLIES = {
@@ -42,7 +42,19 @@ export const NOTIFICATION_REPLIES: readonly VisitReply[] = ['coming', 'leave'];
 
 export const QUIET_HOURS_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
 
-export const HTTP = { badRequest: 400, unauthorized: 401, forbidden: 403, notFound: 404, conflict: 409, tooMany: 429, unavailable: 503, internal: 500 };
-export const PUSH_HOSTS = ['fcm.googleapis.com', 'updates.push.services.mozilla.com', 'web.push.apple.com'];
-export const PUSH_KEY_PATTERN = /^[A-Za-z0-9_-]+$/;
+/** `resume` ends any pause; the other modes pause until a moment or until someone resumes it. */
+export type PauseMode = 'hour' | 'morning' | 'indefinite' | 'resume';
+export const PAUSE_MODES = ['hour', 'morning', 'indefinite', 'resume'] as const satisfies readonly PauseMode[];
+export const PAUSE = {
+  hourMinutes: 60,
+  /** "Until tomorrow morning" resumes at this time in the home's time zone. */
+  morningResumeTime: '08:00',
+};
+export const PAUSE_OPTIONS = [
+  { mode: 'hour', label: 'Durante 1 hora', feedback: 'Timbre pausado durante 1 hora.' },
+  { mode: 'morning', label: 'Hasta mañana a las 8', feedback: 'Timbre pausado hasta mañana a las 8.' },
+  { mode: 'indefinite', label: 'Hasta que lo reactive', feedback: 'Timbre pausado hasta que lo reactives.' },
+] as const satisfies ReadonlyArray<{ mode: Exclude<PauseMode, 'resume'>; label: string; feedback: string }>;
+
+export const HTTP = { noContent: 204, badRequest: 400, unauthorized: 401, forbidden: 403, notFound: 404, conflict: 409, gone: 410, tooMany: 429, unavailable: 503, internal: 500 };
 export const APP = { name: 'ringgg', theme: '#f26545', background: '#f8f7f3' };

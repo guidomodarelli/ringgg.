@@ -2,103 +2,1152 @@
   "latest": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": null,
-      "commit": null,
+      "branch": "feature/mejoras-revision",
+      "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
       "files": {
-        "src/components/visitor.tsx": "0234523cd1f76285",
-        "src/server/doorbell.ts": "889a31bbbe707dbe",
-        "src/types/doorbell.ts": "0d02fbca75aa5b27",
-        "src/lib/api.ts": "191049e1805571e4",
-        "src/components/brand.tsx": "7432f1f6c5ce44c2",
-        "src/constants/doorbell.ts": "58ce07f5141bb23f",
-        "src/server/errors.ts": "1ebd07c9c36fd4c9"
+        "src/components/visitor.tsx": "72bdcea4ea1213a5",
+        "src/server/doorbell.ts": "64cb2f91786d00ac",
+        "src/app/api/door/[token]/route.ts": "97f20b9b6f4ba8b0",
+        "src/app/api/door/[token]/visits/[id]/route.ts": "700deb5f9e0e384a",
+        "src/app/api/door/[token]/visits/[id]/note/route.ts": "5319853ebd5ad39c",
+        "src/types/doorbell.ts": "8697f08bc5f8c5e7",
+        "src/lib/api.ts": "30cc1b9da1f9b7fd",
+        "src/constants/doorbell.ts": "2edd18d9afbb7d3f",
+        "src/constants/time.ts": "199df09277e5fcba",
+        "src/constants/polling.ts": "8eb5b771610e285c",
+        "src/lib/pause.ts": "73a9193594a117d8",
+        "src/components/brand.tsx": "0aca2f770c5b0b91",
+        "src/server/errors.ts": "45863b0b5c1144b1",
+        "src/lib/quiet-hours.ts": "0d2cd43f1ae429d3",
+        "src/server/rate-limit.ts": "c4ebc0c121f1b263",
+        "src/server/homes.ts": "7b9e7f96c288ee3f",
+        "src/server/residents.ts": "eda9c188112cf624",
+        "src/server/http.ts": "428ffa6b9703d32a",
+        "src/server/database.ts": "f11b89b5e9ccd3e8",
+        "src/server/push.ts": "ca98a31374e61e3b",
+        "src/lib/names.ts": "5fefc809b3ce8988",
+        "src/constants/homes.ts": "564484a011173893",
+        "src/types/residents.ts": "b7a6c448a73bacc3"
       },
-      "fingerprint": "sha256:3eb84575ec52225ddaee406083b5b0afa419808cadf36da33b239ddc22d4e053",
+      "fingerprint": "sha256:a1dcaddff378509d713ae3a6ebe7f07d446deda12d4f36b4f4b2946148d4914a",
       "inputs": {
         "src/components/visitor.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/visitor.tsx#Visitor/ring": "5a699da851b2f6df",
-        "src/components/visitor.tsx#Visitor~shell": "d177a7f3a82844cf",
+        "src/components/visitor.tsx#waitingDetail": "f22c1761beff863f",
+        "src/components/visitor.tsx#NoteForm/send": "8548cc61461d0f62",
+        "src/components/visitor.tsx#NoteForm~shell": "0dc0eb54f2af785a",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "pkg:react": "f4529719455f2af2",
+        "src/components/visitor.tsx#AnswerPollingOptions": "b55933bc0dba2071",
+        "src/components/visitor.tsx#useAnswerPolling": "b0e2379f8c145652",
+        "src/components/visitor.tsx#useAvailabilityCheck": "02d72381d036e253",
+        "src/components/visitor.tsx#UnavailableNotice": "befa3029ad5eab75",
+        "src/components/visitor.tsx#VisitResultProps": "5b831e8fa5cb4949",
+        "src/components/visitor.tsx#VisitResult": "39150d5d7f1fb96f",
+        "src/components/visitor.tsx#Visitor/ring": "5a699da851b2f6df",
+        "src/components/visitor.tsx#Visitor/ringAgain": "71bec7540f7705e7",
+        "src/components/visitor.tsx#Visitor~shell": "1749265152604141",
+        "pkg:next": "530097ba2f134bc2",
         "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
-        "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
-        "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
-        "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
-        "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
-        "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
-        "src/server/doorbell.ts#setDelivery": "282622686660677f",
+        "src/server/doorbell.ts#HOME_COLUMNS": "8392547fe61dc07e",
+        "src/server/doorbell.ts#PUBLIC_VISIT_COLUMNS": "21efc47d387c8cd3",
+        "src/server/doorbell.ts#RECEIPTS_COLUMN": "a0f044ac57a5d14b",
+        "src/server/doorbell.ts#VISIT_COLUMNS": "39811f22c51bc9bd",
+        "src/server/doorbell.ts#HOME_DEVICES": "4f8e8eee7b6af8d1",
+        "src/server/doorbell.ts#INVALID_DOORBELL_MESSAGE": "9a383fdc624077b1",
+        "src/server/doorbell.ts#getHome": "e50eac6818bbe1a6",
+        "src/server/doorbell.ts#homeByToken": "c2737d463060e416",
+        "src/server/doorbell.ts#homeState": "d852610bae8c1c75",
+        "src/server/doorbell.ts#toJsonSnapshot": "bbd2a7db3cc4496c",
+        "src/server/doorbell.ts#snapshot": "6cbcf2f6e2a42769",
+        "src/server/doorbell.ts#publicHome": "39c6b37a3b070fd7",
+        "src/server/doorbell.ts#pausedMessage": "0d40cfbd984e5a5e",
+        "src/server/doorbell.ts#registerVisit": "399cbc68883ce422",
+        "src/server/doorbell.ts#readVisit": "9f9e80e82d289d9b",
+        "src/server/doorbell.ts#visitHomeId": "c5f9b21fc32af1cf",
+        "src/server/doorbell.ts#VisitKey": "96ac77b36928b82f",
+        "src/server/doorbell.ts#answerVisit": "241c179cf7629690",
+        "src/server/doorbell.ts#leaveNote": "b607a73ddf45d199",
+        "src/server/doorbell.ts#setDelivery": "501049ab30df1a48",
+        "src/server/doorbell.ts#updateHomeName": "3f1b16f946001280",
+        "src/server/doorbell.ts#updateQuietHours": "eaf2de10d46bbc46",
+        "src/server/doorbell.ts#PAUSE_UPDATES.resume": "9fe0f72369af3ebc",
+        "src/server/doorbell.ts#PAUSE_UPDATES.indefinite": "6bfa685be736ea86",
+        "src/server/doorbell.ts#PAUSE_UPDATES.hour": "6b7b4f4f6bedd753",
+        "src/server/doorbell.ts#PAUSE_UPDATES.morning": "ad7e56d27f621f3f",
+        "src/server/doorbell.ts#PAUSE_UPDATES~frame": "e3299b27b3e71831",
+        "src/server/doorbell.ts#setPause": "6a116cc1170956ee",
+        "src/server/doorbell.ts#rotateToken": "7be3c29c8df39341",
+        "src/server/doorbell.ts#purgeExpiredData": "8a42a1e99854d046",
+        "src/app/api/door/[token]/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/door/[token]/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/door/[token]/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/door/[token]/route.ts#Params": "8e2d2910cf8b986c",
+        "src/app/api/door/[token]/route.ts#ringSchema": "92350f5c3f1a41c0",
+        "pkg:zod": "31d0566281954af7",
+        "src/app/api/door/[token]/route.ts#GET": "cf1a88963fe34c2d",
+        "src/app/api/door/[token]/route.ts#POST": "fad723e29d55dd6f",
+        "src/app/api/door/[token]/visits/[id]/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/door/[token]/visits/[id]/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/door/[token]/visits/[id]/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/door/[token]/visits/[id]/route.ts#GET": "27f22a40da597c93",
+        "src/app/api/door/[token]/visits/[id]/note/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/door/[token]/visits/[id]/note/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/door/[token]/visits/[id]/note/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/door/[token]/visits/[id]/note/route.ts#noteSchema": "44ec5b2bbfd69dcc",
+        "src/app/api/door/[token]/visits/[id]/note/route.ts#POST": "d203f0154f2e3c34",
         "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/types/doorbell.ts#PublicVisit": "3ae7d2a9df3e5f33",
+        "src/types/doorbell.ts#PublicVisit": "50e1bd3c504a5545",
         "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
         "src/lib/api.ts#<module>": "2da3ec2294295eb1",
-        "src/lib/api.ts#api": "e6c7de9ce730a924",
-        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
-        "src/components/brand.tsx#Brand": "e7ef62c74c1fc2f7",
+        "src/lib/api.ts#api": "d04e08cca10d550a",
+        "src/lib/api.ts#serverErrorMessage": "deaccf05eea7bb64",
         "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
-        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
-        "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
+        "src/constants/doorbell.ts#DOORBELL.noteMaxLength": "17df0ddf98e0152f",
         "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
-        "src/types/doorbell.ts#Home": "86aac47c07bf864c",
-        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
-        "src/types/doorbell.ts#Device": "f56870e415b71da9",
-        "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
+        "src/constants/time.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/time.ts#TIME~frame": "dff112b0e68b04c8",
+        "src/constants/time.ts#TIME.secondMs": "3fbb41a7bfbb9a23",
+        "src/constants/time.ts#SECOND_MS": "9d40a159170b5dbc",
+        "src/constants/polling.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/polling.ts#VISITOR_POLLING~frame": "996ecc74ed2d7439",
+        "src/constants/polling.ts#VISITOR_POLLING.answerMs": "900bc489613c3265",
+        "src/types/doorbell.ts#PublicHome": "cde956840f1f2db5",
+        "src/constants/polling.ts#VISITOR_POLLING.availabilityMs": "dd53175ab3dbdafd",
+        "src/lib/pause.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/pause.ts#pauseEndLabel": "c8e32311f3d4620c",
+        "src/lib/pause.ts#localDay": "491d8bd7d5bab15a",
+        "src/constants/doorbell.ts#VISIT_REPLIES.coming": "245f3961ed50b8a2",
+        "src/constants/doorbell.ts#VISIT_REPLIES.soon": "b220984081a9560e",
+        "src/constants/doorbell.ts#VISIT_REPLIES.leave": "c372cf806f24124c",
+        "src/constants/doorbell.ts#VISIT_REPLIES.away": "7277976b5216c611",
+        "src/constants/doorbell.ts#VISIT_REPLIES~frame": "a9d11de9883db8a6",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "ed7a027c7b6ee6ac",
+        "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
+        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
         "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
         "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
-        "src/constants/doorbell.ts#DOORBELL.cooldownSeconds": "c6c07e0a039d9e06",
+        "src/types/doorbell.ts#Home": "3b8a7daf1448ba2f",
+        "src/types/doorbell.ts#HomeState": "37835fab33246f44",
+        "src/lib/pause.ts#isPaused": "150bd904b5f22cff",
+        "src/lib/quiet-hours.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/quiet-hours.ts#isQuietTime": "991e2ad5f0270a36",
+        "src/lib/quiet-hours.ts#localMinutes/value": "a30a72c262ac12b8",
+        "src/lib/quiet-hours.ts#localMinutes~shell": "9994c0d58196e914",
+        "src/lib/quiet-hours.ts#minutesOfDay": "4ed4a18b076f56a9",
+        "src/types/doorbell.ts#DashboardSnapshot": "e6b3bd2b8c14cf6f",
+        "src/types/doorbell.ts#Device": "e3f4e61b99a40c5f",
+        "src/types/doorbell.ts#Visit": "7456ab9619ff53ed",
+        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
         "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
+        "src/lib/pause.ts#pauseEnd": "4d0f2a3b2adb7759",
         "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
-        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e"
+        "src/server/rate-limit.ts#<module>": "2da3ec2294295eb1",
+        "src/server/rate-limit.ts#enforceRingLimits": "d04826b3f0da5574",
+        "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength": "dd3d5809acc874bc",
+        "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
+        "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds": "fd33aa68acf00bfc",
+        "src/server/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/server/homes.ts#homeNameSchema": "a39b5760e9f84651",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#listResidentHomes": "6c9dd37c6e373640",
+        "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
+        "src/server/residents.ts#residentSettings": "090458f99e66a86c",
+        "src/server/residents.ts#emailList": "0021888d1f4f53a8",
+        "src/server/homes.ts#requireFreeHomeName": "5405e505c87ae7ae",
+        "src/server/homes.ts#homeNameTaken": "3554a9fb6f623814",
+        "src/constants/doorbell.ts#PAUSE~frame": "fa38eeb386241193",
+        "src/constants/doorbell.ts#PAUSE.hourMinutes": "cd8c7472db654e63",
+        "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
+        "src/constants/doorbell.ts#PAUSE.morningResumeTime": "88b1a3eadd2a6464",
+        "src/server/http.ts#<module>": "2da3ec2294295eb1",
+        "src/server/http.ts#apiRoute": "b5f0fffa9c3287e8",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
+        "src/server/database.ts#Database": "578aba9512306538",
+        "src/server/database.ts#QueryResult": "2278ab1e0e7ca928",
+        "src/server/database.ts#connect": "a16b98c82ece5ce6",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#nestedTransaction": "097720328480446e",
+        "src/server/database.ts#poolDatabase": "fedd878e554639d7",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "b63e6fa612388f19",
+        "src/server/database.ts#MIGRATIONS": "95212e268ff47ff1",
+        "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
+        "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
+        "src/server/database.ts#runStep": "b8d318e23891085b",
+        "src/server/database.ts#schemaVersion": "65d0240dc3c92d18",
+        "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
+        "src/server/http.ts#readJson": "26d0d571bd351155",
+        "src/server/http.ts#BODY_LIMIT": "5e5df78db11b83f6",
+        "src/server/rate-limit.ts#ringClientKey": "4ec8a84e11f1f095",
+        "src/server/rate-limit.ts#rateLimitSalt": "e4f533427b069a3d",
+        "src/server/push.ts#<module>": "2da3ec2294295eb1",
+        "src/server/push.ts#sendPush": "fae3c2deafed39d1",
+        "src/server/push.ts#SendOutcome": "c2b8301e65ac03b8",
+        "src/server/push.ts#deliveryStatus": "ab5b3284a5f6e68a",
+        "src/server/push.ts#homeDevices": "9c6ad95ea6505eee",
+        "src/server/push.ts#normalizedEmail": "0e392532bd054922",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/push.ts#pushPayload": "4e6d12e9dee850e4",
+        "src/server/push.ts#recordDeliveryHealth": "bc89e4f8814fae10",
+        "src/constants/doorbell.ts#VisitReply": "317afbbaeef27870",
+        "src/constants/doorbell.ts#HTTP.noContent": "13b3642d3050d8ec",
+        "src/constants/time.ts#TIME.dayMs": "37ae9005a8aab213",
+        "src/constants/time.ts#DAY_HOURS": "52466170f34b039d",
+        "src/constants/time.ts#HOUR_MINUTES": "9385af560c3e57e3",
+        "src/constants/time.ts#MINUTE_SECONDS": "1733b09f11b4bf52",
+        "src/constants/doorbell.ts#QUIET_HOURS_PATTERN": "bbcf8d9d3ee4d8b3",
+        "src/constants/time.ts#TIME.hourMinutes": "dca9372b02ed66f4",
+        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
+        "src/constants/doorbell.ts#RING_LIMITS~frame": "537e3dc0199db4fd",
+        "src/constants/doorbell.ts#RING_LIMITS.clientCooldownSeconds": "b99845554a2d3c36",
+        "src/constants/doorbell.ts#RING_LIMITS.clientMaxPerWindow": "7a3ef28e9cd0062d",
+        "src/constants/doorbell.ts#RING_LIMITS.clientWindowSeconds": "0b7ca6a226f8e69c",
+        "src/constants/doorbell.ts#RING_LIMITS.homeMaxPerWindow": "0ace28767f5ec402",
+        "src/constants/doorbell.ts#RING_LIMITS.homeWindowSeconds": "846cc66b382b79c2",
+        "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
+        "src/lib/names.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/names.ts#cleanName": "49186c6b44b377fb",
+        "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
+        "src/constants/homes.ts#HOMES.originalId": "d9d7b64a16cba029",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#HomeSummary": "7565b2ddb5d5d58e",
+        "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/lib/names.ts#nameKey": "d7c5727b60d82c6a"
       },
-      "uncommittedFiles": []
+      "uncommittedFiles": [
+        "src/app/api/door/[token]/route.ts",
+        "src/app/api/door/[token]/visits/[id]/note/route.ts",
+        "src/components/brand.tsx",
+        "src/components/visitor.tsx",
+        "src/constants/doorbell.ts",
+        "src/constants/homes.ts",
+        "src/constants/polling.ts",
+        "src/constants/time.ts",
+        "src/lib/api.ts",
+        "src/lib/names.ts",
+        "src/lib/pause.ts",
+        "src/lib/quiet-hours.ts",
+        "src/server/database.ts",
+        "src/server/doorbell.ts",
+        "src/server/errors.ts",
+        "src/server/homes.ts",
+        "src/server/http.ts",
+        "src/server/push.ts",
+        "src/server/rate-limit.ts",
+        "src/server/residents.ts",
+        "src/types/doorbell.ts",
+        "src/types/residents.ts"
+      ]
     },
     "evidence": [
       {
         "kind": "review",
         "outcome": "pass",
-        "recordedAt": "2026-10-29T16:21:26.347Z",
+        "recordedAt": "2026-10-30T15:54:08.275Z",
         "source": "attested",
-        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
+        "summary": "Estados del visitante sin cambios visibles por varias casas; los límites cuentan por casa y un id de otra casa se rechaza sin revelarla."
       },
       {
-        "command": "npm test",
-        "durationMs": 1713,
+        "command": "npx vitest run tests/doorbell.test.ts tests/homes.test.ts tests/visit-format.test.ts",
+        "durationMs": 7386,
         "exitCode": 0,
         "kind": "test",
         "outcome": "pass",
-        "outputSha256": "6bda6bf2fa5088af1140590b6d1d964befad8a1c7cb16ef34822c3f27a8fd0c0",
-        "recordedAt": "2026-10-29T16:21:28.604Z",
+        "outputSha256": "d847b31fa6fdb5c8d0461f52f27577a7e4843d00cf8d03f34c4ede5ef1169cb3",
+        "recordedAt": "2026-10-30T15:54:15.877Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "command": "npx playwright test tests/e2e/visitor-replies.spec.ts tests/e2e/doorbell.spec.ts --reporter=line",
+        "durationMs": 44386,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "e5b493237405b4bf16e58caaa2a1e454e310de7d37aa192ea017cca43e761f49",
+        "recordedAt": "2026-10-30T15:55:00.503Z",
         "source": "witnessed",
         "summary": "exit code 0"
       },
       {
         "kind": "browser",
         "outcome": "pass",
-        "recordedAt": "2026-10-29T16:23:25.397Z",
+        "recordedAt": "2026-10-30T15:55:00.737Z",
         "source": "attested",
-        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
+        "summary": "Playwright (Chromium): No están en casa con nota única, horario de descanso, pausa programada, respuesta rápida y el timbrazo real con login.",
+        "tool": "Playwright (Chromium)"
       }
     ],
     "limitations": [
-      "Sin telefono fisico, lector de pantalla ni entrega Web Push real."
+      "La revisión se centró en los cambios de varias casas (límites por casa, id de otra casa); no se rehízo la matriz de estados completa del visitante en esta sesión."
     ],
     "mode": "full",
     "pendingChecks": [
-      "Probar permisos, notificacion con telefono bloqueado y recuperacion offline en HTTPS."
+      "Recorrer en un teléfono real la espera, la respuesta y la nota."
     ],
-    "recordedAt": "2026-10-29T16:23:26.452Z",
+    "recordedAt": "2026-10-30T15:55:01.272Z",
     "result": "partial",
-    "runId": "20261029T162022Z-5c7bb3",
+    "runId": "20261030T154602Z-e3eb76",
     "scope": {
       "decision": "full",
       "reasons": [
-        "no previous coverage: the whole unit is analyzed"
+        "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
       ],
-      "relevantChangesAtBegin": [],
+      "relevantChangesAtBegin": [
+        {
+          "change": "added",
+          "key": "pkg:@electric-sql/pglite",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "pkg:next",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "pkg:web-push",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "pkg:zod",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/route.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/route.ts#dynamic",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/route.ts#GET",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/route.ts#Params",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/route.ts#POST",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/route.ts#ringSchema",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/route.ts#runtime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#dynamic",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#noteSchema",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#POST",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#runtime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/route.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/route.ts#dynamic",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/route.ts#GET",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/door/[token]/visits/[id]/route.ts#runtime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/brand.tsx#Brand",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/brand.tsx#BrandContents",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#AnswerPollingOptions",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#NoteForm/send",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#NoteForm~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#UnavailableNotice",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#useAnswerPolling",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#useAvailabilityCheck",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#Visitor/ringAgain",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/visitor.tsx#Visitor~shell",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#VisitResult",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#VisitResultProps",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#waitingDetail",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "removed",
+          "key": "src/constants/doorbell.ts#DOORBELL.cooldownSeconds",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.nameMaxLength",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.noteMaxLength",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "removed",
+          "key": "src/constants/doorbell.ts#DOORBELL.pollIntervalMs",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.timeZone",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#HTTP.badRequest",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#HTTP.noContent",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#PAUSE.hourMinutes",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#PAUSE.morningResumeTime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#PAUSE~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#QUIET_HOURS_PATTERN",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#RING_LIMITS.clientCooldownSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#RING_LIMITS.clientMaxPerWindow",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#RING_LIMITS.clientWindowSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#RING_LIMITS.homeMaxPerWindow",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#RING_LIMITS.homeWindowSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#RING_LIMITS~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.away",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.coming",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.leave",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.soon",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VisitReply",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES.originalId",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/polling.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/polling.ts#VISITOR_POLLING.answerMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/polling.ts#VISITOR_POLLING.availabilityMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/polling.ts#VISITOR_POLLING~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#DAY_HOURS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#HOUR_MINUTES",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#MINUTE_SECONDS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#SECOND_MS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME.dayMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME.hourMinutes",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME.secondMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/lib/api.ts#api",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#serverErrorMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#cleanName",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#nameKey",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pause.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pause.ts#isPaused",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pause.ts#localDay",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pause.ts#pauseEnd",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pause.ts#pauseEndLabel",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#isQuietTime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#localMinutes/value",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#localMinutes~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#minutesOfDay",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#assignDevicesToOriginalHome",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#connect",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#Database",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#databaseGlobal",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#getDatabase",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#initialize",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#MIGRATION_LOCK",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#MIGRATIONS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#nestedTransaction",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#poolDatabase",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#QueryResult",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#runStep",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#schemaVersion",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#UNDEFINED_TABLE",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#answerVisit",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#getHome",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#HOME_COLUMNS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#HOME_DEVICES",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#homeByToken",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#homeState",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#INVALID_DOORBELL_MESSAGE",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#leaveNote",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#PAUSE_UPDATES.hour",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#PAUSE_UPDATES.indefinite",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#PAUSE_UPDATES.resume",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#PAUSE_UPDATES~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#pausedMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#PUBLIC_VISIT_COLUMNS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#publicHome",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#purgeExpiredData",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#readVisit",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#RECEIPTS_COLUMN",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#registerVisit",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#rotateToken",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#setDelivery",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#setPause",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#snapshot",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#toJsonSnapshot",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#updateHomeName",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#updateQuietHours",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#VISIT_COLUMNS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#visitHomeId",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#VisitKey",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/homes.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/homes.ts#homeNameSchema",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/homes.ts#homeNameTaken",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/homes.ts#requireFreeHomeName",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#apiRoute",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#BODY_LIMIT",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#readJson",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#deliveryStatus",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#homeDevices",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#normalizedEmail",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#pushPayload",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#recordDeliveryHealth",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#SendOutcome",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#sendPush",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/rate-limit.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/rate-limit.ts#enforceRingLimits",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/rate-limit.ts#rateLimitSalt",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/rate-limit.ts#ringClientKey",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#emailList",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#listResidentHomes",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#normalizedEmail",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#residentSettings",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/doorbell.ts#DashboardSnapshot",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#Device",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#Home",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/doorbell.ts#HomeState",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/doorbell.ts#PublicHome",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#PublicVisit",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#Visit",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#HomeSummary",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentSettings",
+          "reason": "new visible or interactive code"
+        }
+      ],
       "suggestedScope": [
+        "pending from the previous run: Probar permisos, notificacion con telefono bloqueado y recuperacion offline en HTTPS.",
         "whole unit ringgg.visitor: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
       ]
     },
@@ -115,8 +1164,7 @@
       "name": "ui-ux-flow-patterns",
       "version": "1.5.0"
     },
-    "summary": "Estados de visitas y configuracion verificados con integracion y E2E; limitaciones de dispositivo documentadas.",
-    "report": "runs/20261029T162022Z-5c7bb3.json"
+    "report": "runs/20261030T154602Z-e3eb76.json"
   },
   "schemaVersion": 1,
   "skill": "ui-ux-flow-patterns",

@@ -1,7 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { HTTP } from '@/constants/doorbell';
-import type { ResidentIdentity } from '@/types/auth';
 import { requireOrigin } from './auth';
 import { AppError, errorResponse } from './errors';
 
@@ -35,9 +34,4 @@ export function apiRoute<Params = Record<string, never>>(operation: string, hand
     response.headers.set('Cache-Control', 'no-store');
     return response;
   };
-}
-
-/** Name shown to other residents in the history; never sent to visitors. */
-export function residentDisplayName(user: ResidentIdentity) {
-  return user.name?.trim() || user.email.split('@')[0];
 }

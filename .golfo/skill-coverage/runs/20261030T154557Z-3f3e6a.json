@@ -1,0 +1,1980 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:decf49c7daa0d309eabbbb89e24073d5c858a85d9f71fe6ed470271115ae4899",
+    "uncommittedFiles": [
+      "src/app/api/answer/route.ts",
+      "src/app/api/dashboard/route.ts",
+      "src/app/api/device-status/route.ts",
+      "src/app/api/pause/route.ts",
+      "src/app/api/push-key/route.ts",
+      "src/app/api/push-receipt/route.ts",
+      "src/app/api/quiet-hours/route.ts",
+      "src/app/api/remove-device/route.ts",
+      "src/app/api/rename-device/route.ts",
+      "src/app/api/rotate/route.ts",
+      "src/app/api/settings/route.ts",
+      "src/app/api/subscribe/route.ts",
+      "src/app/api/test-my-devices/route.ts",
+      "src/app/api/test-push/route.ts",
+      "src/components/dashboard-section-link.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/delete-home-setting.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/settings-section.tsx",
+      "src/components/dashboard/use-dashboard-state.ts",
+      "src/components/dashboard/use-dashboard-view.ts",
+      "src/components/dashboard/use-push-device.ts",
+      "src/components/dashboard/visit-history.tsx",
+      "src/components/doorbell-pause-control.tsx",
+      "src/components/home-switcher.tsx",
+      "src/components/notification-onboarding.tsx",
+      "src/components/resident-management.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/auth.ts",
+      "src/constants/dashboard-views.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/constants/polling.ts",
+      "src/constants/push.ts",
+      "src/constants/time.ts",
+      "src/lib/api.ts",
+      "src/lib/dashboard-view.ts",
+      "src/lib/device-health.ts",
+      "src/lib/device-name.ts",
+      "src/lib/invitation.ts",
+      "src/lib/names.ts",
+      "src/lib/pause.ts",
+      "src/lib/push-notification.ts",
+      "src/lib/quiet-hours.ts",
+      "src/lib/visit-format.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/device-names.ts",
+      "src/server/doorbell.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/neon-auth.ts",
+      "src/server/postgres.ts",
+      "src/server/push.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/service-worker/service-worker.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 74,
+    "inputCount": 532
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:49:22.134Z",
+      "source": "attested",
+      "summary": "Operaciones del panel por casa: ninguna optimista; server-confirmed (responder, regenerar QR, celulares, pruebas, activar avisos) o pending-first (nombre, pausa, horario). actionLock y refreshGeneration descartan respuestas viejas del polling; doble envío bloqueado; reconciliación por snapshot, visita o refetch; «¿Quién sos?» confirmado con refetch y refresh del shell; renombrar celular conserva lo escrito ante un error."
+    },
+    {
+      "command": "npx vitest run tests/doorbell.test.ts tests/devices.test.ts tests/push-notification.test.ts tests/dashboard-view.test.ts tests/notification-setup.test.ts",
+      "durationMs": 7466,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "d1e38b1e03029468941bd4dbdaf060a20b3e4cd5340ba9cac43a0765c6f3af14",
+      "recordedAt": "2026-10-30T15:49:29.826Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/dashboard-reconcile.spec.ts tests/e2e/dashboard-polling.spec.ts tests/e2e/dashboard-navigation.spec.ts tests/e2e/doorbell-pause.spec.ts tests/e2e/quiet-hours.spec.ts tests/e2e/resident-brand.spec.ts tests/e2e/notification-onboarding.spec.ts tests/e2e/device-names.spec.ts tests/e2e/service-worker.spec.ts tests/e2e/doorbell.spec.ts --reporter=line",
+      "durationMs": 58577,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "73582902f0f8ea37bb95ec872b47f6ba490244dcf294cb2f8a723565c350be6c",
+      "recordedAt": "2026-10-30T15:50:28.636Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:50:29.323Z",
+  "result": "verified",
+  "runId": "20261030T154557Z-3f3e6a",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "367 of 520 parts changed: the unit is reviewed as a whole"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@vercel/functions",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/answer/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/dashboard/route.ts#GET",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/device-status/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/pause/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/pause/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/pause/route.ts#pauseSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/pause/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/pause/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/push-key/route.ts#GET",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-receipt/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-receipt/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-receipt/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-receipt/route.ts#receiptSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-receipt/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/quiet-hours/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/quiet-hours/route.ts#quietHoursSchema",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/remove-device/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rename-device/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rename-device/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rename-device/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rename-device/route.ts#renameSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rename-device/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/rotate/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/settings/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/settings/route.ts#settingsSchema",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/subscribe/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/subscribe/route.ts#subscribeSchema",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/test-my-devices/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/test-push/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard-section-link.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard-section-link.tsx#DashboardSectionLink/openInPlace",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard-section-link.tsx#DashboardSectionLink~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard-section-link.tsx#DashboardSectionLinkProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/components/dashboard.tsx#awaitingAnswer",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/components/dashboard.tsx#Dashboard/action",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/activateNotifications",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/saveViewerName",
+        "reason": "new action handler"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard/signOut",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/components/dashboard.tsx#Dashboard/subscribe",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#rosterKey",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#statusLabel",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/delete-home-setting.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/delete-home-setting.tsx#blockedReason",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting/remove",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#calloutDetail",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSection",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#isDeviceRename",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#NotificationState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#RENAME_ACTION_PREFIX",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#renameAction",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#RenameForm",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#testOutcome",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCallout",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#quietDescription",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#QuietHoursForm/remove",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#QuietHoursForm/save",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#QuietHoursForm~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/settings-section.tsx#SettingsSection",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#AnswerClock",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#awaitingAnswer",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#createAnswerClock",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#dashboardPath",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#pollDelay",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#PollingOptions",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#reconcileAction",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#SERVER_RENDERED_KEYS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#serverClock",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/check",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/onWorkerMessage",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/refresh",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/refreshNow",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/schedule",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/stop",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/tickWhileAwaiting",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState/applySnapshot",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState/replaceVisit",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState/run",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#readFocusVisitId",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#readView",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#subscribeToDashboardUrl",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#useDashboardUrlValue/getSnapshot",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#useDashboardUrlValue~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#useDashboardView",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#useFocusVisitId",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#currentPermission",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#notify",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#Permission",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#permissionListeners",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#pushSupported",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#readSkipped",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#readSkippedChoice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#saveSkippedChoice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#serverPermission",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#serverSkipped",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#skippedChoice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#skippedListeners",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#subscribeToPermission",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#subscribeToSkipped",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice/activate",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice/refreshPermission",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice/skip",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#writeSkipped",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/visit-history.tsx#VisitHistory/waiting",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/visit-history.tsx#VisitHistory~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#VisitStatus",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControl",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControl/toggle",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControl~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControlProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#toggleLabel",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/home-switcher.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/home-switcher.tsx#homeHref",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/home-switcher.tsx#HomeSwitcher",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/home-switcher.tsx#NewHomeForm/create",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/home-switcher.tsx#NewHomeForm~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboardingProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/notification-onboarding.tsx#onboardingCopy",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#CHANGE_MESSAGES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentChange",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement/applyConfirmed",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement/share",
+        "reason": "new action handler"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagementProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentNameForm",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-name-dialog.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-name-dialog.tsx#ResidentNameDialog",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-name-dialog.tsx#ResidentNameDialogProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/dashboard-views.ts#DASHBOARD_PATH",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICE_PLATFORMS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES.defaultName",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES.max",
+        "reason": "lifecycle configuration member (max)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES.nameMaxLength",
+        "reason": "lifecycle configuration member (nameMaxLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#NOTIFICATION_SKIP_STORAGE_KEY",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.maxDevices",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.pollIntervalMs",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.pushTimeoutMs",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.pushTtlSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.retentionDays",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.gone",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.noContent",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.notFound",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE_MODES",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE_OPTIONS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE.hourMinutes",
+        "reason": "lifecycle configuration member (hourMinutes)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE.morningResumeTime",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PauseMode",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#LOCAL_DEFAULTS.origin",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#LOCAL_DEFAULTS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES.originalId",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES.queryParameter",
+        "reason": "lifecycle configuration member (queryParameter)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#RESIDENT_NAMES.maxLength",
+        "reason": "lifecycle configuration member (maxLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#RESIDENT_NAMES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#DASHBOARD_POLLING.answeringMs",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#DASHBOARD_POLLING.idleMs",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#DASHBOARD_POLLING.idleWithPushMs",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#DASHBOARD_POLLING~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH_POLICIES.note",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH_POLICIES.ring",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH_POLICIES.test",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH_POLICIES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH.endpointMaxLength",
+        "reason": "lifecycle configuration member (endpointMaxLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH.goneStatuses",
+        "reason": "lifecycle configuration member (goneStatuses)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH.keyLengths",
+        "reason": "lifecycle configuration member (keyLengths)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH.timeoutMs",
+        "reason": "lifecycle configuration member (timeoutMs)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PushKind",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PushUrgency",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#WORKER_MESSAGES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#DAY_HOURS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#HOUR_MINUTES",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#MINUTE_SECONDS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#SECOND_MS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.dayMs",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.hourMinutes",
+        "reason": "lifecycle configuration member (hourMinutes)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.minuteSeconds",
+        "reason": "lifecycle configuration member (minuteSeconds)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.secondMs",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#serverErrorMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/dashboard-view.ts#dashboardHref",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/dashboard-view.ts#navigateDashboard",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-health.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-health.ts#deviceHealth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-health.ts#DeviceHealthTone",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-health.ts#time",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#suggestedDeviceName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/invitation.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/invitation.ts#invitationMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/invitation.ts#shareInvitation",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/invitation.ts#ShareOutcome",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#cleanName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#nameKey",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#uniqueName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#isPaused",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#localDay",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#pauseEnd",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#pauseEndLabel",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#dashboardUrl",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#FALLBACK.body",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#FALLBACK.kind",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#FALLBACK.replies",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#FALLBACK.tag",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#FALLBACK.url",
+        "reason": "lifecycle configuration member (url)"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#FALLBACK~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#MAX_NOTIFICATION_ACTIONS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#NotificationAction",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#notificationActions",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#NotificationReply",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#parsePushData",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#PushData",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#receiptBody",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#renewalBody",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#REPLY_ACTION_PREFIX",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#replyFromAction",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/push-notification.ts#text",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/quiet-hours.ts#isQuietTime",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/quiet-hours.ts#localMinutes~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/lib/quiet-hours.ts#minutes",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#minutesOfDay",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#receiptLabel",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/visit-format.ts#responseTime",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireHome",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireIdentity",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireOrigin",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#getConfig",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/config.ts#httpsOrigin",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/config.ts#pushConfigured",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#assignDevicesToOriginalHome",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#connect",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#Database",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#nestedTransaction",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#poolDatabase",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#QueryResult",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#runStep",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/device-names.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/device-names.ts#takenDeviceNames",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#getHome",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#HOME_COLUMNS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#HOME_DEVICES",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#homeState",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.hour",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.indefinite",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.resume",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#RECEIPTS_COLUMN",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#rotateToken",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#setPause",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#snapshot",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#toJsonSnapshot",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#updateHomeSettings",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#updateQuietHours",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#VISIT_COLUMNS",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#visitHomeId",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#describeError",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/errors.ts#errorResponse",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.causeDepth",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.messageLength",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.stackLines",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#logError",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#homeIdSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#homeNameSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#homeNameTaken",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#requireFreeHomeName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/http.ts#residentDisplayName",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#neonAuthSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#NeonAuthSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/postgres.ts#createPostgresPool",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#deliveryStatus",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#deviceNameSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#deviceNameTaken",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#findOwnDevice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/push.ts#hasRegisteredDevice",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#homeDevices",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#normalizedEmail",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#pushPayload",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#recordDeliveryHealth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#recordPushReceipt",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#removeDevice",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#renameDevice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#SendOutcome",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#subscriptionSchema",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#UNIQUE_VIOLATION",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#upsertDevice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#accountName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#emailList",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#isBootstrap",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#memberName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#normalizedEmail",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#residentSettings",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/residents.ts#resolveResidentAccess",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/self-auth.ts#getSelfAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/self-auth.ts#selfAuthConfigured",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#SelfAuthSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#answerFromNotification",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#confirmReceipt",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#DoorbellNotificationOptions",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#ENDPOINT_KEY",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#ICON",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#JSON_HEADERS.Content-Type",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#JSON_HEADERS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#notifyClients",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#OFFLINE_CACHE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#OFFLINE_PAGE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#openDashboard",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#readPayload",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#rememberedEndpoint",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#rememberEndpoint",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#renewSubscription",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#self",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#sendAnswer",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#STATE_CACHE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#StoredAnswer",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#SubscriptionChangeEvent",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#DashboardData",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Device",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#HomeState",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#Viewer",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Visit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#HomeMember",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#HomeSummary",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/residents.ts#ResidentAccess",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/residents.ts#ResidentEntry",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/residents.ts#ResidentSettings",
+        "reason": "code reached by the unit changed"
+      }
+    ],
+    "suggestedScope": [
+      "whole unit ringgg.resident: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:45:57.014Z",
+  "unitId": "ringgg.resident"
+}

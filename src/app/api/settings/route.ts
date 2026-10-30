@@ -1,19 +1,21 @@
 import { z } from 'zod';
-import { DOORBELL } from '@/constants/doorbell';
-import { requireAuth } from '@/server/auth';
+import { requireHome, requireIdentity } from '@/server/auth';
 import { getDatabase } from '@/server/database';
-import { snapshot, updateHomeSettings } from '@/server/doorbell';
+import { snapshot, updateHomeName } from '@/server/doorbell';
+import { homeIdSchema } from '@/server/homes';
 import { apiRoute, readJson } from '@/server/http';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const settingsSchema = z.object({ name: z.string().trim().min(1).max(DOORBELL.nameMaxLength), enabled: z.boolean() });
+const settingsSchema = z.object({ home: homeIdSchema, name: z.string() });
 
+/** Renames the home; pausing goes through `/api/pause`, so saving a name never changes the bell state. */
 export const POST = apiRoute('settings', async (request) => {
-  await requireAuth();
+  const user = await requireIdentity();
   const input = await readJson(request, settingsSchema);
+  const member = await requireHome(user, input.home);
   const database = await getDatabase();
-  await updateHomeSettings(database, input.name, input.enabled);
-  return Response.json(await snapshot(database));
+  await updateHomeName(database, member, input.name);
+  return Response.json(await snapshot(database, member.homeId));
 });

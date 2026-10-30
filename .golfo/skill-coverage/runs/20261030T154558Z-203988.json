@@ -1,0 +1,511 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:decf49c7daa0d309eabbbb89e24073d5c858a85d9f71fe6ed470271115ae4899",
+    "uncommittedFiles": [
+      "src/app/api/answer/route.ts",
+      "src/app/api/dashboard/route.ts",
+      "src/app/api/device-status/route.ts",
+      "src/app/api/pause/route.ts",
+      "src/app/api/push-key/route.ts",
+      "src/app/api/push-receipt/route.ts",
+      "src/app/api/quiet-hours/route.ts",
+      "src/app/api/remove-device/route.ts",
+      "src/app/api/rename-device/route.ts",
+      "src/app/api/rotate/route.ts",
+      "src/app/api/settings/route.ts",
+      "src/app/api/subscribe/route.ts",
+      "src/app/api/test-my-devices/route.ts",
+      "src/app/api/test-push/route.ts",
+      "src/components/dashboard-section-link.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/delete-home-setting.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/settings-section.tsx",
+      "src/components/dashboard/use-dashboard-state.ts",
+      "src/components/dashboard/use-dashboard-view.ts",
+      "src/components/dashboard/use-push-device.ts",
+      "src/components/dashboard/visit-history.tsx",
+      "src/components/doorbell-pause-control.tsx",
+      "src/components/home-switcher.tsx",
+      "src/components/notification-onboarding.tsx",
+      "src/components/resident-management.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/auth.ts",
+      "src/constants/dashboard-views.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/constants/polling.ts",
+      "src/constants/push.ts",
+      "src/constants/time.ts",
+      "src/lib/api.ts",
+      "src/lib/dashboard-view.ts",
+      "src/lib/device-health.ts",
+      "src/lib/device-name.ts",
+      "src/lib/invitation.ts",
+      "src/lib/names.ts",
+      "src/lib/pause.ts",
+      "src/lib/push-notification.ts",
+      "src/lib/quiet-hours.ts",
+      "src/lib/visit-format.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/device-names.ts",
+      "src/server/doorbell.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/neon-auth.ts",
+      "src/server/postgres.ts",
+      "src/server/push.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/service-worker/service-worker.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 74,
+    "inputCount": 532
+  },
+  "evidence": [
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T15:51:43.310Z",
+      "source": "attested",
+      "summary": "Consultas del panel por hora sin visitas esperando y con notificaciones en este navegador.",
+      "tool": "Playwright con page.clock (Chromium) sobre el Dashboard real",
+      "metric": "consultas de polling por hora (inactivo, con notificaciones)",
+      "before": "720",
+      "after": "60",
+      "conditions": "bundle de producción del fixture del Dashboard, PostgreSQL embebido, reloj simulado en pasos de 1 s, pestaña visible; antes = main 847d295 medido en esta sesión"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T15:51:43.535Z",
+      "source": "attested",
+      "summary": "Consultas del panel por hora sin visitas esperando y sin notificaciones.",
+      "tool": "Playwright con page.clock (Chromium) sobre el Dashboard real",
+      "metric": "consultas de polling por hora (inactivo, sin notificaciones)",
+      "before": "720",
+      "after": "120",
+      "conditions": "bundle de producción del fixture del Dashboard, PostgreSQL embebido, reloj simulado en pasos de 1 s, pestaña visible; antes = main 847d295 medido en esta sesión"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T15:51:43.792Z",
+      "source": "attested",
+      "summary": "Con una visita que todavía se puede responder la cadencia sigue en 5 s a propósito.",
+      "tool": "Playwright con page.clock (Chromium) sobre el Dashboard real",
+      "metric": "consultas de polling por hora (visita esperando respuesta)",
+      "before": "720",
+      "after": "720",
+      "conditions": "bundle de producción del fixture del Dashboard, PostgreSQL embebido, reloj simulado en pasos de 1 s, pestaña visible; antes = main 847d295 medido en esta sesión"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T15:51:44.040Z",
+      "source": "attested",
+      "summary": "Queries de cada consulta de polling: acceso a la casa y snapshot.",
+      "tool": "PGlite con contador de queries (bun)",
+      "metric": "queries por consulta de /api/dashboard",
+      "before": "4",
+      "after": "4",
+      "conditions": "secuencia de src/app/page.tsx y de /api/dashboard sobre una base recién migrada; antes = main 847d295 medido en esta sesión"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T15:51:44.283Z",
+      "source": "attested",
+      "summary": "Queries del render del panel: +1 secuencial (lista de casas) y +1 en paralelo (nombre sugerido).",
+      "tool": "PGlite con contador de queries (bun)",
+      "metric": "queries por render del panel",
+      "before": "6",
+      "after": "8",
+      "conditions": "secuencia de src/app/page.tsx y de /api/dashboard sobre una base recién migrada; antes = main 847d295 medido en esta sesión"
+    },
+    {
+      "command": "npx vitest run tests/doorbell.test.ts tests/devices.test.ts tests/push-notification.test.ts tests/dashboard-view.test.ts tests/notification-setup.test.ts",
+      "durationMs": 7471,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "ba410eaea4259a2ec9d53341513ff16c453aa211ff44114cb250dfbead8d18fa",
+      "recordedAt": "2026-10-30T15:51:52.000Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:51:52.657Z",
+  "result": "verified",
+  "runId": "20261030T154558Z-203988",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "skill definition changed (1.7.0 → 1.7.0): SKILL.md, references/bundle-lazy-loading.md",
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@vercel/functions",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/answer/route.ts#POST",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/dashboard/route.ts#GET",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/device-status/route.ts#POST",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/pause/route.ts#POST",
+        "reason": "adds load: +6 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-receipt/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/quiet-hours/route.ts#POST",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/remove-device/route.ts#POST",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rename-device/route.ts#POST",
+        "reason": "adds load: +6 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/rotate/route.ts#POST",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/settings/route.ts#POST",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/test-my-devices/route.ts#POST",
+        "reason": "adds load: +3 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/test-push/route.ts#POST",
+        "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#statusLabel",
+        "reason": "adds load: +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting/remove",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/settings-section.tsx#SettingsSection",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#createAnswerClock",
+        "reason": "adds load: +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#reconcileAction",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/check",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/refresh",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling/schedule",
+        "reason": "adds load: +1 timers or polling"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#startPolling~shell",
+        "reason": "adds load: +3 listeners or subscriptions"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState/run",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell",
+        "reason": "adds load: +3 effects"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#readView",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-dashboard-view.ts#subscribeToDashboardUrl",
+        "reason": "adds load: +2 listeners or subscriptions"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#subscribeToPermission",
+        "reason": "adds load: +2 listeners or subscriptions, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#subscribeToSkipped",
+        "reason": "adds load: +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice/activate",
+        "reason": "adds load: +7 awaited steps, +1 listeners or subscriptions"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice~shell",
+        "reason": "adds load: +1 effects, +3 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControl~shell",
+        "reason": "adds load: +1 effects, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/home-switcher.tsx#NewHomeForm/create",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement/share",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-name-dialog.tsx#ResidentNameDialog",
+        "reason": "adds load: +1 effects"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/invitation.ts#shareInvitation",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireHome",
+        "reason": "adds load: +1 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireIdentity",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#assignDevicesToOriginalHome",
+        "reason": "adds load: +1 awaited steps, +2 database queries, +1 awaited calls inside a loop"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#poolDatabase",
+        "reason": "adds load: +7 awaited steps, +5 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#runStep",
+        "reason": "adds load: +3 awaited steps, +2 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/device-names.ts#takenDeviceNames",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#setPause",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeName",
+        "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#visitHomeId",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#findOwnDevice",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#homeDevices",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#recordDeliveryHealth",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#recordPushReceipt",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#removeDevice",
+        "reason": "adds load: +2 awaited steps, +2 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#renameDevice",
+        "reason": "adds load: +5 awaited steps, +4 database queries"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#upsertDevice",
+        "reason": "adds load: +3 awaited steps, +3 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#<module>",
+        "reason": "adds load: +6 listeners or subscriptions, +1 database queries, +1 requests, +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#answerFromNotification",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#confirmReceipt",
+        "reason": "adds load: +3 awaited steps, +1 requests"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#notifyClients",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#openDashboard",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#rememberedEndpoint",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#rememberEndpoint",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#renewSubscription",
+        "reason": "adds load: +6 awaited steps, +2 requests, +1 listeners or subscriptions"
+      },
+      {
+        "change": "added",
+        "key": "src/service-worker/service-worker.ts#sendAnswer",
+        "reason": "adds load: +3 awaited steps, +1 requests"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Medir la latencia del poll en producción (getSession de Neon Auth por request)",
+      "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:45:58.272Z",
+  "unitId": "ringgg.resident"
+}

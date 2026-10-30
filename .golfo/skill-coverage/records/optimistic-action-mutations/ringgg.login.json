@@ -2,45 +2,70 @@
   "latest": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "feature/doorbell-hardening-and-replies",
-      "commit": "8eb12c01cb0b41dcc166333e2f3d1cf38a5dec06",
+      "branch": "feature/mejoras-revision",
+      "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
       "files": {
-        "src/components/login.tsx": "767ebb0e08237c9d",
-        "src/server/auth.ts": "30ad2dd2489fe11b",
+        "src/components/login.tsx": "68e09cca665eb297",
+        "src/server/auth.ts": "12d87f7b42214a39",
         "src/app/api/auth/[...path]/route.ts": "8a7830cf56cdb207",
-        "src/constants/auth.ts": "1ffcfd55b5a28229",
-        "src/components/brand.tsx": "c88038bcdca3be24",
+        "src/constants/auth.ts": "5ce7e906628ec790",
+        "src/constants/doorbell.ts": "2edd18d9afbb7d3f",
+        "src/components/login-shell.tsx": "481e227736689715",
         "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
-        "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/constants/doorbell.ts": "a4cee6851393bbdf",
+        "src/server/errors.ts": "45863b0b5c1144b1",
         "src/types/auth.ts": "f3635cf0c001ea99",
-        "src/server/neon-auth.ts": "098837118d7561d8",
-        "src/server/self-auth.ts": "c8a30c1f421bed6a",
+        "src/server/neon-auth.ts": "0853ae91019a62c7",
+        "src/server/self-auth.ts": "a9dc6601b8d539eb",
         "src/server/auth-mode.ts": "55ab5ff52eeb427d",
-        "src/types/residents.ts": "5e92dc2596b6084e",
-        "src/server/database.ts": "c1741312a733a0e7",
-        "src/server/residents.ts": "247b6ea6ee6acabe",
-        "src/server/config.ts": "275ccaef3e809db0",
-        "src/server/postgres.ts": "b8ad79581c146c4c",
+        "src/types/residents.ts": "b7a6c448a73bacc3",
+        "src/server/database.ts": "f11b89b5e9ccd3e8",
+        "src/server/residents.ts": "eda9c188112cf624",
+        "src/server/config.ts": "24322283cee795e4",
+        "src/components/brand.tsx": "0aca2f770c5b0b91",
+        "src/server/postgres.ts": "2355b8fc585ab8e4",
+        "src/constants/devices.ts": "92d451596518c800",
+        "src/constants/homes.ts": "564484a011173893",
+        "src/lib/names.ts": "5fefc809b3ce8988",
         "src/server/resident-access.ts": "24da31381b0b4774",
+        "src/constants/environment.ts": "56dcab8047d696a2",
         "src/config/database.ts": "cfab3a8bb039650a",
         "src/constants/database.ts": "4f990a98f504bf0b"
       },
-      "fingerprint": "sha256:0d6682c3dd1d15acbcba7bb3fbc1fd7c60a6bd3642eba144ac06a134457a99e5",
+      "fingerprint": "sha256:21ee456ff91d233ac541b7faee7f7f058eb2d2b56cd4f4dbfef68ade5a90b691",
       "inputs": {
         "src/components/login.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/login.tsx#DEFAULT_HINT": "31284a9d79315086",
+        "src/components/login.tsx#MODE_COPY.sign-in": "48a3371d2431c024",
+        "src/components/login.tsx#MODE_COPY.sign-up": "e64397210592d9eb",
+        "src/components/login.tsx#MODE_COPY.verify": "7cb2a701f38bf433",
+        "src/components/login.tsx#MODE_COPY.forgot": "763bb5e97b5f6ac5",
+        "src/components/login.tsx#MODE_COPY.reset": "be4516bf1d73d070",
+        "src/components/login.tsx#MODE_COPY~frame": "cc036df0b695c778",
+        "src/components/login.tsx#SIGNED_IN_COPY.title": "4a4bc52809905953",
+        "src/components/login.tsx#SIGNED_IN_COPY.hint": "1f152989e558ef68",
+        "src/components/login.tsx#SIGNED_IN_COPY~frame": "6fd44d8b7d253f26",
+        "src/components/login.tsx#PASSWORD_MODES": "5899900938a7fcea",
+        "src/components/login.tsx#authFailure": "ae3ebfeda0a725af",
+        "src/components/login.tsx#formText": "c96d15379f0338c5",
+        "src/components/login.tsx#PasswordField": "76385824d10bd7b4",
+        "src/components/login.tsx#AuthFields": "ac6f233e254069b1",
+        "src/components/login.tsx#AuthOptionsProps": "1745b5772c6bcfb9",
+        "src/components/login.tsx#AuthOptions": "e4dc5e977c1117b7",
         "src/components/login.tsx#Login/changeMode": "ae1225fd73ea29f6",
-        "src/components/login.tsx#Login/action": "b004ebdfd7d78183",
-        "src/components/login.tsx#Login/showError": "5fe238101b10d3c2",
-        "src/components/login.tsx#Login/submit": "c43dbc26f992e9ec",
-        "src/components/login.tsx#Login~shell": "878ad2ce1855f214",
+        "src/components/login.tsx#Login/finish": "3810dc75755004dd",
+        "src/components/login.tsx#Login/goHome": "44f897f341de7d35",
+        "src/components/login.tsx#Login/action": "89afa7efd9af5c99",
+        "src/components/login.tsx#Login~shell": "2fab14034d2522f0",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "pkg:react": "f4529719455f2af2",
-        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#getIdentity": "5b7a4e4d0e0aac26",
         "pkg:next": "530097ba2f134bc2",
-        "src/server/auth.ts#requireAuth": "63b91bc63604f47b",
-        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/components/login.tsx#Login/showError": "576a6b0c65e3804a",
+        "src/components/login.tsx#Login/submit": "f925ec8b4811c10a",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#getIdentity": "d7f7c2295120441f",
+        "src/server/auth.ts#requireIdentity": "1ad60dce0257fffd",
+        "src/server/auth.ts#requireHome": "c1db142c515f3cc3",
+        "src/server/auth.ts#requireOrigin": "f05fc0de84b9fee0",
         "src/app/api/auth/[...path]/route.ts#<module>": "2da3ec2294295eb1",
         "src/app/api/auth/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
         "src/app/api/auth/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
@@ -52,83 +77,134 @@
         "src/app/api/auth/[...path]/route.ts#PATCH": "ca48676dcdac20c5",
         "src/app/api/auth/[...path]/route.ts#DELETE": "f75472d7785587c3",
         "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD": "9259e41524b89c45",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD": "2e1ea81541bfb0b2",
-        "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED": "50dddb6a856c8b22",
-        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS": "fd74ab5fb14c9620",
-        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "90102861850ad609",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP": "84cb539c3c0aab34",
-        "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED": "58fb6c891061f2e9",
-        "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN": "21c1685fc2e9b261",
-        "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS": "3c4052195042dffa",
-        "src/constants/auth.ts#AUTH_ERRORS~frame": "2cd2b699cbf2da60",
+        "src/constants/auth.ts#AuthFormMode": "82802408d5f6cdde",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef",
         "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
         "src/constants/auth.ts#AUTH.maximumPasswordLength": "0edbbce1639c56c5",
         "src/constants/auth.ts#AUTH.minimumPasswordLength": "8762210cff0cc574",
         "src/constants/auth.ts#AUTH.verificationCodeLength": "b5d0d601347e0aef",
-        "src/constants/auth.ts#AuthFormMode": "82802408d5f6cdde",
-        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
-        "src/components/brand.tsx#Brand": "4a93848faadb55ac",
-        "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
+        "src/components/login-shell.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/login-shell.tsx#LoginShell": "2363d0a1a436ca0d",
         "src/lib/auth-client.ts#<module>": "3809ea0e66c9f036",
         "pkg:@neondatabase/auth": "cb0784c3ee32091d",
         "src/lib/auth-client.ts#authClient": "c58939e9975b814b",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD": "10cd8f3854fdcc17",
+        "src/constants/auth.ts#MESSAGES~frame": "516c7db2f6a641e6",
+        "src/constants/auth.ts#MESSAGES.invalidCredentials": "a057ac0b6c21e607",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_PASSWORD": "2e1ea81541bfb0b2",
+        "src/constants/auth.ts#AUTH_ERRORS.invalid_credentials": "19b7f6171d08edff",
+        "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED": "dc91582c6bc97fa0",
+        "src/constants/auth.ts#MESSAGES.unverified": "25ec2ad7be79c309",
+        "src/constants/auth.ts#AUTH_ERRORS.email_not_confirmed": "b501ed37d0a9aa5f",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS": "a2dcf104c513d902",
+        "src/constants/auth.ts#MESSAGES.existing": "a0e156ddd3d86cf2",
+        "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "69f03e299bcc0c02",
+        "src/constants/auth.ts#AUTH_ERRORS.user_already_exists": "d027fe9e6d75921e",
+        "src/constants/auth.ts#AUTH_ERRORS.email_exists": "a8ace1931e142a15",
+        "src/constants/auth.ts#AUTH_ERRORS.weak_password": "097f88e057fd09d1",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_OTP": "84cb539c3c0aab34",
+        "src/constants/auth.ts#AUTH_ERRORS.OTP_EXPIRED": "58fb6c891061f2e9",
+        "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN": "72388dc5d1130198",
+        "src/constants/auth.ts#MESSAGES.invalidLink": "c4d1346358c5b84d",
+        "src/constants/auth.ts#AUTH_ERRORS.bad_jwt": "62abdda59a1488b6",
+        "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS": "2e7f1680cfa2a790",
+        "src/constants/auth.ts#MESSAGES.tooMany": "d2b0fe7bf623f984",
+        "src/constants/auth.ts#AUTH_ERRORS.over_request_rate_limit": "b5dd2019da2b84fe",
+        "src/constants/auth.ts#AUTH_ERRORS.over_email_send_rate_limit": "214de43b3b59f4c5",
+        "src/constants/auth.ts#AUTH_ERRORS~frame": "2cd2b699cbf2da60",
+        "src/constants/auth.ts#UNVERIFIED_EMAIL_CODES": "f6e4948dcd4e1027",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
-        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
         "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
         "src/types/auth.ts#<module>": "2da3ec2294295eb1",
         "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
         "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/neon-auth.ts#authConfigured": "59a85ab010a6bb61",
-        "src/server/neon-auth.ts#getNeonAuth": "21acc3aa6ad225b0",
+        "src/server/neon-auth.ts#authConfigured": "4233244a1f43a905",
+        "src/server/neon-auth.ts#neonAuthSettings": "fd2fb55bae8e5e6e",
+        "src/server/neon-auth.ts#NeonAuthSettings": "f85a65ea9a977c5e",
+        "src/server/neon-auth.ts#getNeonAuth": "0dca5d26a6e67b14",
         "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
         "src/server/self-auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/self-auth.ts#getSelfAuth": "db6f7e6536e69dd7",
+        "src/server/self-auth.ts#getSelfAuth": "a5aad296fd80c2bc",
         "src/server/self-auth.ts#auth": "ea23585755bb513f",
-        "src/server/self-auth.ts#createSelfAuth": "f246e25ceac53e41",
+        "src/server/self-auth.ts#createSelfAuth": "2250d374e686be5b",
         "pkg:kysely": "62d68445b49f5341",
-        "src/server/self-auth.ts#selfAuthConfigured": "e7c43282789ffb15",
+        "src/server/self-auth.ts#selfAuthSettings": "d9827dce9c1cf518",
+        "src/server/self-auth.ts#SelfAuthSettings": "e0de8a1f5539a91d",
         "src/server/auth-mode.ts#<module>": "2da3ec2294295eb1",
         "src/server/auth-mode.ts#isSelfManagedAuth": "0ac5810e58f9e520",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
         "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
         "src/types/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
+        "src/types/residents.ts#HomeMember": "59f972b5b8eb78e4",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
-        "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
-        "src/server/database.ts#Database": "2685f7243aa5fb29",
-        "src/server/database.ts#connect": "8e29d1391a673652",
+        "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
+        "src/server/database.ts#Database": "578aba9512306538",
+        "src/server/database.ts#QueryResult": "2278ab1e0e7ca928",
+        "src/server/database.ts#connect": "a16b98c82ece5ce6",
         "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#nestedTransaction": "097720328480446e",
+        "src/server/database.ts#poolDatabase": "fedd878e554639d7",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "eaaff186f22bd092",
-        "src/server/database.ts#MIGRATIONS": "6c60ed1a75e3154c",
+        "src/server/database.ts#initialize": "b63e6fa612388f19",
+        "src/server/database.ts#MIGRATIONS": "95212e268ff47ff1",
+        "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
         "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
-        "src/server/database.ts#schemaVersion": "ef3ad5ea4ff760b8",
+        "src/server/database.ts#runStep": "b8d318e23891085b",
+        "src/server/database.ts#schemaVersion": "65d0240dc3c92d18",
         "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
         "src/server/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/server/residents.ts#resolveResidentAccess": "6ddd31b45692d7d6",
-        "src/server/residents.ts#emailList": "68719ecac844ab41",
-        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
-        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/server/residents.ts#resolveHomeAccess": "0b2dec8eda508b16",
+        "src/server/residents.ts#isBootstrap": "ed2221aada2e1745",
+        "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
+        "src/server/residents.ts#residentSettings": "090458f99e66a86c",
+        "src/server/residents.ts#emailList": "0021888d1f4f53a8",
         "src/server/config.ts#<module>": "2da3ec2294295eb1",
-        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
+        "src/server/config.ts#getConfig": "22f06e9ffdb6f3e7",
         "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
         "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "src/server/config.ts#httpsOrigin": "fd5040a991eedb92",
         "pkg:web-push": "6ab2287300696f64",
-        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/server/errors.ts#errorResponse": "6992e874d2c7c807",
+        "src/server/errors.ts#logError": "da59c8b8659e20b8",
+        "src/server/errors.ts#describeError": "f13cd6ca5b673395",
+        "src/server/errors.ts#LOG_LIMITS~frame": "9dc641c7148f46ea",
+        "src/server/errors.ts#LOG_LIMITS.causeDepth": "87444f7090799dc0",
+        "src/server/errors.ts#LOG_LIMITS.messageLength": "5a19ccff12e87686",
+        "src/server/errors.ts#LOG_LIMITS.stackLines": "bd18d006a53c3083",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "ed7a027c7b6ee6ac",
+        "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
         "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/server/self-auth.ts#selfAuthConfigured": "c3a318e0d6dcd17d",
         "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
-        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
         "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
-        "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
+        "src/server/postgres.ts#createPostgresPool": "c3f88729989ad244",
         "pkg:pg": "bba8fb4b856406c4",
+        "pkg:@vercel/functions": "e43505af744bef19",
         "src/constants/auth.ts#AUTH.reservedSchemas": "96aeee1bb4d6e114",
         "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
+        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
+        "src/constants/devices.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/devices.ts#DEVICES~frame": "eb8f63763177928a",
+        "src/constants/devices.ts#DEVICES.defaultName": "52ad5da0efc5311f",
+        "src/constants/devices.ts#DEVICES.nameMaxLength": "1310c99c650e5157",
+        "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
+        "src/constants/homes.ts#HOMES.originalId": "d9d7b64a16cba029",
+        "src/lib/names.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
+        "src/lib/names.ts#cleanName": "49186c6b44b377fb",
+        "src/lib/names.ts#uniqueName": "57ac10b978c09992",
         "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
         "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
-        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
-        "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef",
+        "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/constants/environment.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/environment.ts#LOCAL_DEFAULTS~frame": "5a1c7b91211fc6c8",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.origin": "060e2d02b491e60f",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject": "bcf01163df3d1130",
         "src/config/database.ts#<module>": "2da3ec2294295eb1",
         "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
         "src/constants/database.ts#<module>": "2da3ec2294295eb1",
@@ -145,19 +221,22 @@
         "src/components/login.tsx#Login/action": {
           "awaits": 1
         },
-        "src/components/login.tsx#Login/submit": {
-          "awaits": 6,
+        "src/components/login.tsx#Login~shell": {
+          "awaits": 7,
           "projectCalls": 1
         },
-        "src/components/login.tsx#Login~shell": {
-          "awaits": 2
+        "src/components/login.tsx#Login/submit": {
+          "awaits": 1
         },
         "src/server/auth.ts#getIdentity": {
           "awaits": 3,
           "projectCalls": 2
         },
-        "src/server/auth.ts#requireAuth": {
-          "awaits": 2,
+        "src/server/auth.ts#requireIdentity": {
+          "awaits": 1
+        },
+        "src/server/auth.ts#requireHome": {
+          "awaits": 1,
           "projectCalls": 1
         },
         "src/server/auth.ts#requireOrigin": {
@@ -184,19 +263,32 @@
         },
         "src/server/database.ts#connect": {
           "projectCalls": 1,
-          "awaits": 8,
-          "database": 8
+          "awaits": 1,
+          "database": 3
+        },
+        "src/server/database.ts#poolDatabase": {
+          "awaits": 7,
+          "database": 5
         },
         "src/server/database.ts#initialize": {
           "awaits": 5,
-          "database": 6,
-          "awaitInLoop": 3
+          "database": 4,
+          "awaitInLoop": 2
+        },
+        "src/server/database.ts#assignDevicesToOriginalHome": {
+          "awaits": 1,
+          "database": 2,
+          "awaitInLoop": 1
+        },
+        "src/server/database.ts#runStep": {
+          "awaits": 3,
+          "database": 2
         },
         "src/server/database.ts#schemaVersion": {
           "awaits": 1,
           "database": 1
         },
-        "src/server/residents.ts#resolveResidentAccess": {
+        "src/server/residents.ts#resolveHomeAccess": {
           "awaits": 1,
           "database": 1
         },
@@ -205,31 +297,54 @@
         }
       },
       "uncommittedFiles": [
+        "src/components/brand.tsx",
+        "src/components/login-shell.tsx",
+        "src/components/login.tsx",
+        "src/constants/auth.ts",
+        "src/constants/devices.ts",
         "src/constants/doorbell.ts",
-        "src/server/database.ts"
+        "src/constants/environment.ts",
+        "src/constants/homes.ts",
+        "src/lib/names.ts",
+        "src/server/auth.ts",
+        "src/server/config.ts",
+        "src/server/database.ts",
+        "src/server/errors.ts",
+        "src/server/neon-auth.ts",
+        "src/server/postgres.ts",
+        "src/server/residents.ts",
+        "src/server/self-auth.ts",
+        "src/types/residents.ts"
       ]
     },
     "evidence": [
       {
-        "command": "npx playwright test tests/e2e/auth.spec.ts --reporter=line",
-        "durationMs": 9652,
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-30T15:57:57.315Z",
+        "source": "attested",
+        "summary": "Ingreso, registro, verificación y recuperación: server-confirmed (autenticación), sin éxito adelantado; errores del proveedor mapeados."
+      },
+      {
+        "command": "npx vitest run tests/identity-import.test.ts tests/resident-access.test.ts tests/environment.test.ts",
+        "durationMs": 3700,
         "exitCode": 0,
         "kind": "test",
         "outcome": "pass",
-        "outputSha256": "70fa586597a2dee8b0fdf893ce8b58fb7c30cc9ef8aa222900f0831a7625d35f",
-        "recordedAt": "2026-10-30T01:16:26.412Z",
+        "outputSha256": "2f2d6eca71f65ef033102655b921265f44f98b191a0e4fb8fdceae6ba538df3c",
+        "recordedAt": "2026-10-30T15:58:01.306Z",
         "source": "witnessed",
         "summary": "exit code 0"
       }
     ],
     "limitations": [
-      "Modo liviano sin cobertura verificada previa"
+      "Modo incremental sin cobertura verificada previa de la unidad."
     ],
-    "mode": "lightweight",
+    "mode": "incremental",
     "pendingChecks": [],
-    "recordedAt": "2026-10-30T01:16:35.578Z",
+    "recordedAt": "2026-10-30T15:58:01.864Z",
     "result": "partial",
-    "runId": "20261030T011510Z-b151e8",
+    "runId": "20261030T154604Z-70158f",
     "scope": {
       "decision": "incremental",
       "reasons": [
@@ -238,23 +353,8 @@
       "relevantChangesAtBegin": [
         {
           "change": "added",
-          "key": "pkg:better-auth",
+          "key": "pkg:@vercel/functions",
           "reason": "new package in the flow (data, cache or mutation primitives)"
-        },
-        {
-          "change": "added",
-          "key": "pkg:kysely",
-          "reason": "new package in the flow (data, cache or mutation primitives)"
-        },
-        {
-          "change": "added",
-          "key": "pkg:next",
-          "reason": "new package in the flow (data, cache or mutation primitives)"
-        },
-        {
-          "change": "modified",
-          "key": "src/app/api/auth/[...path]/route.ts#handler",
-          "reason": "code reached by the unit changed"
         },
         {
           "change": "modified",
@@ -263,8 +363,68 @@
         },
         {
           "change": "added",
-          "key": "src/components/brand.tsx#BrandContents",
+          "key": "src/components/login-shell.tsx#<module>",
           "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login-shell.tsx#LoginShell",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#authFailure",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#AuthFields",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#AuthOptions",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#AuthOptionsProps",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#DEFAULT_HINT",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#formText",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/login.tsx#Login/action",
+          "reason": "action handler changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#Login/finish",
+          "reason": "new action handler"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#Login/goHome",
+          "reason": "new action handler"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/login.tsx#Login/showError",
+          "reason": "action handler changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/login.tsx#Login/submit",
+          "reason": "action handler changed"
         },
         {
           "change": "modified",
@@ -273,27 +433,177 @@
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#AUTH.reservedSchemas",
-          "reason": "unclassified object member: lifecycle impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
-          "reason": "unclassified object member: lifecycle impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
-          "reason": "unclassified object member: lifecycle impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/server/auth-mode.ts#<module>",
+          "key": "src/components/login.tsx#MODE_COPY~frame",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+          "key": "src/components/login.tsx#PASSWORD_MODES",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#PasswordField",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/login.tsx#SIGNED_IN_COPY~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.bad_jwt",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.email_exists",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.email_not_confirmed",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "modified",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.invalid_credentials",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "modified",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "modified",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.over_email_send_rate_limit",
+          "reason": "lifecycle configuration member (over_email_send_rate_limit)"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.over_request_rate_limit",
+          "reason": "lifecycle configuration member (over_request_rate_limit)"
+        },
+        {
+          "change": "modified",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.user_already_exists",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "modified",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "modified",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH_ERRORS.weak_password",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#MESSAGES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#UNVERIFIED_EMAIL_CODES",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#DEVICES.defaultName",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#DEVICES.nameMaxLength",
+          "reason": "lifecycle configuration member (nameMaxLength)"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#DEVICES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS.origin",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES.originalId",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#cleanName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#nameKey",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#uniqueName",
           "reason": "new code reached by the unit"
         },
         {
@@ -302,8 +612,53 @@
           "reason": "code reached by the unit changed"
         },
         {
-          "change": "modified",
+          "change": "removed",
           "key": "src/server/auth.ts#requireAuth",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth.ts#requireHome",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth.ts#requireIdentity",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#requireOrigin",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/config.ts#getConfig",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/config.ts#httpsOrigin",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#assignDevicesToOriginalHome",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#connect",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#Database",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#getDatabase",
           "reason": "code reached by the unit changed"
         },
         {
@@ -312,23 +667,68 @@
           "reason": "code reached by the unit changed"
         },
         {
-          "change": "added",
-          "key": "src/server/database.ts#MIGRATION_LOCK",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/database.ts#MIGRATIONS",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#nestedTransaction",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
+          "key": "src/server/database.ts#poolDatabase",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#QueryResult",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#runStep",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
           "key": "src/server/database.ts#schemaVersion",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#describeError",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/errors.ts#errorResponse",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS.causeDepth",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS.messageLength",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS.stackLines",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS~frame",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/server/database.ts#UNDEFINED_TABLE",
+          "key": "src/server/errors.ts#logError",
           "reason": "new code reached by the unit"
         },
         {
@@ -342,65 +742,187 @@
           "reason": "code reached by the unit changed"
         },
         {
+          "change": "added",
+          "key": "src/server/neon-auth.ts#neonAuthSettings",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/neon-auth.ts#NeonAuthSettings",
+          "reason": "new code reached by the unit"
+        },
+        {
           "change": "modified",
-          "key": "src/server/residents.ts#resolveResidentAccess",
+          "key": "src/server/postgres.ts#createPostgresPool",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#emailList",
           "reason": "code reached by the unit changed"
         },
         {
           "change": "added",
-          "key": "src/server/self-auth.ts#<module>",
+          "key": "src/server/residents.ts#isBootstrap",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/server/self-auth.ts#auth",
+          "key": "src/server/residents.ts#normalizedEmail",
           "reason": "new code reached by the unit"
         },
         {
+          "change": "modified",
+          "key": "src/server/residents.ts#residentSettings",
+          "reason": "code reached by the unit changed"
+        },
+        {
           "change": "added",
+          "key": "src/server/residents.ts#resolveHomeAccess",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/residents.ts#resolveResidentAccess",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "modified",
           "key": "src/server/self-auth.ts#createSelfAuth",
-          "reason": "new code reached by the unit"
+          "reason": "code reached by the unit changed"
         },
         {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/self-auth.ts#getSelfAuth",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/self-auth.ts#selfAuthConfigured",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#selfAuthSettings",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/server/self-auth.ts#selfAuthConfigured",
+          "key": "src/server/self-auth.ts#SelfAuthSettings",
           "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#HomeMember",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
+          "key": "src/types/residents.ts#ResidentAccess",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/residents.ts#ResidentSettings",
+          "reason": "code reached by the unit changed"
         }
       ],
       "suggestedScope": [
-        "pending from the previous run: Crear/verificar cuenta del propietario y recorrer Residentes desde el panel.",
-        "package better-auth — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
-        "package kysely — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
-        "package next — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
-        "src/app/api/auth/[...path]/route.ts › handler — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "package @vercel/functions — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
         "src/components/brand.tsx › Brand — operations that reach this code: intent, concurrency, rollback and reconciliation",
-        "src/components/brand.tsx › BrandContents — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login-shell.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/login-shell.tsx › LoginShell — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › authFailure — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › AuthFields — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › AuthOptions — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › AuthOptionsProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › DEFAULT_HINT — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › formText — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › Login › action — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/login.tsx › Login › finish — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/login.tsx › Login › goHome — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/login.tsx › Login › showError — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/login.tsx › Login › submit — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
         "src/components/login.tsx › Login (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
-        "src/constants/auth.ts › AUTH.reservedSchemas — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/auth.ts › AUTH.schemaNamePattern — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/auth.ts › AUTH.selfManagedDefaultSchema — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/server/auth-mode.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/auth-mode.ts › isSelfManagedAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/components/login.tsx › MODE_COPY (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › PASSWORD_MODES — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › PasswordField — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › SIGNED_IN_COPY (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/auth.ts › AUTH_ERRORS.bad_jwt — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.email_exists — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.email_not_confirmed — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.EMAIL_NOT_VERIFIED — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.invalid_credentials — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.INVALID_TOKEN — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.over_email_send_rate_limit — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.over_request_rate_limit — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.TOO_MANY_REQUESTS — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.user_already_exists — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.USER_ALREADY_EXISTS — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH_ERRORS.weak_password — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › MESSAGES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/auth.ts › UNVERIFIED_EMAIL_CODES — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/devices.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/constants/devices.ts › DEVICES.defaultName — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/devices.ts › DEVICES.nameMaxLength — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/devices.ts › DEVICES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/environment.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/constants/environment.ts › LOCAL_DEFAULTS.origin — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/environment.ts › LOCAL_DEFAULTS.vapidSubject — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/environment.ts › LOCAL_DEFAULTS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/homes.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/constants/homes.ts › HOMES.originalId — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/homes.ts › HOMES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/names.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/lib/names.ts › cleanName — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/names.ts › nameKey — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/names.ts › uniqueName — operations that reach this code: intent, concurrency, rollback and reconciliation",
         "src/server/auth.ts › getIdentity — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/auth.ts › requireAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/auth.ts › requireAuth — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/auth.ts › requireHome — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/auth.ts › requireIdentity — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/auth.ts › requireOrigin — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/config.ts › getConfig — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/config.ts › httpsOrigin — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › assignDevicesToOriginalHome — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › connect — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › Database — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › getDatabase — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/database.ts › initialize — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/database.ts › MIGRATION_LOCK — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/database.ts › MIGRATIONS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › nestedTransaction — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › poolDatabase — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › QueryResult — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › runStep — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/database.ts › schemaVersion — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/database.ts › UNDEFINED_TABLE — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/errors.ts › describeError — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/errors.ts › errorResponse — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/errors.ts › LOG_LIMITS.causeDepth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/errors.ts › LOG_LIMITS.messageLength — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/errors.ts › LOG_LIMITS.stackLines — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/errors.ts › LOG_LIMITS (object structure) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/errors.ts › logError — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/neon-auth.ts › authConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/neon-auth.ts › getNeonAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › resolveResidentAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/self-auth.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/self-auth.ts › auth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/neon-auth.ts › neonAuthSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/neon-auth.ts › NeonAuthSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/postgres.ts › createPostgresPool — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/residents.ts › emailList — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/residents.ts › isBootstrap — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/residents.ts › normalizedEmail — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/residents.ts › residentSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/residents.ts › resolveHomeAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/residents.ts › resolveResidentAccess — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
         "src/server/self-auth.ts › createSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/self-auth.ts › getSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/self-auth.ts › selfAuthConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections"
+        "src/server/self-auth.ts › selfAuthConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › selfAuthSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › SelfAuthSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/types/residents.ts › HomeMember — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/types/residents.ts › ResidentAccess — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/types/residents.ts › ResidentSettings — operations that reach this code: intent, concurrency, rollback and reconciliation"
       ]
     },
     "skill": {
@@ -416,8 +938,7 @@
       "name": "optimistic-action-mutations",
       "version": "1.2.0"
     },
-    "summary": "Sin cambios en el flujo de acceso; solo cambió el bootstrap del esquema",
-    "report": "runs/20261030T011510Z-b151e8.json"
+    "report": "runs/20261030T154604Z-70158f.json"
   },
   "schemaVersion": 1,
   "skill": "optimistic-action-mutations",

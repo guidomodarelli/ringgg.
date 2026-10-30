@@ -1,4 +1,23 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+
+/**
+ * The first visit to a home asks who you are (prefilled with the account name), then offers
+ * notifications; these tests keep the suggested name and go on without notifications.
+ */
+async function enterHome(page: Page) {
+  const nameDialog = page.getByRole('dialog', { name: '¿Quién sos?' });
+  const skipNotifications = page.getByRole('button', { name: 'Seguir sin avisos en este dispositivo' });
+  // After signing in, `next dev` may still be compiling the panel for the first time.
+  await expect(nameDialog.or(skipNotifications)).toBeVisible({ timeout: 30_000 });
+  if (await nameDialog.isVisible()) {
+    await expect(nameDialog.getByLabel('Tu nombre')).not.toHaveValue('');
+    await nameDialog.getByRole('button', { name: 'Guardar mi nombre' }).click();
+    await expect(nameDialog).toHaveCount(0);
+  }
+  await skipNotifications.click();
+}
+
+const isDashboardRequest = (url: URL | string) => new URL(url).pathname === '/api/dashboard';
 
 test('un visitante toca el QR y recibe la respuesta del residente; los ajustes revocan el enlace', async ({ page, browser }) => {
   test.skip(!process.env.E2E_NEON_AUTH_EMAIL || !process.env.E2E_NEON_AUTH_PASSWORD, 'Requiere un residente real verificado de Neon; nunca se simula el proveedor.');
@@ -9,11 +28,19 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await expect(page.getByRole('alert').filter({ hasText: 'no son correctos' })).toBeVisible();
   await page.getByLabel('Contraseña', { exact: true }).fill(process.env.E2E_NEON_AUTH_PASSWORD!);
   await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
+  await enterHome(page);
   await expect(page.getByRole('heading', { name: 'Tu casa te llama.' })).toBeVisible();
-  await expect(page.getByAltText(/QR para tocar/)).toBeVisible();
   const publicUrl = await page.getByRole('link', { name: 'Ver mi timbre' }).getAttribute('href');
   expect(publicUrl).toContain('/t/');
+  await page.getByRole('link', { name: 'Mi código QR', exact: true }).click();
+  await expect(page.getByAltText(/QR para tocar/)).toBeVisible();
   await page.screenshot({ path: 'test-results/ringgg-desktop.png', fullPage: true });
+  // The poster of this home renders on the server, with the same QR, and goes back to the panel.
+  await page.getByRole('link', { name: 'Imprimir cartel para la puerta' }).click();
+  await expect(page).toHaveURL(/\/cartel\?home=\d+$/);
+  await expect(page.getByRole('img', { name: /^Código QR para tocar el timbre de / })).toBeVisible();
+  await page.goBack();
+  await expect(page.getByAltText(/QR para tocar/)).toBeVisible();
   const visitorContext = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   const visitor = await visitorContext.newPage();
   await visitor.goto(publicUrl!);
@@ -22,6 +49,9 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await visitor.getByRole('button', { name: 'Tocar timbre', exact: true }).dblclick();
   await expect(visitor.getByRole('heading', { name: '¡Ding, dong!' })).toBeVisible();
   await expect(visitor.getByText('Tu timbrazo quedó registrado, pero no pudimos enviar una notificación.')).toBeVisible();
+  // Without push on this browser the panel would see the ring on its next check; focusing it checks now.
+  await page.getByRole('link', { name: 'Timbrazos', exact: true }).click();
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.getByRole('heading', { name: 'Soy Juan, del delivery' })).toBeVisible({ timeout: 15_000 });
   await visitor.clock.install();
   await visitor.clock.pauseAt(new Date());
@@ -36,7 +66,8 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await page.getByRole('link', { name: 'Configuración', exact: true }).click();
   await page.getByRole('button', { name: 'Pausar timbre', exact: true }).click();
   await expect(page.getByText('Mientras el timbre esté pausado', { exact: false })).toBeVisible();
-  await page.getByRole('button', { name: 'Sí, pausar timbre', exact: true }).click();
+  await page.getByRole('button', { name: 'Hasta que lo reactive', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Activar timbre', exact: true })).toBeVisible();
   await visitor.reload();
   await expect(visitor.getByRole('heading', { name: 'El timbre está en pausa' })).toBeVisible();
   await page.getByRole('button', { name: 'Activar timbre', exact: true }).click();
@@ -55,13 +86,15 @@ test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el no
   await page.getByLabel('Correo electrónico').fill(process.env.E2E_NEON_AUTH_EMAIL!);
   await page.getByLabel('Contraseña', { exact: true }).fill(process.env.E2E_NEON_AUTH_PASSWORD!);
   await page.getByRole('button', { name: 'Entrar a mi casa' }).click();
+  await enterHome(page);
   await expect(page.getByRole('heading', { name: 'Tu casa te llama.' })).toBeVisible();
+  await page.getByRole('link', { name: 'Configuración', exact: true }).click();
   let release!: () => void;
   let captured!: () => void;
   const held = new Promise<void>((resolve) => { release = resolve; });
   const capturedResponse = new Promise<void>((resolve) => { captured = resolve; });
   let first = true;
-  await page.route('**/api/dashboard', async (route) => {
+  await page.route(isDashboardRequest, async (route) => {
     if (!first) { await route.continue(); return; }
     first = false;
     const response = await route.fetch();
@@ -69,11 +102,13 @@ test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el no
     await held;
     await route.fulfill({ response });
   });
+  // Regaining focus refreshes right away instead of waiting for the idle cadence.
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await capturedResponse;
   await page.getByLabel('Nombre de tu casa').fill('Casa del patio');
   await page.getByRole('button', { name: 'Guardar nombre' }).click();
   await expect(page.getByText('Nombre actualizado.', { exact: true })).toBeVisible();
-  const delayed = page.waitForResponse((response) => response.url().endsWith('/api/dashboard'));
+  const delayed = page.waitForResponse((response) => isDashboardRequest(response.url()));
   release();
   await delayed;
   await expect(page.locator('.qr-home')).toHaveText('Casa del patio');
@@ -85,8 +120,15 @@ test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el no
 test('la API privada exige sesión y bloquea mutaciones de otro origen', async ({ request }) => {
   const unauthenticated = await request.get('/api/dashboard');
   expect([401, 503]).toContain(unauthenticated.status());
-  const foreign = await request.post('/api/settings', { headers: { origin: 'https://otro-sitio.example' }, data: { name: 'Ajena', enabled: false } });
-  expect(foreign.status()).toBe(403);
+  for (const path of ['/api/settings', '/api/pause', '/api/rename-device', '/api/subscribe', '/api/push-receipt', '/api/homes', '/api/delete-home', '/api/renew-subscription', '/api/residents']) {
+    const foreign = await request.post(path, { headers: { origin: 'https://otro-sitio.example' }, data: { name: 'Ajena', mode: 'indefinite' } });
+    expect(foreign.status(), path).toBe(403);
+  }
+  const cron = await request.get('/api/cron/purge');
+  expect([401, 503]).toContain(cron.status());
+  const poster = await request.get('/cartel', { maxRedirects: 0 });
+  expect(poster.status()).toBe(307);
+  expect(poster.headers().location).toContain('/sign-in');
   const manifest = await request.get('/manifest.webmanifest');
   expect(manifest.status()).toBe(200);
   expect((await manifest.json()).display).toBe('standalone');

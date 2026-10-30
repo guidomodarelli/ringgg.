@@ -1,0 +1,309 @@
+{
+  "latest": null,
+  "schemaVersion": 1,
+  "skill": "optimistic-action-mutations",
+  "unitId": "ringgg.poster",
+  "verified": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": "feature/mejoras-revision",
+      "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+      "files": {
+        "src/app/cartel/page.tsx": "0b476d9d62df99d2",
+        "src/app/cartel/loading.tsx": "028f9a97b29f7394",
+        "src/constants/homes.ts": "564484a011173893",
+        "src/components/print-button.tsx": "b986add3a6aa837c",
+        "src/server/panel-home.ts": "14d90b13fe69a935",
+        "src/server/config.ts": "24322283cee795e4",
+        "src/server/database.ts": "f11b89b5e9ccd3e8",
+        "src/server/doorbell.ts": "64cb2f91786d00ac",
+        "src/server/auth.ts": "12d87f7b42214a39",
+        "src/types/residents.ts": "b7a6c448a73bacc3",
+        "src/server/residents.ts": "eda9c188112cf624",
+        "src/server/homes.ts": "7b9e7f96c288ee3f",
+        "src/constants/environment.ts": "56dcab8047d696a2",
+        "src/server/postgres.ts": "2355b8fc585ab8e4",
+        "src/server/errors.ts": "45863b0b5c1144b1",
+        "src/constants/devices.ts": "92d451596518c800",
+        "src/lib/names.ts": "5fefc809b3ce8988",
+        "src/constants/doorbell.ts": "2edd18d9afbb7d3f",
+        "src/types/doorbell.ts": "8697f08bc5f8c5e7",
+        "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/server/neon-auth.ts": "0853ae91019a62c7",
+        "src/server/self-auth.ts": "a9dc6601b8d539eb",
+        "src/server/auth-mode.ts": "55ab5ff52eeb427d",
+        "src/config/database.ts": "cfab3a8bb039650a",
+        "src/constants/auth.ts": "5ce7e906628ec790",
+        "src/constants/database.ts": "4f990a98f504bf0b"
+      },
+      "fingerprint": "sha256:18421ec7b3b97836a17a838c96d52758ffa291099062ce06ec837211fabc5b29",
+      "inputs": {
+        "src/app/cartel/page.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/cartel/page.tsx#dynamic": "a45532c1af88ffc5",
+        "src/app/cartel/page.tsx#QR_OPTIONS.type": "572033de01ab7d90",
+        "src/app/cartel/page.tsx#QR_OPTIONS.margin": "54d3fa398e6cce56",
+        "src/app/cartel/page.tsx#QR_OPTIONS.errorCorrectionLevel": "91cbbd52e3847d0f",
+        "src/app/cartel/page.tsx#QR_OPTIONS.color": "6fe17562bc962efe",
+        "src/app/cartel/page.tsx#QR_OPTIONS~frame": "9aa7d9dc64b175f1",
+        "src/app/cartel/page.tsx#PosterPage": "af42c44df3309dcc",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:next": "530097ba2f134bc2",
+        "pkg:qrcode": "eae5e9f465245e84",
+        "src/app/cartel/loading.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/cartel/loading.tsx#PosterLoading": "e112e838b1271076",
+        "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
+        "src/constants/homes.ts#HOMES.queryParameter": "583ace4721823c56",
+        "src/components/print-button.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/print-button.tsx#PrintButton": "f1090bf1cdec67e0",
+        "src/server/panel-home.ts#<module>": "2da3ec2294295eb1",
+        "src/server/panel-home.ts#choosePanelHome": "d8238b0da97c01db",
+        "src/server/panel-home.ts#pickPanelHome": "c0e53da91182dc31",
+        "src/server/panel-home.ts#parseHomeId": "6d15babf882b9d45",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "22f06e9ffdb6f3e7",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "src/server/config.ts#httpsOrigin": "fd5040a991eedb92",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
+        "src/server/database.ts#Database": "578aba9512306538",
+        "src/server/database.ts#QueryResult": "2278ab1e0e7ca928",
+        "src/server/database.ts#connect": "a16b98c82ece5ce6",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#nestedTransaction": "097720328480446e",
+        "src/server/database.ts#poolDatabase": "fedd878e554639d7",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "b63e6fa612388f19",
+        "src/server/database.ts#MIGRATIONS": "95212e268ff47ff1",
+        "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
+        "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
+        "src/server/database.ts#runStep": "b8d318e23891085b",
+        "src/server/database.ts#schemaVersion": "65d0240dc3c92d18",
+        "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
+        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/server/doorbell.ts#getHome": "e50eac6818bbe1a6",
+        "src/server/doorbell.ts#HOME_COLUMNS": "8392547fe61dc07e",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#getIdentity": "d7f7c2295120441f",
+        "src/constants/homes.ts#HOMES.cookieName": "1d07543d0cf97d30",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#HomeSummary": "7565b2ddb5d5d58e",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#listResidentHomes": "6c9dd37c6e373640",
+        "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
+        "src/server/residents.ts#residentSettings": "090458f99e66a86c",
+        "src/server/residents.ts#emailList": "0021888d1f4f53a8",
+        "src/server/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/server/homes.ts#homeIdSchema": "a21a4ce96c2a2a80",
+        "pkg:zod": "31d0566281954af7",
+        "src/constants/environment.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/environment.ts#LOCAL_DEFAULTS~frame": "5a1c7b91211fc6c8",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.origin": "060e2d02b491e60f",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject": "bcf01163df3d1130",
+        "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
+        "src/server/postgres.ts#createPostgresPool": "c3f88729989ad244",
+        "pkg:pg": "bba8fb4b856406c4",
+        "pkg:@vercel/functions": "e43505af744bef19",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#logError": "da59c8b8659e20b8",
+        "src/server/errors.ts#describeError": "f13cd6ca5b673395",
+        "src/server/errors.ts#LOG_LIMITS~frame": "9dc641c7148f46ea",
+        "src/server/errors.ts#LOG_LIMITS.causeDepth": "87444f7090799dc0",
+        "src/server/errors.ts#LOG_LIMITS.messageLength": "5a19ccff12e87686",
+        "src/server/errors.ts#LOG_LIMITS.stackLines": "bd18d006a53c3083",
+        "src/constants/devices.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/devices.ts#DEVICES~frame": "eb8f63763177928a",
+        "src/constants/devices.ts#DEVICES.defaultName": "52ad5da0efc5311f",
+        "src/constants/devices.ts#DEVICES.nameMaxLength": "1310c99c650e5157",
+        "src/constants/homes.ts#HOMES.originalId": "d9d7b64a16cba029",
+        "src/lib/names.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
+        "src/lib/names.ts#cleanName": "49186c6b44b377fb",
+        "src/lib/names.ts#uniqueName": "57ac10b978c09992",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/types/doorbell.ts#Home": "3b8a7daf1448ba2f",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/types/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/neon-auth.ts#authConfigured": "4233244a1f43a905",
+        "src/server/neon-auth.ts#neonAuthSettings": "fd2fb55bae8e5e6e",
+        "src/server/neon-auth.ts#NeonAuthSettings": "f85a65ea9a977c5e",
+        "src/server/neon-auth.ts#getNeonAuth": "0dca5d26a6e67b14",
+        "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
+        "pkg:@neondatabase/auth": "cb0784c3ee32091d",
+        "src/server/self-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/self-auth.ts#getSelfAuth": "a5aad296fd80c2bc",
+        "src/server/self-auth.ts#auth": "ea23585755bb513f",
+        "src/server/self-auth.ts#createSelfAuth": "2250d374e686be5b",
+        "pkg:kysely": "62d68445b49f5341",
+        "pkg:better-auth": "a969211ec564af4d",
+        "src/server/self-auth.ts#selfAuthSettings": "d9827dce9c1cf518",
+        "src/server/self-auth.ts#SelfAuthSettings": "e0de8a1f5539a91d",
+        "src/server/auth-mode.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth-mode.ts#isSelfManagedAuth": "0ac5810e58f9e520",
+        "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/config/database.ts#<module>": "2da3ec2294295eb1",
+        "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
+        "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
+        "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/server/self-auth.ts#selfAuthConfigured": "c3a318e0d6dcd17d",
+        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/constants/auth.ts#AUTH.reservedSchemas": "96aeee1bb4d6e114",
+        "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
+        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
+        "src/constants/database.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/database.ts#DATABASE~frame": "80e3de505091b6f6",
+        "src/constants/database.ts#DATABASE.applicationName": "864bc1f3cbdc260a",
+        "src/constants/database.ts#DATABASE.connectionTimeoutMs": "35e63deccca71478",
+        "src/constants/database.ts#DATABASE.idleTimeoutMs": "ad27bd0d0701150b",
+        "src/constants/database.ts#DATABASE.maxLifetimeSeconds": "632c610d6668d21c",
+        "src/constants/database.ts#DATABASE.neonSuffix": "75cb86c463bc046e",
+        "src/constants/database.ts#DATABASE.poolMax": "6435fe8d5244d63c",
+        "src/constants/database.ts#DATABASE.verifiedSslMode": "f2f9e918421d0a3f"
+      },
+      "signals": {
+        "src/app/cartel/page.tsx#PosterPage": {
+          "awaits": 6,
+          "projectCalls": 4
+        },
+        "src/server/panel-home.ts#choosePanelHome": {
+          "awaits": 2,
+          "projectCalls": 1
+        },
+        "src/server/database.ts#getDatabase": {
+          "awaits": 2
+        },
+        "src/server/database.ts#connect": {
+          "projectCalls": 1,
+          "awaits": 1,
+          "database": 3
+        },
+        "src/server/database.ts#poolDatabase": {
+          "awaits": 7,
+          "database": 5
+        },
+        "src/server/database.ts#initialize": {
+          "awaits": 5,
+          "database": 4,
+          "awaitInLoop": 2
+        },
+        "src/server/database.ts#assignDevicesToOriginalHome": {
+          "awaits": 1,
+          "database": 2,
+          "awaitInLoop": 1
+        },
+        "src/server/database.ts#runStep": {
+          "awaits": 3,
+          "database": 2
+        },
+        "src/server/database.ts#schemaVersion": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#getHome": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/auth.ts#getIdentity": {
+          "awaits": 3,
+          "projectCalls": 2
+        },
+        "src/server/residents.ts#listResidentHomes": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/postgres.ts#createPostgresPool": {
+          "projectCalls": 1
+        },
+        "src/server/neon-auth.ts#getNeonAuth": {
+          "projectCalls": 1
+        },
+        "src/server/self-auth.ts#createSelfAuth": {
+          "projectCalls": 1
+        }
+      },
+      "uncommittedFiles": [
+        "src/app/cartel/loading.tsx",
+        "src/app/cartel/page.tsx",
+        "src/components/print-button.tsx",
+        "src/constants/auth.ts",
+        "src/constants/devices.ts",
+        "src/constants/doorbell.ts",
+        "src/constants/environment.ts",
+        "src/constants/homes.ts",
+        "src/lib/names.ts",
+        "src/server/auth.ts",
+        "src/server/config.ts",
+        "src/server/database.ts",
+        "src/server/doorbell.ts",
+        "src/server/errors.ts",
+        "src/server/homes.ts",
+        "src/server/neon-auth.ts",
+        "src/server/panel-home.ts",
+        "src/server/postgres.ts",
+        "src/server/residents.ts",
+        "src/server/self-auth.ts",
+        "src/types/doorbell.ts",
+        "src/types/residents.ts"
+      ]
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-30T15:59:38.638Z",
+        "source": "attested",
+        "summary": "Solo lecturas: sin optimismo. Checks de lectura revisados: carga en servidor con skeleton, sin respuestas fuera de orden (no hay fetch en el cliente) y la impresión es local."
+      },
+      {
+        "command": "npx playwright test tests/e2e/doorbell.spec.ts --reporter=line",
+        "durationMs": 35482,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "825aeaf52cb92695cfbdd22090bc1928ffd5b358cb73d2342d2b4dd3ad89697c",
+        "recordedAt": "2026-10-30T16:00:14.362Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      }
+    ],
+    "limitations": [],
+    "mode": "full",
+    "pendingChecks": [],
+    "recordedAt": "2026-10-30T16:00:15.036Z",
+    "result": "verified",
+    "runId": "20261030T154606Z-0d5d43",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "whole unit ringgg.poster: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "96d98d49220f2894",
+        "references/action-catalog.md": "3011dc2f28c2e91c",
+        "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+        "references/framework-primitives.md": "16fc928cc9cc1f3c",
+        "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+        "references/optimistic-decision.md": "62c41b62a67ed97a"
+      },
+      "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+      "name": "optimistic-action-mutations",
+      "version": "1.2.0"
+    },
+    "report": "runs/20261030T154606Z-0d5d43.json"
+  }
+}

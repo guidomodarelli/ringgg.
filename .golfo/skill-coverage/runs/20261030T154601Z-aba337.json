@@ -1,0 +1,115 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:cdeae8c6a740bb8125cb4947707fa5709f1abebead581a35225f6b27d4b2eb6b",
+    "uncommittedFiles": [
+      "next.config.ts",
+      "src/app/api/delete-home/route.ts",
+      "src/app/api/homes/route.ts",
+      "src/app/error.tsx",
+      "src/app/globals.css",
+      "src/app/not-found.tsx",
+      "src/app/page.tsx",
+      "src/components/dashboard/delete-home-setting.tsx",
+      "src/components/home-switcher.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/auth.ts",
+      "src/constants/dashboard-views.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/constants/time.ts",
+      "src/lib/api.ts",
+      "src/lib/dashboard-view.ts",
+      "src/lib/names.ts",
+      "src/lib/pause.ts",
+      "src/lib/quiet-hours.ts",
+      "src/lib/visit-format.ts",
+      "src/proxy.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/environment.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/neon-auth.ts",
+      "src/server/panel-home.ts",
+      "src/server/postgres.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/server/session-cookies.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 48,
+    "inputCount": 266
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:53:34.495Z",
+      "source": "attested",
+      "summary": "La casa del panel se elige en el servidor (pickPanelHome: ?home=, cookie del proxy, primera casa); selector y diálogo son hojas cliente dentro del Dashboard; Link sin prefetch para cambiar de casa; el Dashboard tiene key por casa; sin await nuevos en layouts."
+    },
+    {
+      "command": "npm run build",
+      "durationMs": 9439,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "0bcc9b1e5652c739fc4dc9dc3c3c04afc5c1deb710526d38512e848d04384a3e",
+      "recordedAt": "2026-10-30T15:53:44.155Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/homes.spec.ts tests/e2e/device-names.spec.ts --reporter=line",
+      "durationMs": 16457,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "57e0592819d857561dc02f5783214b64f0d48059633eed4c6c9304d8d5f203bb",
+      "recordedAt": "2026-10-30T15:54:00.872Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:54:01.437Z",
+  "result": "verified",
+  "runId": "20261030T154601Z-aba337",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.homes.manage (/): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:01.414Z",
+  "unitId": "ringgg.homes.manage"
+}

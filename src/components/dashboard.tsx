@@ -1,23 +1,26 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Check, House, LoaderCircle, LogOut, ShieldCheck, Smartphone, X } from 'lucide-react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ArrowUpRight, Check, House, LoaderCircle, LogOut, RefreshCw, ShieldCheck, Smartphone, X } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
 import { ResidentManagement } from './resident-management';
 import { NotificationOnboarding } from './notification-onboarding';
+import { ResidentNameDialog } from './resident-name-dialog';
+import { HomeSwitcher } from './home-switcher';
+import { DashboardSectionLink } from './dashboard-section-link';
 import { DoorOverview } from './dashboard/door-overview';
 import { VisitHistory } from './dashboard/visit-history';
 import { QrPanel } from './dashboard/qr-panel';
-import { DevicesSection } from './dashboard/devices-section';
+import { DevicesSection, isDeviceRename } from './dashboard/devices-section';
 import { SettingsSection } from './dashboard/settings-section';
-import type { DashboardData, DashboardSnapshot, Visit } from '@/types/doorbell';
-import { DOORBELL } from '@/constants/doorbell';
+import { useDashboardState } from './dashboard/use-dashboard-state';
+import { useDashboardView, useFocusVisitId } from './dashboard/use-dashboard-view';
+import { usePushDevice } from './dashboard/use-push-device';
+import type { DashboardData, HomeState } from '@/types/doorbell';
+import type { DashboardView } from '@/constants/dashboard-views';
+import { pauseEnd, pauseEndLabel } from '@/lib/pause';
 import { api } from '@/lib/api';
-import { needsNotificationSetup } from '@/lib/notification-setup';
-import { DASHBOARD_VIEW_EVENT, type DashboardView } from '@/constants/dashboard-views';
-import { getDashboardView } from '@/lib/dashboard-view';
-import { visitFromUrl } from '@/lib/visit-format';
-import type { Reconcile } from './dashboard/types';
+import type { ResidentEntry } from '@/types/residents';
 
 const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> = {
   overview: { title: 'Tu casa te llama', detail: 'Todo lo que pasa en tu puerta, estés donde estés.' },
@@ -28,182 +31,80 @@ const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> =
   settings: { title: 'Configuración', detail: 'Elegí cómo funciona el timbre de tu casa.' },
 };
 
-/** Comparable form of the polled state; field order matches the `snapshot()` response. */
-function serializeSnapshot({ home, visits, devices }: DashboardSnapshot) {
-  return JSON.stringify({ home, visits, devices });
+/** Changes when the server-rendered roster changes (for example after a refresh), so the list starts from it again. */
+function rosterKey(residents: ResidentEntry[]) {
+  return residents.map((resident) => `${resident.email}:${resident.name ?? ''}`).join('|');
 }
 
-/**
- * The clock must tick while the rendered clock still shows an answerable visit, so a tab resumed
- * after the window advances once and hides the reply buttons before ticks stop.
- */
-function awaitingAnswer(visits: Visit[], renderedNow: number | null) {
-  return visits.some((visit) => !visit.answered_at && (renderedNow === null || renderedNow - new Date(visit.created_at).getTime() < DOORBELL.responseWindowSeconds * 1000));
-}
-
-function statusLabel(home: DashboardSnapshot['home']) {
-  if (!home.enabled) return 'Timbre en pausa';
+function statusLabel(home: HomeState) {
+  if (home.paused) {
+    const end = pauseEnd(home);
+    return end ? `Timbre en pausa ${pauseEndLabel(end)}` : 'Timbre en pausa';
+  }
   return home.quiet ? 'Horario de descanso' : 'Timbre activo';
 }
 
 export function Dashboard({ initial, initialView = 'overview' }: { initial: DashboardData; initialView?: DashboardView }) {
   const router = useRouter();
-  const [data, setData] = useState(initial);
-  const [pending, setPending] = useState('');
-  const actionLock = useRef(false);
-  const refreshGeneration = useRef(0);
-  const [feedback, setFeedback] = useState('');
-  const [error, setError] = useState('');
-  const [now, setNow] = useState<number | null>(null);
-  const [notificationState, setNotificationState] = useState('');
-  const [showNotificationSetup, setShowNotificationSetup] = useState(false);
-  const [view, setView] = useState<DashboardView>(initialView);
-  const [focusVisitId, setFocusVisitId] = useState(initial.focusVisitId ?? '');
+  const view = useDashboardView(initialView);
+  const focusVisitId = useFocusVisitId(initial.focusVisitId ?? '');
+  // Until the resident chooses a name in this home, "¿Quién sos?" comes before anything else.
+  const [viewerName, setViewerName] = useState(initial.viewer.name);
+  const device = usePushDevice({ homeId: initial.home.id, pushReady: initial.pushReady, viewerName: viewerName ?? initial.viewer.suggestedName });
+  const { data, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync } = useDashboardState(initial, device.active);
   const url = `${data.origin}/t/${data.home.token}`;
-
-  useEffect(() => {
-    const update = () => {
-      const selected = getDashboardView(window.location.search, window.location.hash);
-      setView(selected === 'residents' && !initial.isAdmin ? 'overview' : selected);
-      setFocusVisitId(visitFromUrl(window.location.href));
-    };
-    update(); window.addEventListener('popstate', update); window.addEventListener(DASHBOARD_VIEW_EVENT, update);
-    return () => { window.removeEventListener('popstate', update); window.removeEventListener(DASHBOARD_VIEW_EVENT, update); };
-  }, []);
-
-  // Polls every few seconds and refreshes immediately when a push arrives, the tab regains focus
-  // or a notification opens a visit. Refreshes never overlap and never overwrite a running action.
-  // An unchanged snapshot and a history without visits awaiting an answer do not re-render.
-  const visitsRef = useRef(initial.visits);
-  visitsRef.current = data.visits;
-  const lastSnapshot = useRef(serializeSnapshot(initial));
-  const nowRef = useRef(now);
-  nowRef.current = now;
-  useEffect(() => {
-    let controller: AbortController | undefined;
-    let timer: ReturnType<typeof setTimeout>;
-    let stopped = false;
-    let running = false;
-    async function refresh() {
-      if (running || stopped) return;
-      running = true; clearTimeout(timer);
-      if (awaitingAnswer(visitsRef.current, nowRef.current)) setNow(Date.now());
-      if (document.visibilityState === 'visible' && !actionLock.current) {
-        const generation = refreshGeneration.current;
-        controller = new AbortController();
-        try {
-          const fresh = await api<DashboardSnapshot>('dashboard', undefined, controller.signal);
-          const serialized = serializeSnapshot(fresh);
-          if (!stopped && !actionLock.current && generation === refreshGeneration.current && serialized !== lastSnapshot.current) {
-            lastSnapshot.current = serialized;
-            setData((previous) => ({ ...previous, ...fresh }));
-            if (awaitingAnswer(fresh.visits, nowRef.current)) setNow(Date.now());
-          }
-        }
-        catch (error) { if (!controller.signal.aborted && !stopped) setError(error instanceof Error ? error.message : 'No pudimos actualizar.'); }
-      }
-      running = false;
-      if (!stopped) timer = setTimeout(refresh, DOORBELL.pollIntervalMs);
-    }
-    const refreshNow = () => { if (document.visibilityState === 'visible') void refresh(); };
-    const onWorkerMessage = (event: MessageEvent) => {
-      const message = event.data as { type?: string; url?: unknown } | null;
-      if (message?.type === 'ringgg:open' && typeof message.url === 'string' && message.url.startsWith('/')) {
-        window.history.pushState(null, '', message.url);
-        window.dispatchEvent(new Event(DASHBOARD_VIEW_EVENT));
-      }
-      if (message?.type === 'ringgg:push' || message?.type === 'ringgg:open') refreshNow();
-    };
-    setNow(Date.now()); timer = setTimeout(refresh, DOORBELL.pollIntervalMs);
-    setNotificationState('Notification' in window ? Notification.permission : 'unsupported');
-    document.addEventListener('visibilitychange', refreshNow);
-    window.addEventListener('focus', refreshNow);
-    navigator.serviceWorker?.addEventListener('message', onWorkerMessage);
-    return () => {
-      stopped = true; clearTimeout(timer); controller?.abort();
-      document.removeEventListener('visibilitychange', refreshNow);
-      window.removeEventListener('focus', refreshNow);
-      navigator.serviceWorker?.removeEventListener('message', onWorkerMessage);
-    };
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    const controller = new AbortController();
-    async function checkNotifications() {
-      const supported = 'Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window;
-      const permission = 'Notification' in window ? Notification.permission : 'unsupported';
-      if (!supported || permission !== 'granted') {
-        if (!cancelled) setShowNotificationSetup(true);
-        return;
-      }
-      try {
-        const registration = supported ? await navigator.serviceWorker.register('/sw.js') : null;
-        const subscription = registration ? await registration.pushManager.getSubscription() : null;
-        const registered = subscription ? await api<{ active: boolean }>('device-status', { endpoint: subscription.endpoint }, controller.signal) : { active: false };
-        if (!cancelled) setShowNotificationSetup(needsNotificationSetup(supported, permission, Boolean(subscription), registered.active));
-      } catch {
-        if (!cancelled) setShowNotificationSetup(true);
-      }
-    }
-    void checkNotifications();
-    return () => { cancelled = true; controller.abort(); };
-  }, []);
-
-  async function action(key: string, work: () => Promise<unknown>, success: string | ((result: unknown) => string), reconcile: Reconcile = 'refetch') {
-    if (actionLock.current) return false;
-    actionLock.current = true; refreshGeneration.current += 1; setPending(key); setError(''); setFeedback('');
-    try {
-      const result = await work();
-      // Reconcile from the confirmed response when it already carries the new state.
-      if (reconcile === 'snapshot') { lastSnapshot.current = serializeSnapshot(result as DashboardSnapshot); setData((previous) => ({ ...previous, ...(result as DashboardSnapshot) })); }
-      else if (reconcile === 'visit') { const visit = result as Visit; setData((previous) => ({ ...previous, visits: previous.visits.map((item) => item.id === visit.id ? visit : item) })); }
-      else if (reconcile === 'refetch') { const fresh = await api<DashboardSnapshot>('dashboard'); lastSnapshot.current = serializeSnapshot(fresh); setData((previous) => ({ ...previous, ...fresh })); }
-      setFeedback(typeof success === 'function' ? success(result) : success);
-      if (key === 'name') router.refresh();
-      return true;
-    } catch (error) { setError(error instanceof Error ? error.message : 'No pudimos completar la acción. Reintentá.'); return false; }
-    finally { setPending(''); actionLock.current = false; }
-  }
+  const busy = Boolean(pending);
 
   async function signOut() {
     const result = await authClient.signOut();
     if (result.error) throw new Error('No pudimos cerrar tu sesión. Reintentá.');
-    window.location.assign('/');
+    router.replace('/');
+    router.refresh();
   }
-
-  async function subscribe() {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) throw new Error('En iPhone, agregá Ringgg a Inicio y abrila desde su ícono. Usá un navegador compatible con notificaciones.');
-    if (!data.pushReady) throw new Error('Falta configurar las claves de notificaciones en el servidor. Consultá la guía del proyecto.');
-    // Permission is requested before the first await to preserve the user gesture on iOS.
-    const permission = await Notification.requestPermission();
-    if (permission !== 'granted') { setNotificationState(permission); throw new Error('No se habilitaron las notificaciones. Podés volver a intentarlo desde los ajustes del dispositivo.'); }
-    const registration = await navigator.serviceWorker.register('/sw.js');
-    await navigator.serviceWorker.ready;
-    const { publicKey } = await api<{ publicKey: string }>('push-key');
-    const existing = await registration.pushManager.getSubscription();
-    const subscription = existing || await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: publicKey });
-    await api('subscribe', { name: 'Mi celular', subscription: subscription.toJSON() });
-    setNotificationState(Notification.permission);
-  }
+  const activateNotifications = () => { void run('subscribe', device.activate, 'Dispositivo conectado. Enviá una prueba para comprobarlo.'); };
+  const saveViewerName = (name: string) => {
+    void run('viewer-name', () => api('residents', { home: data.home.id, action: 'rename', email: initial.viewer.email, name }), `Listo, ${name}. Así te van a ver en esta casa.`).then((saved) => { if (saved) setViewerName(name); });
+  };
+  const available = !data.home.paused && !data.home.quiet;
+  const naming = viewerName === null;
+  const onboarding = !naming && device.showSetup;
+  // A modal step or a form that shows an error next to its field keeps it there; the page shows the rest.
+  const pageError = naming || onboarding || isDeviceRename(failedAction) ? '' : error;
 
   return <>
-    <header className="topbar"><span><House size={15} /> Mi espacio <span className="slash">/</span> <strong>{data.home.name}</strong></span><button className="text-button" disabled={!!pending} onClick={() => action('logout', signOut, '', 'none')}><LogOut size={16} /> Salir</button></header>
+    <header className="topbar">
+      <span className="topbar-home"><House size={15} /> Mi espacio <span className="slash">/</span> <HomeSwitcher homes={initial.homes} currentId={data.home.id} currentName={data.home.name} /></span>
+      <button className="text-button" disabled={busy} onClick={() => run('logout', signOut, '', 'none')}><LogOut size={16} /> Salir</button>
+    </header>
     <main className="dashboard-main" id="main" data-view={view}>
-      <div className="page-heading"><div><span className="eyebrow">UN POCO MÁS CERCA</span><h1>{SECTION_TITLES[view].title}<span>.</span></h1><p>{SECTION_TITLES[view].detail}</p></div><span className={`status-pill ${data.home.enabled && !data.home.quiet ? 'active' : ''}`}><i />{statusLabel(data.home)}</span></div>
-      {showNotificationSetup && <NotificationOnboarding permission={notificationState} pending={!!pending} error={error} onRefresh={() => { setError(''); setNotificationState('Notification' in window ? Notification.permission : 'unsupported'); }} onSignOut={() => { void action('logout', signOut, '', 'none'); }} onActivate={() => { void action('subscribe', subscribe, 'Dispositivo conectado. Enviá una prueba para comprobarlo.').then((success) => { if (success) setShowNotificationSetup(false); }); }} />}
-      <div className="feedback-wrap" aria-live="polite">{feedback && <p className="feedback success"><Check size={17} />{feedback}<button aria-label="Cerrar aviso" onClick={() => setFeedback('')}><X size={16} /></button></p>}{error && <p className="feedback error" role="alert">{error}<button aria-label="Cerrar error" onClick={() => setError('')}><X size={16} /></button></p>}</div>
+      <div className="page-heading">
+        <div><span className="eyebrow">UN POCO MÁS CERCA</span><h1>{SECTION_TITLES[view].title}<span>.</span></h1><p>{SECTION_TITLES[view].detail}</p></div>
+        <span className={`status-pill ${available ? 'active' : ''}`}><i />{statusLabel(data.home)}</span>
+      </div>
+      {naming && <ResidentNameDialog homeName={data.home.name} suggestedName={initial.viewer.suggestedName} pending={busy} error={error}
+        onSave={saveViewerName} onClearError={() => setError('')} onSignOut={() => { void run('logout', signOut, '', 'none'); }} />}
+      {onboarding && <NotificationOnboarding
+        permission={device.permission} homeName={data.home.name} pending={busy} error={error}
+        onRefresh={() => { setError(''); device.refreshPermission(); }}
+        onActivate={activateNotifications}
+        onSkip={device.skip}
+        onSignOut={() => { void run('logout', signOut, '', 'none'); }} />}
+      <div className="feedback-wrap" aria-live="polite">
+        {feedback && <p className="feedback success"><Check size={17} />{feedback}<button aria-label="Cerrar aviso" onClick={() => setFeedback('')}><X size={16} /></button></p>}
+        {pageError && <p className="feedback error" role="alert">{pageError}<button aria-label="Cerrar error" onClick={() => setError('')}><X size={16} /></button></p>}
+        {syncError && <p className="sync-notice">{syncError} Seguimos intentando solos.<button className="text-button" onClick={retrySync}><RefreshCw size={15} /> Reintentar ahora</button></p>}
+      </div>
       <div className="dashboard-grid"><div className="primary-column">
         <DoorOverview url={url} data={data} />
-        <VisitHistory visits={data.visits} now={now} url={url} pending={pending} run={action} focusVisitId={focusVisitId} />
+        <VisitHistory visits={data.visits} now={now} url={url} pending={pending} run={run} focusVisitId={focusVisitId} />
       </div><aside className="context-column">
-        <QrPanel url={url} homeName={data.home.name} pending={pending} run={action} onFeedback={setFeedback} onError={setError} />
-        <section className="setup-callout"><span className="soft-icon"><Smartphone size={21} /></span><h3>Tu timbre va con vos</h3><p>Activá las notificaciones en este celular para enterarte cuando alguien llega.</p><a className="text-link" href="/?view=devices">Configurar mi celular <ArrowUpRight size={16} /></a></section>
+        <QrPanel url={url} homeId={data.home.id} homeName={data.home.name} pending={pending} run={run} onFeedback={setFeedback} onError={setError} />
+        {!device.active && <section className="setup-callout"><span className="soft-icon"><Smartphone size={21} /></span><h3>Tu timbre va con vos</h3><p>Activá las notificaciones en este celular para enterarte cuando alguien llega.</p><DashboardSectionLink className="text-link" view="devices" homeId={data.home.id}>Configurar mi celular <ArrowUpRight size={16} /></DashboardSectionLink></section>}
         <div className="privacy-note"><ShieldCheck size={18} /><p>Tu casa, tu privacidad.<br /><span>Tu QR no comparte tus datos.</span></p></div>
       </aside></div>
-      <DevicesSection devices={data.devices} pending={pending} run={action} />
-      <SettingsSection home={data.home} pending={pending} run={action} />
-      {data.isAdmin && <ResidentManagement initial={initial.residents} />}
+      <DevicesSection homeId={data.home.id} devices={data.devices} thisDeviceId={device.deviceId} notifications={{ active: device.active, permission: device.permission, skipped: device.skipped }} pending={pending} run={run} error={error} failedAction={failedAction} onClearError={() => setError('')} onActivate={activateNotifications} />
+      <SettingsSection home={data.home} homes={initial.homes.length} residents={initial.residents.length} pending={pending} run={run} />
+      <ResidentManagement key={rosterKey(initial.residents)} homeId={data.home.id} initial={initial.residents} homeName={data.home.name} origin={data.origin} viewerEmail={initial.viewer.email} />
       <footer className="dashboard-footer"><span>ringgg. <span>Una forma más simple de llegar.</span></span><span>Hecho para estar cerca <span className="orange">✳</span></span></footer>
       {pending && <span className="operation-status" role="status"><LoaderCircle className="spin" size={15} /> Procesando…</span>}
     </main>

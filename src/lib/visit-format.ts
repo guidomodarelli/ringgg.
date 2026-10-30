@@ -1,4 +1,5 @@
 import { DOORBELL, VISIT_REPLIES, type VisitReply } from '@/constants/doorbell';
+import { TIME } from '@/constants/time';
 import type { DeliveryStatus, Visit } from '@/types/doorbell';
 
 export function visitTime(value: string) {
@@ -12,11 +13,17 @@ export const DELIVERY_LABELS: Record<DeliveryStatus, string> = {
   unavailable: 'Sin aviso a celulares',
 };
 
+/** How many devices confirmed they received the ring; nothing when none did (or they could not confirm). */
+export function receiptLabel(receipts: number) {
+  if (receipts <= 0) return null;
+  return receipts === 1 ? 'Lo recibió 1 celular' : `Lo recibieron ${receipts} celulares`;
+}
+
 /** "12 s" or "3 min": how long the home took to answer. */
 export function responseTime(visit: Pick<Visit, 'created_at' | 'answered_at'>) {
   if (!visit.answered_at) return null;
-  const seconds = Math.max(0, Math.round((new Date(visit.answered_at).getTime() - new Date(visit.created_at).getTime()) / 1000));
-  return seconds < 60 ? `${seconds} s` : `${Math.round(seconds / 60)} min`;
+  const seconds = Math.max(0, Math.round((new Date(visit.answered_at).getTime() - new Date(visit.created_at).getTime()) / TIME.secondMs));
+  return seconds < TIME.minuteSeconds ? `${seconds} s` : `${Math.round(seconds / TIME.minuteSeconds)} min`;
 }
 
 /** One line for the history: who answered, what they replied and how fast. Old rows have no reply. */

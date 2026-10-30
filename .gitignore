@@ -8,3 +8,8 @@ playwright-report/
 *.tsbuildinfo
 .neon
 .vercel/
+# Generated from src/service-worker by `npm run build:sw` (runs before dev and build).
+public/sw.js
+
+# Runtime state of the Codex auto-fix loop (never committed).
+.codex-autofix/

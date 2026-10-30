@@ -1,0 +1,100 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:2bd23529986c134024617460b0eb5fe823c9023d63b3a29e3f33eedcebe1614d",
+    "uncommittedFiles": [
+      "src/app/api/delete-home/route.ts",
+      "src/app/api/homes/route.ts",
+      "src/components/dashboard/delete-home-setting.tsx",
+      "src/components/home-switcher.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/doorbell.ts",
+      "src/constants/homes.ts",
+      "src/lib/api.ts",
+      "src/lib/names.ts",
+      "src/server/auth.ts",
+      "src/server/database.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/panel-home.ts",
+      "src/server/residents.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 19,
+    "inputCount": 99
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:52:50.492Z",
+      "source": "attested",
+      "summary": "Selector de casas (lista, casa actual con aria-current, Agregar casa con validación previa, pending y error de nombre repetido junto al campo); «¿Quién sos?» obligatorio (Escape no lo cierra, nombre vacío bloqueado, precargado, error en el diálogo, doble click sin doble envío, Cerrar sesión como salida); Eliminar casa con motivo visible si no se puede, confirmación con impacto y error inline; menú fijo en móvil para no desbordar."
+    },
+    {
+      "command": "npx vitest run tests/homes.test.ts tests/residents.test.ts tests/devices.test.ts",
+      "durationMs": 5811,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "8f8b456b17ee4aa6356230f254fa230248466aa2457eb9affad9ee867f9559db",
+      "recordedAt": "2026-10-30T15:52:56.518Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/homes.spec.ts tests/e2e/device-names.spec.ts --reporter=line",
+      "durationMs": 16727,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "61136b3c76fcd3aafba208008fa43c12724136f40c51fe92f8222734821e6396",
+      "recordedAt": "2026-10-30T15:53:13.464Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:53:13.695Z",
+      "source": "attested",
+      "summary": "Recorrido con Playwright (Chromium) del Dashboard real: diálogo obligatorio, nombre repetido, doble click, activación posterior, selector con la casa actual y Agregar casa con nombre repetido y válido.",
+      "tool": "Playwright (Chromium)"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:53:14.174Z",
+  "result": "verified",
+  "runId": "20261030T154600Z-dc8c18",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.homes.manage: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:00.609Z",
+  "unitId": "ringgg.homes.manage"
+}

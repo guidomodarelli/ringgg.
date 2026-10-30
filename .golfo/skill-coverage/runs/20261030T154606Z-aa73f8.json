@@ -1,0 +1,104 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:219611c63cc953bfc01bad9933a82ef2c62df0aa2f9b7b5a63e9f108f5e92a02",
+    "uncommittedFiles": [
+      "next.config.ts",
+      "src/app/cartel/loading.tsx",
+      "src/app/cartel/page.tsx",
+      "src/app/error.tsx",
+      "src/app/globals.css",
+      "src/app/not-found.tsx",
+      "src/components/print-button.tsx",
+      "src/constants/auth.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/lib/names.ts",
+      "src/proxy.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/environment.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/neon-auth.ts",
+      "src/server/panel-home.ts",
+      "src/server/postgres.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/server/session-cookies.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 37,
+    "inputCount": 195
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T16:00:15.354Z",
+      "source": "attested",
+      "summary": "/cartel: página de servidor con loading.tsx, QR generado en el servidor, next/image con data URI y PrintButton como hoja cliente; el proxy renueva la sesión antes de renderizar."
+    },
+    {
+      "command": "npm run build",
+      "durationMs": 10988,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "b88134d3f61990af1bc5f6a5eb07216b349d3872e57ee0fcfa71673c2550191d",
+      "recordedAt": "2026-10-30T16:00:26.697Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/doorbell.spec.ts --reporter=line",
+      "durationMs": 34153,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "28c7a3c5741de1dbd5581cf10006d1db25129a7f3f49822a44e2b08294215042",
+      "recordedAt": "2026-10-30T16:01:01.114Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T16:01:01.689Z",
+  "result": "verified",
+  "runId": "20261030T154606Z-aa73f8",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.poster (/cartel): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:06.910Z",
+  "unitId": "ringgg.poster"
+}

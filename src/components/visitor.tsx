@@ -1,8 +1,12 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { BellRing, Check, ShieldCheck, ArrowUpRight, MessageSquareText } from 'lucide-react';
 import { Brand } from './brand';
 import { DOORBELL, VISIT_REPLIES } from '@/constants/doorbell';
+import { VISITOR_POLLING } from '@/constants/polling';
+import { TIME } from '@/constants/time';
+import { pauseEndLabel } from '@/lib/pause';
 import type { PublicHome, PublicVisit } from '@/types/doorbell';
 import { api } from '@/lib/api';
 
@@ -34,6 +38,88 @@ function NoteForm({ token, visit, onSaved, onPendingChange }: { token: string; v
   </form>;
 }
 
+interface AnswerPollingOptions {
+  token: string;
+  visit: PublicVisit | null;
+  expired: boolean;
+  setVisit: (visit: PublicVisit) => void;
+  setExpired: (expired: boolean) => void;
+  setError: (message: string) => void;
+}
+
+/** Waits for an answer while the visit can still get one, reading the server's final state at the deadline. */
+function useAnswerPolling({ token, visit, expired, setVisit, setExpired, setError }: AnswerPollingOptions) {
+  const visitId = visit?.id;
+  const answered = Boolean(visit?.answered_at);
+  useEffect(() => {
+    if (!visitId || answered || expired) return;
+    const controller = new AbortController(); let stopped = false; let timer: ReturnType<typeof setTimeout> | undefined;
+    async function poll() {
+      try {
+        const fresh = await api<PublicVisit>(`door/${token}/visits/${visitId}`, undefined, controller.signal);
+        if (!stopped) { setVisit(fresh); setError(''); }
+        if (fresh.answered_at) return;
+        // Read the final server state even when a suspended tab resumes after the deadline.
+        if (Date.now() - new Date(fresh.created_at).getTime() > DOORBELL.responseWindowSeconds * TIME.secondMs) { if (!stopped) setExpired(true); return; }
+      }
+      catch (error) { if (!controller.signal.aborted) setError(error instanceof Error ? error.message : 'Revisá tu conexión para ver la respuesta.'); }
+      if (!stopped) timer = setTimeout(() => { void poll(); }, VISITOR_POLLING.answerMs);
+    }
+    timer = setTimeout(() => { void poll(); }, VISITOR_POLLING.answerMs);
+    return () => { stopped = true; clearTimeout(timer); controller.abort(); };
+  }, [visitId, answered, token, expired, setVisit, setExpired, setError]);
+}
+
+/** Availability is rendered by the server once; it is checked again so the form appears when quiet hours end or the bell resumes. */
+function useAvailabilityCheck({ token, waiting, setHome }: { token: string; waiting: boolean; setHome: (home: PublicHome) => void }) {
+  useEffect(() => {
+    if (!waiting) return;
+    const controller = new AbortController(); let timer: ReturnType<typeof setTimeout> | undefined;
+    async function refresh() {
+      try { const fresh = await api<PublicHome>(`door/${token}`, undefined, controller.signal); if (!controller.signal.aborted) setHome(fresh); }
+      catch { /* Keep the last known state; the next check retries. */ }
+      if (!controller.signal.aborted) timer = setTimeout(() => { void refresh(); }, VISITOR_POLLING.availabilityMs);
+    }
+    timer = setTimeout(() => { void refresh(); }, VISITOR_POLLING.availabilityMs);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [waiting, token, setHome]);
+}
+
+/** Why the bell cannot ring right now, or `null` while it is available. */
+function UnavailableNotice({ home }: { home: PublicHome }) {
+  if (home.paused) return <div className="visitor-result"><h2>El timbre está en pausa</h2><p>{home.pausedUntil ? `No se pueden enviar avisos ${pauseEndLabel(home.pausedUntil)}.` : 'En este momento no se pueden enviar avisos.'} Intentá más tarde.</p></div>;
+  if (home.quiet) return <div className="visitor-result"><h2>Es horario de descanso</h2><p>{home.quietUntil ? `El timbre vuelve a sonar a las ${home.quietUntil}.` : 'En este momento no se pueden enviar avisos.'} Intentá más tarde.</p></div>;
+  return null;
+}
+
+interface VisitResultProps {
+  token: string;
+  visit: PublicVisit;
+  expired: boolean;
+  notePending: boolean;
+  onNotePendingChange: (pending: boolean) => void;
+  onNoteSaved: (visit: PublicVisit) => void;
+  onRingAgain: () => void;
+}
+
+/** The ring's progress: waiting, the residents' reply, or no answer in time, with the note form when it applies. */
+function VisitResult({ token, visit, expired, notePending, onNotePendingChange, onNoteSaved, onRingAgain }: VisitResultProps) {
+  const reply = visit.answered_at ? VISIT_REPLIES[visit.reply ?? 'coming'] : null;
+  const canLeaveNote = !visit.noted && (expired || visit.reply === 'away');
+  let title = '¡Ding, dong!';
+  let detail = waitingDetail(visit);
+  if (reply) { title = reply.visitorTitle; detail = reply.visitorDetail; }
+  else if (expired) { title = 'Todavía no respondieron'; detail = 'Tu visita quedó registrada. Puede que no estén disponibles.'; }
+  return <div className="visitor-result" aria-live="polite">
+    <h2>{title}</h2>
+    <p>{detail}</p>
+    {!expired && !visit.answered_at && <span className="waiting-indicator"><i /> Esperando respuesta</span>}
+    {visit.noted && <p className="feedback success" role="status"><Check size={17} /> Le dejamos tu mensaje.</p>}
+    {canLeaveNote && <NoteForm token={token} visit={visit} onPendingChange={onNotePendingChange} onSaved={onNoteSaved} />}
+    {expired && <button className="button outline full" disabled={notePending} onClick={onRingAgain}>Volver a tocar</button>}
+  </div>;
+}
+
 export function Visitor({ home: initialHome, token }: { home: PublicHome; token: string }) {
   const [home, setHome] = useState(initialHome);
   const [message, setMessage] = useState('');
@@ -44,38 +130,9 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
   const [notePending, setNotePending] = useState(false);
   const operationId = useRef('');
   const sending = useRef(false);
-  useEffect(() => {
-    if (!visit || visit.answered_at || expired) return;
-    const controller = new AbortController(); let stopped = false; let timer: ReturnType<typeof setTimeout>;
-    async function poll() {
-      try {
-        const fresh = await api<PublicVisit>(`door/${token}/visits/${visit!.id}`, undefined, controller.signal);
-        if (!stopped) { setVisit(fresh); setError(''); }
-        if (fresh.answered_at) return;
-        // Read the final server state even when a suspended tab resumes after the deadline.
-        if (Date.now() - new Date(fresh.created_at).getTime() > DOORBELL.responseWindowSeconds * 1000) { if (!stopped) setExpired(true); return; }
-      }
-      catch (error) { if (!controller.signal.aborted) setError(error instanceof Error ? error.message : 'Revisá tu conexión para ver la respuesta.'); }
-      if (!stopped) timer = setTimeout(poll, DOORBELL.pollIntervalMs);
-    }
-    timer = setTimeout(poll, DOORBELL.pollIntervalMs);
-    return () => { stopped = true; clearTimeout(timer); controller.abort(); };
-  }, [visit?.id, visit?.answered_at, token, expired]);
-
-  const available = home.enabled && !home.quiet;
-  const hasVisit = visit !== null;
-  useEffect(() => {
-    // Availability is rendered by the server once; recheck it so the form appears when quiet hours end or the bell resumes.
-    if (hasVisit || available) return;
-    const controller = new AbortController(); let timer: ReturnType<typeof setTimeout>;
-    async function refresh() {
-      try { const fresh = await api<PublicHome>(`door/${token}`, undefined, controller.signal); if (!controller.signal.aborted) setHome(fresh); }
-      catch { /* Keep the last known state; the next check retries. */ }
-      if (!controller.signal.aborted) timer = setTimeout(refresh, DOORBELL.availabilityPollMs);
-    }
-    timer = setTimeout(refresh, DOORBELL.availabilityPollMs);
-    return () => { clearTimeout(timer); controller.abort(); };
-  }, [hasVisit, available, token]);
+  useAnswerPolling({ token, visit, expired, setVisit, setExpired, setError });
+  const available = !home.paused && !home.quiet;
+  useAvailabilityCheck({ token, waiting: visit === null && !available, setHome });
 
   async function ring() {
     if (sending.current) return; sending.current = true; setPending(true); setError('');
@@ -84,26 +141,14 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
     catch (error) { setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.'); }
     finally { setPending(false); sending.current = false; }
   }
+  function ringAgain() { setVisit(null); setExpired(false); operationId.current = ''; }
 
-  const reply = visit?.answered_at ? VISIT_REPLIES[visit.reply ?? 'coming'] : null;
-  const canLeaveNote = Boolean(visit && !visit.noted && (expired || visit.reply === 'away'));
-  const result = !visit ? null : <div className="visitor-result" aria-live="polite">
-    <h2>{reply ? reply.visitorTitle : expired ? 'Todavía no respondieron' : '¡Ding, dong!'}</h2>
-    <p>{reply ? reply.visitorDetail : expired ? 'Tu visita quedó registrada. Puede que no estén disponibles.' : waitingDetail(visit)}</p>
-    {!expired && !visit.answered_at && <span className="waiting-indicator"><i /> Esperando respuesta</span>}
-    {visit.noted && <p className="feedback success" role="status"><Check size={17} /> Le dejamos tu mensaje.</p>}
-    {canLeaveNote && <NoteForm token={token} visit={visit} onPendingChange={setNotePending} onSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} />}
-    {expired && <button className="button outline full" disabled={notePending} onClick={() => { setVisit(null); setExpired(false); operationId.current = ''; }}>Volver a tocar</button>}
-  </div>;
-
-  const unavailable = !home.enabled
-    ? <div className="visitor-result"><h2>El timbre está en pausa</h2><p>En este momento no se pueden enviar avisos. Intentá más tarde.</p></div>
-    : home.quiet ? <div className="visitor-result"><h2>Es horario de descanso</h2><p>{home.quietUntil ? `El timbre vuelve a sonar a las ${home.quietUntil}.` : 'En este momento no se pueden enviar avisos.'} Intentá más tarde.</p></div>
-      : null;
+  const result = visit && <VisitResult token={token} visit={visit} expired={expired} notePending={notePending} onNotePendingChange={setNotePending} onNoteSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} onRingAgain={ringAgain} />;
+  const ringForm = <form onSubmit={(event) => { event.preventDefault(); void ring(); }}><label htmlFor="visitor-message">¿Querés decir quién sos? <span>Opcional</span></label><textarea id="visitor-message" rows={3} placeholder="Hola, soy del delivery…" value={message} disabled={pending} maxLength={DOORBELL.messageMaxLength} onChange={(event) => setMessage(event.target.value)} /><div className="message-count">{message.length}/{DOORBELL.messageMaxLength}</div><button className="button primary ring-button" disabled={pending}><BellRing size={21} />{pending ? 'Tocando timbre…' : 'Tocar timbre'}</button></form>;
 
   return <main className="visitor-page"><Brand /><div className="visitor-content"><span className="eyebrow">ESTÁS EN LA PUERTA DE</span><h1>{home.name}<span>.</span></h1><p className="visitor-intro">Un toque y saben que llegaste.</p>
     <div className={`visitor-bell ${visit ? 'rang' : ''}`}>{visit?.answered_at && visit.reply !== 'away' ? <Check size={62} strokeWidth={1.5} /> : <BellRing size={62} strokeWidth={1.5} />}</div>
-    {result ?? unavailable ?? <form onSubmit={(event) => { event.preventDefault(); void ring(); }}><label htmlFor="visitor-message">¿Querés decir quién sos? <span>Opcional</span></label><textarea id="visitor-message" rows={3} placeholder="Hola, soy del delivery…" value={message} disabled={pending} maxLength={DOORBELL.messageMaxLength} onChange={(event) => setMessage(event.target.value)} /><div className="message-count">{message.length}/{DOORBELL.messageMaxLength}</div><button className="button primary ring-button" disabled={pending}><BellRing size={21} />{pending ? 'Tocando timbre…' : 'Tocar timbre'}</button></form>}
+    {result ?? (available ? ringForm : <UnavailableNotice home={home} />)}
     {error && <p role="alert" className="feedback error">{error}</p>}
-    <div className="visitor-privacy"><ShieldCheck size={16} /> No compartimos tus datos con el residente.</div></div><footer>Un timbre de <a href="/">ringgg. <ArrowUpRight size={13} /></a></footer></main>;
+    <div className="visitor-privacy"><ShieldCheck size={16} /> No compartimos tus datos con el residente.</div></div><footer>Un timbre de <Link href="/">ringgg. <ArrowUpRight size={13} /></Link></footer></main>;
 }

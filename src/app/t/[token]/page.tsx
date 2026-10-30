@@ -7,7 +7,7 @@ import { AppError } from '@/server/errors';
 export const dynamic = 'force-dynamic';
 export default async function DoorPage({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
-  const home = await publicHome(await getDatabase(), token).catch((error) => {
+  const home = await publicHome(await getDatabase(), token).catch((error: unknown) => {
     if (error instanceof AppError && error.code === 'INVALID_DOORBELL') return null;
     throw error;
   });
