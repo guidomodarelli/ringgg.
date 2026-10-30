@@ -103,6 +103,26 @@ test('con una pausa programada el visitante ve hasta cuándo y puede tocar cuand
   } finally { await fixture.close(); }
 });
 
+test('si la casa deja de pedir la ubicación, el visitante que no la compartió puede tocar sin recargar', async ({ page }) => {
+  const fixture = await serve('tests/fixtures/visitor-entry.tsx', `window.__VISITOR__=${JSON.stringify({ home: { name: 'Casa', paused: false, pausedUntil: null, quiet: false, quietUntil: null, nearbyOnly: true }, token: 'token' })}`, async (request, response, path) => {
+    if (request.method !== 'GET' || path !== 'door/token') return false;
+    response.end(JSON.stringify({ name: 'Casa', paused: false, pausedUntil: null, quiet: false, quietUntil: null, nearbyOnly: false })); return true;
+  });
+  try {
+    await page.clock.install();
+    await page.goto(fixture.url);
+    const gate = page.getByRole('dialog', { name: 'Este timbre necesita tu ubicación.' });
+    // The browser in the test denies an ungranted location, like a visitor who blocked it.
+    await gate.getByRole('button', { name: 'Permitir ubicación' }).click();
+    await expect(gate.getByRole('alert')).toContainText('Bloqueaste la ubicación para esta página');
+    await expect(page.getByRole('button', { name: 'Tocar timbre', exact: true })).toHaveCount(0);
+    // A resident lifts the requirement: the open page rereads the home and releases the visitor.
+    await page.clock.runFor(60_000);
+    await expect(gate).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Tocar timbre', exact: true })).toBeVisible();
+  } finally { await fixture.close(); }
+});
+
 test('el residente responde con una respuesta rápida y el historial muestra quién y cuánto tardó', async ({ page }) => {
   const postgres = new PGlite();
   const database = testDatabase(postgres);

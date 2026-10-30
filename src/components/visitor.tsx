@@ -73,7 +73,10 @@ function useAnswerPolling({ token, visit, expired, setVisit, setExpired, setErro
   }, [visitId, answered, token, expired, setVisit, setExpired, setError]);
 }
 
-/** Availability is rendered by the server once; it is checked again so the form appears when quiet hours end or the bell resumes. */
+/**
+ * Availability is rendered by the server once; it is checked again so the form appears when quiet hours end,
+ * the bell resumes or the home stops asking for the visitor's location.
+ */
 function useAvailabilityCheck({ token, waiting, setHome }: { token: string; waiting: boolean; setHome: (home: PublicHome) => void }) {
   useEffect(() => {
     if (!waiting) return;
@@ -135,9 +138,11 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
   const sending = useRef(false);
   useAnswerPolling({ token, visit, expired, setVisit, setExpired, setError });
   const available = !home.paused && !home.quiet;
-  useAvailabilityCheck({ token, waiting: visit === null && !available, setHome });
   // A home that only rings from its door needs this visitor's location before anything else.
   const location = useLocationGate(home.nearbyOnly && available && visit === null);
+  // Keep reading the home while the visitor is blocked: lifting the location requirement releases them too.
+  const locationBlocked = location.state !== 'ready';
+  useAvailabilityCheck({ token, waiting: visit === null && (!available || locationBlocked), setHome });
 
   async function ring() {
     if (sending.current) return; sending.current = true; setPending(true); setError('');
@@ -156,15 +161,14 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
 
   const result = visit && <VisitResult token={token} visit={visit} expired={expired} notePending={notePending} onNotePendingChange={setNotePending} onNoteSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} onRingAgain={ringAgain} />;
   const ringForm = <form onSubmit={(event) => { event.preventDefault(); void ring(); }}><label htmlFor="visitor-message">¿Querés decir quién sos? <span>Opcional</span></label><textarea id="visitor-message" rows={3} placeholder="Hola, soy del delivery…" value={message} disabled={pending} maxLength={DOORBELL.messageMaxLength} onChange={(event) => setMessage(event.target.value)} /><div className="message-count">{message.length}/{DOORBELL.messageMaxLength}</div><button className="button primary ring-button" disabled={pending}><BellRing size={21} />{pending ? 'Tocando timbre…' : 'Tocar timbre'}</button>{home.nearbyOnly && <p className="visitor-location-note"><MapPin size={14} /> Usamos tu ubicación solo para confirmar que estás en la puerta. No la guardamos.</p>}</form>;
-  const gated = location.state !== 'ready';
-  const doorbell = gated
+  const doorbell = locationBlocked
     ? <p className="waiting-indicator" role="status"><i /> {location.state === 'checking' ? 'Confirmando que estés en la puerta…' : 'Necesitamos tu ubicación para tocar el timbre.'}</p>
     : ringForm;
 
   return <main className="visitor-page"><Brand /><div className="visitor-content"><span className="eyebrow">ESTÁS EN LA PUERTA DE</span><h1>{home.name}<span>.</span></h1><p className="visitor-intro">Un toque y saben que llegaste.</p>
     <div className={`visitor-bell ${visit ? 'rang' : ''}`}>{visit?.answered_at && visit.reply !== 'away' ? <Check size={62} strokeWidth={1.5} /> : <BellRing size={62} strokeWidth={1.5} />}</div>
     {result ?? (available ? doorbell : <UnavailableNotice home={home} />)}
-    {!result && available && gated && location.state !== 'checking' && <LocationGate homeName={home.name} state={location.state} failure={location.failure} onRequest={location.request} />}
+    {!result && available && locationBlocked && location.state !== 'checking' && <LocationGate homeName={home.name} state={location.state} failure={location.failure} onRequest={location.request} />}
     {error && <p role="alert" className="feedback error">{error}</p>}
     <div className="visitor-privacy"><ShieldCheck size={16} /> No compartimos tus datos con el residente.</div></div><footer>Un timbre de <Link href="/">ringgg. <ArrowUpRight size={13} /></Link></footer></main>;
 }
