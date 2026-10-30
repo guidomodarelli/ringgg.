@@ -56,6 +56,7 @@ test('el panel reconcilia cada acción con su propia respuesta y no re-renderiza
     await measureWindow('idle', () => page.waitForTimeout(10_500));
     await page.goto(`http://127.0.0.1:${port}/?view=settings`); await page.waitForTimeout(1000);
     await measureWindow('rename home', async () => { await page.getByLabel('Nombre de tu casa').fill('Casa perf'); await page.getByRole('button', { name: 'Guardar nombre' }).click(); await page.getByText('Nombre actualizado.').waitFor(); await expect(page.locator('.topbar strong')).toHaveText('Casa perf'); });
+    await page.getByRole('button', { name: 'Configurar horario' }).click();
     await measureWindow('save quiet hours', async () => { await page.getByRole('button', { name: 'Guardar horario' }).click(); await page.getByText('Horario de descanso guardado', { exact: false }).waitFor(); });
     await updateQuietHours(db, null, null);
     const home = await getHome(db); const id = crypto.randomUUID(); await registerVisit(db, home.token, id, 'Perf visit', 'perf-client');
