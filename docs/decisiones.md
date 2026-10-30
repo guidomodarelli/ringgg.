@@ -65,6 +65,12 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 - Ante `pushsubscriptionchange`, el service worker vuelve a suscribirse y llama a `/api/renew-subscription` con `previousEndpoint`: el mismo dispositivo conserva sus casas, sus nombres y su lugar en cada límite de diez. Si la suscripción nueva ya estaba registrada, hereda las casas que le faltaban moviendo esas filas (copiarlas chocaría con el índice único de nombres del dispositivo viejo). El último endpoint se recuerda en Cache Storage, porque Chrome no informa la suscripción vieja.
 - Cada dispositivo se nombra al conectarlo: el nombre es obligatorio, viene sugerido (plataforma y nombre del residente, con un número si ya existe en la casa) y no puede ser genérico ni repetido. `src/lib/device-name.ts` concentra esas reglas para el cliente, que valida antes de pedir el permiso de notificaciones, y para el servidor, que las vuelve a aplicar (`DEVICE_NAME_GENERIC`, `DEVICE_NAME_TAKEN`). Los dispositivos de antes que siguen como «Mi celular» se nombran la primera vez que abren el panel. Cualquiera puede cambiar el nombre después, y volver a activar las notificaciones no lo pisa. Si el navegador pasa a otra persona, deja de sonar en las casas de la anterior.
 
+## Actualización de la app instalada
+
+- La PWA instalada puede quedar días en memoria y el panel nunca navega, así que seguía con el código viejo hasta cerrarla del todo. El service worker ya se activa solo (`skipWaiting` y `clients.claim`) y solo guarda la página offline: lo viejo era la página abierta.
+- Cada build fija su versión (`VERCEL_DEPLOYMENT_ID`, si no el commit, si no la hora del build) y `/api/version` la devuelve. El panel la lee al abrir y cada vez que vuelve al frente; si cambió, se recarga. Con una acción en curso espera a que termine. Se descartó el `deploymentId` de Next: solo detecta el cambio al navegar.
+- No se aplica a la página del visitante: recargarla le haría perder la visita que está esperando.
+
 ## Pausa temporal y retención
 
 - La pausa puede durar una hora, hasta las 8 de la mañana siguiente en la hora de la casa (si es antes de las 8, ese mismo día) o hasta que alguien la reactive. `paused_until` vence sola: no hace falta ningún job. El cálculo de «mañana a las 8» se hace en PostgreSQL con `AT TIME ZONE`.

@@ -133,6 +133,12 @@ test('la API privada exige sesión y bloquea mutaciones de otro origen', async (
   const privacy = await request.get('/privacidad', { maxRedirects: 0 });
   expect(privacy.status()).toBe(200);
   expect(await privacy.text()).toContain('Política de privacidad');
+  // Open apps compare this value to notice a new deployment: public, fresh and the same on every read.
+  const firstVersion = await request.get('/api/version');
+  expect(firstVersion.headers()['cache-control']).toContain('no-store');
+  const { version } = await firstVersion.json() as { version: string };
+  expect(version).not.toBe('');
+  expect(await (await request.get('/api/version')).json()).toEqual({ version });
   const manifest = await request.get('/manifest.webmanifest');
   expect(manifest.status()).toBe(200);
   expect((await manifest.json()).display).toBe('standalone');
