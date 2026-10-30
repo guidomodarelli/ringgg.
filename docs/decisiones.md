@@ -31,7 +31,7 @@ Todas las mutaciones esperan confirmación del servidor. No se anticipan éxitos
 | Dispositivos | no compatible, permiso denegado, pendiente, conectado, prueba fallida | instrucción y feedback persistente; se puede volver a activar |
 | QR | generación, copia, descarga, renovación | confirmación antes de invalidar el QR; feedback tras persistencia |
 | Configuración | guardando, confirmado, error | conserva inputs, no adelanta éxito |
-| Horario de descanso | guardando, activo, desactivado, rango inválido | aviso inline si inicio y fin coinciden; el estado del panel muestra «Horario de descanso» |
+| Horario de descanso | guardando, activo, desactivado, rango inválido | desactivado por defecto: solo «Configurar horario», sin horas a la vista; aviso inline si inicio y fin coinciden; el estado del panel muestra «Horario de descanso» |
 
 No se conectó un sink de soporte externo porque no hay ninguno configurado. Los errores inesperados se correlacionan con un identificador seguro en la respuesta y logs JSON sin mensajes de visitantes, endpoints push ni credenciales. No se promete un reporte enviado a soporte.
 
