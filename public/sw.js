@@ -54,7 +54,13 @@ async function answerFromNotification(visitId, reply, url, title) {
   try {
     const response = await fetch('/api/answer', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: visitId, reply }) });
     if (!response.ok) return openDashboard(url);
+    // Only the first answer reaches the visitor: confirm what was stored, not what was tapped.
+    const visit = await response.json().catch(() => null);
     await notifyClients({ type: 'ringgg:push', visitId });
+    if (visit && typeof visit.reply === 'string' && visit.reply !== reply) {
+      const who = typeof visit.answered_by === 'string' && visit.answered_by ? `${visit.answered_by} ya había respondido` : 'Alguien ya había respondido';
+      return self.registration.showNotification('Ya respondieron', { body: `${who}: tu visita ve otra respuesta.`, icon: ICON, badge: ICON, tag: visitId, data: { url } });
+    }
     return self.registration.showNotification('Respuesta enviada', { body: `Le avisamos a tu visita: «${title}».`, icon: ICON, badge: ICON, tag: visitId, data: { url } });
   } catch { return openDashboard(url); }
 }

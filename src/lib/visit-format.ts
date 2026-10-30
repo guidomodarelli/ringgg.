@@ -1,4 +1,4 @@
-import { DOORBELL, VISIT_REPLIES } from '@/constants/doorbell';
+import { DOORBELL, VISIT_REPLIES, type VisitReply } from '@/constants/doorbell';
 import type { DeliveryStatus, Visit } from '@/types/doorbell';
 
 export function visitTime(value: string) {
@@ -24,6 +24,13 @@ export function answerSummary(visit: Pick<Visit, 'created_at' | 'answered_at' | 
   if (!visit.answered_at) return null;
   const reply = VISIT_REPLIES[visit.reply ?? 'coming'].history;
   return [visit.answered_by, reply, `respondió en ${responseTime(visit)}`].filter(Boolean).join(' · ');
+}
+
+/** Feedback after answering: only the first reply reaches the visitor, so confirm the stored one. */
+export function replyOutcomeMessage(requested: VisitReply, visit: Pick<Visit, 'reply' | 'answered_by'> | null | undefined) {
+  const stored = visit?.reply ?? requested;
+  if (stored === requested) return `Tu visita ya ve: «${VISIT_REPLIES[requested].visitorTitle}».`;
+  return `${visit?.answered_by ? `${visit.answered_by} ya había` : 'Ya habían'} respondido: tu visita ve «${VISIT_REPLIES[stored].visitorTitle}».`;
 }
 
 /** Only `?visit=<uuid>` deep links from notifications focus a visit. */

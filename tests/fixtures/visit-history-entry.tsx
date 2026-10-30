@@ -10,10 +10,10 @@ function Fixture() {
   const [pending, setPending] = useState('');
   const [feedback, setFeedback] = useState('');
   const lock = useRef(false);
-  async function run(key: string, work: () => Promise<unknown>, success: string) {
+  async function run(key: string, work: () => Promise<unknown>, success: string | ((result: unknown) => string)) {
     if (lock.current) return false;
     lock.current = true; setPending(key);
-    try { await work(); setVisits((await api<{ visits: Visit[] }>('dashboard')).visits); setFeedback(success); return true; }
+    try { const result = await work(); setVisits((await api<{ visits: Visit[] }>('dashboard')).visits); setFeedback(typeof success === 'function' ? success(result) : success); return true; }
     catch (error) { setFeedback(error instanceof Error ? error.message : 'Error'); return false; }
     finally { setPending(''); lock.current = false; }
   }

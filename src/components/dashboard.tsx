@@ -122,13 +122,13 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
     return () => { cancelled = true; controller.abort(); };
   }, []);
 
-  async function action(key: string, work: () => Promise<unknown>, success: string) {
+  async function action(key: string, work: () => Promise<unknown>, success: string | ((result: unknown) => string)) {
     if (actionLock.current) return false;
     actionLock.current = true; refreshGeneration.current += 1; setPending(key); setError(''); setFeedback('');
     try {
-      await work();
+      const result = await work();
       const fresh = await api<DashboardSnapshot>('dashboard');
-      setData((previous) => ({ ...previous, ...fresh })); setFeedback(success);
+      setData((previous) => ({ ...previous, ...fresh })); setFeedback(typeof success === 'function' ? success(result) : success);
       if (key === 'name') router.refresh();
       return true;
     } catch (error) { setError(error instanceof Error ? error.message : 'No pudimos completar la acción. Reintentá.'); return false; }
