@@ -18,6 +18,7 @@ import { useDashboardState } from './dashboard/use-dashboard-state';
 import { useDashboardView, useFocusVisitId } from './dashboard/use-dashboard-view';
 import { usePushDevice } from './dashboard/use-push-device';
 import { useAppUpdates } from './use-app-updates';
+import { useTrackedNavigation } from './use-tracked-navigation';
 import type { DashboardData, DashboardSnapshot, HomeState } from '@/types/doorbell';
 import type { DashboardView } from '@/constants/dashboard-views';
 import { pauseEnd, pauseEndLabel } from '@/lib/pause';
@@ -49,6 +50,7 @@ function statusLabel(home: HomeState) {
 
 export function Dashboard({ initial, initialView = 'overview' }: { initial: DashboardData; initialView?: DashboardView }) {
   const router = useRouter();
+  const navigate = useTrackedNavigation();
   const view = useDashboardView(initialView);
   const focusVisitId = useFocusVisitId(initial.focusVisitId ?? '');
   // Until the resident chooses a name in this home, "¿Quién sos?" comes before anything else.
@@ -65,8 +67,7 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   async function signOut() {
     const result = await authClient.signOut();
     if (result.error) throw new Error('No pudimos cerrar tu sesión. Reintentá.');
-    router.replace('/');
-    router.refresh();
+    navigate(() => { router.replace('/'); router.refresh(); });
   }
   /** Names of the home's devices except one: a device cannot repeat another's name. */
   const deviceNamesExcept = (deviceId: string | null) => data.devices.filter((item) => item.id !== deviceId).map((item) => item.name);

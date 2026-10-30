@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Trash2 } from 'lucide-react';
 import { HOMES } from '@/constants/homes';
 import { api } from '@/lib/api';
+import { useTrackedNavigation } from '../use-tracked-navigation';
 
 /** Why the home cannot be deleted, so the disabled button is never a dead end. */
 function blockedReason(residents: number, homes: number) {
@@ -18,6 +19,7 @@ function blockedReason(residents: number, homes: number) {
  */
 export function DeleteHomeSetting({ homeId, homeName, residents, homes }: { homeId: number; homeName: string; residents: number; homes: number }) {
   const router = useRouter();
+  const navigate = useTrackedNavigation();
   const [confirming, setConfirming] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
@@ -28,8 +30,7 @@ export function DeleteHomeSetting({ homeId, homeName, residents, homes }: { home
     lock.current = true; setPending(true); setError('');
     try {
       const { nextHomeId } = await api<{ nextHomeId: number }>('delete-home', { home: homeId });
-      router.replace(`/?${HOMES.queryParameter}=${nextHomeId}`);
-      router.refresh();
+      navigate(() => { router.replace(`/?${HOMES.queryParameter}=${nextHomeId}`); router.refresh(); });
     } catch (deleteError) { setError(deleteError instanceof Error ? deleteError.message : 'No pudimos eliminar la casa. Reintentá.'); }
     finally { lock.current = false; setPending(false); }
   }

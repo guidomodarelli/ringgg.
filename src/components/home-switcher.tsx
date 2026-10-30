@@ -7,6 +7,7 @@ import { DOORBELL } from '@/constants/doorbell';
 import { HOMES } from '@/constants/homes';
 import { api } from '@/lib/api';
 import { cleanName } from '@/lib/names';
+import { useTrackedNavigation } from './use-tracked-navigation';
 import type { HomeSummary } from '@/types/residents';
 
 function homeHref(homeId: number) {
@@ -16,6 +17,7 @@ function homeHref(homeId: number) {
 /** Creates another home; the panel opens it once the server confirms. Errors stay next to the field. */
 function NewHomeForm({ onCancel }: { onCancel: () => void }) {
   const router = useRouter();
+  const navigate = useTrackedNavigation();
   const [name, setName] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
@@ -25,7 +27,7 @@ function NewHomeForm({ onCancel }: { onCancel: () => void }) {
     lock.current = true; setPending(true); setError('');
     try {
       const created = await api<{ id: number }>('homes', { name: cleanName(name) });
-      router.push(homeHref(created.id));
+      navigate(() => { router.push(homeHref(created.id)); });
     } catch (createError) { setError(createError instanceof Error ? createError.message : 'No pudimos crear la casa. Reintentá.'); }
     finally { lock.current = false; setPending(false); }
   }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useAppUpdates } from '../../src/components/use-app-updates';
+import { useTrackedNavigation } from '../../src/components/use-tracked-navigation';
 import { api } from '../../src/lib/api';
 import { RELOADS_STARTED_STORAGE_KEY } from './app-updates-contract';
 
@@ -27,14 +28,18 @@ interface NavigationEvent extends Event { navigationType: string }
 function AppUpdatesFixture() {
   const [busy, setBusy] = useState(false);
   const [saving, setSaving] = useState(false);
+  const navigate = useTrackedNavigation();
   useAppUpdates({ busy, loadedVersion });
   async function save() {
     setSaving(true);
     try {
       const { next } = await api<{ next: string }>('slow-save', { change: 'name' });
-      // Like a router push: the next page is read first, and only then does the address change.
-      await fetch(next, { headers: { RSC: '1' } });
-      window.history.pushState(null, '', next);
+      // Like a router push inside the panel's tracked navigation: the next page is read first, and
+      // only then does the address change.
+      navigate(async () => {
+        await fetch(next, { headers: { RSC: '1' } });
+        window.history.pushState(null, '', next);
+      });
     } finally { setSaving(false); }
   }
   let status = 'Sin acciones';

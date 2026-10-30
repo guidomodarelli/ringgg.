@@ -22,6 +22,7 @@
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "bun check --no-script && bun check --no-script -p src/service-worker",
+    "typecheck:build": "tsc --noEmit && tsc --noEmit -p src/service-worker",
     "lint": "golfo-lint lint",
     "test": "vitest run",
     "test:e2e": "playwright test",
