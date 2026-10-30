@@ -150,6 +150,20 @@ describe('renovación de la suscripción', () => {
     expect(await deviceNames(other)).toEqual(['Celular viejo']);
   });
 
+  test('si la suscripción nueva es del celular de otra persona, ese celular no recibe las casas y el propio las conserva', async () => {
+    await addResident(database, owner, { homeId: HOME, email: member.email }, settings);
+    const other = await secondHome();
+    const original = pushSubscription('owner-phone');
+    const memberSubscription = pushSubscription('member-phone');
+    const { deviceId: ownerPhone } = await saveDevice(database, { homeId: HOME, name: 'Celular de Guido', subscription: original }, owner, settings);
+    await saveDevice(database, { homeId: other, name: 'Celu en lo de mamá', subscription: original }, owner, settings);
+    const { deviceId: memberPhone } = await saveDevice(database, { homeId: HOME, name: 'Android de Cami', subscription: memberSubscription }, member, settings);
+    await expect(renewSubscription(database, owner, memberSubscription, original.endpoint)).resolves.toEqual({ renewed: false });
+    const homeDevices = async (homeId: number) => (await snapshot(database, homeId)).devices.map(({ id, name }) => ({ id, name }));
+    expect(await homeDevices(other)).toEqual([{ id: ownerPhone, name: 'Celu en lo de mamá' }]);
+    expect(await homeDevices(HOME)).toEqual([{ id: ownerPhone, name: 'Celular de Guido' }, { id: memberPhone, name: 'Android de Cami' }]);
+  });
+
   test('nadie puede renovar la suscripción de otra persona', async () => {
     await addResident(database, owner, { homeId: HOME, email: member.email }, settings);
     const original = pushSubscription('owner-only');

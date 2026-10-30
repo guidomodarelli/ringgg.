@@ -85,18 +85,22 @@ export async function saveDevice(database: Database, registration: DeviceRegistr
 
 /**
  * The service worker reports a subscription the browser replaced: the same device takes the new
- * endpoint and keeps its homes and names. Nothing changes when the old endpoint is not this resident's.
+ * endpoint and keeps its homes and names. Nothing changes when the old endpoint is not this resident's,
+ * or when the new one is already another resident's device: the panel then offers to connect again.
  */
 export async function renewSubscription(database: Database, user: ResidentIdentity, subscription: webpush.PushSubscription, previousEndpoint: string): Promise<{ renewed: boolean }> {
   const email = normalizedEmail(user.email);
   return database.transaction(async (transaction) => {
     const [previous] = (await transaction.query<{ id: string }>('SELECT id FROM devices WHERE endpoint = $1 AND resident_email = $2', [previousEndpoint, email])).rows;
     if (!previous || previousEndpoint === subscription.endpoint) return { renewed: false };
-    const [current] = (await transaction.query<{ id: string }>('SELECT id FROM devices WHERE endpoint = $1', [subscription.endpoint])).rows;
+    const [current] = (await transaction.query<{ id: string; resident_email: string | null }>('SELECT id, resident_email FROM devices WHERE endpoint = $1', [subscription.endpoint])).rows;
     if (!current) {
       await transaction.query('UPDATE devices SET endpoint = $2, subscription = $3::jsonb WHERE id = $1', [previous.id, subscription.endpoint, JSON.stringify(subscription)]);
       return { renewed: true };
     }
+    // Another resident's device keeps only its own homes: merging would make it ring for homes its
+    // owner cannot open, and removing this resident from them would not disconnect it.
+    if (current.resident_email !== email) return { renewed: false };
     // Both exist: the homes the current device was missing move to it with their names (moving the
     // rows keeps each name unique in its home), then the old device goes with the homes both had.
     await transaction.query(
