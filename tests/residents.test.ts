@@ -166,7 +166,9 @@ describe('nombres de residentes', () => {
   });
 
   test('el primer nombre reemplaza el nombre genérico de sus celulares en esa casa y respeta los elegidos', async () => {
-    await saveDevice(database, { homeId: HOME, subscription: pushSubscription('generic') }, owner, settings);
+    // A device from before devices were named when connected: its name in the home is generic.
+    const { deviceId } = await saveDevice(database, { homeId: HOME, name: 'Celu viejo', subscription: pushSubscription('generic') }, owner, settings);
+    await database.query(`UPDATE device_homes SET name = 'Mi celular', name_key = 'mi celular' WHERE device_id = $1`, [deviceId]);
     await saveDevice(database, { homeId: HOME, name: 'Tablet del living', subscription: pushSubscription('chosen') }, owner, settings);
     await renameResident(database, owner, { homeId: HOME, email: owner.email, name: 'Guido Modarelli' }, settings);
     expect((await snapshot(database, HOME)).devices.map((device) => device.name)).toEqual(['Celular de Guido', 'Tablet del living']);

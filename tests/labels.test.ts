@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { suggestedDeviceName } from '../src/lib/device-name';
+import { deviceNameProblem, freeDeviceName, isGenericDeviceName, suggestedDeviceName } from '../src/lib/device-name';
 import { isPaused, pauseEnd, pauseEndLabel } from '../src/lib/pause';
 import { deviceHealth } from '../src/lib/device-health';
 import { receiptLabel } from '../src/lib/visit-format';
@@ -14,6 +14,23 @@ describe('nombre sugerido del dispositivo', () => {
     expect(suggestedDeviceName(ANDROID, 'Ana')).toBe('Android de Ana');
     expect(suggestedDeviceName(WINDOWS, '  ')).toBe('Windows');
     expect(suggestedDeviceName('desconocido', 'Ana')).toBe('Celular de Ana');
+  });
+
+  test('la sugerencia no repite el nombre de otro celular de la casa', () => {
+    expect(freeDeviceName(IPHONE, 'Guido', ['Android de Ana'])).toBe('iPhone de Guido');
+    expect(freeDeviceName(IPHONE, 'Guido', ['iphone de guído'])).toBe('iPhone de Guido 2');
+  });
+
+  test('«Mi celular», «Celular» y sus copias numeradas no identifican a ningún celular', () => {
+    for (const name of ['Mi celular', 'celular', ' MI  CELULAR 2 ', 'Celular 10']) expect(isGenericDeviceName(name)).toBe(true);
+    for (const name of ['Celular de Ana', 'Mi celular nuevo', 'iPhone']) expect(isGenericDeviceName(name)).toBe(false);
+  });
+
+  test('el nombre es obligatorio, no genérico y propio de la casa', () => {
+    expect(deviceNameProblem('   ', [])).toBe('Escribí un nombre para este dispositivo.');
+    expect(deviceNameProblem('Mi celular', [])).toContain('Elegí un nombre que lo distinga');
+    expect(deviceNameProblem(' ANDROID de ana ', ['Android de Ana'])).toBe('Ya hay un celular llamado «ANDROID de ana» en esta casa. Elegí otro nombre.');
+    expect(deviceNameProblem('iPhone de Guido', ['Android de Ana'])).toBe('');
   });
 });
 

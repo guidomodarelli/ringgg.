@@ -1,0 +1,70 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/nombrar-dispositivo",
+    "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+    "fingerprint": "sha256:af5a4f3f026cc6b32a38778f3ab7f0b7f50f2793c12f25747a95689f632672d1",
+    "uncommittedFiles": [
+      "src/app/privacidad/page.tsx",
+      "src/constants/legal.ts"
+    ],
+    "fileCount": 4,
+    "inputCount": 19
+  },
+  "evidence": [
+    {
+      "command": "npm run typecheck",
+      "durationMs": 1183,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "39554d04beffb38bb4a012aa669ef3da243dcd3306b52b470d1e974cc7aaa38e",
+      "recordedAt": "2026-10-30T17:29:14.528Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Flujo nuevo y estático; no se midió TTFB ni LCP en un deployment."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Medir TTFB y LCP de /privacidad en producción."
+  ],
+  "recordedAt": "2026-10-30T17:29:14.999Z",
+  "result": "partial",
+  "runId": "20261030T172654Z-d0c7ed",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "measure the complete flow /privacidad before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T17:26:54.605Z",
+  "unitId": "ringgg.privacy"
+}

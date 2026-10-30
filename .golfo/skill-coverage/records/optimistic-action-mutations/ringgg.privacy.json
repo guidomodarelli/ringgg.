@@ -1,0 +1,78 @@
+{
+  "latest": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": "feature/nombrar-dispositivo",
+      "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+      "files": {
+        "src/app/privacidad/page.tsx": "b2bf6787955c31df",
+        "src/constants/legal.ts": "fe4d3b8d268343bb",
+        "src/components/brand.tsx": "0aca2f770c5b0b91",
+        "src/constants/doorbell.ts": "2edd18d9afbb7d3f"
+      },
+      "fingerprint": "sha256:af5a4f3f026cc6b32a38778f3ab7f0b7f50f2793c12f25747a95689f632672d1",
+      "inputs": {
+        "src/app/privacidad/page.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/privacidad/page.tsx#metadata.title": "85125940f0bc767e",
+        "src/app/privacidad/page.tsx#metadata.description": "6c7869739e041771",
+        "src/app/privacidad/page.tsx#metadata.robots": "8eefb84aa4d98f49",
+        "src/app/privacidad/page.tsx#metadata~frame": "1715002a4a420b10",
+        "src/app/privacidad/page.tsx#PrivacyPolicyPage": "3b03452b454d6d1c",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:next": "530097ba2f134bc2",
+        "src/constants/legal.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/legal.ts#PRIVACY_POLICY.path": "3f67eb58818699a1",
+        "src/constants/legal.ts#PRIVACY_POLICY.updatedAt": "d86d239b5a143c86",
+        "src/constants/legal.ts#PRIVACY_POLICY.contactEnvironmentVariable": "3df514c143d27c0d",
+        "src/constants/legal.ts#PRIVACY_POLICY~frame": "3089f3d8667b3217",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "ed7a027c7b6ee6ac",
+        "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
+        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b"
+      },
+      "signals": {},
+      "uncommittedFiles": [
+        "src/app/privacidad/page.tsx",
+        "src/constants/legal.ts"
+      ]
+    },
+    "evidence": [],
+    "limitations": [],
+    "mode": "full",
+    "pendingChecks": [],
+    "recordedAt": "2026-10-30T17:28:51.828Z",
+    "result": "not-applicable",
+    "runId": "20261030T172653Z-1b916e",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "whole unit ringgg.privacy: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "96d98d49220f2894",
+        "references/action-catalog.md": "3011dc2f28c2e91c",
+        "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+        "references/framework-primitives.md": "16fc928cc9cc1f3c",
+        "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+        "references/optimistic-decision.md": "62c41b62a67ed97a"
+      },
+      "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+      "name": "optimistic-action-mutations",
+      "version": "1.2.0"
+    },
+    "summary": "Página estática sin lecturas de datos ni acciones.",
+    "report": "runs/20261030T172653Z-1b916e.json"
+  },
+  "schemaVersion": 1,
+  "skill": "optimistic-action-mutations",
+  "unitId": "ringgg.privacy",
+  "verified": null
+}

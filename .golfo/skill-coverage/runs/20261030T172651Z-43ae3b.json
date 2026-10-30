@@ -1,0 +1,106 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/nombrar-dispositivo",
+    "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+    "fingerprint": "sha256:c136b9211dc81a72f2353f8630bb03c04e468d59b97f2ff77552731ea14a97e2",
+    "uncommittedFiles": [
+      "src/components/login-shell.tsx",
+      "src/constants/devices.ts",
+      "src/constants/legal.ts"
+    ],
+    "fileCount": 26,
+    "inputCount": 186
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T17:28:10.904Z",
+      "source": "attested",
+      "summary": "El pie de las pantallas de ingreso enlaza la política de privacidad pública."
+    },
+    {
+      "command": "npx playwright test tests/e2e/auth.spec.ts --reporter=line",
+      "durationMs": 9620,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "803196a6e7ced454788b26ff72f85617719358610ac877fd6cab36480ff8f6cd",
+      "recordedAt": "2026-10-30T17:28:20.765Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T17:28:21.023Z",
+      "source": "attested",
+      "summary": "Playwright (Chromium): desde el ingreso, el enlace «Política de privacidad» abre /privacidad."
+    }
+  ],
+  "limitations": [
+    "Modo incremental sin cobertura verificada previa de la unidad."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T17:28:21.579Z",
+  "result": "partial",
+  "runId": "20261030T172651Z-43ae3b",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "previous run was partial"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/components/login-shell.tsx#LoginShell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/legal.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/legal.ts#PRIVACY_POLICY.path",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/legal.ts#PRIVACY_POLICY~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "visible or interactive code changed"
+      }
+    ],
+    "suggestedScope": [
+      "src/components/login-shell.tsx › LoginShell — behavior of this code in every state of the unit that uses it",
+      "src/constants/legal.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/constants/legal.ts › PRIVACY_POLICY.path — copy or configuration read from this member, in every state that shows it",
+      "src/constants/legal.ts › PRIVACY_POLICY (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › resolveHomeAccess — behavior of this code in every state of the unit that uses it"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T17:26:51.679Z",
+  "unitId": "ringgg.login"
+}

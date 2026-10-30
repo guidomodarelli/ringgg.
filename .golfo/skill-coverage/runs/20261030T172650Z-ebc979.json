@@ -1,0 +1,396 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/nombrar-dispositivo",
+    "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+    "fingerprint": "sha256:02da3563133ee3e3f77ebb27dcc1bd6ca326280552022cc7226cc1c48d96358e",
+    "uncommittedFiles": [
+      "src/app/api/subscribe/route.ts",
+      "src/app/globals.css",
+      "src/components/connect-device-form.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/use-device-name-suggestion.ts",
+      "src/components/dashboard/use-push-device.ts",
+      "src/components/device-name-dialog.tsx",
+      "src/components/notification-onboarding.tsx",
+      "src/components/required-name-dialog.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/devices.ts",
+      "src/lib/device-name.ts",
+      "src/server/push.ts"
+    ],
+    "fileCount": 89,
+    "inputCount": 596
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T17:27:34.988Z",
+      "source": "attested",
+      "summary": "Formularios y diálogos nuevos son hojas cliente dentro del Dashboard; la sugerencia lee el user agent con useSyncExternalStore (servidor vacío), sin desajuste de hidratación; sin cambios de boundaries ni await nuevos en la ruta /."
+    },
+    {
+      "command": "npm run typecheck",
+      "durationMs": 1397,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "852b77dc1a6d6a81c47ed878f6567de1ff6e6e6983b15a0c99afcb6bfb5eb7e8",
+      "recordedAt": "2026-10-30T17:27:36.673Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/device-names.spec.ts tests/e2e/notification-onboarding.spec.ts tests/e2e/device-disconnect.spec.ts tests/e2e/dashboard-reconcile.spec.ts --reporter=line",
+      "durationMs": 25886,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "22620435d4196b17bf95f78605d0e18c27e2ae227fcc9045cc1a96a701c44fc3",
+      "recordedAt": "2026-10-30T17:28:02.861Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T17:28:03.715Z",
+  "result": "verified",
+  "runId": "20261030T172650Z-ebc979",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "51 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/subscribe/route.ts#subscribeSchema",
+        "reason": "route file changed: segment layout, boundary or page"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#ConnectDeviceForm",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#ConnectDeviceFormProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard/activateNotifications",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/deviceNamesExcept",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/saveDeviceName",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSection",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSectionProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#RenameForm",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#RenameFormProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCallout",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCalloutProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#browserUserAgent",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#ignoreChanges",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#serverUserAgent",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#subscribeToNothing",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#useDeviceNameSuggestion",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice/activate",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#DeviceNameDialog",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#DeviceNameDialogProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboardingProps",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#onboardingCopy",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#RequiredNameDialog",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#RequiredNameDialogProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-name-dialog.tsx#ResidentNameDialog",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#LEGACY_DEVICE_NAMES",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#COPY_SUFFIX",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#deviceNameProblem",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#deviceNameTakenMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#freeDeviceName",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#GENERIC_DEVICE_NAME_MESSAGE",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#GENERIC_KEYS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#isGenericDeviceName",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_DEVICES",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#deviceNameTaken",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#rejectGenericDeviceName",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#renameDevice",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "code rendered by the route changed"
+      }
+    ],
+    "suggestedScope": [
+      "src/app/api/subscribe/route.ts › subscribeSchema — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+      "src/components/connect-device-form.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/connect-device-form.tsx › ConnectDeviceForm — server/client split and awaited work of this code in every route of the unit",
+      "src/components/connect-device-form.tsx › ConnectDeviceFormProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard.tsx › Dashboard › activateNotifications — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard.tsx › Dashboard › deviceNamesExcept — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard.tsx › Dashboard › saveDeviceName — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/devices-section.tsx › DevicesSection — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/devices-section.tsx › DevicesSectionProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/devices-section.tsx › RenameForm — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/devices-section.tsx › RenameFormProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/devices-section.tsx › ThisDeviceCallout — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/devices-section.tsx › ThisDeviceCalloutProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/qr-panel.tsx › QrPanel (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/use-dashboard-state.ts › useDashboardState (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/use-device-name-suggestion.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/dashboard/use-device-name-suggestion.ts › browserUserAgent — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/use-device-name-suggestion.ts › ignoreChanges — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/use-device-name-suggestion.ts › serverUserAgent — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/use-device-name-suggestion.ts › subscribeToNothing — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/use-device-name-suggestion.ts › useDeviceNameSuggestion — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/use-push-device.ts › usePushDevice › activate — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard/use-push-device.ts › usePushDevice (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/device-name-dialog.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/device-name-dialog.tsx › DeviceNameDialog — server/client split and awaited work of this code in every route of the unit",
+      "src/components/device-name-dialog.tsx › DeviceNameDialogProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/notification-onboarding.tsx › NotificationOnboarding — server/client split and awaited work of this code in every route of the unit",
+      "src/components/notification-onboarding.tsx › NotificationOnboardingProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/notification-onboarding.tsx › onboardingCopy — server/client split and awaited work of this code in every route of the unit",
+      "src/components/required-name-dialog.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/required-name-dialog.tsx › RequiredNameDialog — server/client split and awaited work of this code in every route of the unit",
+      "src/components/required-name-dialog.tsx › RequiredNameDialogProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/resident-name-dialog.tsx › ResidentNameDialog — server/client split and awaited work of this code in every route of the unit",
+      "src/constants/homes.ts › LEGACY_DEVICE_NAMES — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/device-name.ts › COPY_SUFFIX — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/device-name.ts › deviceNameProblem — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/device-name.ts › deviceNameTakenMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/device-name.ts › freeDeviceName — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/device-name.ts › GENERIC_DEVICE_NAME_MESSAGE — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/device-name.ts › GENERIC_KEYS — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/device-name.ts › isGenericDeviceName — server/client split and awaited work of this code in every route of the unit",
+      "src/server/doorbell.ts › answerVisit — server/client split and awaited work of this code in every route of the unit",
+      "src/server/doorbell.ts › HOME_DEVICES — server/client split and awaited work of this code in every route of the unit",
+      "src/server/doorbell.ts › PAUSE_UPDATES.morning — route configuration read from this member, in every segment that uses it",
+      "src/server/push.ts › deviceNameTaken — server/client split and awaited work of this code in every route of the unit",
+      "src/server/push.ts › rejectGenericDeviceName — server/client split and awaited work of this code in every route of the unit",
+      "src/server/push.ts › renameDevice — server/client split and awaited work of this code in every route of the unit",
+      "src/server/push.ts › saveDevice — server/client split and awaited work of this code in every route of the unit",
+      "src/server/residents.ts › listResidentHomes — server/client split and awaited work of this code in every route of the unit",
+      "src/server/residents.ts › resolveHomeAccess — server/client split and awaited work of this code in every route of the unit"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T17:26:50.428Z",
+  "unitId": "ringgg.resident"
+}

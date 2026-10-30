@@ -4,7 +4,8 @@ import { HTTP, NOTIFICATION_REPLIES, VISIT_REPLIES } from '@/constants/doorbell'
 import { DEVICES } from '@/constants/devices';
 import { HOMES } from '@/constants/homes';
 import { PUSH, PUSH_HOSTS, PUSH_KEY_PATTERN, PUSH_POLICIES, type PushKind } from '@/constants/push';
-import { cleanName, nameKey, uniqueName } from '@/lib/names';
+import { cleanName, nameKey } from '@/lib/names';
+import { GENERIC_DEVICE_NAME_MESSAGE, deviceNameTakenMessage, isGenericDeviceName } from '@/lib/device-name';
 import type { DeliveryStatus } from '@/types/doorbell';
 import type { HomeMember } from '@/types/residents';
 import type { Database } from './database';
@@ -42,8 +43,8 @@ export interface DeviceRegistration {
   /** The home this browser starts ringing for. */
   homeId: number;
   subscription: webpush.PushSubscription;
-  /** Suggested name ("iPhone de Guido"); a number is added if the home already uses it. */
-  name?: string;
+  /** The name the resident gave this device for the home: required, not generic and unique there. */
+  name: string;
 }
 
 /** The browser's device row, owned by `owner`. A browser that changes hands stops ringing for the previous owner's homes. */
@@ -68,19 +69,27 @@ async function upsertDevice(database: Database, subscription: webpush.PushSubscr
 export async function saveDevice(database: Database, registration: DeviceRegistration, user: ResidentIdentity, settings = residentSettings()): Promise<{ deviceId: string }> {
   const email = normalizedEmail(user.email);
   const { homeId } = registration;
-  return database.transaction(async (transaction) => {
-    await transaction.query('SELECT id FROM homes WHERE id = $1 FOR UPDATE', [homeId]);
-    const member = await resolveHomeAccess(transaction, user, homeId, settings);
-    const suggested = registration.name ? cleanName(registration.name) : DEVICES.defaultName;
-    const deviceId = await upsertDevice(transaction, registration.subscription, { email, name: memberName(member) }, suggested);
-    const registered = await transaction.query('SELECT 1 FROM device_homes WHERE device_id = $1 AND home_id = $2', [deviceId, homeId]);
-    if (registered.rows.length) return { deviceId };
-    const count = await transaction.query<{ count: number }>('SELECT COUNT(*)::int AS count FROM device_homes WHERE home_id = $1', [homeId]);
-    if (count.rows[0].count >= DEVICES.max) throw new AppError(HTTP.conflict, 'DEVICE_LIMIT', `Llegaste al límite de ${DEVICES.max} celulares en esta casa. Eliminá uno para agregar otro.`);
-    const name = uniqueName(suggested, await takenDeviceNames(transaction, homeId), DEVICES.nameMaxLength);
-    await transaction.query('INSERT INTO device_homes (device_id, home_id, name, name_key) VALUES ($1, $2, $3, $4)', [deviceId, homeId, name, nameKey(name)]);
-    return { deviceId };
-  });
+  const name = deviceNameSchema.parse(registration.name);
+  rejectGenericDeviceName(name);
+  try {
+    return await database.transaction(async (transaction) => {
+      await transaction.query('SELECT id FROM homes WHERE id = $1 FOR UPDATE', [homeId]);
+      const member = await resolveHomeAccess(transaction, user, homeId, settings);
+      const deviceId = await upsertDevice(transaction, registration.subscription, { email, name: memberName(member) }, name);
+      // Already ringing for this home: it keeps the name it has there.
+      const registered = await transaction.query('SELECT 1 FROM device_homes WHERE device_id = $1 AND home_id = $2', [deviceId, homeId]);
+      if (registered.rows.length) return { deviceId };
+      const count = await transaction.query<{ count: number }>('SELECT COUNT(*)::int AS count FROM device_homes WHERE home_id = $1', [homeId]);
+      if (count.rows[0].count >= DEVICES.max) throw new AppError(HTTP.conflict, 'DEVICE_LIMIT', `Llegaste al límite de ${DEVICES.max} celulares en esta casa. Eliminá uno para agregar otro.`);
+      if ((await takenDeviceNames(transaction, homeId)).some((taken) => nameKey(taken) === nameKey(name))) throw deviceNameTaken(name);
+      await transaction.query('INSERT INTO device_homes (device_id, home_id, name, name_key) VALUES ($1, $2, $3, $4)', [deviceId, homeId, name, nameKey(name)]);
+      return { deviceId };
+    });
+  } catch (error) {
+    // The unique index is the backstop if two devices take the same name at once.
+    if ((error as { code?: unknown }).code === UNIQUE_VIOLATION) throw deviceNameTaken(name);
+    throw error;
+  }
 }
 
 /**
@@ -113,12 +122,18 @@ export async function renewSubscription(database: Database, user: ResidentIdenti
 }
 
 function deviceNameTaken(name: string) {
-  return new AppError(HTTP.conflict, 'DEVICE_NAME_TAKEN', `Ya hay un celular llamado «${name}» en esta casa. Elegí otro nombre.`);
+  return new AppError(HTTP.conflict, 'DEVICE_NAME_TAKEN', deviceNameTakenMessage(name));
+}
+
+/** "Mi celular" or "Celular" do not say which device it is, so no device takes them. */
+function rejectGenericDeviceName(name: string) {
+  if (isGenericDeviceName(name)) throw new AppError(HTTP.badRequest, 'DEVICE_NAME_GENERIC', GENERIC_DEVICE_NAME_MESSAGE);
 }
 
 /** Shared management: residents of a home name its devices; the name is required and unique in the home. */
 export async function renameDevice(database: Database, homeId: number, id: string, input: string) {
   const name = deviceNameSchema.parse(input);
+  rejectGenericDeviceName(name);
   try {
     await database.transaction(async (transaction) => {
       await transaction.query('SELECT id FROM homes WHERE id = $1 FOR UPDATE', [homeId]);

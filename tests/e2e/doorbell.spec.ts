@@ -129,6 +129,10 @@ test('la API privada exige sesión y bloquea mutaciones de otro origen', async (
   const poster = await request.get('/cartel', { maxRedirects: 0 });
   expect(poster.status()).toBe(307);
   expect(poster.headers().location).toContain('/sign-in');
+  // The privacy policy is public: no session and no redirect, as the OAuth consent screen requires.
+  const privacy = await request.get('/privacidad', { maxRedirects: 0 });
+  expect(privacy.status()).toBe(200);
+  expect(await privacy.text()).toContain('Política de privacidad');
   const manifest = await request.get('/manifest.webmanifest');
   expect(manifest.status()).toBe(200);
   expect((await manifest.json()).display).toBe('standalone');

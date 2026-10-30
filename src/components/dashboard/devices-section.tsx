@@ -4,6 +4,8 @@ import { DEVICES } from '@/constants/devices';
 import type { DashboardSnapshot, Device } from '@/types/doorbell';
 import { api } from '@/lib/api';
 import { deviceHealth } from '@/lib/device-health';
+import { deviceNameProblem } from '@/lib/device-name';
+import { ConnectDeviceForm } from '../connect-device-form';
 import type { RunAction } from './types';
 
 interface NotificationState { active: boolean; permission: string; skipped: boolean }
@@ -34,45 +36,91 @@ function calloutDetail(permission: string) {
   return 'Activalos para enterarte cuando alguien llega, aunque Ringgg esté cerrada.';
 }
 
-/** Explains why this browser does not ring and offers the way out that applies. */
-function ThisDeviceCallout({ notifications, pending, onActivate }: { notifications: NotificationState; pending: boolean; onActivate: () => void }) {
+interface ThisDeviceCalloutProps {
+  notifications: NotificationState;
+  residentName: string;
+  otherNames: string[];
+  pending: boolean;
+  onActivate: (name: string) => void;
+}
+
+/** Explains why this browser does not ring and offers the way out that applies: naming and connecting it. */
+function ThisDeviceCallout({ notifications, residentName, otherNames, pending, onActivate }: ThisDeviceCalloutProps) {
   if (notifications.active) return null;
   const blocked = notifications.permission === 'denied';
   const unsupported = notifications.permission === 'unsupported';
+  const action = notifications.permission === 'granted' ? 'Conectar este dispositivo' : 'Activar notificaciones en este dispositivo';
   return <div className="device-callout">
     <p><strong>Este dispositivo no recibe avisos de esta casa.</strong> {calloutDetail(notifications.permission)}</p>
-    {!blocked && !unsupported && <button type="button" className="button primary small" disabled={pending} onClick={onActivate}><BellRing size={16} /> {notifications.permission === 'granted' ? 'Conectar este dispositivo' : 'Activar notificaciones en este dispositivo'}</button>}
+    {!blocked && !unsupported && <ConnectDeviceForm className="name-form device-connect-form" buttonClassName="button primary small" residentName={residentName} otherNames={otherNames} pending={pending} onConnect={onActivate}>
+      <BellRing size={16} /> {pending ? 'Conectando…' : action}
+    </ConnectDeviceForm>}
   </div>;
 }
 
-/** The name is required and unique in the home; a name another device uses is rejected next to the field. */
-function RenameForm({ device, homeId, pending, run, error, onClearError, onDone }: { device: Device; homeId: number; pending: string; run: RunAction; error: string; onClearError: () => void; onDone: () => void }) {
+interface RenameFormProps {
+  device: Device;
+  homeId: number;
+  /** Names of the home's other devices: this one cannot repeat them. */
+  otherNames: string[];
+  pending: string;
+  run: RunAction;
+  error: string;
+  onClearError: () => void;
+  onDone: () => void;
+}
+
+/**
+ * The name is required, not generic and unique in the home: a known problem is shown next to the field
+ * before any request, and the server's answer (another device took it meanwhile) lands in the same place.
+ */
+function RenameForm({ device, homeId, otherNames, pending, run, error, onClearError, onDone }: RenameFormProps) {
   const [name, setName] = useState(device.name);
+  const [problem, setProblem] = useState('');
   const key = renameAction(device.id);
   const errorId = `device-name-error-${device.id}`;
+  const shown = problem || error;
   return <form className="device-rename" onSubmit={(event) => {
     event.preventDefault();
+    const found = deviceNameProblem(name, otherNames);
+    if (found) { setProblem(found); return; }
     void run(key, () => api<DashboardSnapshot>('rename-device', { home: homeId, id: device.id, name }), 'Nombre del celular actualizado.', 'snapshot').then((saved) => { if (saved) onDone(); });
   }}>
     <label htmlFor={`device-name-${device.id}`}>Nombre del celular</label>
     <div className="inline-form">
       <input id={`device-name-${device.id}`} value={name} required maxLength={DEVICES.nameMaxLength} disabled={pending === key}
-        aria-invalid={error ? true : undefined} aria-describedby={error ? errorId : undefined}
-        onChange={(event) => { setName(event.target.value); if (error) onClearError(); }} />
+        aria-invalid={shown ? true : undefined} aria-describedby={shown ? errorId : undefined}
+        onChange={(event) => { setName(event.target.value); setProblem(''); if (error) onClearError(); }} />
       <button className="button outline small" disabled={Boolean(pending) || !name.trim()}>{pending === key ? 'Guardando…' : 'Guardar'}</button>
       <button type="button" className="text-button" disabled={pending === key} onClick={onDone}>Cancelar</button>
     </div>
-    {error && <p id={errorId} className="field-error" role="alert">{error}</p>}
+    {shown && <p id={errorId} className="field-error" role="alert">{shown}</p>}
   </form>;
 }
 
-export function DevicesSection({ homeId, devices, thisDeviceId, notifications, pending, run, error, failedAction, onClearError, onActivate }: { homeId: number; devices: Device[]; thisDeviceId: string | null; notifications: NotificationState; pending: string; run: RunAction; error: string; failedAction: string; onClearError: () => void; onActivate: () => void }) {
+interface DevicesSectionProps {
+  homeId: number;
+  devices: Device[];
+  thisDeviceId: string | null;
+  notifications: NotificationState;
+  /** How this home calls the resident, for the suggested name of this device. */
+  residentName: string;
+  pending: string;
+  run: RunAction;
+  error: string;
+  failedAction: string;
+  onClearError: () => void;
+  /** Connects this device with the name the resident gave it. */
+  onActivate: (name: string) => void;
+}
+
+export function DevicesSection({ homeId, devices, thisDeviceId, notifications, residentName, pending, run, error, failedAction, onClearError, onActivate }: DevicesSectionProps) {
   const [confirmRemoval, setConfirmRemoval] = useState('');
   const [renaming, setRenaming] = useState('');
   const busy = Boolean(pending);
   return <section id="devices" className="section-block lower-section">
     <div className="section-title"><div><span className="eyebrow">QUE NO SE TE ESCAPE UN DING</span><h2>Los celulares de tu casa</h2><p>Todos reciben el aviso. Cualquiera puede responder.</p></div><Laptop size={25} /></div>
-    <ThisDeviceCallout notifications={notifications} pending={busy} onActivate={onActivate} />
+    <ThisDeviceCallout notifications={notifications} residentName={residentName} otherNames={devices.map((item) => item.name)} pending={busy} onActivate={onActivate} />
     {devices.length === 0
       ? <p className="section-footnote">Todavía no hay dispositivos conectados. El historial funciona; para recibir avisos con la app cerrada, conectá tu celular.</p>
       : <button type="button" className="button outline small device-test-mine" disabled={busy} onClick={() => run('test-mine', () => api('test-my-devices', { home: homeId }), testOutcome, 'none')}><Bell size={16} /> {pending === 'test-mine' ? 'Enviando prueba…' : 'Probar mis celulares'}</button>}
@@ -81,7 +129,7 @@ export function DevicesSection({ homeId, devices, thisDeviceId, notifications, p
       return <div className="device-row" key={device.id}>
         <Smartphone size={23} />
         {renaming === device.id
-          ? <RenameForm device={device} homeId={homeId} pending={pending} error={failedAction === renameAction(device.id) ? error : ''} onClearError={onClearError} run={run} onDone={() => setRenaming('')} />
+          ? <RenameForm device={device} homeId={homeId} otherNames={devices.filter((item) => item.id !== device.id).map((item) => item.name)} pending={pending} error={failedAction === renameAction(device.id) ? error : ''} onClearError={onClearError} run={run} onDone={() => setRenaming('')} />
           : <div className="device-info">
             <strong>{device.name}{device.id === thisDeviceId && <span className="device-badge">Este dispositivo</span>}</strong>
             <span>{device.owner ? `De ${device.owner}` : 'Sin dueño asignado'}</span>

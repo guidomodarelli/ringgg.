@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "ringgg.privacy",
+  "kind": "ui-flow",
+  "hierarchy": {
+    "module": "Ringgg",
+    "page": "Privacidad",
+    "section": null,
+    "subflow": "Leer la política de privacidad pública"
+  },
+  "description": "Página pública y estática con la política de privacidad, enlazada desde el ingreso.",
+  "routes": [
+    "/privacidad"
+  ],
+  "entries": [
+    {
+      "path": "src/app/privacidad/page.tsx",
+      "symbol": "*"
+    },
+    {
+      "path": "src/constants/legal.ts",
+      "symbol": "*"
+    }
+  ],
+  "origin": "manual"
+}

@@ -1,0 +1,94 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/nombrar-dispositivo",
+    "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+    "fingerprint": "sha256:9e9618c3f7b3e72b94c75a1217f903f81da0be00e0fed4d06155b932bc10f88c",
+    "uncommittedFiles": [
+      "src/app/api/subscribe/route.ts",
+      "src/components/connect-device-form.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/use-device-name-suggestion.ts",
+      "src/components/dashboard/use-push-device.ts",
+      "src/components/device-name-dialog.tsx",
+      "src/components/notification-onboarding.tsx",
+      "src/components/required-name-dialog.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/devices.ts",
+      "src/lib/device-name.ts",
+      "src/server/device-names.ts",
+      "src/server/push.ts"
+    ],
+    "fileCount": 78,
+    "inputCount": 561
+  },
+  "evidence": [
+    {
+      "command": "npx vitest run tests/labels.test.ts tests/devices.test.ts tests/residents.test.ts",
+      "durationMs": 5967,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "74c5badebbc1b1e3b3b1f67c433768ca33b7262692225f5027c0f92c2faf88f2",
+      "recordedAt": "2026-10-30T17:28:09.973Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "No se midió: la única carga nueva es un POST /api/rename-device, una sola vez, cuando este dispositivo todavía tiene un nombre genérico; conectar sigue haciendo el mismo pedido con el nombre en el body."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T17:28:10.661Z",
+  "result": "partial",
+  "runId": "20261030T172651Z-9c2292",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "2 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#RequiredNameDialog",
+        "reason": "adds load: +1 effects"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "adds load: +1 awaited steps"
+      }
+    ],
+    "suggestedScope": [
+      "measure the complete flow /: before = the first revision that contains the last measured code (it was recorded over uncommitted changes on top of 847d295e22ba, which does not include them), or the revision without the new load, after = working tree",
+      "src/components/required-name-dialog.tsx › RequiredNameDialog — adds load: +1 effects",
+      "src/server/push.ts › saveDevice — adds load: +1 awaited steps"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T17:26:51.124Z",
+  "unitId": "ringgg.resident"
+}

@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { DEVICES } from '@/constants/devices';
 import { requireIdentity } from '@/server/auth';
 import { getDatabase } from '@/server/database';
 import { homeIdSchema } from '@/server/homes';
@@ -11,7 +10,8 @@ export const dynamic = 'force-dynamic';
 
 const subscribeSchema = z.object({
   home: homeIdSchema,
-  name: z.string().trim().min(1).max(DEVICES.nameMaxLength).optional(),
+  /** Required: the device is named when it is connected (validated by `saveDevice`). */
+  name: z.string(),
   subscription: subscriptionSchema,
 });
 
