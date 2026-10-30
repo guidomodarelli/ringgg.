@@ -109,6 +109,18 @@ describe('eliminar casas', () => {
     expect((await listResidentHomes(database, owner, settings)).map((home) => home.id)).toEqual([HOME, other]);
   });
 
+  test('dos eliminaciones a la vez no dejan a nadie sin casa', async () => {
+    await addResident(database, owner, { homeId: HOME, email: member.email }, settings);
+    const homes = [await createHome(database, member, 'Depto', settings), await createHome(database, member, 'Casa de mamá', settings)];
+    await removeResident(database, member, { homeId: HOME, email: member.email }, settings);
+    // As from two tabs: one deletion goes through and the other finds no other home to keep.
+    const results = await Promise.allSettled(homes.map((home) => deleteHome(database, member, home.id, settings)));
+    const remaining = await listResidentHomes(database, member, settings);
+    expect(remaining).toHaveLength(1);
+    expect(results.find((result) => result.status === 'fulfilled')).toEqual({ status: 'fulfilled', value: { nextHomeId: remaining[0].id } });
+    expect(results.find((result) => result.status === 'rejected')).toMatchObject({ reason: { code: 'LAST_HOME' } });
+  });
+
   test('eliminar una casa borra sus visitas y olvida los celulares que solo sonaban ahí', async () => {
     const { id: other } = await createHome(database, owner, 'Casa de mamá', settings);
     const shared = pushSubscription('shared');

@@ -23,6 +23,15 @@ export function requireFreeHomeName(homes: HomeSummary[], name: string, exceptHo
 }
 
 /**
+ * Serializes one resident's home creations and deletions until the transaction ends, so concurrent
+ * requests see each other's result: two creations cannot both pass the limit, and two deletions
+ * cannot each keep the home the other one deletes. Take it before reading the resident's homes.
+ */
+async function lockResidentHomes(transaction: Database, email: string) {
+  await transaction.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`ringgg-homes:${email}`]);
+}
+
+/**
  * Residents of at least one home can create more, up to a limit: the app stays closed to accounts
  * nobody invited. The creator joins with the name they use in their other homes.
  */
@@ -30,8 +39,7 @@ export async function createHome(database: Database, user: ResidentIdentity, inp
   const name = homeNameSchema.parse(input);
   const email = user.email.trim().toLowerCase();
   return database.transaction(async (transaction) => {
-    // Serializes the creations of one resident, so two requests cannot both pass the limit.
-    await transaction.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`ringgg-homes:${email}`]);
+    await lockResidentHomes(transaction, email);
     const homes = await listResidentHomes(transaction, user, settings);
     if (!homes.length) throw new AppError(HTTP.forbidden, 'HOME_CREATION_NOT_ALLOWED', 'Para crear una casa, primero tenés que ser residente de alguna.');
     if (homes.length >= HOMES.maxPerResident) throw new AppError(HTTP.conflict, 'HOME_LIMIT', `Llegaste al límite de ${HOMES.maxPerResident} casas.`);
@@ -50,14 +58,16 @@ export async function createHome(database: Database, user: ResidentIdentity, inp
  * only while they keep another home: nobody deletes a home others use, and nobody ends up without one.
  */
 export async function deleteHome(database: Database, user: ResidentIdentity, homeId: number, settings = residentSettings()): Promise<{ nextHomeId: number }> {
+  const email = user.email.trim().toLowerCase();
   return database.transaction(async (transaction) => {
+    await lockResidentHomes(transaction, email);
     await transaction.query('SELECT id FROM homes WHERE id = $1 FOR UPDATE', [homeId]);
     await resolveHomeAccess(transaction, user, homeId, settings);
     if ((await listResidents(transaction, homeId, settings)).length > 1) throw new AppError(HTTP.conflict, 'HOME_HAS_RESIDENTS', 'Solo podés eliminar una casa en la que seas el único residente. Si los demás la siguen usando, salí de la casa desde Residentes.');
     const next = (await listResidentHomes(transaction, user, settings)).find((home) => home.id !== homeId);
     if (!next) throw new AppError(HTTP.conflict, 'LAST_HOME', 'Es tu única casa, así que no se puede eliminar.');
     await transaction.query('DELETE FROM homes WHERE id = $1', [homeId]);
-    await transaction.query('DELETE FROM devices d WHERE d.resident_email = $1 AND NOT EXISTS (SELECT 1 FROM device_homes dh WHERE dh.device_id = d.id)', [user.email.trim().toLowerCase()]);
+    await transaction.query('DELETE FROM devices d WHERE d.resident_email = $1 AND NOT EXISTS (SELECT 1 FROM device_homes dh WHERE dh.device_id = d.id)', [email]);
     return { nextHomeId: next.id };
   });
 }
