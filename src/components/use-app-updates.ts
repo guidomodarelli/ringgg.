@@ -1,11 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { APP_UPDATES } from '@/constants/app-updates';
-import { api, onMutationsSettled, pendingMutations } from '@/lib/api';
+import { useEffect, useRef } from 'react';
+import { api, pendingMutations } from '@/lib/api';
 import type { AppVersion } from '@/types/app';
 
 interface AppUpdatesOptions {
-  /** An action of the panel is running: the reload waits for it. */
+  /** An action of the panel is running: a return to the app while it runs leaves the update for the next one. */
   busy: boolean;
   /** The build of the code running in this page. Empty (no build to compare with) turns the check off. */
   loadedVersion: string;
@@ -14,26 +13,35 @@ interface AppUpdatesOptions {
 /**
  * Moves an open app onto a new deployment. An installed PWA can stay in memory for days, and the
  * panel never navigates, so it would keep running the old code until it is closed for good. Each
- * time the app is in the foreground (when it opens and every time it comes back) the deployed
- * version is compared with the one this page loaded; a different one reloads the page. Never in the
- * middle of something: it waits while `busy`, and for every request that changes data to end
- * (whichever component sent it), plus a moment for what follows its answer.
+ * time the app comes to the foreground (when it opens and every time it comes back) the deployed
+ * version is compared with the one this page loaded, and a different one reloads the page right
+ * then, only if nothing is running at that moment: no action of the panel (`busy`), no request that
+ * changes data (whichever component sent it) and no navigation started while the version was read.
+ * Otherwise nothing is scheduled: the next return to the app checks again. So a reload never cuts
+ * an action short, nor what follows its answer (a confirmation, or opening a just-created home),
+ * however long that takes.
  */
 export function useAppUpdates({ busy, loadedVersion }: AppUpdatesOptions) {
-  const [outdated, setOutdated] = useState(false);
+  const busyRef = useRef(busy);
+  useEffect(() => { busyRef.current = busy; }, [busy]);
   useEffect(() => {
     if (!loadedVersion) return;
     let stopped = false;
-    async function check() {
+    async function reloadIfOutdated() {
       if (document.visibilityState !== 'visible') return;
+      const addressBeforeRead = window.location.href;
+      let deployedVersion: string;
       try {
-        const { version } = await api<AppVersion>('version');
-        if (!stopped && version && version !== loadedVersion) setOutdated(true);
+        ({ version: deployedVersion } = await api<AppVersion>('version'));
       } catch {
         // Offline or a failed read: the next return to the app checks again.
+        return;
       }
+      if (stopped || !deployedVersion || deployedVersion === loadedVersion) return;
+      const somethingRunning = busyRef.current || pendingMutations() > 0 || window.location.href !== addressBeforeRead;
+      if (!somethingRunning) window.location.reload();
     }
-    const checkNow = () => { void check(); };
+    const checkNow = () => { void reloadIfOutdated(); };
     checkNow();
     document.addEventListener('visibilitychange', checkNow);
     // A page restored from the back/forward cache comes back without a visibility change.
@@ -44,20 +52,4 @@ export function useAppUpdates({ busy, loadedVersion }: AppUpdatesOptions) {
       window.removeEventListener('pageshow', checkNow);
     };
   }, [loadedVersion]);
-  useEffect(() => {
-    if (!outdated || busy) return;
-    let reloadTimer: ReturnType<typeof setTimeout> | undefined;
-    // Runs now and whenever the last running change ends; a change that starts during the wait postpones it again.
-    const reloadOnceSettled = () => {
-      clearTimeout(reloadTimer);
-      if (pendingMutations() > 0) return;
-      reloadTimer = setTimeout(() => { if (pendingMutations() === 0) window.location.reload(); }, APP_UPDATES.settleBeforeReloadMs);
-    };
-    const stopListening = onMutationsSettled(reloadOnceSettled);
-    reloadOnceSettled();
-    return () => {
-      stopListening();
-      clearTimeout(reloadTimer);
-    };
-  }, [outdated, busy]);
 }

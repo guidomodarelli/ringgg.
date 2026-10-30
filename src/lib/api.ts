@@ -8,22 +8,10 @@ function serverErrorMessage(body: unknown) {
 
 /** Requests that change data (every call with `data`) still waiting for their answer. */
 let mutationsInFlight = 0;
-const settledListeners = new Set<() => void>();
 
 /** How many requests that change data are still running; reloading the page now would cut them off. */
 export function pendingMutations() {
   return mutationsInFlight;
-}
-
-/** Calls `listener` every time the last running change ends. Returns the function that stops it. */
-export function onMutationsSettled(listener: () => void) {
-  settledListeners.add(listener);
-  return () => { settledListeners.delete(listener); };
-}
-
-function endMutation() {
-  mutationsInFlight -= 1;
-  if (mutationsInFlight === 0) for (const listener of settledListeners) listener();
 }
 
 /**
@@ -34,7 +22,7 @@ export async function api<T>(path: string, data?: unknown, signal?: AbortSignal)
   if (data === undefined) return request<T>(path, data, signal);
   mutationsInFlight += 1;
   try { return await request<T>(path, data, signal); }
-  finally { endMutation(); }
+  finally { mutationsInFlight -= 1; }
 }
 
 async function request<T>(path: string, data: unknown, signal: AbortSignal | undefined): Promise<T> {
