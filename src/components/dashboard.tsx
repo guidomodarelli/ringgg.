@@ -17,6 +17,7 @@ import { SettingsSection } from './dashboard/settings-section';
 import { useDashboardState } from './dashboard/use-dashboard-state';
 import { useDashboardView, useFocusVisitId } from './dashboard/use-dashboard-view';
 import { usePushDevice } from './dashboard/use-push-device';
+import { useAppUpdates } from './use-app-updates';
 import type { DashboardData, DashboardSnapshot, HomeState } from '@/types/doorbell';
 import type { DashboardView } from '@/constants/dashboard-views';
 import { pauseEnd, pauseEndLabel } from '@/lib/pause';
@@ -58,6 +59,8 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   const { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync } = useDashboardState(initial, device.deviceId);
   const url = `${data.origin}/t/${data.home.token}`;
   const busy = Boolean(pending);
+  // `next.config.ts` inlines the build's version into this bundle: it names the code this page runs.
+  useAppUpdates({ busy, loadedVersion: process.env.APP_VERSION ?? '' });
 
   async function signOut() {
     const result = await authClient.signOut();

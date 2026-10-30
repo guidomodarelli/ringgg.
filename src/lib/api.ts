@@ -6,8 +6,26 @@ function serverErrorMessage(body: unknown) {
   return 'No pudimos conectar. Revisá tu conexión y reintentá.';
 }
 
-/** Same-origin JSON client. Callers retain operation IDs when the network outcome is unknown. */
+/** Requests that change data (every call with `data`) still waiting for their answer. */
+let mutationsInFlight = 0;
+
+/** How many requests that change data are still running; reloading the page now would cut them off. */
+export function pendingMutations() {
+  return mutationsInFlight;
+}
+
+/**
+ * Same-origin JSON client. Callers retain operation IDs when the network outcome is unknown. A call
+ * with `data` is a change (POST) and counts in {@link pendingMutations} until its answer is read.
+ */
 export async function api<T>(path: string, data?: unknown, signal?: AbortSignal): Promise<T> {
+  if (data === undefined) return request<T>(path, data, signal);
+  mutationsInFlight += 1;
+  try { return await request<T>(path, data, signal); }
+  finally { mutationsInFlight -= 1; }
+}
+
+async function request<T>(path: string, data: unknown, signal: AbortSignal | undefined): Promise<T> {
   let response: Response;
   try {
     response = await fetch(`/api/${path}`, {
