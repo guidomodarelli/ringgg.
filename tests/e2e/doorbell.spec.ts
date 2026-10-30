@@ -139,3 +139,18 @@ test('la API privada exige sesión y bloquea mutaciones de otro origen', async (
   const icon = await request.get('/icons/icon-192.png');
   expect(icon.headers()['content-type']).toContain('image/png');
 });
+
+test('las páginas de la app pueden leer la ubicación del dispositivo, como pide tocar desde la puerta', async ({ page, context, baseURL }) => {
+  const door = { latitude: -34.6037, longitude: -58.3816 };
+  await context.grantPermissions(['geolocation'], { origin: baseURL });
+  await context.setGeolocation({ ...door, accuracy: 10 });
+  // A public page is enough: the response policy is the same on every route the app serves.
+  await page.goto('/privacidad');
+  const reading = await page.evaluate(() => new Promise<{ latitude: number; longitude: number } | string>((resolve) => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => { resolve({ latitude: coords.latitude, longitude: coords.longitude }); },
+      (error) => { resolve(`geolocation failed with code ${error.code}: ${error.message}`); },
+    );
+  }));
+  expect(reading).toEqual(door);
+});
