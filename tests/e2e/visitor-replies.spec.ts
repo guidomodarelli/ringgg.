@@ -187,6 +187,41 @@ test('si la casa pide estar en la puerta, sin ubicación no se puede tocar ni ce
   } finally { await fixture.close(); await postgres.close(); }
 });
 
+test('si la casa empieza a pedir la ubicación con la página abierta, el visitante la concede sin recargar y toca una sola vez', async ({ page, context }) => {
+  const postgres = new PGlite();
+  const database = testDatabase(postgres);
+  await initialize(database);
+  const door = { latitude: -34.6037, longitude: -58.3816 };
+  await setHomeLocation(database, FIXTURE_HOME, { ...door, accuracy: 10 });
+  const home = await getHome(database, FIXTURE_HOME);
+  const fixture = await serve('tests/fixtures/visitor-entry.tsx', `window.__VISITOR__=${JSON.stringify({ home: await publicHome(database, home.token), token: home.token })}`, async (request, response, path) => {
+    if (path !== `door/${home.token}`) return false;
+    if (request.method === 'GET') { response.end(JSON.stringify(await publicHome(database, home.token))); return true; }
+    const input = await readBody(request);
+    const result = await registerVisit(database, home.token, { id: input.id, message: input.message, client: 'fixture-client', position: input.position });
+    if (result.created) await setDelivery(database, input.id, 'unavailable');
+    response.end(JSON.stringify(await readVisit(database, home.token, input.id))); return true;
+  });
+  try {
+    await page.goto(fixture.url);
+    const ringButton = page.getByRole('button', { name: 'Tocar timbre', exact: true });
+    await expect(ringButton).toBeVisible();
+    // A resident turns the requirement on after the visitor opened the page; the server rejects the ring without a location.
+    await setNearbyOnly(database, FIXTURE_HOME, true);
+    await ringButton.click();
+    const gate = page.getByRole('dialog', { name: 'Este timbre necesita tu ubicación.' });
+    await expect(gate).toBeVisible();
+    expect((await snapshot(database, FIXTURE_HOME)).visits).toHaveLength(0);
+    // Allowing it from the door releases the notice and the retry registers a single ring.
+    await context.setGeolocation({ latitude: door.latitude + 0.0004, longitude: door.longitude, accuracy: 20 });
+    await context.grantPermissions(['geolocation'], { origin: fixture.url });
+    await expect(gate).toHaveCount(0);
+    await ringButton.click();
+    await expect(page.getByRole('heading', { name: '¡Ding, dong!' })).toBeVisible();
+    expect((await snapshot(database, FIXTURE_HOME)).visits).toHaveLength(1);
+  } finally { await fixture.close(); await postgres.close(); }
+});
+
 test('si la casa pide estar en la puerta, desde lejos el visitante ve que tiene que acercarse', async ({ page, context }) => {
   const postgres = new PGlite();
   const database = testDatabase(postgres);

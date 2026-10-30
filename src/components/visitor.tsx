@@ -154,7 +154,13 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
       catch (error) { location.recordFailure(locationFailure(error)); setPending(false); sending.current = false; return; }
     }
     try { const result = await api<PublicVisit>(`door/${token}`, { id: operationId.current, message, position }); setVisit(result); }
-    catch (error) { setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.'); }
+    catch (error) {
+      setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.');
+      // The home may have changed since the page loaded (location required, paused, quiet hours):
+      // rereading it lets the page show what blocks the ring instead of repeating the same rejection.
+      try { setHome(await api<PublicHome>(`door/${token}`)); }
+      catch { /* Keep the last known state; the message above already explains the failed ring. */ }
+    }
     finally { setPending(false); sending.current = false; }
   }
   function ringAgain() { setVisit(null); setExpired(false); operationId.current = ''; }
