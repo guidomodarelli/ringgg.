@@ -13,7 +13,7 @@ interface NavigationEvent extends Event { navigationType: string }
 
 // The Navigation API announces a reload synchronously, inside `location.reload()`, so the spec can
 // tell that one started even before its request reaches the server.
-(window as Window & { navigation: EventTarget }).navigation.addEventListener('navigate', (event) => {
+(window as unknown as { navigation: EventTarget }).navigation.addEventListener('navigate', (event) => {
   if ((event as NavigationEvent).navigationType !== 'reload') return;
   const reloadsStarted = Number(sessionStorage.getItem(RELOADS_STARTED_STORAGE_KEY) ?? 0);
   sessionStorage.setItem(RELOADS_STARTED_STORAGE_KEY, String(reloadsStarted + 1));
