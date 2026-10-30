@@ -1,3 +1,4 @@
+import { TIME } from '../../src/constants/time';
 import { TERMINAL } from '../constants/terminal';
 
 /** Progress UI degrades to plain, stable output when redirected or NO_COLOR is set. */
@@ -9,7 +10,7 @@ export function terminal(output: { isTTY?: boolean; write(message: string): unkn
     let frame = 0;
     const started = Date.now();
     const timer = setInterval(() => {
-      output.write(`\r\u001b[2K${TERMINAL.cyan}${TERMINAL.spinnerFrames[frame++ % TERMINAL.spinnerFrames.length]} ${message} (${Math.floor((Date.now() - started) / 1000)} s)${TERMINAL.reset}`);
+      output.write(`\r\u001b[2K${TERMINAL.cyan}${TERMINAL.spinnerFrames[frame++ % TERMINAL.spinnerFrames.length]} ${message} (${Math.floor((Date.now() - started) / TIME.secondMs)} s)${TERMINAL.reset}`);
     }, TERMINAL.spinnerIntervalMs);
     try { return await work(); }
     finally { clearInterval(timer); output.write('\r\u001b[2K'); }

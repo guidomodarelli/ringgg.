@@ -15,6 +15,6 @@ export const POST = apiRoute<{ token: string; id: string }>('door.note', async (
   const input = await readJson(request, noteSchema);
   const database = await getDatabase();
   const result = await leaveNote(database, token, id, input.note);
-  if (result.created) await sendPush(database, { title: 'Te dejaron un mensaje', body: input.note, visitId: id });
+  if (result.created) await sendPush(database, { kind: 'note', homeId: result.home.id, title: `${result.home.name}: te dejaron un mensaje`, body: input.note, visitId: id });
   return Response.json(result.visit);
 });

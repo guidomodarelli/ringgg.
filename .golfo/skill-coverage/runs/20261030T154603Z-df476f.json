@@ -1,0 +1,214 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:07edc855bf9255aefd3907a7795c736b1c30fd0a75fdd90fc009bdf80ab95184",
+    "uncommittedFiles": [
+      "src/app/api/door/[token]/route.ts",
+      "src/app/api/door/[token]/visits/[id]/note/route.ts",
+      "src/components/brand.tsx",
+      "src/components/visitor.tsx",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/constants/polling.ts",
+      "src/constants/push.ts",
+      "src/constants/time.ts",
+      "src/lib/api.ts",
+      "src/lib/names.ts",
+      "src/lib/pause.ts",
+      "src/lib/quiet-hours.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/postgres.ts",
+      "src/server/push.ts",
+      "src/server/rate-limit.ts",
+      "src/server/residents.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 31,
+    "inputCount": 245
+  },
+  "evidence": [
+    {
+      "command": "npx vitest run tests/doorbell.test.ts tests/homes.test.ts tests/visit-format.test.ts",
+      "durationMs": 10180,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "60e1c8fdfde508952b972e011120453aea64277805febe1f319adc333739789e",
+      "recordedAt": "2026-10-30T15:57:12.223Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "No se midió el costo por timbrazo en esta sesión; según la revisión, varias casas no agrega queries al timbrazo."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [
+    "Medir p95 de POST /api/door/[token] contra Neon remoto."
+  ],
+  "recordedAt": "2026-10-30T15:57:13.132Z",
+  "result": "partial",
+  "runId": "20261030T154603Z-df476f",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "skill definition changed (1.7.0 → 1.7.0): SKILL.md, references/bundle-lazy-loading.md",
+      "19 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@vercel/functions",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:next",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#UnavailableNotice",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#useAnswerPolling",
+        "reason": "adds load: +1 effects, +1 awaited steps, +2 timers or polling"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#useAvailabilityCheck",
+        "reason": "adds load: +1 effects, +1 awaited steps, +2 timers or polling"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#assignDevicesToOriginalHome",
+        "reason": "adds load: +1 awaited steps, +2 database queries, +1 awaited calls inside a loop"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#poolDatabase",
+        "reason": "adds load: +7 awaited steps, +5 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#runStep",
+        "reason": "adds load: +3 awaited steps, +2 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#homeByToken",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#pausedMessage",
+        "reason": "adds load: +2 calls to I/O helpers"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#publicHome",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#purgeExpiredData",
+        "reason": "adds load: +2 awaited steps, +2 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#setPause",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeName",
+        "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#visitHomeId",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#homeDevices",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#recordDeliveryHealth",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      }
+    ],
+    "suggestedScope": [
+      "re-check the unit against the rules changed in measured-performance-optimization/SKILL.md",
+      "re-check the unit against the rules changed in measured-performance-optimization/references/bundle-lazy-loading.md",
+      "measure the complete flow /t/[token]: before = the first revision that contains the last measured code (it was recorded over uncommitted changes on top of af7c6537f983, which does not include them), or the revision without the new load, after = working tree",
+      "package @vercel/functions — new package in the flow (bundle or server cost)",
+      "package next — new package in the flow (bundle or server cost)",
+      "src/components/visitor.tsx › UnavailableNotice — adds load: +1 calls to I/O helpers",
+      "src/components/visitor.tsx › useAnswerPolling — adds load: +1 effects, +1 awaited steps, +2 timers or polling",
+      "src/components/visitor.tsx › useAvailabilityCheck — adds load: +1 effects, +1 awaited steps, +2 timers or polling",
+      "src/server/database.ts › assignDevicesToOriginalHome — adds load: +1 awaited steps, +2 database queries, +1 awaited calls inside a loop",
+      "src/server/database.ts › poolDatabase — adds load: +7 awaited steps, +5 database queries",
+      "src/server/database.ts › runStep — adds load: +3 awaited steps, +2 database queries",
+      "src/server/doorbell.ts › homeByToken — adds load: +1 awaited steps, +1 database queries",
+      "src/server/doorbell.ts › pausedMessage — adds load: +2 calls to I/O helpers",
+      "src/server/doorbell.ts › publicHome — adds load: +1 calls to I/O helpers",
+      "src/server/doorbell.ts › purgeExpiredData — adds load: +2 awaited steps, +2 database queries",
+      "src/server/doorbell.ts › setPause — adds load: +1 awaited steps, +1 database queries",
+      "src/server/doorbell.ts › updateHomeName — adds load: +2 awaited steps, +1 calls to I/O helpers, +1 database queries",
+      "src/server/doorbell.ts › visitHomeId — adds load: +1 awaited steps, +1 database queries",
+      "src/server/push.ts › homeDevices — adds load: +1 awaited steps, +1 database queries",
+      "src/server/push.ts › recordDeliveryHealth — adds load: +1 awaited steps, +1 database queries",
+      "src/server/push.ts › sendPush — adds load: +1 awaited steps",
+      "src/server/residents.ts › listResidentHomes — adds load: +1 awaited steps, +1 database queries"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:03.734Z",
+  "unitId": "ringgg.visitor"
+}

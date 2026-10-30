@@ -19,9 +19,10 @@ export const GET = apiRoute<Params>('door', async (_request, { token }) => Respo
 export const POST = apiRoute<Params>('door', async (request, { token }) => {
   const input = await readJson(request, ringSchema);
   const database = await getDatabase();
-  const result = await registerVisit(database, token, input.id, input.message, ringClientKey(request.headers));
+  const result = await registerVisit(database, token, { id: input.id, message: input.message, client: ringClientKey(request.headers) });
   // A retry returns the visit read inside the registration transaction; a new visit returns the stored delivery.
   if (!result.created) return Response.json(result.visit);
-  const outcome = await sendPush(database, { title: 'Hay alguien en la puerta', body: input.message || 'Tocaron el timbre. Abrí Ringgg para responder.', visitId: input.id, answerable: true });
+  // The title names the home: a resident of several homes knows which door rang.
+  const outcome = await sendPush(database, { kind: 'ring', homeId: result.home.id, title: `${result.home.name}: hay alguien en la puerta`, body: input.message || 'Tocaron el timbre. Abrí Ringgg para responder.', visitId: input.id, answerable: true });
   return Response.json(await setDelivery(database, input.id, outcome.delivery));
 });

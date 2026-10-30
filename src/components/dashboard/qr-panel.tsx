@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { ArrowDownToLine, Copy, QrCode, RefreshCw } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowDownToLine, Copy, Printer, QrCode, RefreshCw } from 'lucide-react';
 import { api } from '@/lib/api';
 import type { RunAction } from './types';
 
-export function QrPanel({ url, homeName, pending, run, onFeedback, onError }: { url: string; homeName: string; pending: string; run: RunAction; onFeedback: (message: string) => void; onError: (message: string) => void }) {
+export function QrPanel({ url, homeId, homeName, pending, run, onFeedback, onError }: { url: string; homeId: number; homeName: string; pending: string; run: RunAction; onFeedback: (message: string) => void; onError: (message: string) => void }) {
   const [qr, setQr] = useState('');
   const [confirmRotation, setConfirmRotation] = useState(false);
+  const busy = Boolean(pending);
   useEffect(() => {
     let active = true;
     // The encoder loads after hydration, outside the panel's initial JavaScript.
@@ -17,11 +19,13 @@ export function QrPanel({ url, homeName, pending, run, onFeedback, onError }: { 
     catch { onError('No pudimos copiarlo. Abrí tu timbre y copiá la dirección.'); }
   }
   return <section className="qr-section" id="qr"><div className="section-title"><h2>Tu puerta de entrada</h2><QrCode size={20} /></div><p>Escaneá. Tocá. Ya estás cerca.</p>
-    <div className="qr-frame">{qr ? <img src={qr} width={184} height={184} alt={`QR para tocar el timbre de ${homeName}`} /> : <div className="skeleton qr-skeleton" />}</div>
+    {/* A data URL drawn in the browser: there is nothing to optimize. */}
+    <div className="qr-frame">{qr ? <Image src={qr} width={184} height={184} alt={`QR para tocar el timbre de ${homeName}`} unoptimized loading="eager" /> : <div className="skeleton qr-skeleton" />}</div>
     <strong className="qr-home">{homeName}</strong><span className="qr-caption">No hace falta descargar ninguna app.</span>
+    <a className="button primary full" href={`/cartel?home=${homeId}`}><Printer size={17} /> Imprimir cartel para la puerta</a>
     <a className={`button outline full ${!qr ? 'disabled' : ''}`} href={qr || undefined} download="ringgg-mi-timbre.png"><ArrowDownToLine size={17} /> Descargar QR</a>
     <button className="text-button centered" onClick={() => { void copy(); }}><Copy size={15} /> Copiar enlace</button>
-    <div className="setting-row"><div><h3>Un enlace nuevo</h3><p>Regenerar el QR desactiva el anterior. Vas a tener que volver a imprimirlo.</p></div><button className="text-button" disabled={!!pending} onClick={() => setConfirmRotation(true)}><RefreshCw size={16} /> Regenerar QR</button></div>
-    {confirmRotation && <div className="confirm-box" role="alert"><p>El QR pegado en tu puerta dejará de funcionar. ¿Querés crear uno nuevo?</p><button className="button primary small" disabled={!!pending} onClick={() => { void run('rotate', () => api('rotate', {}), 'Nuevo QR creado. Descargalo y reemplazá el anterior.', 'snapshot').then((success) => { if (success) setConfirmRotation(false); }); }}>Sí, crear nuevo QR</button><button className="text-button" onClick={() => setConfirmRotation(false)}>Cancelar</button></div>}
+    <div className="setting-row"><div><h3>Un enlace nuevo</h3><p>Regenerar el QR desactiva el anterior. Vas a tener que volver a imprimirlo.</p></div><button className="text-button" disabled={busy} onClick={() => setConfirmRotation(true)}><RefreshCw size={16} /> Regenerar QR</button></div>
+    {confirmRotation && <div className="confirm-box" role="alert"><p>El QR pegado en tu puerta dejará de funcionar. ¿Querés crear uno nuevo?</p><button className="button primary small" disabled={busy} onClick={() => { void run('rotate', () => api('rotate', { home: homeId }), 'Nuevo QR creado. Descargalo y reemplazá el anterior.', 'snapshot').then((success) => { if (success) setConfirmRotation(false); }); }}>Sí, crear nuevo QR</button><button className="text-button" onClick={() => setConfirmRotation(false)}>Cancelar</button></div>}
   </section>;
 }

@@ -1,0 +1,836 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:21ee456ff91d233ac541b7faee7f7f058eb2d2b56cd4f4dbfef68ade5a90b691",
+    "uncommittedFiles": [
+      "src/components/brand.tsx",
+      "src/components/login-shell.tsx",
+      "src/components/login.tsx",
+      "src/constants/auth.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/lib/names.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/errors.ts",
+      "src/server/neon-auth.ts",
+      "src/server/postgres.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 25,
+    "inputCount": 183
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:57:13.532Z",
+      "source": "attested",
+      "summary": "Errores de Neon Auth lanzados como AuthApiError (credenciales inválidas, correo sin verificar) mapeados a mensajes específicos; registro, verificación y recuperación sin otros cambios."
+    },
+    {
+      "command": "npx vitest run tests/identity-import.test.ts tests/resident-access.test.ts tests/environment.test.ts",
+      "durationMs": 4336,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "c363c350f13f89056ddc7e260ad2d9f1371e389be1f0a7147bda7fe91ab2c54d",
+      "recordedAt": "2026-10-30T15:57:18.262Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/auth.spec.ts tests/e2e/google-login.spec.ts tests/e2e/api-network.spec.ts tests/e2e/doorbell.spec.ts --reporter=line",
+      "durationMs": 37549,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "f43ff136874cb686d5c959d074a5e2d031c7c5ccc7ac8cd100123654fac756b5",
+      "recordedAt": "2026-10-30T15:57:56.062Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:57:56.355Z",
+      "source": "attested",
+      "summary": "Playwright (Chromium): flujos de registro, verificación y recuperación, Google, errores de red y login real con clave incorrecta y correcta contra la rama ci.",
+      "tool": "Playwright (Chromium)"
+    }
+  ],
+  "limitations": [
+    "Modo incremental sin cobertura verificada previa de la unidad."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:57:57.011Z",
+  "result": "partial",
+  "runId": "20261030T154604Z-5f6cf0",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "previous run was partial"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@vercel/functions",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "pkg:kysely",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "pkg:next",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/auth/[...path]/route.ts#handler",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/brand.tsx#Brand",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/brand.tsx#BrandContents",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login-shell.tsx#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login-shell.tsx#LoginShell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#authFailure",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#AuthFields",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#AuthOptions",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#AuthOptionsProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#DEFAULT_HINT",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#formText",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/login.tsx#Login/action",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/finish",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#Login/goHome",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/login.tsx#Login/showError",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/login.tsx#Login/submit",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/login.tsx#Login~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#MODE_COPY.forgot",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#MODE_COPY.reset",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#MODE_COPY.sign-in",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#MODE_COPY.sign-up",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#MODE_COPY.verify",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#MODE_COPY~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#PASSWORD_MODES",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#PasswordField",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#SIGNED_IN_COPY.hint",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#SIGNED_IN_COPY.title",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/login.tsx#SIGNED_IN_COPY~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.bad_jwt",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.email_exists",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.email_not_confirmed",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.EMAIL_NOT_VERIFIED",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.invalid_credentials",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.INVALID_TOKEN",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.over_email_send_rate_limit",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.over_request_rate_limit",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.TOO_MANY_REQUESTS",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.user_already_exists",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH_ERRORS.weak_password",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.reservedSchemas",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#MESSAGES.existing",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#MESSAGES.invalidCredentials",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#MESSAGES.invalidLink",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#MESSAGES.tooMany",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#MESSAGES.unverified",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#MESSAGES~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#UNVERIFIED_EMAIL_CODES",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES.defaultName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES.nameMaxLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.internal",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#LOCAL_DEFAULTS.origin",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#LOCAL_DEFAULTS~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES.originalId",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#cleanName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#nameKey",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#uniqueName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireHome",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireIdentity",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireOrigin",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/config.ts#getConfig",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/config.ts#httpsOrigin",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#assignDevicesToOriginalHome",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#connect",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#Database",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATION_LOCK",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#nestedTransaction",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#poolDatabase",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#QueryResult",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#runStep",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#describeError",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/errors.ts#errorResponse",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.causeDepth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.messageLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.stackLines",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#logError",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#neonAuthSettings",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#NeonAuthSettings",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/postgres.ts#createPostgresPool",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#emailList",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#isBootstrap",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#normalizedEmail",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#residentSettings",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/residents.ts#resolveResidentAccess",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#auth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#getSelfAuth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthConfigured",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthSettings",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#SelfAuthSettings",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#HomeMember",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/residents.ts#ResidentAccess",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/residents.ts#ResidentSettings",
+        "reason": "visible or interactive code changed"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Crear/verificar cuenta del propietario y recorrer Residentes desde el panel.",
+      "package @vercel/functions — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+      "package better-auth — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+      "package kysely — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+      "package next — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+      "src/app/api/auth/[...path]/route.ts › handler — behavior of this code in every state of the unit that uses it",
+      "src/components/brand.tsx › Brand — behavior of this code in every state of the unit that uses it",
+      "src/components/brand.tsx › BrandContents — behavior of this code in every state of the unit that uses it",
+      "src/components/login-shell.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/components/login-shell.tsx › LoginShell — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › authFailure — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › AuthFields — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › AuthOptions — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › AuthOptionsProps — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › DEFAULT_HINT — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › formText — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › Login › action — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/login.tsx › Login › finish — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/login.tsx › Login › goHome — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/login.tsx › Login › showError — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/login.tsx › Login › submit — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/login.tsx › Login (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+      "src/components/login.tsx › MODE_COPY.forgot — copy or configuration read from this member, in every state that shows it",
+      "src/components/login.tsx › MODE_COPY.reset — copy or configuration read from this member, in every state that shows it",
+      "src/components/login.tsx › MODE_COPY.sign-in — copy or configuration read from this member, in every state that shows it",
+      "src/components/login.tsx › MODE_COPY.sign-up — copy or configuration read from this member, in every state that shows it",
+      "src/components/login.tsx › MODE_COPY.verify — copy or configuration read from this member, in every state that shows it",
+      "src/components/login.tsx › MODE_COPY (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › PASSWORD_MODES — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › PasswordField — behavior of this code in every state of the unit that uses it",
+      "src/components/login.tsx › SIGNED_IN_COPY.hint — copy or configuration read from this member, in every state that shows it",
+      "src/components/login.tsx › SIGNED_IN_COPY.title — copy or configuration read from this member, in every state that shows it",
+      "src/components/login.tsx › SIGNED_IN_COPY (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/constants/auth.ts › AUTH_ERRORS.bad_jwt — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.email_exists — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.email_not_confirmed — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.EMAIL_NOT_VERIFIED — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.invalid_credentials — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.INVALID_EMAIL_OR_PASSWORD — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.INVALID_TOKEN — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.over_email_send_rate_limit — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.over_request_rate_limit — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.TOO_MANY_REQUESTS — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.user_already_exists — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.USER_ALREADY_EXISTS — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH_ERRORS.weak_password — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH.reservedSchemas — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH.schemaNamePattern — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › AUTH.selfManagedDefaultSchema — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › MESSAGES.existing — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › MESSAGES.invalidCredentials — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › MESSAGES.invalidLink — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › MESSAGES.tooMany — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › MESSAGES.unverified — copy or configuration read from this member, in every state that shows it",
+      "src/constants/auth.ts › MESSAGES (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/constants/auth.ts › UNVERIFIED_EMAIL_CODES — behavior of this code in every state of the unit that uses it",
+      "src/constants/devices.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/constants/devices.ts › DEVICES.defaultName — copy or configuration read from this member, in every state that shows it",
+      "src/constants/devices.ts › DEVICES.nameMaxLength — copy or configuration read from this member, in every state that shows it",
+      "src/constants/devices.ts › DEVICES (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/constants/doorbell.ts › HTTP.internal — copy or configuration read from this member, in every state that shows it",
+      "src/constants/environment.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/constants/environment.ts › LOCAL_DEFAULTS.origin — copy or configuration read from this member, in every state that shows it",
+      "src/constants/environment.ts › LOCAL_DEFAULTS.vapidSubject — copy or configuration read from this member, in every state that shows it",
+      "src/constants/environment.ts › LOCAL_DEFAULTS (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/constants/homes.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/constants/homes.ts › HOMES.originalId — copy or configuration read from this member, in every state that shows it",
+      "src/constants/homes.ts › HOMES (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/lib/names.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/lib/names.ts › cleanName — behavior of this code in every state of the unit that uses it",
+      "src/lib/names.ts › nameKey — behavior of this code in every state of the unit that uses it",
+      "src/lib/names.ts › uniqueName — behavior of this code in every state of the unit that uses it",
+      "src/server/auth-mode.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/server/auth-mode.ts › isSelfManagedAuth — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › getIdentity — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › requireAuth — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › requireHome — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › requireIdentity — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › requireOrigin — behavior of this code in every state of the unit that uses it",
+      "src/server/config.ts › getConfig — behavior of this code in every state of the unit that uses it",
+      "src/server/config.ts › httpsOrigin — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › assignDevicesToOriginalHome — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › connect — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › Database — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › getDatabase — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › initialize — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › MIGRATION_LOCK — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › MIGRATIONS — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › nestedTransaction — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › poolDatabase — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › QueryResult — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › runStep — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › schemaVersion — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › UNDEFINED_TABLE — behavior of this code in every state of the unit that uses it",
+      "src/server/errors.ts › describeError — behavior of this code in every state of the unit that uses it",
+      "src/server/errors.ts › errorResponse — behavior of this code in every state of the unit that uses it",
+      "src/server/errors.ts › LOG_LIMITS.causeDepth — copy or configuration read from this member, in every state that shows it",
+      "src/server/errors.ts › LOG_LIMITS.messageLength — copy or configuration read from this member, in every state that shows it",
+      "src/server/errors.ts › LOG_LIMITS.stackLines — copy or configuration read from this member, in every state that shows it",
+      "src/server/errors.ts › LOG_LIMITS (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/server/errors.ts › logError — behavior of this code in every state of the unit that uses it",
+      "src/server/neon-auth.ts › authConfigured — behavior of this code in every state of the unit that uses it",
+      "src/server/neon-auth.ts › getNeonAuth — behavior of this code in every state of the unit that uses it",
+      "src/server/neon-auth.ts › neonAuthSettings — behavior of this code in every state of the unit that uses it",
+      "src/server/neon-auth.ts › NeonAuthSettings — behavior of this code in every state of the unit that uses it",
+      "src/server/postgres.ts › createPostgresPool — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › emailList — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › isBootstrap — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › normalizedEmail — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › residentSettings — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › resolveHomeAccess — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › resolveResidentAccess — behavior of this code in every state of the unit that uses it",
+      "src/server/self-auth.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/server/self-auth.ts › auth — behavior of this code in every state of the unit that uses it",
+      "src/server/self-auth.ts › createSelfAuth — behavior of this code in every state of the unit that uses it",
+      "src/server/self-auth.ts › getSelfAuth — behavior of this code in every state of the unit that uses it",
+      "src/server/self-auth.ts › selfAuthConfigured — behavior of this code in every state of the unit that uses it",
+      "src/server/self-auth.ts › selfAuthSettings — behavior of this code in every state of the unit that uses it",
+      "src/server/self-auth.ts › SelfAuthSettings — behavior of this code in every state of the unit that uses it",
+      "src/types/residents.ts › HomeMember — behavior of this code in every state of the unit that uses it",
+      "src/types/residents.ts › ResidentAccess — behavior of this code in every state of the unit that uses it",
+      "src/types/residents.ts › ResidentSettings — behavior of this code in every state of the unit that uses it"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:04.252Z",
+  "unitId": "ringgg.login"
+}

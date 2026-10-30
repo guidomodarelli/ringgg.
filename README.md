@@ -1,121 +1,94 @@
 # ringgg.
 
-Timbre digital instalable: un QR en la puerta y notificaciones en los celulares de tu casa. MVP para una vivienda con hasta diez dispositivos.
+Timbre digital instalable: un QR en la puerta y notificaciones en los celulares de tu casa. Cada persona puede tener varias casas (hasta diez), cada una con su QR y hasta diez celulares.
 
-**Producción:** [ringgg-nine.vercel.app](https://ringgg-nine.vercel.app). Los cambios en `main` se despliegan automáticamente desde GitHub a Vercel.
+**Producción:** [ringgg-nine.vercel.app](https://ringgg-nine.vercel.app). Los cambios en `main` se despliegan automáticamente desde GitHub a Vercel; cada PR corre la CI (lint, tipos, tests, build y E2E) y genera un preview con su propia base.
 
 ## Desarrollo
 
-Requiere Node.js 22 o superior y npm.
+Requiere Node.js 24, npm y [Bun](https://bun.sh) canary (`bun upgrade --canary`), que corre `bun check` (tipos) y `bun lint` (golfo-lint).
 
 ```sh
 npm install
 npm run dev
 ```
 
-Abrir http://localhost:3000. El acceso usa **Better Auth administrado por Neon**, mediante correo y contraseña. Ya no se acepta la clave compartida anterior ni sus cookies. El código incluye registro, verificación por código, recuperación de contraseña y cierre de sesión.
+Abrir http://localhost:3000. `npm run dev` y `npm run build` generan antes el service worker (`public/sw.js`) desde `src/service-worker/` con `npm run build:sw`; ese archivo no se versiona.
 
-`.env.local` contiene las URLs que obtiene `neon deploy`, un secreto local estable `NEON_AUTH_COOKIE_SECRET` y las claves VAPID. Nunca subir este archivo a Git. Para habilitar residentes, configurar `RESIDENT_EMAILS` con sus correos separados por coma. Cada correo debe estar verificado en Neon; registrarse por cuenta propia no concede acceso al panel.
+### Entornos
 
-El administrador inicial se configura en `RESIDENT_ADMIN_EMAILS`. Puede abrir **Residentes** en el panel para autorizar más correos y quitar accesos. Los nuevos permisos se guardan en PostgreSQL y funcionan sin reiniciar la app. Autorizar un correo no crea su cuenta ni envía un email: esa persona debe registrarse y verificarlo. Los residentes normales no pueden modificar esta lista.
+| Entorno | Base y Neon Auth | Variables |
+| --- | --- | --- |
+| Producción | rama Neon `production` | Vercel, entorno Production |
+| Previews de PR | rama Neon `preview`, con claves de push propias | Vercel, entorno Preview |
+| Desarrollo local | rama Neon `dev`, con claves de push propias | `.env.local` (Next.js y los scripts lo priorizan sobre `.env`) |
+| CI | PostgreSQL embebido (PGlite) y Neon Auth de la rama `ci` | secrets de GitHub |
 
-Al quitar un residente se revoca su acceso al panel y se eliminan los dispositivos que registró con su cuenta. Los dispositivos anteriores a esta asociación, si existen, se desconectan manualmente desde Dispositivos. Los accesos declarados en las variables de entorno se muestran protegidos y no se pueden eliminar desde la UI.
+Nunca apuntes el entorno local a `production`: regenerar el QR, pausar o probar avisos afectaría la casa real, y las migraciones se aplican solas al primer acceso. `.env.local` y `.env` no se suben a Git. Sin `DATABASE_URL`, el desarrollo de datos usa PGlite en `.data/postgres` (no abrir dos procesos contra el mismo directorio).
 
-La app usa el PostgreSQL remoto de Neon cuando existe `DATABASE_URL`. Sin esa variable, el desarrollo de datos puede usar PostgreSQL embebido (PGlite) en `.data/postgres`; esto no reemplaza a Neon Auth. Nunca se simula el proveedor de identidad ni se habilita un acceso alternativo. No abrir dos procesos contra el mismo directorio local.
+Las ramas nuevas creadas con `neon checkout` vencen a los 7 días por la política de `neon.ts`; `dev`, `preview` y `ci` se crearon sin vencimiento.
+
+## Acceso y residentes
+
+El acceso usa **Neon Auth** (Better Auth administrado) con correo y contraseña: registro, verificación por código, recuperación de contraseña y cierre de sesión. Registrarse no da acceso: el correo tiene que estar verificado y autorizado.
+
+- `RESIDENT_ADMIN_EMAILS` y `RESIDENT_EMAILS` son correos de arranque de la casa original y dan el mismo acceso.
+- Todos los residentes de una casa tienen los mismos permisos en ella (gestión compartida): cualquiera puede autorizar o quitar residentes, cambiarles el nombre, rotar el QR, pausar el timbre o desconectar un celular. Solo se impide quitar al último residente.
+- Autorizar un correo no crea la cuenta ni envía un email: el panel ofrece **Compartir invitación** (WhatsApp u otra app en el celular, o copiar el texto).
+- Quitar a un residente revoca su acceso a esa casa y desconecta de ella los celulares que registró.
+- **Varias casas**: el selector de la barra superior lista tus casas y permite **Agregar casa** (solo a quien ya es residente de alguna). La casa queda en la dirección (`/?home=<id>`). Una casa se puede eliminar desde Configuración si sos su único residente y tenés otra.
+- **Nombres**: la primera vez en cada casa, **¿Quién sos?** pide tu nombre (obligatorio, hasta 40 caracteres). No se repiten nombres de residentes ni de celulares dentro de una casa, sin importar mayúsculas ni tildes.
+
+Detalle en [casas, residentes y nombres](docs/residentes.md).
 
 ## Uso
 
-1. Crear una cuenta o ingresar en `/sign-in`. Verificar el correo mediante el código de Neon. El administrador debe incluirlo en `RESIDENT_EMAILS`. Luego cambiar el nombre de la casa en Configuración.
+1. Ingresar en `/sign-in`, verificar el correo, elegir tu nombre en **¿Quién sos?** y cambiar el nombre de la casa en **Configuración**.
 2. Instalar Ringgg desde el navegador. En iPhone: Compartir → Agregar a Inicio → abrir desde su ícono.
-3. En Dispositivos, nombrar el celular, activar las notificaciones y enviar una prueba.
-4. Descargar el QR y colocarlo en la puerta. El visitante no instala nada ni inicia sesión.
-5. Al recibir una visita, responder dentro de dos minutos con una respuesta rápida: **Ya voy**, **En 5 minutos**, **Dejalo en la puerta** o **No estoy**. El visitante ve la respuesta elegida, nunca quién respondió. En Android, **Ya voy** y **Dejalo en la puerta** también aparecen como botones de la notificación; en iPhone, tocar la notificación abre esa visita.
-6. Si nadie responde a tiempo o la respuesta fue **No estoy**, el visitante puede dejar un único mensaje (por ejemplo, su nombre o un teléfono) durante los 15 minutos siguientes al timbrazo. Llega como notificación y queda en el historial.
-7. En Configuración se puede definir un **horario de descanso** diario (por ejemplo, de 22:00 a 08:00, en hora de Buenos Aires). Durante ese horario el visitante ve hasta cuándo dura y el timbre no registra visitas ni envía avisos.
+3. Activar las notificaciones. El celular se registra con un nombre sugerido (por ejemplo «iPhone de Guido», o «iPhone de Guido 2» si ya existe en la casa) que se puede cambiar en **Dispositivos**. En otra casa, el mismo celular se conecta con **Conectar este dispositivo** y tiene un nombre propio. En una computadora se puede elegir **Seguir sin avisos en este dispositivo**.
+4. En **Dispositivos**, **Probar mis celulares** envía una prueba a tus celulares. Cada celular muestra de quién es y el estado de su último aviso: recibido (confirmado por el celular), enviado o fallido.
+5. En **Mi código QR**, **Imprimir cartel para la puerta** abre un cartel con el QR, el nombre de la casa y las instrucciones para la visita (se imprime o se guarda como PDF).
+6. Al recibir una visita, responder dentro de dos minutos con una respuesta rápida: **Ya voy**, **En 5 minutos**, **Dejalo en la puerta** o **No estoy**. El visitante ve la respuesta elegida, nunca quién respondió. En Android, **Ya voy** y **Dejalo en la puerta** aparecen como botones de la notificación.
+7. Si nadie responde a tiempo o la respuesta fue **No estoy**, el visitante puede dejar un único mensaje durante los 15 minutos siguientes al timbrazo. Llega como notificación y queda en el historial.
+8. En **Configuración**, el timbre se puede pausar **durante 1 hora**, **hasta mañana a las 8** o **hasta que lo reactive**, y definir un **horario de descanso** diario (en hora de Buenos Aires). El visitante ve hasta cuándo dura.
 
-Los avisos se envían con Web Push nativo (`web-push`), urgencia alta y vencimiento de 90 segundos. Un envío aceptado por el proveedor no confirma entrega o sonido. La app no puede ignorar silencio o Concentración ni reproducir un sonido en bucle estando cerrada. Sin dispositivos, el timbrazo se registra pero el visitante ve que no se pudo enviar una notificación.
+## Avisos
 
-## Conectar Neon
-
-El proyecto está vinculado a `broad-meadow-57190517`, organización `org-sparkling-rain-48651750`, rama `production`. `neon.ts` declara Auth; PostgreSQL forma parte de cada rama. Se conservan los Route Handlers de Next.js y el driver `pg`, con conexiones pooled para tráfico de la app y `DATABASE_URL_UNPOOLED` disponible para herramientas de esquema.
-
-```sh
-neon login
-neon init -y --no-agent-setup --org-id org-sparkling-rain-48651750 --project-id broad-meadow-57190517 --branch production --services "postgres,auth"
-neon deploy
-npm run db:check
-npm run auth:check
-```
-
-El login del CLI se completa en el navegador. `neon deploy` obtiene `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `NEON_BRANCH`, `NEON_AUTH_BASE_URL` y `NEON_AUTH_JWKS_URL`. El secreto de cookies es propio de la aplicación y debe tener al menos 32 caracteres; no se obtiene de Neon. Se generó uno local sin alterar las claves VAPID. El servicio acepta localhost; para publicar, agregar el origen HTTPS de la app a los dominios confiables de Neon Auth.
-
-La configuración de herramientas incluye `.codex/config.toml` con MCP OAuth limitado al proyecto, las skills `neon`, `neon-auth` y `neon-postgres` en `.agents/skills/` y `skills-lock.json`. No se guardan tokens en los archivos de configuración versionables.
-
-Si se configura manualmente la base, los pasos son:
-
-1. En tu proyecto de Neon, abrí **Connect** y seleccioná la rama, base de datos y rol que usará Ringgg. Para pruebas, conviene una rama de desarrollo separada de producción.
-2. Activá **Connection pooling** y copiá la URL completa (el servidor incluye `-pooler`). El rol debe poder crear tablas en esa base para la inicialización del MVP.
-3. Pegala en `DATABASE_URL` dentro de `.env.local`, conservando las otras claves locales:
-
-   ```dotenv
-   DATABASE_URL="postgresql://USUARIO:CONTRASEÑA@ep-PROYECTO-pooler.REGION.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
-   ```
-
-4. Ejecutá `npm run db:check`. Valida conexión y una transacción de solo lectura sin mostrar credenciales ni modificar tablas. Si falla, sale con código distinto de cero. No usa la base embebida como sustituto de una conexión remota fallida.
-5. Reiniciá `npm run dev` y abrí el panel. La app aplica las migraciones pendientes en el primer acceso (ver «Esquema versionado» en `docs/decisiones.md`). No se copian los datos de `.data/postgres`: Neon empieza con una vivienda y un QR nuevos. Descargá ese nuevo QR y conectá nuevamente los dispositivos.
-
-La conexión usa hasta tres clientes por instancia, timeout de conexión de 15 segundos, rotación de conexiones y verificación TLS completa para endpoints Neon. Se conserva la URL pooled proporcionada por Neon, con `sslmode` normalizado a `verify-full`. Los fallos temporales de inicialización permiten reintentar después.
-
-Referencia: [connection pooling de Neon](https://neon.com/docs/connect/connection-pooling) y [TLS de node-postgres](https://node-postgres.com/features/ssl).
-
-## Vercel + Neon
-
-El backend está conectado al proyecto Neon indicado y la web está publicada en Vercel con Node.js 24. El origen de producción `https://ringgg-nine.vercel.app` está autorizado en Neon Auth. Las variables de producción se configuran en Vercel; `.env.local` conserva su origen localhost para desarrollo.
-
-1. Crear la base Neon y obtener su conexión pooled como se explica arriba.
-2. Configurar estas variables en Vercel:
-   - `DATABASE_URL`: conexión pooled de Neon. Obligatoria en Vercel; nunca se usa almacenamiento local allí. Configurar ramas diferentes para Preview y Production cuando se necesite aislamiento.
-   - `APP_URL`: origen HTTPS definitivo, por ejemplo `https://timbre.example.com`. Se verifica para proteger las mutaciones. Usar un valor distinto para cada deployment de preview.
-   - `NEON_AUTH_BASE_URL`: URL del servicio administrado de la misma rama.
-   - `NEON_AUTH_COOKIE_SECRET`: secreto estable aleatorio de al menos 32 caracteres; usar uno propio del entorno publicado.
-   - `RESIDENT_EMAILS`: lista de residentes de esta única vivienda, separados por coma. Deben tener el correo verificado.
-   - `RESIDENT_ADMIN_EMAILS`: administradores iniciales protegidos, separados por coma. Pueden gestionar residentes desde el panel; también deben verificar su correo.
-   - `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`: par estable de claves generado con `npx web-push generate-vapid-keys`.
-   - `VAPID_SUBJECT`: un contacto válido con formato `mailto:tu-email@example.com`.
-3. Build: `npm run build`. Las migraciones del esquema se aplican de manera idempotente al primer acceso.
-4. Enlazar un dominio estable antes de imprimir el QR.
-5. Probar la instalación y la notificación con el teléfono bloqueado, usando datos móviles y la configuración habitual de sonido.
-
-Web Push requiere HTTPS, excepto localhost. Una IP HTTP de la red local no sirve para probar permisos en un teléfono. Para probar en un dispositivo real, usar un deployment HTTPS o un túnel HTTPS y establecer `APP_URL` a ese origen. Las claves VAPID deben mantenerse; si se cambian, los dispositivos necesitan suscribirse nuevamente.
+- Web Push nativo (`web-push`). El timbrazo viaja con urgencia alta y vence a los 90 segundos (responder después no sirve). La nota de la visita viaja con urgencia normal y vence a las 12 horas.
+- Las notificaciones de una misma visita se reemplazan y vuelven a sonar (`renotify`): la nota que llega después de un timbrazo sin responder no queda silenciosa.
+- El service worker confirma al servidor cada aviso que recibe: el historial muestra cuántos celulares lo recibieron y cada dispositivo su último aviso recibido, enviado o fallido. Un envío aceptado por el proveedor no confirma la entrega; la confirmación del celular sí.
+- El título de cada notificación dice de qué casa es, y tocarla abre esa casa.
+- Si el navegador renueva la suscripción (`pushsubscriptionchange`), el service worker la vuelve a registrar sobre el mismo dispositivo (`/api/renew-subscription`), con sus casas y sus nombres.
+- La app no puede ignorar el modo silencio o Concentración ni sonar en bucle estando cerrada. Sin dispositivos, el timbrazo se registra pero el visitante ve que no se pudo enviar una notificación.
 
 ## Contratos y límites
 
-- Panel y endpoints privados protegidos con sesiones validadas por el SDK de Neon. El proxy de Next.js renueva cookies antes de renderizar el panel; login, recuperación, auth y QR público quedan fuera del matcher. La autorización exige correo verificado y allowlist; las mutaciones de negocio validan Origin.
-- El QR es una capacidad pública revocable: permite tocar el timbre, nunca administrar. No demuestra presencia física.
-- Límites por visitante y por casa, con bloqueo transaccional: el mismo cliente espera 30 segundos entre timbrazos y puede tocar hasta 4 veces cada 10 minutos; la casa acepta hasta 12 timbrazos cada 10 minutos. El cliente se identifica con un hash con sal de su dirección de red (`x-forwarded-for`, que Vercel sobrescribe), guardado solo mientras dura el límite y nunca asociado a la visita. Así, alguien que tiene una foto del QR no puede bloquear a los visitantes reales. IDs de operación persistidos evitan duplicar timbrazos al reintentar y no consumen el límite.
-- Se espera a que finalicen los envíos a un máximo de diez dispositivos. Se distinguen envío total, parcial y no disponible; no se reenvía automáticamente un push de resultado incierto.
-- Suscripciones inválidas o vencidas (404/410) se eliminan. Solo se aceptan proveedores Apple, Mozilla y FCM por HTTPS.
-- El panel y la página de espera consultan cada cinco segundos; no se superponen consultas y el panel deja de consultar oculto. El panel además se actualiza en el momento cuando llega un aviso push, cuando la pestaña vuelve a primer plano y cuando una notificación abre una visita. La espera del visitante termina a los dos minutos.
-- Las notificaciones abren `/?view=history&visit=<id>` y resaltan esa visita. El service worker solo abre rutas del panel en el mismo origen; responder desde la notificación usa la sesión del residente y, si falla, abre la visita.
-- Se muestran hasta 50 visitas, con el estado del aviso, quién respondió, qué respondió y cuánto tardó. Al registrar una nueva se purgan visitas con más de 30 días. No se guardan nombres de visitantes separados, teléfono, dirección ni IP de visitas; lo que el visitante escriba en su mensaje o nota queda en la visita hasta que se purga.
-- El service worker solo guarda la pantalla sin conexión. No cachea el panel, mensajes ni respuestas privadas.
-- Ya existen cuentas individuales, todas asociadas mediante allowlist a esta única vivienda. Para más viviendas o administración de invitaciones desde la app, agregar membresías y permisos por vivienda antes de ampliar este MVP.
+- Panel y endpoints privados protegidos con sesiones validadas por el SDK de Neon. El proxy de Next.js renueva cookies antes de renderizar el panel y el cartel. Las mutaciones validan Origin; en un preview sin `APP_URL` se aceptan su URL de rama y la del deployment.
+- El QR es una capacidad pública revocable: permite tocar el timbre, nunca administrar.
+- Límites por visitante y por casa con bloqueo transaccional, contados por separado en cada casa: el mismo cliente espera 30 s entre timbrazos y puede tocar hasta 4 veces cada 10 minutos; la casa acepta hasta 12 timbrazos cada 10 minutos. El cliente se identifica con un hash con sal de su dirección de red (`x-forwarded-for`, que Vercel sobrescribe).
+- El panel consulta cada 5 s solo mientras una visita se puede responder; si no, cada 30 s, o cada 60 s si el navegador recibe notificaciones (el push lo actualiza al instante y la consulta queda de respaldo). No consulta oculto y refresca al recuperar el foco. La espera del visitante consulta cada 5 s y termina a los dos minutos.
+- Retención: el panel muestra hasta 50 visitas de los últimos 30 días. Un Vercel Cron diario (`/api/cron/purge`, protegido con `CRON_SECRET`) borra las visitas más viejas con sus mensajes y recibos, y los límites vencidos, aunque nadie toque el timbre.
+- Los errores inesperados se registran en JSON con la causa (nombre, mensaje recortado, código y stack), sin mensajes de visitantes, endpoints push, credenciales ni el token del QR. Las respuestas llevan un `requestId` para correlacionarlos. `instrumentation.ts` registra los errores de render.
+- Un build de producción con variables faltantes o inválidas falla en `next.config.ts` y el deployment anterior sigue sirviendo; un contacto VAPID de ejemplo solo genera una advertencia.
 
 ## Verificación
 
 ```sh
-npm test
-npm run typecheck
+npm run lint        # golfo-lint: solo reglas de calidad, todo como error
+npm run typecheck   # bun check: app y service worker
+npm test            # Vitest con PostgreSQL embebido real
 npm run build
 npx playwright install chromium
-npm run test:e2e
+npm run test:e2e    # Playwright; con E2E_NEON_AUTH_* también el login real
 npm run db:check
 npm run auth:check
 npm run test:neon
 ```
 
-Las pruebas de integración ejecutan PostgreSQL real embebido, sin mocks de servicios internos. Las E2E usan su propio directorio `.data/e2e-<pid>` para no alterar la vivienda remota. Las pruebas de acceso privilegiado requieren `E2E_NEON_AUTH_EMAIL` y `E2E_NEON_AUTH_PASSWORD` de una cuenta de prueba verificada; sin ellas se omiten explícitamente y no se inventan sesiones.
+Las pruebas usan PostgreSQL real embebido y el service worker real (Chromium recibe pushes por el protocolo de DevTools), sin mocks de servicios internos. Las E2E usan su propio directorio `.data/e2e-<pid>`. Las de acceso real necesitan `E2E_NEON_AUTH_EMAIL`, `E2E_NEON_AUTH_PASSWORD` y `E2E_NEON_AUTH_BASE_URL` de una cuenta sintética verificada de la rama `ci`; sin ellas se omiten. La CI de GitHub las recibe como secrets.
 
-`npm run test:neon` requiere la app iniciada y las variables reales. Crea una cuenta sintética temporal en el proveedor, prueba registro, login, sesión, logout y bloqueo del panel sin verificar, y la elimina mediante el CLI. Con la configuración actual de Neon no se envía automáticamente correo al registrar; la prueba nunca solicita OTP ni recuperación. La recepción de códigos y el ingreso de un residente verificado se completan con un correo real autorizado.
+`npm run test:neon` requiere la app iniciada y las variables reales: crea una cuenta sintética temporal, prueba registro, login, sesión, logout y bloqueo del panel sin verificar, y la elimina.
 
-El envío y la recepción física de Web Push deben validarse con un dispositivo real y credenciales estables. Las pruebas locales no afirman entrega por Apple/Google/Mozilla.
+El envío y la recepción física de Web Push deben validarse con un dispositivo real; las pruebas locales no afirman entrega por Apple, Google o Mozilla.
+
+Más detalle: [decisiones de implementación](docs/decisiones.md), [residentes](docs/residentes.md), [despliegue](docs/vercel.md), [Neon](docs/neon-setup.md) y [validación](docs/validacion.md).

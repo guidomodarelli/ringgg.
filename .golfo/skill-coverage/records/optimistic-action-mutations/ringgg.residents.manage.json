@@ -1,131 +1,216 @@
 {
-  "latest": {
+  "latest": null,
+  "schemaVersion": 1,
+  "skill": "optimistic-action-mutations",
+  "unitId": "ringgg.residents.manage",
+  "verified": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "feature/perf-and-action-lifecycle",
-      "commit": "af7c6537f983de86f1f1a34fd08c5a080a28cac5",
+      "branch": "feature/mejoras-revision",
+      "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
       "files": {
-        "src/components/resident-management.tsx": "3720525f5a37ac02",
-        "src/server/residents.ts": "247b6ea6ee6acabe",
-        "src/app/api/residents/route.ts": "bfcb04f1eb11ca59",
-        "src/types/residents.ts": "5e92dc2596b6084e",
-        "src/lib/api.ts": "634351b97fc7c2ee",
+        "src/components/resident-management.tsx": "195e9e9c136b4142",
+        "src/server/residents.ts": "eda9c188112cf624",
+        "src/app/api/residents/route.ts": "845c9f794e59530a",
+        "src/types/residents.ts": "b7a6c448a73bacc3",
+        "src/constants/homes.ts": "564484a011173893",
+        "src/lib/names.ts": "5fefc809b3ce8988",
         "src/constants/residents.ts": "9c43f4fc81ec3dd1",
+        "src/lib/api.ts": "30cc1b9da1f9b7fd",
+        "src/lib/invitation.ts": "a1c74d9d55e29e10",
         "src/server/resident-access.ts": "24da31381b0b4774",
-        "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/constants/doorbell.ts": "8c146dca16b3ca5c",
-        "src/server/http.ts": "b577755d1aa57854",
-        "src/server/database.ts": "c1741312a733a0e7",
-        "src/server/auth.ts": "30ad2dd2489fe11b",
+        "src/server/errors.ts": "45863b0b5c1144b1",
+        "src/constants/doorbell.ts": "2edd18d9afbb7d3f",
+        "src/server/device-names.ts": "f1c43118adfe17fd",
+        "src/server/homes.ts": "7b9e7f96c288ee3f",
+        "src/server/http.ts": "428ffa6b9703d32a",
+        "src/server/database.ts": "f11b89b5e9ccd3e8",
+        "src/server/auth.ts": "12d87f7b42214a39",
         "src/types/auth.ts": "f3635cf0c001ea99",
-        "src/server/postgres.ts": "b8ad79581c146c4c",
-        "src/server/neon-auth.ts": "098837118d7561d8",
-        "src/server/self-auth.ts": "c8a30c1f421bed6a",
+        "src/constants/devices.ts": "92d451596518c800",
+        "src/server/postgres.ts": "2355b8fc585ab8e4",
+        "src/server/neon-auth.ts": "0853ae91019a62c7",
+        "src/server/self-auth.ts": "a9dc6601b8d539eb",
         "src/server/auth-mode.ts": "55ab5ff52eeb427d",
-        "src/server/config.ts": "275ccaef3e809db0",
+        "src/server/config.ts": "24322283cee795e4",
         "src/config/database.ts": "cfab3a8bb039650a",
-        "src/constants/auth.ts": "1ffcfd55b5a28229",
+        "src/constants/auth.ts": "5ce7e906628ec790",
+        "src/constants/environment.ts": "56dcab8047d696a2",
         "src/constants/database.ts": "4f990a98f504bf0b"
       },
-      "fingerprint": "sha256:e98553d13b17d0bcf0ae540f24dc769e80b84a1ee6965b9367452ba19d056e5a",
+      "fingerprint": "sha256:5170c2f78b98b7ce24e0d4c100228d3f6b555a09dddd2fafc6d6d63ca614ef0a",
       "inputs": {
         "src/components/resident-management.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/resident-management.tsx#ResidentManagement/update": "2f927ee02702a52c",
-        "src/components/resident-management.tsx#ResidentManagement~shell": "baac2f96aa2e6bf4",
-        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "src/components/resident-management.tsx#ResidentManagementProps": "5c79f0eda8c77b9b",
+        "src/components/resident-management.tsx#ResidentChange": "36c4b072658d0e06",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES.add": "2358cdcfe6bc7cad",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES.remove": "21f6c9c8cccc142b",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES.rename": "45a75cf5154025db",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES~frame": "9b2a0d4e5e82992b",
+        "src/components/resident-management.tsx#ResidentNameForm": "ba71ace0f576445c",
         "pkg:react": "f4529719455f2af2",
+        "src/components/resident-management.tsx#ResidentManagement/applyConfirmed": "8001909497d22625",
+        "src/components/resident-management.tsx#ResidentManagement/update": "e6ac468276a8eda7",
+        "src/components/resident-management.tsx#ResidentManagement~shell": "46ddc4d583e689b0",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:next": "530097ba2f134bc2",
+        "src/components/resident-management.tsx#ResidentManagement/share": "653531d19d598ba0",
         "src/server/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/server/residents.ts#residentEmailSchema": "91742be39142d8b3",
+        "src/server/residents.ts#UNIQUE_VIOLATION": "aacb92a1e0601964",
+        "src/server/residents.ts#residentEmailSchema": "09ec7d4390f4e1f7",
         "pkg:zod": "31d0566281954af7",
-        "src/server/residents.ts#emailList": "68719ecac844ab41",
-        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
-        "src/server/residents.ts#resolveResidentAccess": "6ddd31b45692d7d6",
-        "src/server/residents.ts#requireResidentAdmin": "b4db13f16d12251c",
-        "src/server/residents.ts#listResidents": "ce1191f18fffa539",
-        "src/server/residents.ts#addResident": "ca93c2df2896f98f",
-        "src/server/residents.ts#removeResident": "181285f72d7d0266",
+        "src/server/residents.ts#residentNameSchema": "5e33be9bff4e827b",
+        "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
+        "src/server/residents.ts#emailList": "0021888d1f4f53a8",
+        "src/server/residents.ts#residentSettings": "090458f99e66a86c",
+        "src/server/residents.ts#accountName": "c65c89aa4218f369",
+        "src/server/residents.ts#memberName": "97a7e1ea9be44fdb",
+        "src/server/residents.ts#ResidentTarget": "c28b79f219ae2eb4",
+        "src/server/residents.ts#isBootstrap": "ed2221aada2e1745",
+        "src/server/residents.ts#resolveHomeAccess": "0b2dec8eda508b16",
+        "src/server/residents.ts#listResidentHomes": "6c9dd37c6e373640",
+        "src/server/residents.ts#suggestedResidentName": "5d900c13971d6e7c",
+        "src/server/residents.ts#listResidents": "5539a3b8fa42d210",
+        "src/server/residents.ts#lockHome": "4a8f047cd6157626",
+        "src/server/residents.ts#addResident": "8ed52c09c8dc7b3f",
+        "src/server/residents.ts#removeResident": "42b9ac5ab2f90f76",
+        "src/server/residents.ts#nameTaken": "f029d3233457fb2f",
+        "src/server/residents.ts#renameResident": "41271618d38bd615",
         "src/app/api/residents/route.ts#<module>": "2da3ec2294295eb1",
         "src/app/api/residents/route.ts#runtime": "46ca4b1b24f285fc",
         "src/app/api/residents/route.ts#dynamic": "a45532c1af88ffc5",
-        "src/app/api/residents/route.ts#residentSchema": "a411fe0bf240c5e4",
-        "src/app/api/residents/route.ts#GET": "98a41d968a31a72c",
-        "src/app/api/residents/route.ts#POST": "e93f5c18c1e494be",
+        "src/app/api/residents/route.ts#residentSchema": "614ed59fb8c630b9",
+        "src/app/api/residents/route.ts#GET": "ec42f831a764a9f8",
+        "src/app/api/residents/route.ts#POST": "43652ceb28e7cba1",
         "src/types/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/types/residents.ts#ResidentEntry": "9031701226397462",
-        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
-        "src/lib/api.ts#api": "ab9d3bbb8c2b2ae3",
+        "src/types/residents.ts#ResidentEntry": "0a51e80494d05d20",
+        "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/homes.ts#RESIDENT_NAMES~frame": "d4a29720352a5f20",
+        "src/constants/homes.ts#RESIDENT_NAMES.maxLength": "eb1bec02d30f5cbb",
+        "src/lib/names.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/names.ts#cleanName": "49186c6b44b377fb",
         "src/constants/residents.ts#<module>": "2da3ec2294295eb1",
         "src/constants/residents.ts#RESIDENTS~frame": "402dfa054fe31525",
         "src/constants/residents.ts#RESIDENTS.emailMaxLength": "538b1228808d4155",
-        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
-        "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
+        "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
+        "src/constants/homes.ts#HOMES.queryParameter": "583ace4721823c56",
+        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/api.ts#api": "d04e08cca10d550a",
+        "src/lib/api.ts#serverErrorMessage": "deaccf05eea7bb64",
+        "src/lib/invitation.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/invitation.ts#invitationMessage": "ab661f2f0a2bcf69",
+        "src/lib/invitation.ts#shareInvitation": "dd24dbafa85e8407",
+        "src/lib/invitation.ts#ShareOutcome": "1ae0142d0dccc3b3",
+        "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/constants/homes.ts#HOMES.originalId": "d9d7b64a16cba029",
+        "src/types/residents.ts#HomeMember": "59f972b5b8eb78e4",
         "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
         "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
+        "src/types/residents.ts#HomeSummary": "7565b2ddb5d5d58e",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
         "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
-        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
         "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
         "src/constants/residents.ts#RESIDENTS.maximumInvitations": "cc843c9c6b46cb99",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
+        "src/server/device-names.ts#<module>": "2da3ec2294295eb1",
+        "src/server/device-names.ts#renameDefaultDevices": "5649a9e237b1afbd",
+        "src/server/device-names.ts#firstName": "5bf3cbcf405e441c",
+        "src/server/device-names.ts#isDefaultName": "4eda426b356feb8b",
+        "src/server/device-names.ts#COPY_SUFFIX": "9f8ca74dc14e355c",
+        "src/server/device-names.ts#LEGACY_KEYS": "9fd2c7c49abb31ea",
+        "src/server/device-names.ts#takenDeviceNames": "516f8c2b99b8d5ae",
+        "src/server/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/server/homes.ts#homeIdSchema": "a21a4ce96c2a2a80",
         "src/server/http.ts#<module>": "2da3ec2294295eb1",
         "src/server/http.ts#apiRoute": "b5f0fffa9c3287e8",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
-        "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
-        "src/server/database.ts#Database": "2685f7243aa5fb29",
-        "src/server/database.ts#connect": "8e29d1391a673652",
+        "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
+        "src/server/database.ts#Database": "578aba9512306538",
+        "src/server/database.ts#QueryResult": "2278ab1e0e7ca928",
+        "src/server/database.ts#connect": "a16b98c82ece5ce6",
         "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#nestedTransaction": "097720328480446e",
+        "src/server/database.ts#poolDatabase": "fedd878e554639d7",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "eaaff186f22bd092",
-        "src/server/database.ts#MIGRATIONS": "6c60ed1a75e3154c",
+        "src/server/database.ts#initialize": "b63e6fa612388f19",
+        "src/server/database.ts#MIGRATIONS": "95212e268ff47ff1",
+        "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
         "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
-        "src/server/database.ts#schemaVersion": "ef3ad5ea4ff760b8",
+        "src/server/database.ts#runStep": "b8d318e23891085b",
+        "src/server/database.ts#schemaVersion": "65d0240dc3c92d18",
         "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
         "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#requireAuth": "63b91bc63604f47b",
-        "src/server/auth.ts#getIdentity": "5b7a4e4d0e0aac26",
-        "pkg:next": "530097ba2f134bc2",
+        "src/server/auth.ts#requireHome": "c1db142c515f3cc3",
+        "src/server/auth.ts#requireIdentity": "1ad60dce0257fffd",
+        "src/server/auth.ts#getIdentity": "d7f7c2295120441f",
         "src/server/http.ts#readJson": "26d0d571bd351155",
         "src/server/http.ts#BODY_LIMIT": "5e5df78db11b83f6",
+        "src/constants/doorbell.ts#HTTP.noContent": "13b3642d3050d8ec",
         "src/types/auth.ts#<module>": "2da3ec2294295eb1",
         "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/constants/devices.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/devices.ts#DEVICES~frame": "eb8f63763177928a",
+        "src/constants/devices.ts#DEVICES.defaultName": "52ad5da0efc5311f",
+        "src/constants/devices.ts#DEVICES.nameMaxLength": "1310c99c650e5157",
+        "src/constants/homes.ts#LEGACY_DEVICE_NAMES": "f1e4e5e9a32df184",
+        "src/lib/names.ts#uniqueName": "57ac10b978c09992",
         "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
-        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
-        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/server/errors.ts#errorResponse": "6992e874d2c7c807",
+        "src/server/errors.ts#logError": "da59c8b8659e20b8",
+        "src/server/errors.ts#describeError": "f13cd6ca5b673395",
+        "src/server/errors.ts#LOG_LIMITS~frame": "9dc641c7148f46ea",
+        "src/server/errors.ts#LOG_LIMITS.causeDepth": "87444f7090799dc0",
+        "src/server/errors.ts#LOG_LIMITS.messageLength": "5a19ccff12e87686",
+        "src/server/errors.ts#LOG_LIMITS.stackLines": "bd18d006a53c3083",
+        "src/server/auth.ts#requireOrigin": "f05fc0de84b9fee0",
         "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
-        "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
+        "src/server/postgres.ts#createPostgresPool": "c3f88729989ad244",
         "pkg:pg": "bba8fb4b856406c4",
+        "pkg:@vercel/functions": "e43505af744bef19",
         "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
         "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
         "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/neon-auth.ts#authConfigured": "59a85ab010a6bb61",
-        "src/server/neon-auth.ts#getNeonAuth": "21acc3aa6ad225b0",
+        "src/server/neon-auth.ts#authConfigured": "4233244a1f43a905",
+        "src/server/neon-auth.ts#neonAuthSettings": "fd2fb55bae8e5e6e",
+        "src/server/neon-auth.ts#NeonAuthSettings": "f85a65ea9a977c5e",
+        "src/server/neon-auth.ts#getNeonAuth": "0dca5d26a6e67b14",
         "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
         "pkg:@neondatabase/auth": "cb0784c3ee32091d",
         "src/server/self-auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/self-auth.ts#getSelfAuth": "db6f7e6536e69dd7",
+        "src/server/self-auth.ts#getSelfAuth": "a5aad296fd80c2bc",
         "src/server/self-auth.ts#auth": "ea23585755bb513f",
-        "src/server/self-auth.ts#createSelfAuth": "f246e25ceac53e41",
+        "src/server/self-auth.ts#createSelfAuth": "2250d374e686be5b",
         "pkg:kysely": "62d68445b49f5341",
         "pkg:better-auth": "a969211ec564af4d",
-        "src/server/self-auth.ts#selfAuthConfigured": "e7c43282789ffb15",
+        "src/server/self-auth.ts#selfAuthSettings": "d9827dce9c1cf518",
+        "src/server/self-auth.ts#SelfAuthSettings": "e0de8a1f5539a91d",
         "src/server/auth-mode.ts#<module>": "2da3ec2294295eb1",
         "src/server/auth-mode.ts#isSelfManagedAuth": "0ac5810e58f9e520",
         "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef",
         "src/server/config.ts#<module>": "2da3ec2294295eb1",
-        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
+        "src/server/config.ts#getConfig": "22f06e9ffdb6f3e7",
         "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
         "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "src/server/config.ts#httpsOrigin": "fd5040a991eedb92",
         "pkg:web-push": "6ab2287300696f64",
         "src/config/database.ts#<module>": "2da3ec2294295eb1",
         "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
         "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
         "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
         "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/server/self-auth.ts#selfAuthConfigured": "c3a318e0d6dcd17d",
         "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
-        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
         "src/constants/auth.ts#AUTH.reservedSchemas": "96aeee1bb4d6e114",
         "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
+        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
+        "src/constants/environment.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/environment.ts#LOCAL_DEFAULTS~frame": "5a1c7b91211fc6c8",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.origin": "060e2d02b491e60f",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject": "bcf01163df3d1130",
         "src/constants/database.ts#<module>": "2da3ec2294295eb1",
         "src/constants/database.ts#DATABASE~frame": "80e3de505091b6f6",
         "src/constants/database.ts#DATABASE.applicationName": "864bc1f3cbdc260a",
@@ -140,7 +225,18 @@
         "src/components/resident-management.tsx#ResidentManagement/update": {
           "awaits": 1
         },
-        "src/server/residents.ts#resolveResidentAccess": {
+        "src/components/resident-management.tsx#ResidentManagement/share": {
+          "awaits": 1
+        },
+        "src/server/residents.ts#resolveHomeAccess": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/residents.ts#listResidentHomes": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/residents.ts#suggestedResidentName": {
           "awaits": 1,
           "database": 1
         },
@@ -148,25 +244,45 @@
           "awaits": 2,
           "database": 3
         },
-        "src/server/residents.ts#addResident": {
-          "awaits": 7,
-          "database": 6
+        "src/server/residents.ts#lockHome": {
+          "awaits": 1,
+          "database": 1
         },
-        "src/server/residents.ts#removeResident": {
+        "src/server/residents.ts#addResident": {
           "awaits": 7,
           "database": 5
         },
+        "src/server/residents.ts#removeResident": {
+          "awaits": 8,
+          "database": 5
+        },
+        "src/server/residents.ts#renameResident": {
+          "awaits": 6,
+          "database": 2
+        },
         "src/app/api/residents/route.ts#GET": {
-          "awaits": 3,
+          "awaits": 4,
           "projectCalls": 2
         },
         "src/app/api/residents/route.ts#POST": {
-          "awaits": 6,
+          "awaits": 8,
           "projectCalls": 3
         },
         "src/lib/api.ts#api": {
           "awaits": 3,
           "fetch": 1
+        },
+        "src/lib/invitation.ts#shareInvitation": {
+          "awaits": 2
+        },
+        "src/server/device-names.ts#renameDefaultDevices": {
+          "awaits": 1,
+          "database": 2,
+          "awaitInLoop": 2
+        },
+        "src/server/device-names.ts#takenDeviceNames": {
+          "awaits": 1,
+          "database": 1
         },
         "src/server/http.ts#apiRoute": {
           "awaits": 2
@@ -176,21 +292,37 @@
         },
         "src/server/database.ts#connect": {
           "projectCalls": 1,
-          "awaits": 8,
-          "database": 8
+          "awaits": 1,
+          "database": 3
+        },
+        "src/server/database.ts#poolDatabase": {
+          "awaits": 7,
+          "database": 5
         },
         "src/server/database.ts#initialize": {
           "awaits": 5,
-          "database": 6,
-          "awaitInLoop": 3
+          "database": 4,
+          "awaitInLoop": 2
+        },
+        "src/server/database.ts#assignDevicesToOriginalHome": {
+          "awaits": 1,
+          "database": 2,
+          "awaitInLoop": 1
+        },
+        "src/server/database.ts#runStep": {
+          "awaits": 3,
+          "database": 2
         },
         "src/server/database.ts#schemaVersion": {
           "awaits": 1,
           "database": 1
         },
-        "src/server/auth.ts#requireAuth": {
-          "awaits": 2,
+        "src/server/auth.ts#requireHome": {
+          "awaits": 1,
           "projectCalls": 1
+        },
+        "src/server/auth.ts#requireIdentity": {
+          "awaits": 1
         },
         "src/server/auth.ts#getIdentity": {
           "awaits": 3,
@@ -212,31 +344,620 @@
           "projectCalls": 1
         }
       },
-      "uncommittedFiles": []
+      "uncommittedFiles": [
+        "src/app/api/residents/route.ts",
+        "src/components/resident-management.tsx",
+        "src/constants/auth.ts",
+        "src/constants/devices.ts",
+        "src/constants/doorbell.ts",
+        "src/constants/environment.ts",
+        "src/constants/homes.ts",
+        "src/lib/api.ts",
+        "src/lib/invitation.ts",
+        "src/lib/names.ts",
+        "src/server/auth.ts",
+        "src/server/config.ts",
+        "src/server/database.ts",
+        "src/server/device-names.ts",
+        "src/server/errors.ts",
+        "src/server/homes.ts",
+        "src/server/http.ts",
+        "src/server/neon-auth.ts",
+        "src/server/postgres.ts",
+        "src/server/residents.ts",
+        "src/server/self-auth.ts",
+        "src/types/residents.ts"
+      ]
     },
     "evidence": [
       {
         "kind": "review",
         "outcome": "pass",
-        "recordedAt": "2026-10-30T03:11:24.719Z",
+        "recordedAt": "2026-10-30T15:52:09.240Z",
         "source": "attested",
-        "summary": "ResidentManagement: server-confirmed por permisos, lock contra doble disparo, conserva el correo ante error"
+        "summary": "Agregar, quitar y renombrar residentes: server-confirmed (permisos), lock contra doble envío, la lista se reemplaza con la respuesta del servidor; quitarse a sí mismo vuelve al inicio; renombrarse refresca el shell. Servidor idempotente con bloqueo de la casa e índice único como última barrera."
+      },
+      {
+        "command": "npx vitest run tests/residents.test.ts tests/resident-access.test.ts",
+        "durationMs": 3882,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "2a4a8ee9c845eb89b8d61be52201fdb25b4bfb6e1863da9dc1709ab1b7a49db1",
+        "recordedAt": "2026-10-30T15:52:13.344Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "command": "npx playwright test tests/e2e/residents.spec.ts --reporter=line",
+        "durationMs": 10464,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "365f5b726ce8b1a85a9c0a909865d52b9df29055ef4cec6bbd9f5a2da386f5b7",
+        "recordedAt": "2026-10-30T15:52:24.031Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
       }
     ],
-    "limitations": [
-      "Modo liviano"
-    ],
-    "mode": "lightweight",
+    "limitations": [],
+    "mode": "full",
     "pendingChecks": [],
-    "recordedAt": "2026-10-30T03:11:25.278Z",
-    "result": "partial",
-    "runId": "20261030T031124Z-abb5b3",
+    "recordedAt": "2026-10-30T15:52:24.543Z",
+    "result": "verified",
+    "runId": "20261030T154559Z-b6d398",
     "scope": {
       "decision": "full",
       "reasons": [
-        "full audit requested: previous coverage is not reused"
+        "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
       ],
-      "relevantChangesAtBegin": [],
+      "relevantChangesAtBegin": [
+        {
+          "change": "added",
+          "key": "pkg:@vercel/functions",
+          "reason": "new package in the flow (data, cache or mutation primitives)"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/api/residents/route.ts#GET",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/api/residents/route.ts#POST",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/api/residents/route.ts#residentSchema",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#CHANGE_MESSAGES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#ResidentChange",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#ResidentManagement/applyConfirmed",
+          "reason": "new action handler"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#ResidentManagement/share",
+          "reason": "new action handler"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagement/update",
+          "reason": "action handler changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+          "reason": "component state or render changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#ResidentManagementProps",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/resident-management.tsx#ResidentNameForm",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#DEVICES.defaultName",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#DEVICES.nameMaxLength",
+          "reason": "lifecycle configuration member (nameMaxLength)"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/devices.ts#DEVICES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#HTTP.noContent",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#HTTP.notFound",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS.origin",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES.originalId",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES.queryParameter",
+          "reason": "lifecycle configuration member (queryParameter)"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#LEGACY_DEVICE_NAMES",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#RESIDENT_NAMES.maxLength",
+          "reason": "lifecycle configuration member (maxLength)"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#RESIDENT_NAMES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/lib/api.ts#api",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#serverErrorMessage",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/invitation.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/invitation.ts#invitationMessage",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/invitation.ts#shareInvitation",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/invitation.ts#ShareOutcome",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#cleanName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#nameKey",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/names.ts#uniqueName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#getIdentity",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/auth.ts#requireAuth",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth.ts#requireHome",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth.ts#requireIdentity",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#requireOrigin",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/config.ts#getConfig",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/config.ts#httpsOrigin",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#assignDevicesToOriginalHome",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#connect",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#Database",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#getDatabase",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#initialize",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#MIGRATIONS",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#nestedTransaction",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#poolDatabase",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#QueryResult",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#runStep",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#schemaVersion",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/device-names.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/device-names.ts#COPY_SUFFIX",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/device-names.ts#firstName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/device-names.ts#isDefaultName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/device-names.ts#LEGACY_KEYS",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/device-names.ts#renameDefaultDevices",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/device-names.ts#takenDeviceNames",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#describeError",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/errors.ts#errorResponse",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS.causeDepth",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS.messageLength",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS.stackLines",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#LOG_LIMITS~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/errors.ts#logError",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/homes.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/homes.ts#homeIdSchema",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/neon-auth.ts#authConfigured",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/neon-auth.ts#getNeonAuth",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/neon-auth.ts#neonAuthSettings",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/neon-auth.ts#NeonAuthSettings",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/postgres.ts#createPostgresPool",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#accountName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#addResident",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#emailList",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#isBootstrap",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#listResidentHomes",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#listResidents",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#lockHome",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#memberName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#nameTaken",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#normalizedEmail",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#removeResident",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#renameResident",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/residents.ts#requireResidentAdmin",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#residentEmailSchema",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#residentNameSchema",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#residentSettings",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#ResidentTarget",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#resolveHomeAccess",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/residents.ts#resolveResidentAccess",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#suggestedResidentName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#UNIQUE_VIOLATION",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/self-auth.ts#createSelfAuth",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/self-auth.ts#getSelfAuth",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/self-auth.ts#selfAuthConfigured",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#selfAuthSettings",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#SelfAuthSettings",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#HomeMember",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#HomeSummary",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
+          "key": "src/types/residents.ts#ResidentAccess",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/residents.ts#ResidentEntry",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/residents.ts#ResidentSettings",
+          "reason": "code reached by the unit changed"
+        }
+      ],
       "suggestedScope": [
         "whole unit ringgg.residents.manage: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
       ]
@@ -254,11 +975,6 @@
       "name": "optimistic-action-mutations",
       "version": "1.2.0"
     },
-    "summary": "Revisión liviana sin cambios",
-    "report": "runs/20261030T031124Z-abb5b3.json"
-  },
-  "schemaVersion": 1,
-  "skill": "optimistic-action-mutations",
-  "unitId": "ringgg.residents.manage",
-  "verified": null
+    "report": "runs/20261030T154559Z-b6d398.json"
+  }
 }

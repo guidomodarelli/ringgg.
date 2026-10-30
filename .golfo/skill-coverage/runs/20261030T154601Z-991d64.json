@@ -1,0 +1,100 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:35395838c3c3221c721a158291ca4737e709945ea75b338f212b71f6dfc5dc6e",
+    "uncommittedFiles": [
+      "src/app/api/delete-home/route.ts",
+      "src/app/api/homes/route.ts",
+      "src/components/dashboard/delete-home-setting.tsx",
+      "src/components/home-switcher.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/auth.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/lib/api.ts",
+      "src/lib/names.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/neon-auth.ts",
+      "src/server/panel-home.ts",
+      "src/server/postgres.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 29,
+    "inputCount": 165
+  },
+  "evidence": [
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T15:54:01.658Z",
+      "source": "attested",
+      "summary": "Costo que agrega elegir la casa: +1 query secuencial (lista de casas) y +1 en paralelo (nombre sugerido) por render del panel.",
+      "tool": "PGlite con contador de queries (bun)",
+      "metric": "queries por render del panel",
+      "before": "6",
+      "after": "8",
+      "conditions": "secuencia de src/app/page.tsx y de /api/dashboard sobre una base recién migrada; antes = main 847d295 medido en esta sesión"
+    },
+    {
+      "command": "npx vitest run tests/homes.test.ts tests/residents.test.ts tests/devices.test.ts",
+      "durationMs": 5671,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "d6686dc1239fe9e276a605609cfb27eb71146c1a5cc65fed67bafd31fdf587b9",
+      "recordedAt": "2026-10-30T15:54:07.547Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:54:08.050Z",
+  "result": "verified",
+  "runId": "20261030T154601Z-991d64",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:01.810Z",
+  "unitId": "ringgg.homes.manage"
+}

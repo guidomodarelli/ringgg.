@@ -1,0 +1,94 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:18421ec7b3b97836a17a838c96d52758ffa291099062ce06ec837211fabc5b29",
+    "uncommittedFiles": [
+      "src/app/cartel/loading.tsx",
+      "src/app/cartel/page.tsx",
+      "src/components/print-button.tsx",
+      "src/constants/auth.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/lib/names.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/neon-auth.ts",
+      "src/server/panel-home.ts",
+      "src/server/postgres.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 26,
+    "inputCount": 130
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:59:01.789Z",
+      "source": "attested",
+      "summary": "Cartel de la casa elegida (?home=, una casa ajena nunca se elige), renderizado en servidor con el QR en SVG; loading.tsx con la forma del cartel; Imprimir como única hoja cliente; Volver al panel a la sección QR de esa casa; sin sesión va al ingreso y sin casas al inicio."
+    },
+    {
+      "command": "npx playwright test tests/e2e/doorbell.spec.ts --reporter=line",
+      "durationMs": 35481,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "cd9fab788a6442fbe811f54cc7e93a60ce2e3c8ea8ac2e2a6ef0e32262a7a3c8",
+      "recordedAt": "2026-10-30T15:59:37.525Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:59:37.834Z",
+      "source": "attested",
+      "summary": "Playwright (Chromium) con login real: desde Mi código QR abre /cartel?home=, muestra el QR de la casa y vuelve al panel; sin sesión redirige a /sign-in.",
+      "tool": "Playwright (Chromium)"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:59:38.399Z",
+  "result": "verified",
+  "runId": "20261030T154606Z-01db51",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.poster: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:06.117Z",
+  "unitId": "ringgg.poster"
+}

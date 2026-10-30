@@ -1,0 +1,1357 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:4e597f637a5973a5179be3c695c7c1cdb13871ac9f1fc0692239fd8228e85e0e",
+    "uncommittedFiles": [
+      "next.config.ts",
+      "src/app/api/door/[token]/route.ts",
+      "src/app/api/door/[token]/visits/[id]/note/route.ts",
+      "src/app/error.tsx",
+      "src/app/globals.css",
+      "src/app/not-found.tsx",
+      "src/app/t/[token]/page.tsx",
+      "src/components/brand.tsx",
+      "src/components/visitor.tsx",
+      "src/constants/auth.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/constants/polling.ts",
+      "src/constants/time.ts",
+      "src/lib/api.ts",
+      "src/lib/names.ts",
+      "src/lib/pause.ts",
+      "src/lib/quiet-hours.ts",
+      "src/proxy.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/environment.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/neon-auth.ts",
+      "src/server/postgres.ts",
+      "src/server/push.ts",
+      "src/server/rate-limit.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/server/session-cookies.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 44,
+    "inputCount": 302
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T15:55:58.636Z",
+      "source": "attested",
+      "summary": "/t/[token]: datos públicos renderizados en servidor, loading y error contenidos; varias casas no cambia boundaries ni agrega await en layouts."
+    },
+    {
+      "command": "npm run build",
+      "durationMs": 11514,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "7a304b420e61f786810ed31dfe90588cc36f8edad7cbe21e372669f370f2c147",
+      "recordedAt": "2026-10-30T15:56:10.400Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/visitor-replies.spec.ts tests/e2e/doorbell.spec.ts --reporter=line",
+      "durationMs": 50444,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "cf36bab93cdc3b90b9483e37a3d725a202ee8412302b29f0838e15f92883ae34",
+      "recordedAt": "2026-10-30T15:57:01.117Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T15:57:01.782Z",
+  "result": "verified",
+  "runId": "20261030T154603Z-acfd0f",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "231 of 278 parts changed: the unit is reviewed as a whole"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "next.config.ts#<module>",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "pkg:@neondatabase/auth",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:@vercel/functions",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:APP_URL",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:CRON_SECRET",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:DATABASE_URL",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:GOOGLE_CLIENT_ID",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:GOOGLE_CLIENT_SECRET",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:kysely",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:NEON_AUTH_BASE_URL",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:NEON_AUTH_COOKIE_SECRET",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:SELF_AUTH_DATABASE_URL",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:SELF_AUTH_SECRET",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:VAPID_PRIVATE_KEY",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:VAPID_PUBLIC_KEY",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:VAPID_SUBJECT",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:web-push",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:zod",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#dynamic",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#GET",
+        "reason": "adds awaited work to the render path (+2 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#Params",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#POST",
+        "reason": "adds awaited work to the render path (+5 awaited steps, +3 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#ringSchema",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#runtime",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#dynamic",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#noteSchema",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#POST",
+        "reason": "adds awaited work to the render path (+4 awaited steps, +2 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#runtime",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#dynamic",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#GET",
+        "reason": "adds awaited work to the render path (+2 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#runtime",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/error.tsx#ErrorPage",
+        "reason": "route file changed: segment layout, boundary or page"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/not-found.tsx#NotFound",
+        "reason": "route file changed: segment layout, boundary or page"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/t/[token]/page.tsx#DoorPage",
+        "reason": "route file changed: segment layout, boundary or page"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/brand.tsx#Brand",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/brand.tsx#BrandContents",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#AnswerPollingOptions",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#NoteForm/send",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#NoteForm~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#UnavailableNotice",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#useAnswerPolling",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#useAvailabilityCheck",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#Visitor/ringAgain",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#Visitor~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#VisitResult",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#VisitResultProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#waitingDetail",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/config/database.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/config/database.ts#getPostgresConfig",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.cookieSecretMinimumLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.reservedSchemas",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.sessionCacheSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES.defaultName",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES.nameMaxLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/devices.ts#DEVICES~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.cooldownSeconds",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.nameMaxLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.noteMaxLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.pollIntervalMs",
+        "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.timeZone",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.badRequest",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.noContent",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.unavailable",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE.hourMinutes",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE.morningResumeTime",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#PAUSE~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#QUIET_HOURS_PATTERN",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.clientCooldownSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.clientMaxPerWindow",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.clientWindowSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.homeMaxPerWindow",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.homeWindowSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.away",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.coming",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.leave",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.soon",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VisitReply",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#ENVIRONMENT_RULES.cronSecretMinimumLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#ENVIRONMENT_RULES.placeholderSubjectPattern",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#ENVIRONMENT_RULES.vapidPrivateKeyLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#ENVIRONMENT_RULES.vapidPublicKeyLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/environment.ts#ENVIRONMENT_RULES~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES.cookieMaxAgeSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES.cookieName",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES.originalId",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES.queryParameter",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#HOMES~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#VISITOR_POLLING.answerMs",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#VISITOR_POLLING.availabilityMs",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/polling.ts#VISITOR_POLLING~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#DAY_HOURS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#HOUR_MINUTES",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#MINUTE_SECONDS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#SECOND_MS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.dayMs",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.hourMinutes",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.secondMs",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#serverErrorMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#cleanName",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#nameKey",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#uniqueName",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#isPaused",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#localDay",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#pauseEnd",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pause.ts#pauseEndLabel",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#isQuietTime",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#localMinutes/value",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#localMinutes~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#minutesOfDay",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#<module>",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#config.matcher",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#config~frame",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#HOME_ID_PATTERN",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#proxy",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#rememberHome",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/proxy.ts#renewSelfManagedSession",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#assignDevicesToOriginalHome",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +2 database queries, +1 awaited calls inside a loop): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#connect",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#Database",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "adds awaited work to the render path (+2 awaited calls inside a loop): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATION_LOCK",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#nestedTransaction",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#poolDatabase",
+        "reason": "adds awaited work to the render path (+7 awaited steps, +5 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#QueryResult",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#runStep",
+        "reason": "adds awaited work to the render path (+3 awaited steps, +2 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#getHome",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#HOME_COLUMNS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#HOME_DEVICES",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#homeByToken",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#homeState",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#INVALID_DOORBELL_MESSAGE",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#leaveNote",
+        "reason": "adds awaited work to the render path (+3 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.hour",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.indefinite",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.resume",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#pausedMessage",
+        "reason": "adds awaited work to the render path (+2 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PUBLIC_VISIT_COLUMNS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#publicHome",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#purgeExpiredData",
+        "reason": "adds awaited work to the render path (+2 awaited steps, +2 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#readVisit",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#RECEIPTS_COLUMN",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#registerVisit",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#rotateToken",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#setDelivery",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#setPause",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#snapshot",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#toJsonSnapshot",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeName",
+        "reason": "adds awaited work to the render path (+2 awaited steps, +1 calls to I/O helpers, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateQuietHours",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#VISIT_COLUMNS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#visitHomeId",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#VisitKey",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#assertDeployEnvironment",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#describe",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#EnvironmentProblem",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#isHttpsUrl",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#isPostgresUrl",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#productionEnvironmentProblems/require",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#productionEnvironmentProblems~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#describeError",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.causeDepth",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.messageLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS.stackLines",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#LOG_LIMITS~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#logError",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#homeNameSchema",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#homeNameTaken",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/homes.ts#requireFreeHomeName",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "adds awaited work to the render path (+2 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#BODY_LIMIT",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readJson",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#auth",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#neonAuthSettings",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/neon-auth.ts#NeonAuthSettings",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/postgres.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/postgres.ts#createPostgresPool",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#deliveryStatus",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#homeDevices",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#normalizedEmail",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#pushPayload",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#recordDeliveryHealth",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#SendOutcome",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "adds awaited work to the render path (+2 calls to I/O helpers, +5 awaited steps, +1 awaited calls inside a loop, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#enforceRingLimits",
+        "reason": "adds awaited work to the render path (+3 awaited steps, +3 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#rateLimitSalt",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#ringClientKey",
+        "reason": "adds awaited work to the render path (+1 database queries, +1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#emailList",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#normalizedEmail",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#residentSettings",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#auth",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#getSelfAuth",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthConfigured",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthSettings",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#SelfAuthSettings",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/session-cookies.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/session-cookies.ts#forwardSetCookies",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#DashboardSnapshot",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Device",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#HomeState",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#PublicHome",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#PublicVisit",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Visit",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#HomeSummary",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentSettings",
+        "reason": "new code rendered by the route"
+      }
+    ],
+    "suggestedScope": [
+      "whole unit ringgg.visitor (/t/[token]): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:03.205Z",
+  "unitId": "ringgg.visitor"
+}

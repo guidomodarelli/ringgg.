@@ -1,12 +1,16 @@
 import { Pool } from 'pg';
+import { attachDatabasePool } from '@vercel/functions';
 import { getPostgresConfig } from '../config/database';
+import { logError } from './errors';
 
-/** Logs background disconnects without leaking provider messages, credentials, or connection strings. */
+/**
+ * Logs background disconnects with their cause (driver errors never include the connection string).
+ * On Vercel, idle clients are released before Fluid Compute suspends the instance.
+ */
 export function createPostgresPool(connectionString: string): Pool {
   const pool = new Pool(getPostgresConfig(connectionString));
-  pool.on('error', () => {
-    console.error(JSON.stringify({ operation: 'database.pool.idleConnection', provider: 'postgres', errorType: 'ConnectionError' }));
-  });
+  pool.on('error', (error) => { logError('database.pool.idleConnection', error, { provider: 'postgres' }); });
+  if (process.env.VERCEL) attachDatabasePool(pool);
   return pool;
 }
 

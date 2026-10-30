@@ -1,0 +1,237 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/mejoras-revision",
+    "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+    "fingerprint": "sha256:5170c2f78b98b7ce24e0d4c100228d3f6b555a09dddd2fafc6d6d63ca614ef0a",
+    "uncommittedFiles": [
+      "src/app/api/residents/route.ts",
+      "src/components/resident-management.tsx",
+      "src/constants/auth.ts",
+      "src/constants/devices.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/environment.ts",
+      "src/constants/homes.ts",
+      "src/lib/api.ts",
+      "src/lib/invitation.ts",
+      "src/lib/names.ts",
+      "src/server/auth.ts",
+      "src/server/config.ts",
+      "src/server/database.ts",
+      "src/server/device-names.ts",
+      "src/server/errors.ts",
+      "src/server/homes.ts",
+      "src/server/http.ts",
+      "src/server/neon-auth.ts",
+      "src/server/postgres.ts",
+      "src/server/residents.ts",
+      "src/server/self-auth.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 28,
+    "inputCount": 180
+  },
+  "evidence": [
+    {
+      "command": "npx vitest run tests/residents.test.ts tests/resident-access.test.ts",
+      "durationMs": 3831,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "e8868a020ab7e0de27c0beba01cb368adfbbd41a949358401ccbd5021c1a27cf",
+      "recordedAt": "2026-10-30T15:52:49.760Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "No se midió el flujo de residentes en esta sesión; la carga nueva es renombrar (una transacción con bloqueo de la casa)."
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Medir latencia de agregar, renombrar y quitar residentes contra Neon remoto."
+  ],
+  "recordedAt": "2026-10-30T15:52:50.263Z",
+  "result": "partial",
+  "runId": "20261030T154600Z-92a670",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@vercel/functions",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:kysely",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:next",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/residents/route.ts#GET",
+        "reason": "adds load: +4 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/residents/route.ts#POST",
+        "reason": "adds load: +8 awaited steps, +3 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/resident-management.tsx#ResidentManagement/share",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/invitation.ts#shareInvitation",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireHome",
+        "reason": "adds load: +1 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireIdentity",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#assignDevicesToOriginalHome",
+        "reason": "adds load: +1 awaited steps, +2 database queries, +1 awaited calls inside a loop"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "adds load: +2 awaited calls inside a loop"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#poolDatabase",
+        "reason": "adds load: +7 awaited steps, +5 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#runStep",
+        "reason": "adds load: +3 awaited steps, +2 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/device-names.ts#renameDefaultDevices",
+        "reason": "adds load: +1 awaited steps, +2 database queries, +2 awaited calls inside a loop"
+      },
+      {
+        "change": "added",
+        "key": "src/server/device-names.ts#takenDeviceNames",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readJson",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#addResident",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#listResidents",
+        "reason": "adds load: +1 awaited steps, +2 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#lockHome",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#removeResident",
+        "reason": "adds load: +4 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#renameResident",
+        "reason": "adds load: +6 awaited steps, +2 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#suggestedResidentName",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "adds load: +1 calls to I/O helpers"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Medir flujo real de listado y autorizacion en Neon con cuenta verificada.",
+      "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T15:46:00.217Z",
+  "unitId": "ringgg.residents.manage"
+}

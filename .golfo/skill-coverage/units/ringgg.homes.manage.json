@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "ringgg.homes.manage",
+  "kind": "ui-flow",
+  "hierarchy": {
+    "module": "Ringgg",
+    "page": "Panel",
+    "section": "Casas",
+    "subflow": "Elegir, agregar y eliminar casas, y elegir tu nombre en cada una"
+  },
+  "description": "Selector de casas con Agregar casa, ¿Quién sos? obligatorio por casa y Eliminar esta casa; el servidor crea, elimina y elige la casa del panel.",
+  "routes": [
+    "/"
+  ],
+  "entries": [
+    {
+      "path": "src/components/home-switcher.tsx",
+      "symbol": "HomeSwitcher"
+    },
+    {
+      "path": "src/components/resident-name-dialog.tsx",
+      "symbol": "ResidentNameDialog"
+    },
+    {
+      "path": "src/components/dashboard/delete-home-setting.tsx",
+      "symbol": "DeleteHomeSetting"
+    },
+    {
+      "path": "src/server/homes.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/server/panel-home.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/homes/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/delete-home/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/lib/names.ts",
+      "symbol": "*"
+    }
+  ],
+  "origin": "manual"
+}

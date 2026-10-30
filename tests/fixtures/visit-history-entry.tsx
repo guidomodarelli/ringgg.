@@ -4,6 +4,9 @@ import { VisitHistory } from '../../src/components/dashboard/visit-history';
 import type { Visit } from '../../src/types/doorbell';
 import { api } from '../../src/lib/api';
 
+/** The history renders with the clock of the page load, like the dashboard's clock before its next tick. */
+const loadedAt = Date.now();
+
 /** Mirrors the dashboard action runner: server-confirmed, then a fresh snapshot. */
 function Fixture() {
   const [visits, setVisits] = useState<Visit[]>((window as unknown as { __VISITS__: Visit[] }).__VISITS__);
@@ -17,6 +20,6 @@ function Fixture() {
     catch (error) { setFeedback(error instanceof Error ? error.message : 'Error'); return false; }
     finally { setPending(''); lock.current = false; }
   }
-  return <><p role="status">{feedback}</p><VisitHistory visits={visits} now={Date.now()} url="/t/token" pending={pending} run={run} focusVisitId={visits[0]?.id ?? ''} /></>;
+  return <><p role="status">{feedback}</p><VisitHistory visits={visits} now={loadedAt} url="/t/token" pending={pending} run={run} focusVisitId={visits[0]?.id ?? ''} /></>;
 }
 createRoot(document.getElementById('root')!).render(<Fixture />);

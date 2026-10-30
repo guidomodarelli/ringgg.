@@ -1,4 +1,8 @@
 import type { NextConfig } from 'next';
+import { assertDeployEnvironment } from './src/server/environment';
+
+// A production build with a missing variable fails here, so the previous deployment keeps serving.
+assertDeployEnvironment();
 
 const nextConfig: NextConfig = {
   outputFileTracingExcludes: { '*': ['./.data/**/*', './test-results/**/*', './playwright-report/**/*'] },
