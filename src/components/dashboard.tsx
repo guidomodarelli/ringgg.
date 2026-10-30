@@ -51,7 +51,8 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   // Until the resident chooses a name in this home, "¿Quién sos?" comes before anything else.
   const [viewerName, setViewerName] = useState(initial.viewer.name);
   const device = usePushDevice({ homeId: initial.home.id, pushReady: initial.pushReady, viewerName: viewerName ?? initial.viewer.suggestedName });
-  const { data, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync } = useDashboardState(initial, device.active);
+  // This browser rings for the home only while the confirmed snapshot lists its device.
+  const { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync } = useDashboardState(initial, device.deviceId);
   const url = `${data.origin}/t/${data.home.token}`;
   const busy = Boolean(pending);
 
@@ -99,10 +100,10 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
         <VisitHistory visits={data.visits} now={now} url={url} pending={pending} run={run} focusVisitId={focusVisitId} />
       </div><aside className="context-column">
         <QrPanel url={url} homeId={data.home.id} homeName={data.home.name} pending={pending} run={run} onFeedback={setFeedback} onError={setError} />
-        {!device.active && <section className="setup-callout"><span className="soft-icon"><Smartphone size={21} /></span><h3>Tu timbre va con vos</h3><p>Activá las notificaciones en este celular para enterarte cuando alguien llega.</p><DashboardSectionLink className="text-link" view="devices" homeId={data.home.id}>Configurar mi celular <ArrowUpRight size={16} /></DashboardSectionLink></section>}
+        {!pushActive && <section className="setup-callout"><span className="soft-icon"><Smartphone size={21} /></span><h3>Tu timbre va con vos</h3><p>Activá las notificaciones en este celular para enterarte cuando alguien llega.</p><DashboardSectionLink className="text-link" view="devices" homeId={data.home.id}>Configurar mi celular <ArrowUpRight size={16} /></DashboardSectionLink></section>}
         <div className="privacy-note"><ShieldCheck size={18} /><p>Tu casa, tu privacidad.<br /><span>Tu QR no comparte tus datos.</span></p></div>
       </aside></div>
-      <DevicesSection homeId={data.home.id} devices={data.devices} thisDeviceId={device.deviceId} notifications={{ active: device.active, permission: device.permission, skipped: device.skipped }} pending={pending} run={run} error={error} failedAction={failedAction} onClearError={() => setError('')} onActivate={activateNotifications} />
+      <DevicesSection homeId={data.home.id} devices={data.devices} thisDeviceId={device.deviceId} notifications={{ active: pushActive, permission: device.permission, skipped: device.skipped }} pending={pending} run={run} error={error} failedAction={failedAction} onClearError={() => setError('')} onActivate={activateNotifications} />
       <SettingsSection home={data.home} homes={initial.homes.length} residents={initial.residents.length} pending={pending} run={run} />
       <ResidentManagement key={rosterKey(initial.residents)} homeId={data.home.id} initial={initial.residents} homeName={data.home.name} origin={data.origin} viewerEmail={initial.viewer.email} />
       <footer className="dashboard-footer"><span>ringgg. <span>Una forma más simple de llegar.</span></span><span>Hecho para estar cerca <span className="orange">✳</span></span></footer>

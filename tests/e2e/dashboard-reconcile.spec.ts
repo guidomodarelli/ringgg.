@@ -4,8 +4,10 @@ import { readFileSync } from 'node:fs';
 import { PGlite } from '@electric-sql/pglite';
 import { initialize } from '../../src/server/database';
 import { answerVisit, getHome, registerVisit, rotateToken, snapshot, updateHomeName, updateQuietHours } from '../../src/server/doorbell';
+import { saveDevice } from '../../src/server/push';
 import { FIXTURE_HOME, apiPath, dashboardInitial } from './support/dashboard-initial';
 import { testDatabase } from '../support/test-database';
+import { pushSubscription } from '../support/push-subscription';
 import { bundleFixture } from './support/bundle-fixture';
 import { readText } from './support/read-text';
 
@@ -27,6 +29,8 @@ test('el panel reconcilia cada acción con su propia respuesta y no re-renderiza
   /** Every action of the panel names its home, as the server routes require. */
   const sentHomes = new Set<unknown>();
   await initialize(database);
+  // This browser's device: push counts as active while the home's snapshot lists it.
+  const { deviceId } = await saveDevice(database, { homeId: FIXTURE_HOME, name: 'Compu de Guido', subscription: pushSubscription('perf') }, resident, { bootstrapEmails: [resident.email] });
   const bundled = await bundleFixture('tests/fixtures/dashboard-entry.tsx', { development: true, stubAuthClient: true });
   const css = readFileSync('src/app/globals.css', 'utf8');
   const hits: string[] = [];
@@ -38,7 +42,7 @@ test('el panel reconcilia cada acción con su propia respuesta y no re-renderiza
     if (path === 'settings') { const input = await readJson(request); sentHomes.add(input.home); await updateHomeName(database, resident, input.name, { bootstrapEmails: [resident.email] }); return response.end(JSON.stringify(await snapshot(database, FIXTURE_HOME))); }
     if (path === 'quiet-hours') { const input = await readJson(request); sentHomes.add(input.home); await updateQuietHours(database, FIXTURE_HOME, input.start, input.end); return response.end(JSON.stringify(await snapshot(database, FIXTURE_HOME))); }
     if (path === 'rotate') { sentHomes.add((await readJson(request)).home); await rotateToken(database, FIXTURE_HOME); return response.end(JSON.stringify(await snapshot(database, FIXTURE_HOME))); }
-    if (path === 'device-status') return response.end(JSON.stringify({ active: true, deviceId: 'device-1' }));
+    if (path === 'device-status') return response.end(JSON.stringify({ active: true, deviceId }));
     if (path === 'answer') { const input = await readJson(request); return response.end(JSON.stringify(await answerVisit(database, { homeId: FIXTURE_HOME, id: input.id }, input.reply, 'Guido'))); }
     response.statusCode = 404; return response.end('{}');
   }

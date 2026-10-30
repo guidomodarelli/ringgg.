@@ -166,8 +166,13 @@ const SERVER_RENDERED_KEYS = new Set(['name', 'viewer-name']);
  * Dashboard data, polling and server-confirmed actions. Refreshes never overlap and never overwrite a
  * running action; an unchanged snapshot does not re-render. A failed refresh shows a sync notice that
  * clears itself on the next successful one, separate from the error of an action.
+ *
+ * `thisDeviceId` is the device this browser was registered as for the home. Push counts as active only
+ * while the confirmed snapshot lists it: once it is disconnected, here or by another resident,
+ * `pushActive` turns false, so the panel offers to connect it again and checks at the pace without
+ * notifications.
  */
-export function useDashboardState(initial: DashboardData, pushActive: boolean) {
+export function useDashboardState(initial: DashboardData, thisDeviceId: string | null) {
   const router = useRouter();
   const [data, setData] = useState(initial);
   const [pending, setPending] = useState('');
@@ -182,6 +187,7 @@ export function useDashboardState(initial: DashboardData, pushActive: boolean) {
   const refreshGeneration = useRef(0);
   const lastSnapshot = useRef(serializeSnapshot(initial));
   const visitsRef = useRef(initial.visits);
+  const pushActive = data.devices.some((device) => device.id === thisDeviceId);
   const pushActiveRef = useRef(pushActive);
   const refreshNowRef = useRef<() => void>(() => undefined);
 
@@ -223,5 +229,5 @@ export function useDashboardState(initial: DashboardData, pushActive: boolean) {
     finally { setPending(''); actionLock.current = false; }
   };
 
-  return { data, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync: () => refreshNowRef.current() };
+  return { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync: () => refreshNowRef.current() };
 }

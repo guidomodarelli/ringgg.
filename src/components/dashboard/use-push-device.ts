@@ -76,8 +76,10 @@ function serverSkipped() {
 }
 
 /**
- * Notifications on this browser: whether it is registered for the resident (and as which device),
- * the first-entry prompt, the choice to keep using the panel without notifications, and activation.
+ * Notifications on this browser: which device the server registered it as for the resident in this
+ * home, the first-entry prompt, the choice to keep using the panel without notifications, and
+ * activation. The device can be disconnected later, here or by another resident, so whether it still
+ * rings is read from the home's confirmed snapshot (see `useDashboardState`), not from this id.
  */
 export function usePushDevice({ homeId, pushReady, viewerName }: { homeId: number; pushReady: boolean; viewerName: string }) {
   const permission = useSyncExternalStore(subscribeToPermission, currentPermission, serverPermission);
@@ -142,5 +144,5 @@ export function usePushDevice({ homeId, pushReady, viewerName }: { homeId: numbe
     notify(permissionListeners);
   }
 
-  return { permission, deviceId, active: deviceId !== null, showSetup, skipped, activate, skip, refreshPermission };
+  return { permission, deviceId, showSetup, skipped, activate, skip, refreshPermission };
 }
