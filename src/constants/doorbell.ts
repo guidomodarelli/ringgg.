@@ -9,6 +9,8 @@ export const DOORBELL = {
   pushTtlSeconds: 90,
   pushTimeoutMs: 8_000,
   pollIntervalMs: 5_000,
+  /** While the doorbell is paused or in quiet hours, the visitor page rechecks availability this often. */
+  availabilityPollMs: 60_000,
   historyLimit: 50,
   maxDevices: 10,
   retentionDays: 30,

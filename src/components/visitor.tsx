@@ -13,17 +13,17 @@ function waitingDetail(visit: PublicVisit) {
 }
 
 /** Visitors can leave one note when nobody answered or the residents said they are away. */
-function NoteForm({ token, visit, onSaved }: { token: string; visit: PublicVisit; onSaved: (visit: PublicVisit) => void }) {
+function NoteForm({ token, visit, onSaved, onPendingChange }: { token: string; visit: PublicVisit; onSaved: (visit: PublicVisit) => void; onPendingChange: (pending: boolean) => void }) {
   const [note, setNote] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const sending = useRef(false);
   async function send() {
-    if (sending.current || !note.trim()) return; sending.current = true; setPending(true); setError('');
+    if (sending.current || !note.trim()) return; sending.current = true; setPending(true); onPendingChange(true); setError('');
     // Retrying is safe: the server keeps the first note and never notifies twice.
     try { onSaved(await api<PublicVisit>(`door/${token}/visits/${visit.id}/note`, { note })); }
     catch (error) { setError(error instanceof Error ? error.message : 'No pudimos enviar tu mensaje. Reintentá.'); }
-    finally { setPending(false); sending.current = false; }
+    finally { setPending(false); onPendingChange(false); sending.current = false; }
   }
   return <form className="visitor-note" onSubmit={(event) => { event.preventDefault(); void send(); }}>
     <label htmlFor="visitor-note">Dejales un mensaje <span>Podés sumar tu nombre o un teléfono</span></label>
@@ -34,12 +34,14 @@ function NoteForm({ token, visit, onSaved }: { token: string; visit: PublicVisit
   </form>;
 }
 
-export function Visitor({ home, token }: { home: PublicHome; token: string }) {
+export function Visitor({ home: initialHome, token }: { home: PublicHome; token: string }) {
+  const [home, setHome] = useState(initialHome);
   const [message, setMessage] = useState('');
   const [visit, setVisit] = useState<PublicVisit | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const [expired, setExpired] = useState(false);
+  const [notePending, setNotePending] = useState(false);
   const operationId = useRef('');
   const sending = useRef(false);
   useEffect(() => {
@@ -60,6 +62,21 @@ export function Visitor({ home, token }: { home: PublicHome; token: string }) {
     return () => { stopped = true; clearTimeout(timer); controller.abort(); };
   }, [visit?.id, visit?.answered_at, token, expired]);
 
+  const available = home.enabled && !home.quiet;
+  const hasVisit = visit !== null;
+  useEffect(() => {
+    // Availability is rendered by the server once; recheck it so the form appears when quiet hours end or the bell resumes.
+    if (hasVisit || available) return;
+    const controller = new AbortController(); let timer: ReturnType<typeof setTimeout>;
+    async function refresh() {
+      try { const fresh = await api<PublicHome>(`door/${token}`, undefined, controller.signal); if (!controller.signal.aborted) setHome(fresh); }
+      catch { /* Keep the last known state; the next check retries. */ }
+      if (!controller.signal.aborted) timer = setTimeout(refresh, DOORBELL.availabilityPollMs);
+    }
+    timer = setTimeout(refresh, DOORBELL.availabilityPollMs);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [hasVisit, available, token]);
+
   async function ring() {
     if (sending.current) return; sending.current = true; setPending(true); setError('');
     operationId.current ||= crypto.randomUUID();
@@ -75,8 +92,8 @@ export function Visitor({ home, token }: { home: PublicHome; token: string }) {
     <p>{reply ? reply.visitorDetail : expired ? 'Tu visita quedó registrada. Puede que no estén disponibles.' : waitingDetail(visit)}</p>
     {!expired && !visit.answered_at && <span className="waiting-indicator"><i /> Esperando respuesta</span>}
     {visit.noted && <p className="feedback success" role="status"><Check size={17} /> Le dejamos tu mensaje.</p>}
-    {canLeaveNote && <NoteForm token={token} visit={visit} onSaved={setVisit} />}
-    {expired && <button className="button outline full" onClick={() => { setVisit(null); setExpired(false); operationId.current = ''; }}>Volver a tocar</button>}
+    {canLeaveNote && <NoteForm token={token} visit={visit} onPendingChange={setNotePending} onSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} />}
+    {expired && <button className="button outline full" disabled={notePending} onClick={() => { setVisit(null); setExpired(false); operationId.current = ''; }}>Volver a tocar</button>}
   </div>;
 
   const unavailable = !home.enabled

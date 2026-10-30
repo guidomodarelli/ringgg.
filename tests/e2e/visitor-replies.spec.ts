@@ -66,12 +66,21 @@ test('el visitante ve "No están en casa" y deja un único mensaje aunque haga d
 });
 
 test('en horario de descanso el visitante no puede tocar y ve hasta cuándo', async ({ page }) => {
-  const fixture = await serve('tests/fixtures/visitor-entry.tsx', `window.__VISITOR__=${JSON.stringify({ home: { name: 'Casa', enabled: true, quiet: true, quietUntil: '08:00' }, token: 'token' })}`, async () => false);
+  let checks = 0;
+  const fixture = await serve('tests/fixtures/visitor-entry.tsx', `window.__VISITOR__=${JSON.stringify({ home: { name: 'Casa', enabled: true, quiet: true, quietUntil: '08:00' }, token: 'token' })}`, async (request, response, path) => {
+    if (request.method !== 'GET' || path !== 'door/token') return false;
+    checks += 1; response.end(JSON.stringify({ name: 'Casa', enabled: true, quiet: false, quietUntil: null })); return true;
+  });
   try {
+    await page.clock.install();
     await page.goto(fixture.url);
     await expect(page.getByRole('heading', { name: 'Es horario de descanso' })).toBeVisible();
     await expect(page.getByText('El timbre vuelve a sonar a las 08:00.', { exact: false })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Tocar timbre' })).toHaveCount(0);
+    // When quiet hours end the open page rechecks availability and shows the ring form.
+    await page.clock.runFor(60_000);
+    await expect(page.getByRole('button', { name: 'Tocar timbre' })).toBeVisible();
+    expect(checks).toBe(1);
   } finally { await fixture.close(); }
 });
 
