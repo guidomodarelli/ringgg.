@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTrackedNavigation } from '../use-tracked-navigation';
 import { DOORBELL } from '@/constants/doorbell';
 import { DASHBOARD_POLLING } from '@/constants/polling';
 import { WORKER_MESSAGES } from '@/constants/push';
@@ -174,6 +175,7 @@ const SERVER_RENDERED_KEYS = new Set(['name', 'viewer-name']);
  */
 export function useDashboardState(initial: DashboardData, thisDeviceId: string | null) {
   const router = useRouter();
+  const navigate = useTrackedNavigation();
   const [data, setData] = useState(initial);
   const [pending, setPending] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -200,11 +202,11 @@ export function useDashboardState(initial: DashboardData, thisDeviceId: string |
       // The next check is scheduled right after this one, before React renders the new visits.
       onSnapshot: (fresh) => { visitsRef.current = fresh.visits; setData((previous) => ({ ...previous, ...fresh })); },
       onSyncError: setSyncError,
-      openOtherHome: (url) => { router.push(url); },
+      openOtherHome: (url) => { navigate(() => { router.push(url); }); },
     });
     refreshNowRef.current = polling.refreshNow;
     return polling.stop;
-  }, [clock, initial.home.id, router]);
+  }, [clock, initial.home.id, router, navigate]);
 
   function applySnapshot(snapshot: DashboardSnapshot) {
     lastSnapshot.current = serializeSnapshot(snapshot);
@@ -223,7 +225,7 @@ export function useDashboardState(initial: DashboardData, thisDeviceId: string |
       await reconcileAction(reconcile, result, { homeId: initial.home.id, applySnapshot, replaceVisit });
       setFeedback(typeof success === 'function' ? success(result) : success);
       // The sidebar is rendered on the server: names it shows come back with a refresh.
-      if (SERVER_RENDERED_KEYS.has(key)) router.refresh();
+      if (SERVER_RENDERED_KEYS.has(key)) navigate(() => { router.refresh(); });
       return true;
     } catch (actionError) { setError(actionError instanceof Error ? actionError.message : 'No pudimos completar la acción. Reintentá.'); setFailedAction(key); return false; }
     finally { setPending(''); actionLock.current = false; }

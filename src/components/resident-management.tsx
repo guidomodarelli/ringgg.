@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTrackedNavigation } from './use-tracked-navigation';
 import { Pencil, Plus, RefreshCw, Share2, ShieldCheck, Trash2, Users } from 'lucide-react';
 import { api } from '@/lib/api';
 import { invitationMessage, shareInvitation } from '@/lib/invitation';
@@ -44,6 +45,7 @@ function ResidentNameForm({ resident, pending, error, onSave, onCancel, onEdit }
 /** Only server-confirmed grants are shown. Repeated additions/removals are idempotent. */
 export function ResidentManagement({ homeId, initial, homeName, origin, viewerEmail }: ResidentManagementProps) {
   const router = useRouter();
+  const navigate = useTrackedNavigation();
   const [residents, setResidents] = useState(initial);
   const [email, setEmail] = useState('');
   const [pending, setPending] = useState(false);
@@ -61,7 +63,7 @@ export function ResidentManagement({ homeId, initial, homeName, origin, viewerEm
     if (change.action === 'add') { setEmail(''); setInvited(change.email.toLowerCase()); }
     if (change.action === 'remove') { setRemoving(''); setInvited(''); }
     // The resident's own name also shows in the server-rendered sidebar.
-    if (change.action === 'rename') { setRenaming(''); if (change.email === viewerEmail.toLowerCase()) router.refresh(); }
+    if (change.action === 'rename') { setRenaming(''); if (change.email === viewerEmail.toLowerCase()) navigate(() => { router.refresh(); }); }
   }
 
   async function update(change?: ResidentChange) {
@@ -70,7 +72,7 @@ export function ResidentManagement({ homeId, initial, homeName, origin, viewerEm
     try {
       const result = await api<{ residents?: ResidentEntry[]; removedSelf?: boolean }>(change ? 'residents' : `residents?${HOMES.queryParameter}=${homeId}`, change ? { home: homeId, ...change } : undefined);
       // Leaving a home reopens the panel on another one, or the screen that explains there is none.
-      if (result.removedSelf) { router.replace('/'); router.refresh(); return; }
+      if (result.removedSelf) { navigate(() => { router.replace('/'); router.refresh(); }); return; }
       if (!result.residents) throw new Error('No pudimos actualizar los residentes. Volvé a intentar.');
       setResidents(result.residents);
       if (change) applyConfirmed(change);

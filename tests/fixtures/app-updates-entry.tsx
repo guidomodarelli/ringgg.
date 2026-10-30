@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useAppUpdates } from '../../src/components/use-app-updates';
+import { useTrackedNavigation } from '../../src/components/use-tracked-navigation';
 import { api } from '../../src/lib/api';
 import { RELOADS_STARTED_STORAGE_KEY } from './app-updates-contract';
 
@@ -19,31 +20,42 @@ interface NavigationEvent extends Event { navigationType: string }
   sessionStorage.setItem(RELOADS_STARTED_STORAGE_KEY, String(reloadsStarted + 1));
 });
 
+/** The form that saves a change, like the one that creates a home; it keeps saving after it unmounts. */
+function ChangeEditor({ saving, onSavingChange }: { saving: boolean; onSavingChange: (saving: boolean) => void }) {
+  const navigate = useTrackedNavigation();
+  async function save() {
+    onSavingChange(true);
+    try {
+      const { next } = await api<{ next: string }>('slow-save', { change: 'name' });
+      // Like a router push inside the panel's tracked navigation: the next page is read first, and
+      // only then does the address change.
+      navigate(async () => {
+        await fetch(next, { headers: { RSC: '1' } });
+        window.history.pushState(null, '', next);
+      });
+    } finally { onSavingChange(false); }
+  }
+  return <button type="button" disabled={saving} onClick={() => { void save(); }}>Guardar cambio</button>;
+}
+
 /**
  * A page that keeps the app busy on demand, like an action running in the panel, and that saves a
  * change on its own, like the forms that keep their own pending state. Once the change is saved it
- * opens another page, as creating a home does.
+ * opens another page, as creating a home does. Switching homes closes the form while it saves.
  */
 function AppUpdatesFixture() {
   const [busy, setBusy] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [editorOpen, setEditorOpen] = useState(true);
   useAppUpdates({ busy, loadedVersion });
-  async function save() {
-    setSaving(true);
-    try {
-      const { next } = await api<{ next: string }>('slow-save', { change: 'name' });
-      // Like a router push: the next page is read first, and only then does the address change.
-      await fetch(next, { headers: { RSC: '1' } });
-      window.history.pushState(null, '', next);
-    } finally { setSaving(false); }
-  }
   let status = 'Sin acciones';
   if (busy) status = 'Acción en curso';
   else if (saving) status = 'Guardando cambio';
   return <main>
     <p role="status">{status}</p>
     <button type="button" onClick={() => setBusy((current) => !current)}>{busy ? 'Terminar acción' : 'Empezar acción'}</button>
-    <button type="button" disabled={saving} onClick={() => { void save(); }}>Guardar cambio</button>
+    {editorOpen && <ChangeEditor saving={saving} onSavingChange={setSaving} />}
+    <button type="button" onClick={() => setEditorOpen(false)}>Cambiar de casa</button>
   </main>;
 }
 

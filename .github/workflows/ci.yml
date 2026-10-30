@@ -54,6 +54,8 @@ jobs:
           bun-version: canary
       - run: npm ci
       - run: npm run typecheck
+      # The same TypeScript check `next build` runs: Bun's checker can let through errors it rejects.
+      - run: npm run typecheck:build
 
   unit:
     name: Tests

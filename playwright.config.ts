@@ -10,7 +10,7 @@ const liveAuth = liveAuthEmail && process.env.E2E_NEON_AUTH_PASSWORD && liveAuth
 export default defineConfig({
   timeout: 60_000,
   testDir: './tests/e2e', fullyParallel: false, workers: 1,
-  use: { baseURL: 'http://localhost:3100', viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce', screenshot: 'only-on-failure' },
+  use: { baseURL: 'http://localhost:3100', viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce', screenshot: 'only-on-failure', trace: process.env.CI ? 'retain-on-failure' : 'off' },
   webServer: {
     command: 'npm run dev -- --port 3100', url: 'http://localhost:3100', reuseExistingServer: false, timeout: 120_000,
     env: {
