@@ -4,6 +4,11 @@ export const NEARBY_RINGING = {
   radiusMeters: 150,
   /** A reading less precise than this cannot tell whether someone is at the door. */
   maxAccuracyMeters: 300,
+  /**
+   * The door's spot is saved once and its error is never stored, so every visitor is compared against
+   * it as if it were exact: a vague door reading would turn away visitors standing at the real door.
+   */
+  doorMaxAccuracyMeters: 50,
   /** How long the browser may look for a precise reading before giving up. */
   timeoutMs: 15_000,
   /** A reading this recent is still where the person is now. */

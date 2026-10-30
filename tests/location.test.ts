@@ -4,6 +4,7 @@ import { initialize } from '../src/server/database';
 import { getHome, publicHome, registerVisit, snapshot } from '../src/server/doorbell';
 import { clearHomeLocation, setHomeLocation, setNearbyOnly } from '../src/server/location';
 import { HOMES } from '../src/constants/homes';
+import { NEARBY_RINGING } from '../src/constants/location';
 import { testDatabase } from './support/test-database';
 
 const postgres = new PGlite();
@@ -32,6 +33,14 @@ describe('ubicación de la puerta', () => {
     const visitorView = await publicHome(database, (await getHome(database, HOME)).token);
     expect(visitorView.nearbyOnly).toBe(false);
     expect(visitorView).not.toHaveProperty('latitude');
+  });
+
+  test('la puerta exige una lectura más precisa que la de una visita, porque su error no se guarda', async () => {
+    const vagueDoor = { latitude: DOOR.latitude + 0.002, longitude: DOOR.longitude, accuracy: 250 };
+    await expect(setHomeLocation(database, HOME, vagueDoor)).rejects.toMatchObject({ code: 'LOCATION_IMPRECISE' });
+    expect((await snapshot(database, HOME)).home).toMatchObject({ latitude: null, longitude: null });
+    await setHomeLocation(database, HOME, { ...DOOR, accuracy: NEARBY_RINGING.doorMaxAccuracyMeters });
+    expect((await snapshot(database, HOME)).home).toMatchObject(DOOR);
   });
 
   test('pedir que toquen desde la puerta necesita la ubicación, y borrarla lo desactiva', async () => {

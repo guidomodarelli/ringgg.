@@ -72,7 +72,7 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 
 ## Tocar solo desde la puerta
 
-- Es opcional por casa y viene apagado. Un residente guarda la ubicación de la puerta parado ahí (se rechaza una lectura con más de 300 m de error) y recién entonces puede activar el requisito; borrar la ubicación lo apaga, así una casa nunca queda sin poder recibir timbrazos.
+- Es opcional por casa y viene apagado. Un residente guarda la ubicación de la puerta parado ahí (se rechaza una lectura con más de 50 m de error: solo se guardan las coordenadas, así que el error de la puerta se sumaría a cada comparación) y recién entonces puede activar el requisito; borrar la ubicación lo apaga, así una casa nunca queda sin poder recibir timbrazos.
 - El visitante manda una lectura nueva en cada timbrazo. El servidor la compara (radio de 150 m más el error que informa el propio celular) y la descarta: no se guarda dónde estaba la visita. La página pública solo dice si la casa pide ubicación, nunca dónde está la puerta.
 - Sin permiso, o con la ubicación bloqueada, el aviso que la pide no se puede cerrar y el formulario para tocar no existe; si la visita la habilita en el navegador, la página lo nota sola. El servidor exige la lectura igual, así que saltear la interfaz no alcanza.
 - La ubicación la informa el celular de la visita: frena los timbrazos casuales a distancia (alguien con una foto del QR), no a quien la falsea. Un reintento del mismo timbrazo ya registrado no vuelve a pedirla.

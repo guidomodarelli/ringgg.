@@ -31,9 +31,12 @@ export function requireNearby(home: Home, position: Position | null | undefined)
   if (check === 'far') throw new AppError(HTTP.conflict, 'TOO_FAR', `Parece que no estás en la puerta de «${home.name}». Acercate para tocar el timbre.`);
 }
 
-/** Saves where the door is from a resident's reading there; a vague reading would misplace the door. */
+/**
+ * Saves where the door is from a resident's reading there. Only its coordinates are kept, so the reading
+ * must be precise: its error would otherwise be added to every visitor's comparison.
+ */
 export async function setHomeLocation(database: Database, homeId: number, position: Position) {
-  if (position.accuracy > NEARBY_RINGING.maxAccuracyMeters) throw new AppError(HTTP.badRequest, 'LOCATION_IMPRECISE', `La ubicación de tu celular no es precisa (±${Math.round(position.accuracy)} m). Activá la ubicación precisa y probá de nuevo parado en la puerta.`);
+  if (position.accuracy > NEARBY_RINGING.doorMaxAccuracyMeters) throw new AppError(HTTP.badRequest, 'LOCATION_IMPRECISE', `La ubicación de tu celular no es lo bastante precisa (±${Math.round(position.accuracy)} m; hace falta ±${NEARBY_RINGING.doorMaxAccuracyMeters} m o menos). Probá al aire libre, frente a la puerta, o activá la ubicación precisa.`);
   await database.query('UPDATE homes SET latitude = $2, longitude = $3 WHERE id = $1', [homeId, position.latitude, position.longitude]);
 }
 
