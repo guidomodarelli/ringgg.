@@ -199,7 +199,7 @@ describe('horario de descanso', () => {
     const format = (value: number) => `${String(Math.floor(((value + 1440) % 1440) / 60)).padStart(2, '0')}:${String(((value + 1440) % 1440) % 60).padStart(2, '0')}`;
     await updateQuietHours(database, HOME, format(current - 5), format(current + 60));
     const home = await getHome(database, HOME);
-    assert.deepEqual(await publicHome(database, home.token), { name: home.name, paused: false, pausedUntil: null, quiet: true, quietUntil: format(current + 60) });
+    assert.deepEqual(await publicHome(database, home.token), { name: home.name, paused: false, pausedUntil: null, quiet: true, quietUntil: format(current + 60), nearbyOnly: false });
     await assert.rejects(registerVisit(database, home.token, { id: crypto.randomUUID(), message: '', client: 'visitor-a' }), code('QUIET_HOURS'));
     await updateQuietHours(database, HOME, null, null);
     assert.equal((await registerVisit(database, home.token, { id: crypto.randomUUID(), message: '', client: 'visitor-a' })).created, true);
@@ -342,7 +342,7 @@ describe('pausa del timbre', () => {
   test('pausar sin fecha espera a que alguien lo reactive', async () => {
     const home = await getHome(database, HOME);
     await setPause(database, HOME, 'indefinite');
-    assert.deepEqual(await publicHome(database, home.token), { name: home.name, paused: true, pausedUntil: null, quiet: false, quietUntil: null });
+    assert.deepEqual(await publicHome(database, home.token), { name: home.name, paused: true, pausedUntil: null, quiet: false, quietUntil: null, nearbyOnly: false });
     await assert.rejects(registerVisit(database, home.token, { id: crypto.randomUUID(), message: '', client: 'visitor-a' }), code('PAUSED'));
     await setPause(database, HOME, 'resume');
     assert.equal((await publicHome(database, home.token)).paused, false);

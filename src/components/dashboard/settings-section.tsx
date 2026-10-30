@@ -6,6 +6,7 @@ import { api } from '@/lib/api';
 import { pauseEnd } from '@/lib/pause';
 import { DoorbellPauseControl } from '../doorbell-pause-control';
 import { DeleteHomeSetting } from './delete-home-setting';
+import { LocationSetting } from './location-setting';
 import type { RunAction } from './types';
 
 const DEFAULT_QUIET = { start: '22:00', end: '08:00' };
@@ -27,6 +28,7 @@ export function SettingsSection({ home, homes, residents, pending, run }: { home
       onResume={() => run('pause-resume', () => api<DashboardSnapshot>('pause', { home: home.id, mode: 'resume' }), 'Timbre activado.', 'snapshot')} />
     {/* A new confirmed range (saved here or by another resident) starts the form again from it. */}
     <QuietHoursForm key={`${home.quiet_start ?? ''}-${home.quiet_end ?? ''}`} home={home} pending={pending} run={run} />
+    <LocationSetting home={home} pending={pending} run={run} />
     <DeleteHomeSetting homeId={home.id} homeName={home.name} residents={residents} homes={homes} />
   </section>;
 }

@@ -6,6 +6,7 @@ import { api } from '@/lib/api';
 import { deviceHealth } from '@/lib/device-health';
 import { deviceNameProblem } from '@/lib/device-name';
 import { ConnectDeviceForm } from '../connect-device-form';
+import { DoNotDisturbHelp } from './do-not-disturb-help';
 import type { RunAction } from './types';
 
 interface NotificationState { active: boolean; permission: string; skipped: boolean }
@@ -144,5 +145,6 @@ export function DevicesSection({ homeId, devices, thisDeviceId, notifications, r
         </div>}
       </div>;
     })}
+    <DoNotDisturbHelp />
   </section>;
 }

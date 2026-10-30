@@ -70,6 +70,14 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 - La pausa puede durar una hora, hasta las 8 de la mañana siguiente en la hora de la casa (si es antes de las 8, ese mismo día) o hasta que alguien la reactive. `paused_until` vence sola: no hace falta ningún job. El cálculo de «mañana a las 8» se hace en PostgreSQL con `AT TIME ZONE`.
 - La promesa de 30 días se cumple aunque nadie toque el timbre: el snapshot filtra por fecha y un Vercel Cron diario borra visitas viejas (con sus mensajes y recibos) y límites vencidos. La ruta exige `Authorization: Bearer <CRON_SECRET>`, con comparación en tiempo constante, y falla cerrada sin secreto.
 
+## Tocar solo desde la puerta
+
+- Es opcional por casa y viene apagado. Un residente guarda la ubicación de la puerta parado ahí (se rechaza una lectura con más de 50 m de error: solo se guardan las coordenadas, así que el error de la puerta se sumaría a cada comparación) y recién entonces puede activar el requisito; borrar la ubicación lo apaga, así una casa nunca queda sin poder recibir timbrazos.
+- El visitante manda una lectura nueva en cada timbrazo. El servidor la compara (radio de 150 m más el error que informa el propio celular) y la descarta: no se guarda dónde estaba la visita. La página pública solo dice si la casa pide ubicación, nunca dónde está la puerta.
+- Sin permiso, o con la ubicación bloqueada, el aviso que la pide no se puede cerrar y el formulario para tocar no existe; si la visita la habilita en el navegador, la página lo nota sola. El servidor exige la lectura igual, así que saltear la interfaz no alcanza.
+- La ubicación la informa el celular de la visita: frena los timbrazos casuales a distancia (alguien con una foto del QR), no a quien la falsea. Un reintento del mismo timbrazo ya registrado no vuelve a pedirla.
+- No molestar: una PWA no puede saltearlo. Dispositivos muestra los pasos para agregar a Ringgg como excepción en iPhone y Android.
+
 ## Esquema versionado
 
 `initialize` lee `MAX(version)` de `schema_migrations` y, solo si faltan versiones, las aplica en una transacción con `pg_advisory_xact_lock`. La versión 3 agrega `paused_until`, el dueño y la salud de los dispositivos y `visit_receipts`; la 4, las tablas de varias casas. Un paso de migración puede ser SQL o una función (por ejemplo, para numerar nombres repetidos). Las migraciones nuevas se agregan al final de `MIGRATIONS`, nunca se editan las publicadas. Se aplican al primer acceso, no en el build: por eso desarrollo y previews tienen ramas Neon propias y nunca aplican una migración de un PR sin mergear sobre la casa real.

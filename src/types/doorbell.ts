@@ -1,9 +1,11 @@
+import type { Position } from '@/lib/geo';
 import type { VisitReply } from '@/constants/doorbell';
 import type { HomeSummary, ResidentEntry } from './residents';
 
 export type DeliveryStatus = 'registered' | 'sent' | 'partial' | 'unavailable';
 /** `enabled = false` pauses the bell until someone resumes it; `paused_until` pauses it until that moment. */
-export interface Home { id: number; name: string; token: string; enabled: boolean; paused_until: string | null; quiet_start: string | null; quiet_end: string | null }
+/** `latitude`/`longitude` locate the door (optional); `nearby_only` asks visitors to be near it. Residents only. */
+export interface Home { id: number; name: string; token: string; enabled: boolean; paused_until: string | null; quiet_start: string | null; quiet_end: string | null; latitude: number | null; longitude: number | null; nearby_only: boolean }
 /** Home as shown to residents: `paused` and `quiet` are derived on the server when it is read. */
 export interface HomeState extends Home { paused: boolean; quiet: boolean }
 /** `receipts` counts the devices whose service worker confirmed it received the ring. */
@@ -21,8 +23,8 @@ export interface DashboardSnapshot { home: HomeState; visits: Visit[]; devices: 
 export interface Viewer { name: string | null; suggestedName: string; email: string }
 export interface DashboardData extends DashboardSnapshot { pushReady: boolean; origin: string; viewer: Viewer; homes: HomeSummary[]; residents: ResidentEntry[]; focusVisitId?: string }
 /** A visitor's ring: `id` makes retries idempotent and `client` is the salted key its rate limits count. */
-export interface RingRequest { id: string; message: string; client: string }
+export interface RingRequest { id: string; message: string; client: string; /** Where the visitor is; only checked, never stored. */ position?: Position | null }
 /** Visitor-facing visit: never includes the message, the note, or who answered. */
 export interface PublicVisit { id: string; created_at: string; answered_at: string | null; delivery: DeliveryStatus; reply: VisitReply | null; noted: boolean }
-/** `pausedUntil` is only set for a pause that ends on its own. */
-export interface PublicHome { name: string; paused: boolean; pausedUntil: string | null; quiet: boolean; quietUntil: string | null }
+/** `pausedUntil` is only set for a pause that ends on its own; `nearbyOnly` asks for the visitor's location, never revealing the door's. */
+export interface PublicHome { name: string; paused: boolean; pausedUntil: string | null; quiet: boolean; quietUntil: string | null; nearbyOnly: boolean }
