@@ -17,7 +17,47 @@
       "symbol": "*"
     },
     {
-      "path": "src/app/api/[...path]/route.ts",
+      "path": "src/app/api/dashboard/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/answer/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/settings/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/quiet-hours/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/rotate/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/subscribe/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/remove-device/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/test-push/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/test-my-devices/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/device-status/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/push-key/route.ts",
       "symbol": "*"
     }
   ],

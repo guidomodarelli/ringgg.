@@ -1,158 +1,306 @@
 {
-  "latest": {
+  "latest": null,
+  "schemaVersion": 1,
+  "skill": "optimistic-action-mutations",
+  "unitId": "ringgg.resident",
+  "verified": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "main",
-      "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+      "branch": "feature/doorbell-hardening-and-replies",
+      "commit": "8eb12c01cb0b41dcc166333e2f3d1cf38a5dec06",
       "files": {
-        "src/components/dashboard.tsx": "0d5368a7e6a29469",
-        "src/app/api/[...path]/route.ts": "b6422d93389c69f2",
-        "src/constants/doorbell.ts": "a8a7ab58bd0eb226",
-        "src/types/doorbell.ts": "8fea1dabc55bb52f",
-        "src/lib/api.ts": "191049e1805571e4",
-        "src/components/resident-management.tsx": "d7be5aa63a437395",
+        "src/components/dashboard.tsx": "47a08439d4cc5f16",
+        "src/app/api/dashboard/route.ts": "1fdf90d2ef243586",
+        "src/app/api/answer/route.ts": "a13af22d5c454f8c",
+        "src/app/api/settings/route.ts": "4a6c82766912ca52",
+        "src/app/api/quiet-hours/route.ts": "53df35bb6fc7aa70",
+        "src/app/api/rotate/route.ts": "bd47e39f6b21c480",
+        "src/app/api/subscribe/route.ts": "6769a4c07fb4a7b8",
+        "src/app/api/remove-device/route.ts": "d675928276def973",
+        "src/app/api/test-push/route.ts": "68b89fd60f4f0588",
+        "src/app/api/test-my-devices/route.ts": "83013495ebf820c7",
+        "src/app/api/device-status/route.ts": "fc8bcc1c597172ad",
+        "src/app/api/push-key/route.ts": "3676dd1dbb7840c6",
+        "src/types/doorbell.ts": "cdad8165eb412a1a",
+        "src/lib/api.ts": "634351b97fc7c2ee",
         "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
+        "src/constants/dashboard-views.ts": "e85a262a83b16405",
+        "src/constants/doorbell.ts": "a4cee6851393bbdf",
+        "src/components/dashboard/devices-section.tsx": "d7e8b9d52b814792",
+        "src/components/dashboard/door-overview.tsx": "ba1f4d74276d5033",
+        "src/components/notification-onboarding.tsx": "56b88a41b8ccb949",
+        "src/components/dashboard/qr-panel.tsx": "ce1f5ca1bfd1409d",
+        "src/components/resident-management.tsx": "3720525f5a37ac02",
+        "src/components/dashboard/settings-section.tsx": "74046a80bde2f5ff",
+        "src/components/dashboard/visit-history.tsx": "0251f522be1679a6",
+        "src/lib/dashboard-view.ts": "91dc359261378970",
+        "src/lib/notification-setup.ts": "52fa623c987d9a5e",
+        "src/lib/visit-format.ts": "a5a03d0af3083c0f",
+        "src/server/http.ts": "b577755d1aa57854",
+        "src/server/database.ts": "c1741312a733a0e7",
+        "src/server/auth.ts": "30ad2dd2489fe11b",
+        "src/server/doorbell.ts": "fee72d8208357a37",
+        "src/server/push.ts": "ac141dea02c1b505",
         "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/server/residents.ts": "4a8b65ee22a9989d",
-        "src/server/doorbell.ts": "889a31bbbe707dbe",
         "src/server/config.ts": "275ccaef3e809db0",
-        "src/server/database.ts": "7adb74e7cd42285e",
-        "src/server/auth.ts": "492761ac2a9f7a89",
-        "src/server/push.ts": "0fbb0c5110af6adc",
+        "src/components/dashboard/types.ts": "89e35bf4a45242b9",
         "src/types/residents.ts": "5e92dc2596b6084e",
         "src/constants/residents.ts": "9c43f4fc81ec3dd1",
+        "src/components/doorbell-pause-control.tsx": "00a2b5ff129afc52",
         "src/server/postgres.ts": "b8ad79581c146c4c",
-        "src/server/neon-auth.ts": "2d380118c966c8d0",
+        "src/server/neon-auth.ts": "098837118d7561d8",
         "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/server/self-auth.ts": "c8a30c1f421bed6a",
+        "src/server/auth-mode.ts": "55ab5ff52eeb427d",
+        "src/server/residents.ts": "247b6ea6ee6acabe",
+        "src/lib/quiet-hours.ts": "72a2696fbc16f820",
         "src/config/database.ts": "cfab3a8bb039650a",
-        "src/constants/auth.ts": "065319959dd17951",
+        "src/constants/auth.ts": "1ffcfd55b5a28229",
         "src/server/resident-access.ts": "24da31381b0b4774",
         "src/constants/database.ts": "4f990a98f504bf0b"
       },
-      "fingerprint": "sha256:34f9a3eba79a8d71867485e54dc171083d2e763f2ed366dd4e4ead884d16e5d5",
+      "fingerprint": "sha256:af2961bdb67f31408d38bdec189640824614e70976a2af01cfcd9502a1f49bb0",
       "inputs": {
         "src/components/dashboard.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/dashboard.tsx#visitTime": "f354bcc96505ee27",
-        "src/components/dashboard.tsx#Dashboard/action": "5fc8091763c57610",
-        "src/components/dashboard.tsx#Dashboard/subscribe": "1fbbe28ce4d5503c",
-        "src/components/dashboard.tsx#Dashboard~shell": "37259c684fffbc89",
+        "src/components/dashboard.tsx#SECTION_TITLES.overview": "6e6e06d5d0397ae2",
+        "src/components/dashboard.tsx#SECTION_TITLES.history": "d78106dffad7543d",
+        "src/components/dashboard.tsx#SECTION_TITLES.qr": "86152a8e68e96ff5",
+        "src/components/dashboard.tsx#SECTION_TITLES.devices": "d8c278720bb7d4df",
+        "src/components/dashboard.tsx#SECTION_TITLES.residents": "648106aea3e0bd2a",
+        "src/components/dashboard.tsx#SECTION_TITLES.settings": "04fae9ee425ad524",
+        "src/components/dashboard.tsx#SECTION_TITLES~frame": "f9fdcb21d3b79012",
+        "src/components/dashboard.tsx#statusLabel": "e8de955a8aed50b9",
+        "src/components/dashboard.tsx#Dashboard/action": "1c95538fdfd49191",
+        "src/components/dashboard.tsx#Dashboard/signOut": "2f0b46fda1ce58b4",
+        "src/components/dashboard.tsx#Dashboard/subscribe": "d6dd6e1305fdb490",
+        "src/components/dashboard.tsx#Dashboard~shell": "e130d9ef7f91724c",
         "pkg:lucide-react": "ac00db3dc7bc5934",
-        "pkg:qrcode": "eae5e9f465245e84",
         "pkg:react": "f4529719455f2af2",
         "pkg:next": "530097ba2f134bc2",
-        "src/app/api/[...path]/route.ts#<module>": "2da3ec2294295eb1",
-        "src/app/api/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
-        "src/app/api/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
-        "src/app/api/[...path]/route.ts#body": "0309d13722e6a20a",
-        "src/app/api/[...path]/route.ts#handle": "64f3d7366e74d383",
+        "src/app/api/dashboard/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/dashboard/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/dashboard/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/dashboard/route.ts#GET": "ac51cc4072970dc5",
+        "src/app/api/answer/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/answer/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/answer/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/answer/route.ts#answerSchema": "901fb3675096e3c0",
         "pkg:zod": "31d0566281954af7",
-        "src/app/api/[...path]/route.ts#endpoint": "a207a12cbe7afa96",
-        "src/app/api/[...path]/route.ts#GET": "6997859bd735ae90",
-        "src/app/api/[...path]/route.ts#POST": "21c540a1c282850c",
-        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
-        "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
+        "src/app/api/answer/route.ts#POST": "79f4edba78db90d9",
+        "src/app/api/settings/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/settings/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/settings/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/settings/route.ts#settingsSchema": "974b26c71bbecd35",
+        "src/app/api/settings/route.ts#POST": "35dacc10a9460661",
+        "src/app/api/quiet-hours/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/quiet-hours/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/quiet-hours/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/quiet-hours/route.ts#time": "e75f636bb7340fa8",
+        "src/app/api/quiet-hours/route.ts#quietHoursSchema": "cde5b9d759b49e21",
+        "src/app/api/quiet-hours/route.ts#POST": "f81b347600d64c7f",
+        "src/app/api/rotate/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/rotate/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/rotate/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/rotate/route.ts#POST": "fa0b470fe986031a",
+        "src/app/api/subscribe/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/subscribe/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/subscribe/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/subscribe/route.ts#subscribeSchema": "1833928f8280b5c0",
+        "src/app/api/subscribe/route.ts#POST": "3cce4f7d0e3050e3",
+        "src/app/api/remove-device/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/remove-device/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/remove-device/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/remove-device/route.ts#POST": "1da841a4a54b9173",
+        "src/app/api/test-push/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/test-push/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/test-push/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/test-push/route.ts#POST": "ff7d5c8bebc82632",
+        "src/app/api/test-my-devices/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/test-my-devices/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/test-my-devices/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/test-my-devices/route.ts#POST": "502e4487595976b8",
+        "src/app/api/device-status/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/device-status/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/device-status/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/device-status/route.ts#POST": "0523f26bc26aefd4",
+        "src/app/api/push-key/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/push-key/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/push-key/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/push-key/route.ts#GET": "250273a1ec6a0c4e",
         "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/types/doorbell.ts#DashboardData": "ad7744edeb3cdadc",
+        "src/types/doorbell.ts#DashboardSnapshot": "e6b3bd2b8c14cf6f",
         "src/types/doorbell.ts#Device": "f56870e415b71da9",
-        "src/types/doorbell.ts#Home": "86aac47c07bf864c",
-        "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
+        "src/types/doorbell.ts#HomeState": "7df317fdfa704e9d",
+        "src/types/doorbell.ts#Home": "e42b350d52dd1b47",
+        "src/types/doorbell.ts#Visit": "4aadccc354c87c6c",
         "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
         "src/lib/api.ts#<module>": "2da3ec2294295eb1",
-        "src/lib/api.ts#api": "e6c7de9ce730a924",
-        "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
-        "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
-        "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
-        "src/components/resident-management.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/resident-management.tsx#ResidentManagement/update": "41d3467b990a2861",
-        "src/components/resident-management.tsx#ResidentManagement~shell": "3811d3c006b8ff42",
+        "src/lib/api.ts#api": "ab9d3bbb8c2b2ae3",
         "src/lib/auth-client.ts#<module>": "3809ea0e66c9f036",
         "pkg:@neondatabase/auth": "cb0784c3ee32091d",
         "src/lib/auth-client.ts#authClient": "c58939e9975b814b",
-        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
-        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
-        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
-        "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
-        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
-        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
-        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
-        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/server/residents.ts#addResident": "559bc3258a301050",
-        "src/server/residents.ts#requireResidentAdmin": "b4db13f16d12251c",
-        "src/server/residents.ts#residentEmailSchema": "91742be39142d8b3",
-        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
-        "src/server/config.ts#<module>": "2da3ec2294295eb1",
-        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
-        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
-        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
-        "pkg:web-push": "6ab2287300696f64",
+        "src/constants/dashboard-views.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/dashboard-views.ts#DASHBOARD_VIEW_EVENT": "d97205c2f2523dde",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
+        "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
+        "src/types/doorbell.ts#DashboardData": "fe54409002a02399",
+        "src/constants/dashboard-views.ts#DashboardView": "321a72a13e94ceb8",
+        "src/components/dashboard/devices-section.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/dashboard/devices-section.tsx#DevicesSection": "93741a1e9f9fd729",
+        "src/components/dashboard/door-overview.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/dashboard/door-overview.tsx#DoorOverview": "98ac93dbc0b8440b",
+        "src/components/notification-onboarding.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/notification-onboarding.tsx#NotificationOnboarding": "277fdff6151026ca",
+        "src/components/dashboard/qr-panel.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/dashboard/qr-panel.tsx#QrPanel/copy": "e124086046f8dc0e",
+        "src/components/dashboard/qr-panel.tsx#QrPanel~shell": "8b2c64abdc0beefc",
+        "pkg:qrcode": "eae5e9f465245e84",
+        "src/components/resident-management.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/resident-management.tsx#ResidentManagement/update": "2f927ee02702a52c",
+        "src/components/resident-management.tsx#ResidentManagement~shell": "baac2f96aa2e6bf4",
+        "src/components/dashboard/settings-section.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/dashboard/settings-section.tsx#SettingsSection": "ec2c38083f6bbb94",
+        "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET~frame": "0e31400464482d35",
+        "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET.end": "7de9fabb3a3b548b",
+        "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET.start": "9631e0b32fc7d0d9",
+        "src/components/dashboard/visit-history.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/dashboard/visit-history.tsx#VisitHistory/waiting": "1206a1cc2e116db5",
+        "src/components/dashboard/visit-history.tsx#VisitHistory~shell": "fd11e726a8906832",
+        "src/lib/dashboard-view.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/dashboard-view.ts#getDashboardView": "dcec28943c60f0e6",
+        "src/lib/notification-setup.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/notification-setup.ts#needsNotificationSetup": "59b5b4179a9023d5",
+        "src/lib/visit-format.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/visit-format.ts#visitFromUrl": "340bc51ebe3de29a",
+        "src/server/http.ts#<module>": "2da3ec2294295eb1",
+        "src/server/http.ts#apiRoute": "b5f0fffa9c3287e8",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
         "src/server/database.ts#getDatabase": "d6152601eb1aa01b",
         "src/server/database.ts#Database": "2685f7243aa5fb29",
         "src/server/database.ts#connect": "8e29d1391a673652",
         "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "51138d2c55a04b3d",
-        "src/server/residents.ts#listResidents": "0a451b92d4308f83",
-        "src/server/residents.ts#emailList": "68719ecac844ab41",
-        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
-        "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
-        "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
-        "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
-        "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
-        "src/server/residents.ts#removeResident": "64a86a5b537694d6",
+        "src/server/database.ts#initialize": "eaaff186f22bd092",
+        "src/server/database.ts#MIGRATIONS": "6c60ed1a75e3154c",
+        "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
+        "src/server/database.ts#schemaVersion": "ef3ad5ea4ff760b8",
+        "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
         "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#requireAuth": "6bcfe3e8e46cf6b5",
-        "src/server/auth.ts#getIdentity": "8e5ec7a8d67237a1",
-        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
+        "src/server/auth.ts#requireAuth": "63b91bc63604f47b",
+        "src/server/auth.ts#getIdentity": "5b7a4e4d0e0aac26",
+        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/server/doorbell.ts#snapshot": "312d3600798da8d1",
+        "src/server/doorbell.ts#VISIT_COLUMNS": "e99b9838683917e4",
+        "src/server/doorbell.ts#getHome": "80c997063a7bc336",
+        "src/server/doorbell.ts#homeState": "84e3cb53d5e3524a",
+        "src/constants/doorbell.ts#VISIT_REPLY_KEYS": "cf15e6303ceb40a8",
+        "src/constants/doorbell.ts#VISIT_REPLIES.coming": "245f3961ed50b8a2",
+        "src/constants/doorbell.ts#VISIT_REPLIES.soon": "b220984081a9560e",
+        "src/constants/doorbell.ts#VISIT_REPLIES.leave": "c372cf806f24124c",
+        "src/constants/doorbell.ts#VISIT_REPLIES.away": "7277976b5216c611",
+        "src/constants/doorbell.ts#VISIT_REPLIES~frame": "a9d11de9883db8a6",
+        "src/constants/doorbell.ts#VisitReply": "317afbbaeef27870",
+        "src/server/doorbell.ts#answerVisit": "4c6bbc3158e5432f",
+        "src/server/http.ts#readJson": "26d0d571bd351155",
+        "src/server/http.ts#BODY_LIMIT": "5e5df78db11b83f6",
+        "src/server/http.ts#residentDisplayName": "69c5d604122a4b7f",
+        "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
+        "src/server/doorbell.ts#updateHomeSettings": "cb52c30418aa53db",
+        "src/constants/doorbell.ts#QUIET_HOURS_PATTERN": "bbcf8d9d3ee4d8b3",
+        "src/server/doorbell.ts#updateQuietHours": "0b27736923cdd8d2",
+        "src/server/doorbell.ts#rotateToken": "f17b456b3b200df8",
         "src/server/push.ts#<module>": "2da3ec2294295eb1",
-        "src/server/push.ts#saveDevice": "3f8ac7f6f40c1ab9",
-        "src/server/push.ts#sendPush": "19c028b7cceb8181",
-        "src/server/doorbell.ts#setDelivery": "282622686660677f",
-        "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
         "src/server/push.ts#subscriptionSchema": "562c1ed0224d75dd",
-        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/server/push.ts#saveDevice": "3f8ac7f6f40c1ab9",
+        "src/server/push.ts#removeDevice": "4b85d0bfcd7b0d11",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/server/push.ts#sendPush": "f2036930db370694",
+        "src/server/push.ts#pushPayload": "f220c5d03acfe233",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/push.ts#hasRegisteredDevice": "2277d04705b5a545",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "c33d2898e2c3e1cb",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "src/components/dashboard/types.ts#<module>": "2da3ec2294295eb1",
+        "src/components/dashboard/types.ts#RunAction": "ab0937e7fe175e1a",
         "src/types/residents.ts#<module>": "2da3ec2294295eb1",
         "src/types/residents.ts#ResidentEntry": "9031701226397462",
         "src/constants/residents.ts#<module>": "2da3ec2294295eb1",
         "src/constants/residents.ts#RESIDENTS~frame": "402dfa054fe31525",
         "src/constants/residents.ts#RESIDENTS.emailMaxLength": "538b1228808d4155",
-        "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
-        "src/constants/residents.ts#RESIDENTS.maximumInvitations": "cc843c9c6b46cb99",
-        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/components/doorbell-pause-control.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/doorbell-pause-control.tsx#DoorbellPauseControl": "fb634bbcccfd866a",
+        "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
+        "src/lib/visit-format.ts#DELIVERY_LABELS.registered": "72a42921cd5cc4d3",
+        "src/lib/visit-format.ts#DELIVERY_LABELS.sent": "ad7d298677b62d55",
+        "src/lib/visit-format.ts#DELIVERY_LABELS.partial": "626a62c589c212aa",
+        "src/lib/visit-format.ts#DELIVERY_LABELS.unavailable": "577a55f3e173f763",
+        "src/lib/visit-format.ts#DELIVERY_LABELS~frame": "46465036860d68db",
+        "src/lib/visit-format.ts#answerSummary": "fb239513107df485",
+        "src/lib/visit-format.ts#responseTime": "540818a71cee44c6",
+        "src/lib/visit-format.ts#visitTime": "f354bcc96505ee27",
+        "src/constants/dashboard-views.ts#DASHBOARD_VIEWS": "d423df9642036c8e",
+        "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
+        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
+        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
         "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
         "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
         "pkg:pg": "bba8fb4b856406c4",
-        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
-        "src/types/doorbell.ts#PublicVisit": "3ae7d2a9df3e5f33",
-        "src/constants/doorbell.ts#DOORBELL.cooldownSeconds": "c6c07e0a039d9e06",
-        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
-        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
         "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
         "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
         "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/neon-auth.ts#authConfigured": "d3ec6209a40b4e8f",
+        "src/server/neon-auth.ts#authConfigured": "59a85ab010a6bb61",
         "src/types/auth.ts#<module>": "2da3ec2294295eb1",
         "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
-        "src/server/neon-auth.ts#getNeonAuth": "838f4cd429a8378d",
+        "src/server/neon-auth.ts#getNeonAuth": "21acc3aa6ad225b0",
         "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
-        "src/server/residents.ts#resolveResidentAccess": "4941046fcf62b877",
+        "src/server/self-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/self-auth.ts#getSelfAuth": "db6f7e6536e69dd7",
+        "src/server/self-auth.ts#auth": "ea23585755bb513f",
+        "src/server/self-auth.ts#createSelfAuth": "f246e25ceac53e41",
+        "pkg:kysely": "62d68445b49f5341",
+        "pkg:better-auth": "a969211ec564af4d",
+        "src/server/self-auth.ts#selfAuthConfigured": "e7c43282789ffb15",
+        "src/server/auth-mode.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth-mode.ts#isSelfManagedAuth": "0ac5810e58f9e520",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#resolveResidentAccess": "6ddd31b45692d7d6",
+        "src/server/residents.ts#emailList": "68719ecac844ab41",
+        "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
+        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
+        "src/lib/quiet-hours.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/quiet-hours.ts#isQuietTime": "ec381b44de610989",
+        "src/lib/quiet-hours.ts#localMinutes/value": "a30a72c262ac12b8",
+        "src/lib/quiet-hours.ts#localMinutes~shell": "710085825c78b393",
+        "src/lib/quiet-hours.ts#minutes": "fa1f56cdf2f47550",
+        "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength": "dd3d5809acc874bc",
+        "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
+        "src/constants/doorbell.ts#PUSH_HOSTS": "69ab4faa3ad6ed3e",
+        "src/constants/doorbell.ts#PUSH_KEY_PATTERN": "83d48236c0052566",
         "src/constants/doorbell.ts#DOORBELL.maxDevices": "414e4d84625b6ff3",
         "src/constants/doorbell.ts#DOORBELL.pushTimeoutMs": "97b72476ee4ad5ba",
         "src/constants/doorbell.ts#DOORBELL.pushTtlSeconds": "41bc5fb14de6470e",
-        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
-        "src/constants/doorbell.ts#PUSH_HOSTS": "69ab4faa3ad6ed3e",
-        "src/constants/doorbell.ts#PUSH_KEY_PATTERN": "83d48236c0052566",
+        "src/constants/doorbell.ts#NOTIFICATION_REPLIES": "fbe07c54e1f55966",
+        "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
         "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
         "src/config/database.ts#<module>": "2da3ec2294295eb1",
         "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
         "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
         "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
         "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
         "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
+        "src/constants/auth.ts#AUTH.reservedSchemas": "96aeee1bb4d6e114",
+        "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
         "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
         "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
+        "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
         "src/constants/database.ts#<module>": "2da3ec2294295eb1",
         "src/constants/database.ts#DATABASE~frame": "80e3de505091b6f6",
         "src/constants/database.ts#DATABASE.applicationName": "864bc1f3cbdc260a",
@@ -167,33 +315,67 @@
         "src/components/dashboard.tsx#Dashboard/action": {
           "awaits": 2
         },
+        "src/components/dashboard.tsx#Dashboard/signOut": {
+          "awaits": 1
+        },
         "src/components/dashboard.tsx#Dashboard/subscribe": {
-          "awaits": 8,
-          "fetch": 1,
+          "awaits": 7,
           "listeners": 1
         },
         "src/components/dashboard.tsx#Dashboard~shell": {
-          "effects": 2,
-          "awaits": 3,
+          "effects": 3,
+          "projectCalls": 1,
+          "listeners": 5,
+          "awaits": 4,
           "timers": 2
         },
-        "src/app/api/[...path]/route.ts#body": {
-          "awaits": 1
+        "src/app/api/dashboard/route.ts#GET": {
+          "awaits": 3,
+          "projectCalls": 1
         },
-        "src/app/api/[...path]/route.ts#handle": {
-          "awaits": 28,
-          "projectCalls": 9,
-          "database": 3
+        "src/app/api/answer/route.ts#POST": {
+          "awaits": 4,
+          "projectCalls": 1
         },
-        "src/app/api/[...path]/route.ts#endpoint": {
-          "awaits": 2
+        "src/app/api/settings/route.ts#POST": {
+          "awaits": 5,
+          "projectCalls": 2
+        },
+        "src/app/api/quiet-hours/route.ts#POST": {
+          "awaits": 5,
+          "projectCalls": 2
+        },
+        "src/app/api/rotate/route.ts#POST": {
+          "awaits": 4,
+          "projectCalls": 1
+        },
+        "src/app/api/subscribe/route.ts#POST": {
+          "awaits": 4,
+          "projectCalls": 2
+        },
+        "src/app/api/remove-device/route.ts#POST": {
+          "awaits": 4,
+          "projectCalls": 2
+        },
+        "src/app/api/test-push/route.ts#POST": {
+          "awaits": 4,
+          "projectCalls": 2
+        },
+        "src/app/api/test-my-devices/route.ts#POST": {
+          "awaits": 3,
+          "projectCalls": 2
+        },
+        "src/app/api/device-status/route.ts#POST": {
+          "awaits": 4,
+          "projectCalls": 1
+        },
+        "src/app/api/push-key/route.ts#GET": {
+          "awaits": 1,
+          "projectCalls": 1
         },
         "src/lib/api.ts#api": {
           "awaits": 3,
           "fetch": 1
-        },
-        "src/components/resident-management.tsx#ResidentManagement/update": {
-          "awaits": 1
         },
         "src/lib/auth-client.ts#<module>": {
           "projectCalls": 1
@@ -201,13 +383,26 @@
         "src/lib/auth-client.ts#authClient": {
           "projectCalls": 1
         },
-        "src/server/residents.ts#addResident": {
-          "awaits": 5,
-          "database": 5
+        "src/components/notification-onboarding.tsx#NotificationOnboarding": {
+          "effects": 1
         },
-        "src/server/doorbell.ts#answerVisit": {
-          "awaits": 1,
-          "database": 1
+        "src/components/dashboard/qr-panel.tsx#QrPanel/copy": {
+          "awaits": 1
+        },
+        "src/components/dashboard/qr-panel.tsx#QrPanel~shell": {
+          "effects": 1
+        },
+        "src/components/resident-management.tsx#ResidentManagement/update": {
+          "awaits": 1
+        },
+        "src/components/dashboard/settings-section.tsx#SettingsSection": {
+          "effects": 1
+        },
+        "src/components/dashboard/visit-history.tsx#VisitHistory~shell": {
+          "effects": 1
+        },
+        "src/server/http.ts#apiRoute": {
+          "awaits": 2
         },
         "src/server/database.ts#getDatabase": {
           "awaits": 2
@@ -218,46 +413,56 @@
           "database": 8
         },
         "src/server/database.ts#initialize": {
-          "awaits": 8,
-          "database": 8
-        },
-        "src/server/residents.ts#listResidents": {
-          "awaits": 1,
-          "database": 1
-        },
-        "src/server/doorbell.ts#publicHome": {
-          "awaits": 1
-        },
-        "src/server/doorbell.ts#getHome": {
-          "awaits": 1,
-          "database": 1
-        },
-        "src/server/doorbell.ts#readVisit": {
-          "awaits": 2,
-          "database": 1
-        },
-        "src/server/doorbell.ts#registerVisit": {
+          "awaits": 5,
           "database": 6,
-          "awaits": 5
+          "awaitInLoop": 3
         },
-        "src/server/residents.ts#removeResident": {
-          "awaits": 4,
-          "database": 4
+        "src/server/database.ts#schemaVersion": {
+          "awaits": 1,
+          "database": 1
         },
         "src/server/auth.ts#requireAuth": {
           "awaits": 2,
           "projectCalls": 1
         },
         "src/server/auth.ts#getIdentity": {
-          "awaits": 1,
-          "projectCalls": 1
+          "awaits": 3,
+          "projectCalls": 2
         },
-        "src/server/auth.ts#requireOrigin": {
-          "projectCalls": 1
+        "src/server/doorbell.ts#snapshot": {
+          "awaits": 1,
+          "database": 2
+        },
+        "src/server/doorbell.ts#getHome": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#answerVisit": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/http.ts#readJson": {
+          "awaits": 1
+        },
+        "src/server/doorbell.ts#updateHomeSettings": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#updateQuietHours": {
+          "awaits": 1,
+          "database": 1
+        },
+        "src/server/doorbell.ts#rotateToken": {
+          "awaits": 1,
+          "database": 1
         },
         "src/server/push.ts#saveDevice": {
           "database": 5,
           "awaits": 5
+        },
+        "src/server/push.ts#removeDevice": {
+          "awaits": 1,
+          "database": 1
         },
         "src/server/push.ts#sendPush": {
           "projectCalls": 2,
@@ -265,18 +470,23 @@
           "database": 2,
           "awaitInLoop": 1
         },
-        "src/server/doorbell.ts#setDelivery": {
+        "src/server/push.ts#hasRegisteredDevice": {
           "awaits": 1,
           "database": 1
         },
-        "src/server/doorbell.ts#snapshot": {
-          "awaits": 1,
-          "database": 2
+        "src/components/doorbell-pause-control.tsx#DoorbellPauseControl": {
+          "effects": 1
+        },
+        "src/server/auth.ts#requireOrigin": {
+          "projectCalls": 1
         },
         "src/server/postgres.ts#createPostgresPool": {
           "projectCalls": 1
         },
         "src/server/neon-auth.ts#getNeonAuth": {
+          "projectCalls": 1
+        },
+        "src/server/self-auth.ts#createSelfAuth": {
           "projectCalls": 1
         },
         "src/server/residents.ts#resolveResidentAccess": {
@@ -285,62 +495,73 @@
         }
       },
       "uncommittedFiles": [
-        "src/app/api/[...path]/route.ts",
+        "src/app/api/answer/route.ts",
+        "src/app/api/dashboard/route.ts",
+        "src/app/api/device-status/route.ts",
+        "src/app/api/push-key/route.ts",
+        "src/app/api/quiet-hours/route.ts",
+        "src/app/api/remove-device/route.ts",
+        "src/app/api/rotate/route.ts",
+        "src/app/api/settings/route.ts",
+        "src/app/api/subscribe/route.ts",
+        "src/app/api/test-my-devices/route.ts",
+        "src/app/api/test-push/route.ts",
         "src/components/dashboard.tsx",
-        "src/components/resident-management.tsx",
-        "src/constants/auth.ts",
+        "src/components/dashboard/devices-section.tsx",
+        "src/components/dashboard/door-overview.tsx",
+        "src/components/dashboard/qr-panel.tsx",
+        "src/components/dashboard/settings-section.tsx",
+        "src/components/dashboard/types.ts",
+        "src/components/dashboard/visit-history.tsx",
         "src/constants/doorbell.ts",
-        "src/constants/residents.ts",
-        "src/lib/auth-client.ts",
-        "src/server/auth.ts",
-        "src/server/config.ts",
+        "src/lib/quiet-hours.ts",
+        "src/lib/visit-format.ts",
         "src/server/database.ts",
-        "src/server/neon-auth.ts",
+        "src/server/doorbell.ts",
+        "src/server/http.ts",
         "src/server/push.ts",
-        "src/server/resident-access.ts",
-        "src/server/residents.ts",
-        "src/types/auth.ts",
-        "src/types/doorbell.ts",
-        "src/types/residents.ts"
+        "src/types/doorbell.ts"
       ]
     },
     "evidence": [
       {
-        "kind": "review",
-        "outcome": "pass",
-        "recordedAt": "2026-10-29T21:54:43.404Z",
-        "source": "attested",
-        "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
-      },
-      {
-        "command": "npm test -- tests/residents.test.ts",
-        "durationMs": 1886,
+        "command": "npx vitest run tests/doorbell.test.ts tests/visit-format.test.ts",
+        "durationMs": 5488,
         "exitCode": 0,
         "kind": "test",
         "outcome": "pass",
-        "outputSha256": "a056abf611cdfe4d129f47ef7dd4ff8a1b84d0f998556374fe74c6f78bcf98d3",
-        "recordedAt": "2026-10-29T21:54:45.456Z",
+        "outputSha256": "4dbd6a92f93b30d775c5464a50839b61cd9772851b2e723ef5dd6077de2926ac",
+        "recordedAt": "2026-10-30T01:15:42.005Z",
         "source": "witnessed",
         "summary": "exit code 0"
       },
       {
-        "kind": "browser",
+        "command": "npx playwright test tests/e2e/visitor-replies.spec.ts tests/e2e/doorbell-pause.spec.ts tests/e2e/dashboard-navigation.spec.ts --reporter=line",
+        "durationMs": 18087,
+        "exitCode": 0,
+        "kind": "test",
         "outcome": "pass",
-        "recordedAt": "2026-10-29T21:55:37.576Z",
+        "outputSha256": "7d22ef8024a48f0c1d8144cfaccbe2bc4e6b08f0937cdef92e932c5b775a6de5",
+        "recordedAt": "2026-10-30T01:16:00.409Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-30T01:16:00.722Z",
         "source": "attested",
-        "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
+        "summary": "Respuestas rápidas y horario de descanso: pending-first con actionLock compartido, refreshGeneration descarta respuestas viejas del polling, refresco inmediato por push/foco sin superponer consultas, reply idempotente (primera respuesta gana). Acción desde la notificación: server-confirmed por el service worker con fallback a abrir la visita."
       }
     ],
     "limitations": [
-      "Falta registro y verificacion real del propietario para recorrer el panel completo con su identidad."
+      "Sin sesión real de Neon: la E2E completa del panel queda omitida"
     ],
-    "mode": "full",
-    "pendingChecks": [
-      "Crear/verificar cuenta del propietario y recorrer Residentes desde el panel."
-    ],
-    "recordedAt": "2026-10-29T21:55:37.992Z",
-    "result": "partial",
-    "runId": "20261029T215443Z-477cae",
+    "mode": "incremental",
+    "pendingChecks": [],
+    "recordedAt": "2026-10-30T01:16:34.417Z",
+    "result": "verified",
+    "runId": "20261030T011509Z-be19c7",
     "scope": {
       "decision": "incremental",
       "reasons": [
@@ -348,9 +569,284 @@
       ],
       "relevantChangesAtBegin": [
         {
-          "change": "modified",
+          "change": "added",
+          "key": "pkg:better-auth",
+          "reason": "new package in the flow (data, cache or mutation primitives)"
+        },
+        {
+          "change": "added",
+          "key": "pkg:kysely",
+          "reason": "new package in the flow (data, cache or mutation primitives)"
+        },
+        {
+          "change": "removed",
+          "key": "src/app/api/[...path]/route.ts#body",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/app/api/[...path]/route.ts#endpoint",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/app/api/[...path]/route.ts#GET",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
           "key": "src/app/api/[...path]/route.ts#handle",
-          "reason": "code reached by the unit changed"
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/app/api/[...path]/route.ts#POST",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/answer/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/answer/route.ts#answerSchema",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/answer/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/answer/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/answer/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/dashboard/route.ts#GET",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/device-status/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/device-status/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/device-status/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/device-status/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/push-key/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/push-key/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/push-key/route.ts#GET",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/push-key/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/quiet-hours/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/quiet-hours/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/quiet-hours/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/quiet-hours/route.ts#quietHoursSchema",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/quiet-hours/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/quiet-hours/route.ts#time",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/remove-device/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/remove-device/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/remove-device/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/remove-device/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/rotate/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/rotate/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/rotate/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/rotate/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/settings/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/settings/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/settings/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/settings/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/settings/route.ts#settingsSchema",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/subscribe/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/subscribe/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/subscribe/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/subscribe/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/subscribe/route.ts#subscribeSchema",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-my-devices/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-my-devices/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-my-devices/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-my-devices/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-push/route.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-push/route.ts#dynamic",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-push/route.ts#POST",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/test-push/route.ts#runtime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/dashboard.tsx#Dashboard/action",
+          "reason": "action handler changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard.tsx#Dashboard/signOut",
+          "reason": "new action handler"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/dashboard.tsx#Dashboard/subscribe",
+          "reason": "action handler changed"
         },
         {
           "change": "modified",
@@ -359,38 +855,363 @@
         },
         {
           "change": "added",
-          "key": "src/components/resident-management.tsx#<module>",
+          "key": "src/components/dashboard.tsx#SECTION_TITLES.devices",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard.tsx#SECTION_TITLES.history",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard.tsx#SECTION_TITLES.overview",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard.tsx#SECTION_TITLES.qr",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard.tsx#SECTION_TITLES.residents",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard.tsx#SECTION_TITLES.settings",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard.tsx#SECTION_TITLES~frame",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/components/resident-management.tsx#ResidentManagement/update",
+          "key": "src/components/dashboard.tsx#statusLabel",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/devices-section.tsx#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/devices-section.tsx#DevicesSection",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/door-overview.tsx#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/door-overview.tsx#DoorOverview",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/qr-panel.tsx#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/qr-panel.tsx#QrPanel/copy",
           "reason": "new action handler"
         },
         {
           "change": "added",
+          "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+          "reason": "component state or render changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/settings-section.tsx#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET.end",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET.start",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/settings-section.tsx#SettingsSection",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/types.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/types.ts#RunAction",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/visit-history.tsx#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/visit-history.tsx#VisitHistory/waiting",
+          "reason": "new action handler"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/visit-history.tsx#VisitHistory~shell",
+          "reason": "component state or render changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/doorbell-pause-control.tsx#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControl",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/notification-onboarding.tsx#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagement/update",
+          "reason": "action handler changed"
+        },
+        {
+          "change": "modified",
           "key": "src/components/resident-management.tsx#ResidentManagement~shell",
           "reason": "component state or render changed"
         },
         {
           "change": "added",
-          "key": "src/constants/residents.ts#<module>",
+          "key": "src/constants/auth.ts#AUTH.reservedSchemas",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/dashboard-views.ts#<module>",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/constants/residents.ts#RESIDENTS.emailMaxLength",
-          "reason": "lifecycle configuration member (emailMaxLength)"
+          "key": "src/constants/dashboard-views.ts#DASHBOARD_VIEW_EVENT",
+          "reason": "new code reached by the unit"
         },
         {
           "change": "added",
+          "key": "src/constants/dashboard-views.ts#DASHBOARD_VIEWS",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/dashboard-views.ts#DashboardView",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength",
+          "reason": "lifecycle configuration member (answeredByMaxLength)"
+        },
+        {
+          "change": "removed",
+          "key": "src/constants/doorbell.ts#DOORBELL.cooldownSeconds",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/constants/doorbell.ts#DOORBELL.messageMaxLength",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/constants/doorbell.ts#DOORBELL.retentionDays",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/constants/doorbell.ts#HTTP.notFound",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/constants/doorbell.ts#HTTP.tooMany",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#NOTIFICATION_REPLIES",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#QUIET_HOURS_PATTERN",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.away",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.coming",
+          "reason": "lifecycle configuration member (coming)"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.leave",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES.soon",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLIES~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VISIT_REPLY_KEYS",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#VisitReply",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
           "key": "src/constants/residents.ts#RESIDENTS.maximumInvitations",
-          "reason": "lifecycle configuration member (maximumInvitations)"
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "modified",
+          "key": "src/lib/api.ts#api",
+          "reason": "code reached by the unit changed"
         },
         {
           "change": "added",
-          "key": "src/constants/residents.ts#RESIDENTS~frame",
+          "key": "src/lib/dashboard-view.ts#<module>",
           "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/dashboard-view.ts#getDashboardView",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/notification-setup.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/notification-setup.ts#needsNotificationSetup",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#isQuietTime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#localMinutes/value",
+          "reason": "new action handler"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#localMinutes~shell",
+          "reason": "component state or render changed"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/quiet-hours.ts#minutes",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/visit-format.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/visit-format.ts#answerSummary",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/visit-format.ts#DELIVERY_LABELS~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/visit-format.ts#responseTime",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/visit-format.ts#visitFromUrl",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth-mode.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#getIdentity",
+          "reason": "code reached by the unit changed"
         },
         {
           "change": "modified",
@@ -403,53 +1224,193 @@
           "reason": "code reached by the unit changed"
         },
         {
+          "change": "added",
+          "key": "src/server/database.ts#MIGRATION_LOCK",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#MIGRATIONS",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#schemaVersion",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#UNDEFINED_TABLE",
+          "reason": "new code reached by the unit"
+        },
+        {
           "change": "modified",
-          "key": "src/server/push.ts#saveDevice",
+          "key": "src/server/doorbell.ts#answerVisit",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#getHome",
           "reason": "code reached by the unit changed"
         },
         {
           "change": "added",
-          "key": "src/server/residents.ts#<module>",
+          "key": "src/server/doorbell.ts#homeState",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/doorbell.ts#publicHome",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/doorbell.ts#readVisit",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/doorbell.ts#registerVisit",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#rotateToken",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/doorbell.ts#setDelivery",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#snapshot",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#updateHomeSettings",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
+          "key": "src/server/doorbell.ts#updateQuietHours",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#VISIT_COLUMNS",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#apiRoute",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#BODY_LIMIT",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#readJson",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#residentDisplayName",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/neon-auth.ts#authConfigured",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/neon-auth.ts#getNeonAuth",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#hasRegisteredDevice",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#pushPayload",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/push.ts#removeDevice",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/push.ts#sendPush",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "removed",
           "key": "src/server/residents.ts#addResident",
-          "reason": "new code reached by the unit"
+          "reason": "code no longer reached by the unit: an operation may have been removed"
         },
         {
-          "change": "added",
-          "key": "src/server/residents.ts#emailList",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
+          "change": "removed",
           "key": "src/server/residents.ts#listResidents",
-          "reason": "new code reached by the unit"
+          "reason": "code no longer reached by the unit: an operation may have been removed"
         },
         {
-          "change": "added",
+          "change": "removed",
           "key": "src/server/residents.ts#removeResident",
-          "reason": "new code reached by the unit"
+          "reason": "code no longer reached by the unit: an operation may have been removed"
         },
         {
-          "change": "added",
+          "change": "removed",
           "key": "src/server/residents.ts#requireResidentAdmin",
-          "reason": "new code reached by the unit"
+          "reason": "code no longer reached by the unit: an operation may have been removed"
         },
         {
-          "change": "added",
+          "change": "removed",
           "key": "src/server/residents.ts#residentEmailSchema",
-          "reason": "new code reached by the unit"
+          "reason": "code no longer reached by the unit: an operation may have been removed"
         },
         {
-          "change": "added",
-          "key": "src/server/residents.ts#residentSettings",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/residents.ts#resolveResidentAccess",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#auth",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#createSelfAuth",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#getSelfAuth",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#selfAuthConfigured",
           "reason": "new code reached by the unit"
         },
         {
@@ -459,53 +1420,207 @@
         },
         {
           "change": "added",
-          "key": "src/types/residents.ts#<module>",
+          "key": "src/types/doorbell.ts#DashboardSnapshot",
           "reason": "new code reached by the unit"
         },
         {
-          "change": "added",
-          "key": "src/types/residents.ts#ResidentAccess",
-          "reason": "new code reached by the unit"
+          "change": "modified",
+          "key": "src/types/doorbell.ts#Home",
+          "reason": "code reached by the unit changed"
         },
         {
           "change": "added",
-          "key": "src/types/residents.ts#ResidentEntry",
+          "key": "src/types/doorbell.ts#HomeState",
           "reason": "new code reached by the unit"
         },
         {
-          "change": "added",
-          "key": "src/types/residents.ts#ResidentSettings",
-          "reason": "new code reached by the unit"
+          "change": "removed",
+          "key": "src/types/doorbell.ts#PublicVisit",
+          "reason": "code no longer reached by the unit: an operation may have been removed"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#Visit",
+          "reason": "code reached by the unit changed"
         }
       ],
       "suggestedScope": [
-        "pending from the previous run: Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion.",
-        "src/app/api/[...path]/route.ts › handle — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "pending from the previous run: Crear/verificar cuenta del propietario y recorrer Residentes desde el panel.",
+        "package better-auth — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+        "package kysely — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+        "src/app/api/[...path]/route.ts › body — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/app/api/[...path]/route.ts › endpoint — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/app/api/[...path]/route.ts › GET — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/app/api/[...path]/route.ts › handle — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/app/api/[...path]/route.ts › POST — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/app/api/answer/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/answer/route.ts › answerSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/answer/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/answer/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/answer/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/dashboard/route.ts › GET — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/device-status/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/device-status/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/device-status/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/device-status/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/push-key/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/push-key/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/push-key/route.ts › GET — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/push-key/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/quiet-hours/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/quiet-hours/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/quiet-hours/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/quiet-hours/route.ts › quietHoursSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/quiet-hours/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/quiet-hours/route.ts › time — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/remove-device/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/remove-device/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/remove-device/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/remove-device/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/rotate/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/rotate/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/rotate/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/rotate/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/settings/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/settings/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/settings/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/settings/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/settings/route.ts › settingsSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/subscribe/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/subscribe/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/subscribe/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/subscribe/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/subscribe/route.ts › subscribeSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-my-devices/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-my-devices/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-my-devices/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-my-devices/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-push/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-push/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-push/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/app/api/test-push/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/components/dashboard.tsx › Dashboard › action — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/dashboard.tsx › Dashboard › signOut — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/dashboard.tsx › Dashboard › subscribe — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
         "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
-        "src/components/resident-management.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/dashboard.tsx › SECTION_TITLES.devices — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard.tsx › SECTION_TITLES.history — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard.tsx › SECTION_TITLES.overview — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard.tsx › SECTION_TITLES.qr — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard.tsx › SECTION_TITLES.residents — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard.tsx › SECTION_TITLES.settings — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard.tsx › SECTION_TITLES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/dashboard.tsx › statusLabel — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/dashboard/devices-section.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/dashboard/devices-section.tsx › DevicesSection — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/dashboard/door-overview.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/dashboard/door-overview.tsx › DoorOverview — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/dashboard/qr-panel.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/dashboard/qr-panel.tsx › QrPanel › copy — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/dashboard/qr-panel.tsx › QrPanel (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+        "src/components/dashboard/settings-section.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/dashboard/settings-section.tsx › DEFAULT_QUIET.end — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard/settings-section.tsx › DEFAULT_QUIET.start — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/components/dashboard/settings-section.tsx › DEFAULT_QUIET (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/dashboard/settings-section.tsx › SettingsSection — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/dashboard/types.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/dashboard/types.ts › RunAction — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/dashboard/visit-history.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/dashboard/visit-history.tsx › VisitHistory › waiting — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/components/dashboard/visit-history.tsx › VisitHistory (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+        "src/components/doorbell-pause-control.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/doorbell-pause-control.tsx › DoorbellPauseControl — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/notification-onboarding.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/components/notification-onboarding.tsx › NotificationOnboarding — operations that reach this code: intent, concurrency, rollback and reconciliation",
         "src/components/resident-management.tsx › ResidentManagement › update — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
         "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
-        "src/constants/residents.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
-        "src/constants/residents.ts › RESIDENTS.emailMaxLength — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/residents.ts › RESIDENTS.maximumInvitations — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/residents.ts › RESIDENTS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/auth.ts › AUTH.reservedSchemas — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH.schemaNamePattern — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH.selfManagedDefaultSchema — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/dashboard-views.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/constants/dashboard-views.ts › DASHBOARD_VIEW_EVENT — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/dashboard-views.ts › DASHBOARD_VIEWS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/dashboard-views.ts › DashboardView — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/doorbell.ts › DOORBELL.answeredByMaxLength — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/doorbell.ts › DOORBELL.cooldownSeconds — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/constants/doorbell.ts › DOORBELL.messageMaxLength — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/constants/doorbell.ts › DOORBELL.retentionDays — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/constants/doorbell.ts › HTTP.notFound — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/constants/doorbell.ts › HTTP.tooMany — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/constants/doorbell.ts › NOTIFICATION_REPLIES — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/doorbell.ts › QUIET_HOURS_PATTERN — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/doorbell.ts › VISIT_REPLIES.away — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/doorbell.ts › VISIT_REPLIES.coming — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/doorbell.ts › VISIT_REPLIES.leave — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/doorbell.ts › VISIT_REPLIES.soon — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/doorbell.ts › VISIT_REPLIES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/doorbell.ts › VISIT_REPLY_KEYS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/doorbell.ts › VisitReply — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/residents.ts › RESIDENTS.maximumInvitations — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/lib/api.ts › api — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/dashboard-view.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/lib/dashboard-view.ts › getDashboardView — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/notification-setup.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/lib/notification-setup.ts › needsNotificationSetup — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/quiet-hours.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/lib/quiet-hours.ts › isQuietTime — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/quiet-hours.ts › localMinutes › value — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+        "src/lib/quiet-hours.ts › localMinutes (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+        "src/lib/quiet-hours.ts › minutes — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/visit-format.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/lib/visit-format.ts › answerSummary — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/visit-format.ts › DELIVERY_LABELS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/visit-format.ts › responseTime — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/lib/visit-format.ts › visitFromUrl — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/server/auth-mode.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/auth-mode.ts › isSelfManagedAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/auth.ts › getIdentity — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/auth.ts › requireAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/database.ts › initialize — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/push.ts › saveDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › addResident — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › emailList — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › listResidents — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › removeResident — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › requireResidentAdmin — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › residentEmailSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › residentSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › MIGRATION_LOCK — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › MIGRATIONS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › schemaVersion — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › UNDEFINED_TABLE — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › answerVisit — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › getHome — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › homeState — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › publicHome — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/doorbell.ts › readVisit — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/doorbell.ts › registerVisit — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/doorbell.ts › rotateToken — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › setDelivery — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/doorbell.ts › snapshot — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › updateHomeSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › updateQuietHours — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/doorbell.ts › VISIT_COLUMNS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/http.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/http.ts › apiRoute — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/http.ts › BODY_LIMIT — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/http.ts › readJson — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/http.ts › residentDisplayName — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/neon-auth.ts › authConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/neon-auth.ts › getNeonAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/push.ts › hasRegisteredDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/push.ts › pushPayload — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/push.ts › removeDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/push.ts › sendPush — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/residents.ts › addResident — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/residents.ts › listResidents — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/residents.ts › removeResident — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/residents.ts › requireResidentAdmin — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/server/residents.ts › residentEmailSchema — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
         "src/server/residents.ts › resolveResidentAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › auth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › createSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › getSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › selfAuthConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/types/doorbell.ts › DashboardData — operations that reach this code: intent, concurrency, rollback and reconciliation",
-        "src/types/residents.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
-        "src/types/residents.ts › ResidentAccess — operations that reach this code: intent, concurrency, rollback and reconciliation",
-        "src/types/residents.ts › ResidentEntry — operations that reach this code: intent, concurrency, rollback and reconciliation",
-        "src/types/residents.ts › ResidentSettings — operations that reach this code: intent, concurrency, rollback and reconciliation"
+        "src/types/doorbell.ts › DashboardSnapshot — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/types/doorbell.ts › Home — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/types/doorbell.ts › HomeState — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/types/doorbell.ts › PublicVisit — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+        "src/types/doorbell.ts › Visit — operations that reach this code: intent, concurrency, rollback and reconciliation"
       ]
     },
     "skill": {
@@ -521,289 +1636,7 @@
       "name": "optimistic-action-mutations",
       "version": "1.2.0"
     },
-    "summary": "Integracion real de reglas y componente aprobado; bootstrap protegido y revocacion probados. No se simulo Neon ni su verificacion.",
-    "report": "runs/20261029T215443Z-477cae.json"
-  },
-  "schemaVersion": 1,
-  "skill": "optimistic-action-mutations",
-  "unitId": "ringgg.resident",
-  "verified": {
-    "baseline": {
-      "analyzer": "babel-tokens/1",
-      "branch": null,
-      "commit": null,
-      "files": {
-        "src/components/dashboard.tsx": "e338f89d0f3a34aa",
-        "src/app/api/[...path]/route.ts": "63037e80f59ca090",
-        "src/constants/doorbell.ts": "58ce07f5141bb23f",
-        "src/types/doorbell.ts": "0d02fbca75aa5b27",
-        "src/lib/api.ts": "191049e1805571e4",
-        "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/server/doorbell.ts": "889a31bbbe707dbe",
-        "src/server/auth.ts": "1637b3ddcb43ba87",
-        "src/server/config.ts": "6d5215ebffc9fd6b",
-        "src/server/database.ts": "c64c60c22f1e9782",
-        "src/server/push.ts": "bb5a04186fb50f53"
-      },
-      "fingerprint": "sha256:05ec2285fa20eac012bbc7afb4f2bcc2105d111cd695bc25fe69c4594de46fc7",
-      "inputs": {
-        "src/components/dashboard.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/dashboard.tsx#visitTime": "f354bcc96505ee27",
-        "src/components/dashboard.tsx#Dashboard/action": "5fc8091763c57610",
-        "src/components/dashboard.tsx#Dashboard/subscribe": "1fbbe28ce4d5503c",
-        "src/components/dashboard.tsx#Dashboard~shell": "f6d27d94cd3a3865",
-        "pkg:lucide-react": "ac00db3dc7bc5934",
-        "pkg:qrcode": "eae5e9f465245e84",
-        "pkg:react": "f4529719455f2af2",
-        "pkg:next": "530097ba2f134bc2",
-        "src/app/api/[...path]/route.ts#<module>": "2da3ec2294295eb1",
-        "src/app/api/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
-        "src/app/api/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
-        "src/app/api/[...path]/route.ts#body": "0309d13722e6a20a",
-        "src/app/api/[...path]/route.ts#handle": "d23629e7861338c4",
-        "pkg:zod": "31d0566281954af7",
-        "src/app/api/[...path]/route.ts#endpoint": "a207a12cbe7afa96",
-        "src/app/api/[...path]/route.ts#GET": "6997859bd735ae90",
-        "src/app/api/[...path]/route.ts#POST": "21c540a1c282850c",
-        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
-        "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
-        "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/types/doorbell.ts#DashboardData": "fcc13db7e1eb01f0",
-        "src/types/doorbell.ts#Device": "f56870e415b71da9",
-        "src/types/doorbell.ts#Home": "86aac47c07bf864c",
-        "src/types/doorbell.ts#Visit": "801a8c3c7feefc1e",
-        "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
-        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
-        "src/lib/api.ts#api": "e6c7de9ce730a924",
-        "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
-        "src/constants/doorbell.ts#DOORBELL.pollIntervalMs": "98618a7df7f23942",
-        "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
-        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
-        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
-        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
-        "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
-        "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
-        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
-        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
-        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
-        "src/constants/doorbell.ts#SESSION~frame": "d92154c239582831",
-        "src/constants/doorbell.ts#SESSION.cookie": "42486ae4b7679f05",
-        "src/constants/doorbell.ts#SESSION.lifetimeSeconds": "baf8f4017c385178",
-        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/server/doorbell.ts#answerVisit": "e5d27d95e763723c",
-        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#createSession": "76b691164368ec0a",
-        "src/server/config.ts#<module>": "2da3ec2294295eb1",
-        "src/server/config.ts#getConfig": "f6a90536deb6f827",
-        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
-        "src/server/config.ts#LocalSecrets": "88912b41396c6e3f",
-        "pkg:web-push": "6ab2287300696f64",
-        "src/server/database.ts#<module>": "2da3ec2294295eb1",
-        "src/server/database.ts#getDatabase": "fb7ab0dd5ffc1dcd",
-        "src/server/database.ts#Database": "03faa2885be098b9",
-        "src/server/database.ts#connect": "4d32fa6df70bf533",
-        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
-        "pkg:pg": "bba8fb4b856406c4",
-        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "8fefa83f9c8af249",
-        "src/server/auth.ts#limitLogin": "428eb12622ddac5a",
-        "src/server/auth.ts#matchesPassword": "ad6cf1308e09cb0b",
-        "src/server/doorbell.ts#publicHome": "1ff0013e38351a4a",
-        "src/server/doorbell.ts#getHome": "9eacbf0cfe75d091",
-        "src/server/doorbell.ts#readVisit": "8c64713a34ee75ab",
-        "src/server/doorbell.ts#registerVisit": "75c0d431fae06788",
-        "src/server/auth.ts#requireAuth": "27dec89d8a5de0fc",
-        "src/server/auth.ts#authenticated": "d329496cb071d9aa",
-        "src/server/auth.ts#validSession": "b00091dfef618f13",
-        "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
-        "src/server/push.ts#<module>": "2da3ec2294295eb1",
-        "src/server/push.ts#saveDevice": "1f667ca95e42f2de",
-        "src/server/push.ts#sendPush": "19c028b7cceb8181",
-        "src/server/doorbell.ts#setDelivery": "282622686660677f",
-        "src/server/doorbell.ts#snapshot": "5246b188eaf8b469",
-        "src/server/push.ts#subscriptionSchema": "562c1ed0224d75dd",
-        "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
-        "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
-        "src/constants/doorbell.ts#SESSION.minimumPasswordLength": "6ee9ead0c7e74663",
-        "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
-        "src/constants/doorbell.ts#SESSION.loginWindowSeconds": "68b3a990d6433e4a",
-        "src/constants/doorbell.ts#SESSION.maxLoginAttempts": "0654ea30d22ce33f",
-        "src/types/doorbell.ts#PublicVisit": "3ae7d2a9df3e5f33",
-        "src/constants/doorbell.ts#DOORBELL.cooldownSeconds": "c6c07e0a039d9e06",
-        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
-        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
-        "src/constants/doorbell.ts#DOORBELL.maxDevices": "414e4d84625b6ff3",
-        "src/constants/doorbell.ts#DOORBELL.pushTimeoutMs": "97b72476ee4ad5ba",
-        "src/constants/doorbell.ts#DOORBELL.pushTtlSeconds": "41bc5fb14de6470e",
-        "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
-        "src/constants/doorbell.ts#PUSH_HOSTS": "69ab4faa3ad6ed3e",
-        "src/constants/doorbell.ts#PUSH_KEY_PATTERN": "83d48236c0052566",
-        "src/constants/doorbell.ts#HTTP.internal": "f29bdceaed8302ef"
-      },
-      "signals": {
-        "src/components/dashboard.tsx#Dashboard/action": {
-          "awaits": 2
-        },
-        "src/components/dashboard.tsx#Dashboard/subscribe": {
-          "awaits": 8,
-          "fetch": 1,
-          "listeners": 1
-        },
-        "src/components/dashboard.tsx#Dashboard~shell": {
-          "effects": 2,
-          "awaits": 3,
-          "timers": 2
-        },
-        "src/app/api/[...path]/route.ts#body": {
-          "awaits": 1
-        },
-        "src/app/api/[...path]/route.ts#handle": {
-          "awaits": 25,
-          "projectCalls": 8,
-          "database": 3
-        },
-        "src/app/api/[...path]/route.ts#endpoint": {
-          "awaits": 2
-        },
-        "src/lib/api.ts#api": {
-          "awaits": 3,
-          "fetch": 1
-        },
-        "src/server/doorbell.ts#answerVisit": {
-          "awaits": 1,
-          "database": 1
-        },
-        "src/server/auth.ts#createSession": {
-          "database": 1,
-          "projectCalls": 2
-        },
-        "src/server/database.ts#getDatabase": {
-          "awaits": 1
-        },
-        "src/server/database.ts#connect": {
-          "awaits": 8,
-          "database": 8
-        },
-        "src/server/database.ts#initialize": {
-          "awaits": 6,
-          "database": 6
-        },
-        "src/server/auth.ts#limitLogin": {
-          "awaits": 2,
-          "projectCalls": 2,
-          "database": 2
-        },
-        "src/server/auth.ts#matchesPassword": {
-          "database": 2,
-          "projectCalls": 3
-        },
-        "src/server/doorbell.ts#publicHome": {
-          "awaits": 1
-        },
-        "src/server/doorbell.ts#getHome": {
-          "awaits": 1,
-          "database": 1
-        },
-        "src/server/doorbell.ts#readVisit": {
-          "awaits": 2,
-          "database": 1
-        },
-        "src/server/doorbell.ts#registerVisit": {
-          "database": 6,
-          "awaits": 5
-        },
-        "src/server/auth.ts#requireAuth": {
-          "awaits": 1
-        },
-        "src/server/auth.ts#authenticated": {
-          "awaits": 1
-        },
-        "src/server/auth.ts#validSession": {
-          "database": 1,
-          "projectCalls": 2
-        },
-        "src/server/auth.ts#requireOrigin": {
-          "projectCalls": 1
-        },
-        "src/server/push.ts#saveDevice": {
-          "database": 5,
-          "awaits": 4
-        },
-        "src/server/push.ts#sendPush": {
-          "projectCalls": 2,
-          "awaits": 4,
-          "database": 2,
-          "awaitInLoop": 1
-        },
-        "src/server/doorbell.ts#setDelivery": {
-          "awaits": 1,
-          "database": 1
-        },
-        "src/server/doorbell.ts#snapshot": {
-          "awaits": 1,
-          "database": 2
-        }
-      },
-      "uncommittedFiles": []
-    },
-    "evidence": [
-      {
-        "kind": "review",
-        "outcome": "pass",
-        "recordedAt": "2026-10-29T16:21:14.378Z",
-        "source": "attested",
-        "summary": "Revisado el flujo y sus estados, confirmacion por servidor, validacion, idempotencia, permisos y limites. Decisiones en docs/decisiones.md. Revision independiente de delta sin Important abiertos."
-      },
-      {
-        "command": "npm test",
-        "durationMs": 1634,
-        "exitCode": 0,
-        "kind": "test",
-        "outcome": "pass",
-        "outputSha256": "0f592ca9c70d359551ec763650402c5388ed884ffb65db69299e0bfe2ea33707",
-        "recordedAt": "2026-10-29T16:21:16.560Z",
-        "source": "witnessed",
-        "summary": "exit code 0"
-      },
-      {
-        "kind": "browser",
-        "outcome": "pass",
-        "recordedAt": "2026-10-29T16:23:20.526Z",
-        "source": "attested",
-        "summary": "Playwright Chromium ejecutado despues de begin: login correcto e incorrecto, QR, doble click, respuesta Ya voy tras reloj adelantado 121 segundos, snapshot HTTP viejo retenido, nombre del shell, pausa, rotacion, viewport movil sin overflow. Capturas adicionales del build de produccion en docs/screenshots."
-      }
-    ],
-    "limitations": [],
-    "mode": "full",
-    "pendingChecks": [],
-    "recordedAt": "2026-10-29T16:23:21.579Z",
-    "result": "verified",
-    "runId": "20261029T162113Z-cdde63",
-    "scope": {
-      "decision": "full",
-      "reasons": [
-        "no previous coverage: the whole unit is analyzed"
-      ],
-      "relevantChangesAtBegin": [],
-      "suggestedScope": [
-        "whole unit ringgg.resident: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
-      ]
-    },
-    "skill": {
-      "definitionFiles": {
-        "SKILL.md": "96d98d49220f2894",
-        "references/action-catalog.md": "3011dc2f28c2e91c",
-        "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
-        "references/framework-primitives.md": "16fc928cc9cc1f3c",
-        "references/interaction-state-machine.md": "c09f8f0c506bdd54",
-        "references/optimistic-decision.md": "62c41b62a67ed97a"
-      },
-      "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
-      "name": "optimistic-action-mutations",
-      "version": "1.2.0"
-    },
-    "summary": "Analisis completo, tests reales, typecheck segun skill y recorrido Playwright sobre codigo final.",
-    "report": "runs/20261029T162113Z-cdde63.json"
+    "summary": "Panel dividido en secciones, respuestas rápidas, horario de descanso y refresco por push/foco",
+    "report": "runs/20261030T011509Z-be19c7.json"
   }
 }

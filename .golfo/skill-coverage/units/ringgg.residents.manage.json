@@ -21,7 +21,7 @@
       "symbol": "*"
     },
     {
-      "path": "src/app/api/[...path]/route.ts",
+      "path": "src/app/api/residents/route.ts",
       "symbol": "*"
     }
   ],

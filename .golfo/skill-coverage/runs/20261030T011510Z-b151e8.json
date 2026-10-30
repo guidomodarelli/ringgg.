@@ -1,0 +1,225 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/doorbell-hardening-and-replies",
+    "commit": "8eb12c01cb0b41dcc166333e2f3d1cf38a5dec06",
+    "fingerprint": "sha256:0d6682c3dd1d15acbcba7bb3fbc1fd7c60a6bd3642eba144ac06a134457a99e5",
+    "uncommittedFiles": [
+      "src/constants/doorbell.ts",
+      "src/server/database.ts"
+    ],
+    "fileCount": 20,
+    "inputCount": 112
+  },
+  "evidence": [
+    {
+      "command": "npx playwright test tests/e2e/auth.spec.ts --reporter=line",
+      "durationMs": 9652,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "70fa586597a2dee8b0fdf893ce8b58fb7c30cc9ef8aa222900f0831a7625d35f",
+      "recordedAt": "2026-10-30T01:16:26.412Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Modo liviano sin cobertura verificada previa"
+  ],
+  "mode": "lightweight",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T01:16:35.578Z",
+  "result": "partial",
+  "runId": "20261030T011510Z-b151e8",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "previous run was partial"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:kysely",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:next",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/auth/[...path]/route.ts#handler",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/brand.tsx#Brand",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/brand.tsx#BrandContents",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/login.tsx#Login~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.reservedSchemas",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATION_LOCK",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveResidentAccess",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#auth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#getSelfAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthConfigured",
+        "reason": "new code reached by the unit"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Crear/verificar cuenta del propietario y recorrer Residentes desde el panel.",
+      "package better-auth — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+      "package kysely — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+      "package next — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+      "src/app/api/auth/[...path]/route.ts › handler — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/components/brand.tsx › Brand — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/brand.tsx › BrandContents — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/login.tsx › Login (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/constants/auth.ts › AUTH.reservedSchemas — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/auth.ts › AUTH.schemaNamePattern — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/auth.ts › AUTH.selfManagedDefaultSchema — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/server/auth-mode.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/auth-mode.ts › isSelfManagedAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/auth.ts › getIdentity — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/auth.ts › requireAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › initialize — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › MIGRATION_LOCK — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › MIGRATIONS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › schemaVersion — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › UNDEFINED_TABLE — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/neon-auth.ts › authConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/neon-auth.ts › getNeonAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › resolveResidentAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › auth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › createSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › getSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › selfAuthConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Sin cambios en el flujo de acceso; solo cambió el bootstrap del esquema",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T01:15:10.682Z",
+  "unitId": "ringgg.login"
+}

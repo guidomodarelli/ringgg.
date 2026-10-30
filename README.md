@@ -29,7 +29,9 @@ La app usa el PostgreSQL remoto de Neon cuando existe `DATABASE_URL`. Sin esa va
 2. Instalar Ringgg desde el navegador. En iPhone: Compartir → Agregar a Inicio → abrir desde su ícono.
 3. En Dispositivos, nombrar el celular, activar las notificaciones y enviar una prueba.
 4. Descargar el QR y colocarlo en la puerta. El visitante no instala nada ni inicia sesión.
-5. Al recibir una visita, tocar **Ya voy** dentro de dos minutos. El visitante verá **¡Ya van!**.
+5. Al recibir una visita, responder dentro de dos minutos con una respuesta rápida: **Ya voy**, **En 5 minutos**, **Dejalo en la puerta** o **No estoy**. El visitante ve la respuesta elegida, nunca quién respondió. En Android, **Ya voy** y **Dejalo en la puerta** también aparecen como botones de la notificación; en iPhone, tocar la notificación abre esa visita.
+6. Si nadie responde a tiempo o la respuesta fue **No estoy**, el visitante puede dejar un único mensaje (por ejemplo, su nombre o un teléfono) durante los 15 minutos siguientes al timbrazo. Llega como notificación y queda en el historial.
+7. En Configuración se puede definir un **horario de descanso** diario (por ejemplo, de 22:00 a 08:00, en hora de Buenos Aires). Durante ese horario el visitante ve hasta cuándo dura y el timbre no registra visitas ni envía avisos.
 
 Los avisos se envían con Web Push nativo (`web-push`), urgencia alta y vencimiento de 90 segundos. Un envío aceptado por el proveedor no confirma entrega o sonido. La app no puede ignorar silencio o Concentración ni reproducir un sonido en bucle estando cerrada. Sin dispositivos, el timbrazo se registra pero el visitante ve que no se pudo enviar una notificación.
 
@@ -60,7 +62,7 @@ Si se configura manualmente la base, los pasos son:
    ```
 
 4. Ejecutá `npm run db:check`. Valida conexión y una transacción de solo lectura sin mostrar credenciales ni modificar tablas. Si falla, sale con código distinto de cero. No usa la base embebida como sustituto de una conexión remota fallida.
-5. Reiniciá `npm run dev` y abrí el panel. La app inicializa el esquema automáticamente en el primer acceso autenticado. No se copian los datos de `.data/postgres`: Neon empieza con una vivienda y un QR nuevos. Descargá ese nuevo QR y conectá nuevamente los dispositivos.
+5. Reiniciá `npm run dev` y abrí el panel. La app aplica las migraciones pendientes en el primer acceso (ver «Esquema versionado» en `docs/decisiones.md`). No se copian los datos de `.data/postgres`: Neon empieza con una vivienda y un QR nuevos. Descargá ese nuevo QR y conectá nuevamente los dispositivos.
 
 La conexión usa hasta tres clientes por instancia, timeout de conexión de 15 segundos, rotación de conexiones y verificación TLS completa para endpoints Neon. Se conserva la URL pooled proporcionada por Neon, con `sslmode` normalizado a `verify-full`. Los fallos temporales de inicialización permiten reintentar después.
 
@@ -80,7 +82,7 @@ El backend está conectado al proyecto Neon indicado y la web está publicada en
    - `RESIDENT_ADMIN_EMAILS`: administradores iniciales protegidos, separados por coma. Pueden gestionar residentes desde el panel; también deben verificar su correo.
    - `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`: par estable de claves generado con `npx web-push generate-vapid-keys`.
    - `VAPID_SUBJECT`: un contacto válido con formato `mailto:tu-email@example.com`.
-3. Build: `npm run build`. El esquema se inicializa de manera idempotente al primer acceso.
+3. Build: `npm run build`. Las migraciones del esquema se aplican de manera idempotente al primer acceso.
 4. Enlazar un dominio estable antes de imprimir el QR.
 5. Probar la instalación y la notificación con el teléfono bloqueado, usando datos móviles y la configuración habitual de sonido.
 
@@ -90,11 +92,12 @@ Web Push requiere HTTPS, excepto localhost. Una IP HTTP de la red local no sirve
 
 - Panel y endpoints privados protegidos con sesiones validadas por el SDK de Neon. El proxy de Next.js renueva cookies antes de renderizar el panel; login, recuperación, auth y QR público quedan fuera del matcher. La autorización exige correo verificado y allowlist; las mutaciones de negocio validan Origin.
 - El QR es una capacidad pública revocable: permite tocar el timbre, nunca administrar. No demuestra presencia física.
-- Cooldown global de 30 segundos con bloqueo transaccional; IDs de operación persistidos evitan duplicar timbrazos al reintentar.
+- Límites por visitante y por casa, con bloqueo transaccional: el mismo cliente espera 30 segundos entre timbrazos y puede tocar hasta 4 veces cada 10 minutos; la casa acepta hasta 12 timbrazos cada 10 minutos. El cliente se identifica con un hash con sal de su dirección de red (`x-forwarded-for`, que Vercel sobrescribe), guardado solo mientras dura el límite y nunca asociado a la visita. Así, alguien que tiene una foto del QR no puede bloquear a los visitantes reales. IDs de operación persistidos evitan duplicar timbrazos al reintentar y no consumen el límite.
 - Se espera a que finalicen los envíos a un máximo de diez dispositivos. Se distinguen envío total, parcial y no disponible; no se reenvía automáticamente un push de resultado incierto.
 - Suscripciones inválidas o vencidas (404/410) se eliminan. Solo se aceptan proveedores Apple, Mozilla y FCM por HTTPS.
-- El panel y la página de espera consultan cada cinco segundos; no se superponen consultas y el panel deja de consultar oculto. La espera del visitante termina a los dos minutos.
-- Se muestran hasta 50 visitas. Al registrar una nueva se purgan visitas con más de 30 días. No se guardan nombres de visitantes separados, teléfono, dirección ni IP de visitas.
+- El panel y la página de espera consultan cada cinco segundos; no se superponen consultas y el panel deja de consultar oculto. El panel además se actualiza en el momento cuando llega un aviso push, cuando la pestaña vuelve a primer plano y cuando una notificación abre una visita. La espera del visitante termina a los dos minutos.
+- Las notificaciones abren `/?view=history&visit=<id>` y resaltan esa visita. El service worker solo abre rutas del panel en el mismo origen; responder desde la notificación usa la sesión del residente y, si falla, abre la visita.
+- Se muestran hasta 50 visitas, con el estado del aviso, quién respondió, qué respondió y cuánto tardó. Al registrar una nueva se purgan visitas con más de 30 días. No se guardan nombres de visitantes separados, teléfono, dirección ni IP de visitas; lo que el visitante escriba en su mensaje o nota queda en la visita hasta que se purga.
 - El service worker solo guarda la pantalla sin conexión. No cachea el panel, mensajes ni respuestas privadas.
 - Ya existen cuentas individuales, todas asociadas mediante allowlist a esta única vivienda. Para más viviendas o administración de invitaciones desde la app, agregar membresías y permisos por vivienda antes de ampliar este MVP.
 

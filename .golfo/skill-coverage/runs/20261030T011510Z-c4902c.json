@@ -1,0 +1,442 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/doorbell-hardening-and-replies",
+    "commit": "8eb12c01cb0b41dcc166333e2f3d1cf38a5dec06",
+    "fingerprint": "sha256:e98553d13b17d0bcf0ae540f24dc769e80b84a1ee6965b9367452ba19d056e5a",
+    "uncommittedFiles": [
+      "src/app/api/residents/route.ts",
+      "src/constants/doorbell.ts",
+      "src/server/database.ts",
+      "src/server/http.ts"
+    ],
+    "fileCount": 21,
+    "inputCount": 106
+  },
+  "evidence": [
+    {
+      "command": "npx playwright test tests/e2e/residents.spec.ts --reporter=line",
+      "durationMs": 11488,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "cd18bd608c2326ace3a25be27e3f6580646d29b7dbabd3d67dd40d114df5b270",
+      "recordedAt": "2026-10-30T01:16:12.540Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx vitest run tests/residents.test.ts",
+      "durationMs": 3571,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "322e4606d43a2bd3eb57ad1244fbdc57845778e0b3c49ba81b810d0ad78218af",
+      "recordedAt": "2026-10-30T01:16:16.451Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [
+    "Auditoría completa de la gestión de residentes"
+  ],
+  "recordedAt": "2026-10-30T01:16:34.997Z",
+  "result": "partial",
+  "runId": "20261030T011510Z-c4902c",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:kysely",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:next",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#body",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#endpoint",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#GET",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#handle",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#POST",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/residents/route.ts#GET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/residents/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/residents/route.ts#residentSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.reservedSchemas",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.cooldownSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.historyLimit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.maxDevices",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.messageMaxLength",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.nameMaxLength",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.pushTimeoutMs",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.pushTtlSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.retentionDays",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL~frame",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.notFound",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.tooMany",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#PUSH_HOSTS",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#PUSH_KEY_PATTERN",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATION_LOCK",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#<module>",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#getHome",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#publicHome",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#readVisit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#registerVisit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#setDelivery",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#snapshot",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#BODY_LIMIT",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readJson",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/push.ts#<module>",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/push.ts#subscriptionSchema",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#addResident",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#listResidents",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#removeResident",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveResidentAccess",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#auth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#getSelfAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthConfigured",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/doorbell.ts#<module>",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/doorbell.ts#DeliveryStatus",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/doorbell.ts#Device",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/doorbell.ts#PublicVisit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/doorbell.ts#Visit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Crear/verificar cuenta del propietario y recorrer Residentes desde el panel.",
+      "whole unit ringgg.residents.manage: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Solo se movió la ruta de residentes a su route handler; mismo contrato",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T01:15:10.109Z",
+  "unitId": "ringgg.residents.manage"
+}
