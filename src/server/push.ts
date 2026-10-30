@@ -1,6 +1,6 @@
 import webpush from 'web-push';
 import { z } from 'zod';
-import { DOORBELL, PUSH_HOSTS, PUSH_KEY_PATTERN, HTTP } from '@/constants/doorbell';
+import { DOORBELL, PUSH_HOSTS, PUSH_KEY_PATTERN, HTTP, NOTIFICATION_REPLIES, VISIT_REPLIES } from '@/constants/doorbell';
 import type { DeliveryStatus } from '@/types/doorbell';
 import type { Database } from './database';
 import { getConfig } from './config';
@@ -33,26 +33,53 @@ export async function saveDevice(database: Database, name: string, subscription:
   });
 }
 
+export async function removeDevice(database: Database, id: string) {
+  await database.query('DELETE FROM devices WHERE id = $1', [id]);
+}
+
+export interface PushRequest {
+  title: string;
+  body: string;
+  /** Visit the notification belongs to: it opens that visit and, when answerable, offers replies. */
+  visitId?: string;
+  answerable?: boolean;
+  deviceId?: string;
+  residentEmail?: string;
+}
+
+/** Payload read by `public/sw.js`. The URL is always a same-origin dashboard path. */
+export function pushPayload(request: PushRequest) {
+  return {
+    title: request.title,
+    body: request.body,
+    url: request.visitId ? `/?view=history&visit=${encodeURIComponent(request.visitId)}` : '/',
+    tag: request.visitId || crypto.randomUUID(),
+    visitId: request.visitId,
+    replies: request.visitId && request.answerable ? NOTIFICATION_REPLIES.map((reply) => ({ reply, title: VISIT_REPLIES[reply].label })) : [],
+  };
+}
+
 /** Each provider send is awaited; expired endpoints are removed and mixed outcomes stay explicit. */
-export async function sendPush(database: Database, message: string, visitId?: string, deviceId?: string, residentEmail?: string): Promise<{ delivery: DeliveryStatus; accepted: number; total: number }> {
+export async function sendPush(database: Database, request: PushRequest): Promise<{ delivery: DeliveryStatus; accepted: number; total: number }> {
   const config = getConfig();
   const filters: string[] = [];
   const parameters: unknown[] = [];
-  if (deviceId) { parameters.push(deviceId); filters.push(`id = $${parameters.length}`); }
-  if (residentEmail !== undefined) { parameters.push(residentEmail.trim().toLowerCase()); filters.push(`resident_email = $${parameters.length}`); }
+  if (request.deviceId) { parameters.push(request.deviceId); filters.push(`id = $${parameters.length}`); }
+  if (request.residentEmail !== undefined) { parameters.push(request.residentEmail.trim().toLowerCase()); filters.push(`resident_email = $${parameters.length}`); }
   parameters.push(DOORBELL.maxDevices);
   const devices = await database.query<{ id: string; subscription: webpush.PushSubscription }>(`SELECT id, subscription FROM devices${filters.length ? ` WHERE ${filters.join(' AND ')}` : ''} LIMIT $${parameters.length}`, parameters);
   if (!config.publicKey || !config.privateKey || !devices.rows.length) return { delivery: 'unavailable', accepted: 0, total: devices.rows.length };
+  const payload = JSON.stringify(pushPayload(request));
   const results = await Promise.allSettled(devices.rows.map(async (device) => {
     try {
-      await webpush.sendNotification(device.subscription, JSON.stringify({ title: visitId ? 'Hay alguien en la puerta' : 'Tu timbre está listo', body: message || 'Tocaron el timbre. Abrí Ringgg para responder.', url: '/', tag: visitId || crypto.randomUUID() }), {
+      await webpush.sendNotification(device.subscription, payload, {
         vapidDetails: { subject: config.subject, publicKey: config.publicKey, privateKey: config.privateKey },
         TTL: DOORBELL.pushTtlSeconds, urgency: 'high', timeout: DOORBELL.pushTimeoutMs,
       });
     } catch (error) {
       const status = error instanceof webpush.WebPushError ? error.statusCode : undefined;
       if (status === 404 || status === 410) await database.query('DELETE FROM devices WHERE id = $1', [device.id]);
-      console.error(JSON.stringify({ operation: 'push.send', deviceId: device.id, status, visitId }));
+      console.error(JSON.stringify({ operation: 'push.send', deviceId: device.id, status, visitId: request.visitId }));
       throw new AppError(HTTP.unavailable, 'PUSH_FAILED', 'No pudimos enviar el aviso a este celular.', { cause: error });
     }
   }));

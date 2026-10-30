@@ -39,17 +39,65 @@ async function connect(): Promise<Database> {
   };
 }
 
-/** Idempotent bootstrap is also used by integration tests with a real database. */
+type Migration = Array<string | [string, () => unknown[]]>;
+
+/**
+ * Ordered schema versions. Version 1 is the original bootstrap, written with IF NOT EXISTS so
+ * databases created before versioning adopt it without changes. Only append new versions.
+ */
+export const MIGRATIONS: Migration[] = [
+  [
+    `CREATE TABLE IF NOT EXISTS homes (id INTEGER PRIMARY KEY, name TEXT NOT NULL, token TEXT NOT NULL UNIQUE, enabled BOOLEAN NOT NULL DEFAULT TRUE)`,
+    [`INSERT INTO homes (id, name, token) VALUES (1, 'Mi casa', $1) ON CONFLICT (id) DO NOTHING`, () => [crypto.randomUUID()]],
+    `CREATE TABLE IF NOT EXISTS residents (email TEXT PRIMARY KEY, invited_by TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`,
+    `CREATE TABLE IF NOT EXISTS resident_revocations (email TEXT PRIMARY KEY, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`,
+    `CREATE TABLE IF NOT EXISTS devices (id TEXT PRIMARY KEY, name TEXT NOT NULL, endpoint TEXT NOT NULL UNIQUE, subscription JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`,
+    `ALTER TABLE devices ADD COLUMN IF NOT EXISTS resident_email TEXT`,
+    `CREATE TABLE IF NOT EXISTS visits (id TEXT PRIMARY KEY, message TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), answered_at TIMESTAMPTZ, delivery TEXT NOT NULL DEFAULT 'registered')`,
+    `CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, attempts INTEGER NOT NULL, expires_at TIMESTAMPTZ NOT NULL)`,
+    `CREATE INDEX IF NOT EXISTS visits_created_at_idx ON visits (created_at DESC)`,
+  ],
+  [
+    `ALTER TABLE visits ADD COLUMN IF NOT EXISTS reply TEXT`,
+    `ALTER TABLE visits ADD COLUMN IF NOT EXISTS answered_by TEXT`,
+    `ALTER TABLE visits ADD COLUMN IF NOT EXISTS note TEXT`,
+    `ALTER TABLE visits ADD COLUMN IF NOT EXISTS noted_at TIMESTAMPTZ`,
+    `ALTER TABLE homes ADD COLUMN IF NOT EXISTS quiet_start TEXT`,
+    `ALTER TABLE homes ADD COLUMN IF NOT EXISTS quiet_end TEXT`,
+    `CREATE INDEX IF NOT EXISTS rate_limits_expires_at_idx ON rate_limits (expires_at)`,
+  ],
+];
+const MIGRATION_LOCK = 72_840_311;
+const UNDEFINED_TABLE = '42P01';
+
+async function schemaVersion(database: Database): Promise<number> {
+  try {
+    const result = await database.query<{ version: number | null }>('SELECT MAX(version) AS version FROM schema_migrations');
+    return Number(result.rows[0]?.version ?? 0);
+  } catch (error) {
+    if ((error as { code?: string }).code === UNDEFINED_TABLE) return 0;
+    throw error;
+  }
+}
+
+/**
+ * An up-to-date schema costs one query per cold start. Pending versions run in one transaction
+ * behind an advisory lock, so concurrent cold starts apply each version exactly once.
+ */
 export async function initialize(database: Database) {
-  await database.query(`CREATE TABLE IF NOT EXISTS homes (id INTEGER PRIMARY KEY, name TEXT NOT NULL, token TEXT NOT NULL UNIQUE, enabled BOOLEAN NOT NULL DEFAULT TRUE)`);
-  await database.query(`INSERT INTO homes (id, name, token) VALUES (1, 'Mi casa', $1) ON CONFLICT (id) DO NOTHING`, [crypto.randomUUID()]);
-  await database.query(`CREATE TABLE IF NOT EXISTS residents (email TEXT PRIMARY KEY, invited_by TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`);
-  await database.query(`CREATE TABLE IF NOT EXISTS resident_revocations (email TEXT PRIMARY KEY, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`);
-  await database.query(`CREATE TABLE IF NOT EXISTS devices (id TEXT PRIMARY KEY, name TEXT NOT NULL, endpoint TEXT NOT NULL UNIQUE, subscription JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`);
-  await database.query(`ALTER TABLE devices ADD COLUMN IF NOT EXISTS resident_email TEXT`);
-  await database.query(`CREATE TABLE IF NOT EXISTS visits (id TEXT PRIMARY KEY, message TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), answered_at TIMESTAMPTZ, delivery TEXT NOT NULL DEFAULT 'registered')`);
-  await database.query(`CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, attempts INTEGER NOT NULL, expires_at TIMESTAMPTZ NOT NULL)`);
-  await database.query(`CREATE INDEX IF NOT EXISTS visits_created_at_idx ON visits (created_at DESC)`);
+  if (await schemaVersion(database) >= MIGRATIONS.length) return;
+  await database.transaction(async (transaction) => {
+    await transaction.query('SELECT pg_advisory_xact_lock($1)', [MIGRATION_LOCK]);
+    await transaction.query('CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY, applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
+    const current = await schemaVersion(transaction);
+    for (let index = current; index < MIGRATIONS.length; index += 1) {
+      for (const statement of MIGRATIONS[index]) {
+        if (typeof statement === 'string') await transaction.query(statement);
+        else await transaction.query(statement[0], statement[1]());
+      }
+      await transaction.query('INSERT INTO schema_migrations (version) VALUES ($1)', [index + 1]);
+    }
+  });
 }
 
 const databaseGlobal = globalThis as unknown as { ringggDatabase?: Promise<Database> };

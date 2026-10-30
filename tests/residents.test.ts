@@ -107,7 +107,7 @@ describe('residentes persistentes', () => {
     nock.disableNetConnect();
     const ownerEndpoint = nock('https://fcm.googleapis.com').post('/owner-device').reply(201);
     try {
-      const result = await sendPush(database, 'Prueba', undefined, undefined, admin.email);
+      const result = await sendPush(database, { title: 'Prueba', body: 'Prueba', residentEmail: admin.email });
       expect(result).toEqual({ delivery: 'sent', accepted: 1, total: 1 });
       expect(ownerEndpoint.isDone()).toBe(true);
     } finally { nock.cleanAll(); nock.enableNetConnect(); }
@@ -117,7 +117,7 @@ describe('residentes persistentes', () => {
     await addResident(database, admin, member.email, settings);
     const curve = createECDH('prime256v1'); curve.generateKeys();
     await saveDevice(database, 'Celular de otra persona', { endpoint: 'https://fcm.googleapis.com/other-device', keys: { p256dh: curve.getPublicKey().toString('base64url'), auth: randomBytes(16).toString('base64url') } }, member, settings);
-    await expect(sendPush(database, 'Prueba', undefined, undefined, admin.email)).resolves.toEqual({ delivery: 'unavailable', accepted: 0, total: 0 });
-    await expect(sendPush(database, 'Prueba', undefined, undefined, '')).resolves.toEqual({ delivery: 'unavailable', accepted: 0, total: 0 });
+    await expect(sendPush(database, { title: 'Prueba', body: 'Prueba', residentEmail: admin.email })).resolves.toEqual({ delivery: 'unavailable', accepted: 0, total: 0 });
+    await expect(sendPush(database, { title: 'Prueba', body: 'Prueba', residentEmail: '' })).resolves.toEqual({ delivery: 'unavailable', accepted: 0, total: 0 });
   });
 });

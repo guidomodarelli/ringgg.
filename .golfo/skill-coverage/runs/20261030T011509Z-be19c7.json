@@ -1,0 +1,1155 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/doorbell-hardening-and-replies",
+    "commit": "8eb12c01cb0b41dcc166333e2f3d1cf38a5dec06",
+    "fingerprint": "sha256:af2961bdb67f31408d38bdec189640824614e70976a2af01cfcd9502a1f49bb0",
+    "uncommittedFiles": [
+      "src/app/api/answer/route.ts",
+      "src/app/api/dashboard/route.ts",
+      "src/app/api/device-status/route.ts",
+      "src/app/api/push-key/route.ts",
+      "src/app/api/quiet-hours/route.ts",
+      "src/app/api/remove-device/route.ts",
+      "src/app/api/rotate/route.ts",
+      "src/app/api/settings/route.ts",
+      "src/app/api/subscribe/route.ts",
+      "src/app/api/test-my-devices/route.ts",
+      "src/app/api/test-push/route.ts",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/door-overview.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/settings-section.tsx",
+      "src/components/dashboard/types.ts",
+      "src/components/dashboard/visit-history.tsx",
+      "src/constants/doorbell.ts",
+      "src/lib/quiet-hours.ts",
+      "src/lib/visit-format.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/http.ts",
+      "src/server/push.ts",
+      "src/types/doorbell.ts"
+    ],
+    "fileCount": 49,
+    "inputCount": 249
+  },
+  "evidence": [
+    {
+      "command": "npx vitest run tests/doorbell.test.ts tests/visit-format.test.ts",
+      "durationMs": 5488,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "4dbd6a92f93b30d775c5464a50839b61cd9772851b2e723ef5dd6077de2926ac",
+      "recordedAt": "2026-10-30T01:15:42.005Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/visitor-replies.spec.ts tests/e2e/doorbell-pause.spec.ts tests/e2e/dashboard-navigation.spec.ts --reporter=line",
+      "durationMs": 18087,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "7d22ef8024a48f0c1d8144cfaccbe2bc4e6b08f0937cdef92e932c5b775a6de5",
+      "recordedAt": "2026-10-30T01:16:00.409Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T01:16:00.722Z",
+      "source": "attested",
+      "summary": "Respuestas rápidas y horario de descanso: pending-first con actionLock compartido, refreshGeneration descarta respuestas viejas del polling, refresco inmediato por push/foco sin superponer consultas, reply idempotente (primera respuesta gana). Acción desde la notificación: server-confirmed por el service worker con fallback a abrir la visita."
+    }
+  ],
+  "limitations": [
+    "Sin sesión real de Neon: la E2E completa del panel queda omitida"
+  ],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T01:16:34.417Z",
+  "result": "verified",
+  "runId": "20261030T011509Z-be19c7",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "previous run was partial"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:kysely",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#body",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#endpoint",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#GET",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#handle",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/app/api/[...path]/route.ts#POST",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/answer/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/answer/route.ts#answerSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/answer/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/answer/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/answer/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/dashboard/route.ts#GET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/device-status/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/device-status/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/device-status/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/device-status/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-key/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-key/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-key/route.ts#GET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-key/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/quiet-hours/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/quiet-hours/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/quiet-hours/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/quiet-hours/route.ts#quietHoursSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/quiet-hours/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/quiet-hours/route.ts#time",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/remove-device/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/remove-device/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/remove-device/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/remove-device/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rotate/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rotate/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rotate/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rotate/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/settings/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/settings/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/settings/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/settings/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/settings/route.ts#settingsSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/subscribe/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/subscribe/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/subscribe/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/subscribe/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/subscribe/route.ts#subscribeSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-my-devices/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-my-devices/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-my-devices/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-my-devices/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-push/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-push/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-push/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-push/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard/action",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/signOut",
+        "reason": "new action handler"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard/subscribe",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#SECTION_TITLES.devices",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#SECTION_TITLES.history",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#SECTION_TITLES.overview",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#SECTION_TITLES.qr",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#SECTION_TITLES.residents",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#SECTION_TITLES.settings",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#SECTION_TITLES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#statusLabel",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSection",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/door-overview.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/door-overview.tsx#DoorOverview",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/qr-panel.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel/copy",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET.end",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET.start",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#DEFAULT_QUIET~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#SettingsSection",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/types.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/types.ts#RunAction",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#VisitHistory/waiting",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#VisitHistory~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControl",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/notification-onboarding.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.reservedSchemas",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/dashboard-views.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/dashboard-views.ts#DASHBOARD_VIEW_EVENT",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/dashboard-views.ts#DASHBOARD_VIEWS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/dashboard-views.ts#DashboardView",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength",
+        "reason": "lifecycle configuration member (answeredByMaxLength)"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.cooldownSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.messageMaxLength",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.retentionDays",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.notFound",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#HTTP.tooMany",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#NOTIFICATION_REPLIES",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#QUIET_HOURS_PATTERN",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.away",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.coming",
+        "reason": "lifecycle configuration member (coming)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.leave",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.soon",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLY_KEYS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VisitReply",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/residents.ts#RESIDENTS.maximumInvitations",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/dashboard-view.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/dashboard-view.ts#getDashboardView",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/notification-setup.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/notification-setup.ts#needsNotificationSetup",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#isQuietTime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#localMinutes/value",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#localMinutes~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#minutes",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#answerSummary",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#DELIVERY_LABELS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#responseTime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#visitFromUrl",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATION_LOCK",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#getHome",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#homeState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#publicHome",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#readVisit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#registerVisit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#rotateToken",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/doorbell.ts#setDelivery",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#snapshot",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateQuietHours",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#VISIT_COLUMNS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#BODY_LIMIT",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readJson",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#residentDisplayName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#authConfigured",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/neon-auth.ts#getNeonAuth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#hasRegisteredDevice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#pushPayload",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#removeDevice",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/residents.ts#addResident",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/residents.ts#listResidents",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/residents.ts#removeResident",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/residents.ts#requireResidentAdmin",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/residents.ts#residentEmailSchema",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveResidentAccess",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#auth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#getSelfAuth",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#selfAuthConfigured",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#DashboardData",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#DashboardSnapshot",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#HomeState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "removed",
+        "key": "src/types/doorbell.ts#PublicVisit",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Visit",
+        "reason": "code reached by the unit changed"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Crear/verificar cuenta del propietario y recorrer Residentes desde el panel.",
+      "package better-auth — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+      "package kysely — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+      "src/app/api/[...path]/route.ts › body — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/app/api/[...path]/route.ts › endpoint — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/app/api/[...path]/route.ts › GET — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/app/api/[...path]/route.ts › handle — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/app/api/[...path]/route.ts › POST — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/app/api/answer/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/answer/route.ts › answerSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/answer/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/answer/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/answer/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/dashboard/route.ts › GET — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/device-status/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/device-status/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/device-status/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/device-status/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/push-key/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/push-key/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/push-key/route.ts › GET — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/push-key/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/quiet-hours/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/quiet-hours/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/quiet-hours/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/quiet-hours/route.ts › quietHoursSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/quiet-hours/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/quiet-hours/route.ts › time — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/remove-device/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/remove-device/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/remove-device/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/remove-device/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/rotate/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/rotate/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/rotate/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/rotate/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/settings/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/settings/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/settings/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/settings/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/settings/route.ts › settingsSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/subscribe/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/subscribe/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/subscribe/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/subscribe/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/subscribe/route.ts › subscribeSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-my-devices/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-my-devices/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-my-devices/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-my-devices/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-push/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-push/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-push/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/test-push/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/components/dashboard.tsx › Dashboard › action — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard.tsx › Dashboard › signOut — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard.tsx › Dashboard › subscribe — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/dashboard.tsx › SECTION_TITLES.devices — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard.tsx › SECTION_TITLES.history — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard.tsx › SECTION_TITLES.overview — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard.tsx › SECTION_TITLES.qr — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard.tsx › SECTION_TITLES.residents — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard.tsx › SECTION_TITLES.settings — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard.tsx › SECTION_TITLES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard.tsx › statusLabel — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/devices-section.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/dashboard/devices-section.tsx › DevicesSection — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/door-overview.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/dashboard/door-overview.tsx › DoorOverview — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/qr-panel.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/dashboard/qr-panel.tsx › QrPanel › copy — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard/qr-panel.tsx › QrPanel (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/dashboard/settings-section.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/dashboard/settings-section.tsx › DEFAULT_QUIET.end — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard/settings-section.tsx › DEFAULT_QUIET.start — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/components/dashboard/settings-section.tsx › DEFAULT_QUIET (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/settings-section.tsx › SettingsSection — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/types.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/dashboard/types.ts › RunAction — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/visit-history.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/dashboard/visit-history.tsx › VisitHistory › waiting — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard/visit-history.tsx › VisitHistory (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/doorbell-pause-control.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/doorbell-pause-control.tsx › DoorbellPauseControl — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/notification-onboarding.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/notification-onboarding.tsx › NotificationOnboarding — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/resident-management.tsx › ResidentManagement › update — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/constants/auth.ts › AUTH.reservedSchemas — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/auth.ts › AUTH.schemaNamePattern — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/auth.ts › AUTH.selfManagedDefaultSchema — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/dashboard-views.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/constants/dashboard-views.ts › DASHBOARD_VIEW_EVENT — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/dashboard-views.ts › DASHBOARD_VIEWS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/dashboard-views.ts › DashboardView — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/doorbell.ts › DOORBELL.answeredByMaxLength — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/doorbell.ts › DOORBELL.cooldownSeconds — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/constants/doorbell.ts › DOORBELL.messageMaxLength — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/constants/doorbell.ts › DOORBELL.retentionDays — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/constants/doorbell.ts › HTTP.notFound — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/constants/doorbell.ts › HTTP.tooMany — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/constants/doorbell.ts › NOTIFICATION_REPLIES — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/doorbell.ts › QUIET_HOURS_PATTERN — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/doorbell.ts › VISIT_REPLIES.away — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/doorbell.ts › VISIT_REPLIES.coming — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/doorbell.ts › VISIT_REPLIES.leave — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/doorbell.ts › VISIT_REPLIES.soon — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/doorbell.ts › VISIT_REPLIES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/doorbell.ts › VISIT_REPLY_KEYS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/doorbell.ts › VisitReply — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/residents.ts › RESIDENTS.maximumInvitations — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/lib/api.ts › api — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/dashboard-view.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/dashboard-view.ts › getDashboardView — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/notification-setup.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/notification-setup.ts › needsNotificationSetup — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/quiet-hours.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/quiet-hours.ts › isQuietTime — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/quiet-hours.ts › localMinutes › value — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/lib/quiet-hours.ts › localMinutes (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/lib/quiet-hours.ts › minutes — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/visit-format.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/visit-format.ts › answerSummary — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/visit-format.ts › DELIVERY_LABELS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/visit-format.ts › responseTime — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/visit-format.ts › visitFromUrl — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/server/auth-mode.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/auth-mode.ts › isSelfManagedAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/auth.ts › getIdentity — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/auth.ts › requireAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › initialize — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › MIGRATION_LOCK — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › MIGRATIONS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › schemaVersion — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › UNDEFINED_TABLE — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › answerVisit — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › getHome — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › homeState — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › publicHome — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/doorbell.ts › readVisit — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/doorbell.ts › registerVisit — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/doorbell.ts › rotateToken — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › setDelivery — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/doorbell.ts › snapshot — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › updateHomeSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › updateQuietHours — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › VISIT_COLUMNS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › apiRoute — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › BODY_LIMIT — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › readJson — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › residentDisplayName — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/neon-auth.ts › authConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/neon-auth.ts › getNeonAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › hasRegisteredDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › pushPayload — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › removeDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › sendPush — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › addResident — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/residents.ts › listResidents — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/residents.ts › removeResident — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/residents.ts › requireResidentAdmin — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/residents.ts › residentEmailSchema — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/server/residents.ts › resolveResidentAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › auth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › createSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › getSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/self-auth.ts › selfAuthConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/types/doorbell.ts › DashboardData — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/doorbell.ts › DashboardSnapshot — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/doorbell.ts › Home — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/doorbell.ts › HomeState — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/doorbell.ts › PublicVisit — an operation was removed or moved: check that no pending intent, timer, rollback or cache entry still points to it",
+      "src/types/doorbell.ts › Visit — operations that reach this code: intent, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Panel dividido en secciones, respuestas rápidas, horario de descanso y refresco por push/foco",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T01:15:09.545Z",
+  "unitId": "ringgg.resident"
+}

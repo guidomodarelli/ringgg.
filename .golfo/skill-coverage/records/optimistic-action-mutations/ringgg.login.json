@@ -2,46 +2,50 @@
   "latest": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "main",
-      "commit": "0935696f00d23be7d3d8254ac6ae90cc8357d906",
+      "branch": "feature/doorbell-hardening-and-replies",
+      "commit": "8eb12c01cb0b41dcc166333e2f3d1cf38a5dec06",
       "files": {
-        "src/components/login.tsx": "2485868763a3dd87",
-        "src/server/auth.ts": "492761ac2a9f7a89",
-        "src/app/api/auth/[...path]/route.ts": "21d0812499c82c89",
-        "src/constants/auth.ts": "065319959dd17951",
-        "src/components/brand.tsx": "7432f1f6c5ce44c2",
+        "src/components/login.tsx": "767ebb0e08237c9d",
+        "src/server/auth.ts": "30ad2dd2489fe11b",
+        "src/app/api/auth/[...path]/route.ts": "8a7830cf56cdb207",
+        "src/constants/auth.ts": "1ffcfd55b5a28229",
+        "src/components/brand.tsx": "c88038bcdca3be24",
         "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
         "src/server/errors.ts": "1ebd07c9c36fd4c9",
-        "src/constants/doorbell.ts": "a8a7ab58bd0eb226",
+        "src/constants/doorbell.ts": "a4cee6851393bbdf",
         "src/types/auth.ts": "f3635cf0c001ea99",
-        "src/server/neon-auth.ts": "2d380118c966c8d0",
+        "src/server/neon-auth.ts": "098837118d7561d8",
+        "src/server/self-auth.ts": "c8a30c1f421bed6a",
+        "src/server/auth-mode.ts": "55ab5ff52eeb427d",
         "src/types/residents.ts": "5e92dc2596b6084e",
-        "src/server/database.ts": "7adb74e7cd42285e",
-        "src/server/residents.ts": "4a8b65ee22a9989d",
+        "src/server/database.ts": "c1741312a733a0e7",
+        "src/server/residents.ts": "247b6ea6ee6acabe",
         "src/server/config.ts": "275ccaef3e809db0",
         "src/server/postgres.ts": "b8ad79581c146c4c",
         "src/server/resident-access.ts": "24da31381b0b4774",
         "src/config/database.ts": "cfab3a8bb039650a",
         "src/constants/database.ts": "4f990a98f504bf0b"
       },
-      "fingerprint": "sha256:0436b4e9a62ad526cfe3dd2f8a169863119cb72c4e0126a8fbff896bb5456c90",
+      "fingerprint": "sha256:0d6682c3dd1d15acbcba7bb3fbc1fd7c60a6bd3642eba144ac06a134457a99e5",
       "inputs": {
         "src/components/login.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/login.tsx#Login/changeMode": "ae1225fd73ea29f6",
         "src/components/login.tsx#Login/action": "b004ebdfd7d78183",
         "src/components/login.tsx#Login/showError": "5fe238101b10d3c2",
         "src/components/login.tsx#Login/submit": "c43dbc26f992e9ec",
-        "src/components/login.tsx#Login~shell": "c1bd96b5f7964ced",
+        "src/components/login.tsx#Login~shell": "878ad2ce1855f214",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "pkg:react": "f4529719455f2af2",
         "src/server/auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/auth.ts#getIdentity": "8e5ec7a8d67237a1",
-        "src/server/auth.ts#requireAuth": "6bcfe3e8e46cf6b5",
+        "src/server/auth.ts#getIdentity": "5b7a4e4d0e0aac26",
+        "pkg:next": "530097ba2f134bc2",
+        "src/server/auth.ts#requireAuth": "63b91bc63604f47b",
         "src/server/auth.ts#requireOrigin": "8befea052ef880a8",
         "src/app/api/auth/[...path]/route.ts#<module>": "2da3ec2294295eb1",
         "src/app/api/auth/[...path]/route.ts#runtime": "46ca4b1b24f285fc",
         "src/app/api/auth/[...path]/route.ts#dynamic": "a45532c1af88ffc5",
-        "src/app/api/auth/[...path]/route.ts#handler": "cb70e19819baf1f9",
+        "src/app/api/auth/[...path]/route.ts#handler": "68dbd5da86999b1c",
+        "pkg:better-auth": "a969211ec564af4d",
         "src/app/api/auth/[...path]/route.ts#GET": "ea1d8525414863f6",
         "src/app/api/auth/[...path]/route.ts#POST": "b50e3b3c92d005e9",
         "src/app/api/auth/[...path]/route.ts#PUT": "01e793c9bf3fcc65",
@@ -64,7 +68,8 @@
         "src/constants/auth.ts#AUTH.verificationCodeLength": "b5d0d601347e0aef",
         "src/constants/auth.ts#AuthFormMode": "82802408d5f6cdde",
         "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
-        "src/components/brand.tsx#Brand": "e7ef62c74c1fc2f7",
+        "src/components/brand.tsx#Brand": "4a93848faadb55ac",
+        "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
         "src/lib/auth-client.ts#<module>": "3809ea0e66c9f036",
         "pkg:@neondatabase/auth": "cb0784c3ee32091d",
         "src/lib/auth-client.ts#authClient": "c58939e9975b814b",
@@ -76,9 +81,17 @@
         "src/types/auth.ts#<module>": "2da3ec2294295eb1",
         "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
         "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
-        "src/server/neon-auth.ts#authConfigured": "d3ec6209a40b4e8f",
-        "src/server/neon-auth.ts#getNeonAuth": "838f4cd429a8378d",
+        "src/server/neon-auth.ts#authConfigured": "59a85ab010a6bb61",
+        "src/server/neon-auth.ts#getNeonAuth": "21acc3aa6ad225b0",
         "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
+        "src/server/self-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/self-auth.ts#getSelfAuth": "db6f7e6536e69dd7",
+        "src/server/self-auth.ts#auth": "ea23585755bb513f",
+        "src/server/self-auth.ts#createSelfAuth": "f246e25ceac53e41",
+        "pkg:kysely": "62d68445b49f5341",
+        "src/server/self-auth.ts#selfAuthConfigured": "e7c43282789ffb15",
+        "src/server/auth-mode.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth-mode.ts#isSelfManagedAuth": "0ac5810e58f9e520",
         "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
         "src/types/residents.ts#<module>": "2da3ec2294295eb1",
         "src/types/residents.ts#ResidentAccess": "da2a6361a608cf4e",
@@ -88,9 +101,13 @@
         "src/server/database.ts#connect": "8e29d1391a673652",
         "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
-        "src/server/database.ts#initialize": "51138d2c55a04b3d",
+        "src/server/database.ts#initialize": "eaaff186f22bd092",
+        "src/server/database.ts#MIGRATIONS": "6c60ed1a75e3154c",
+        "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
+        "src/server/database.ts#schemaVersion": "ef3ad5ea4ff760b8",
+        "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
         "src/server/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/server/residents.ts#resolveResidentAccess": "4941046fcf62b877",
+        "src/server/residents.ts#resolveResidentAccess": "6ddd31b45692d7d6",
         "src/server/residents.ts#emailList": "68719ecac844ab41",
         "src/server/residents.ts#residentSettings": "c78f8b52ca179d6d",
         "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
@@ -102,9 +119,12 @@
         "src/server/errors.ts#errorResponse": "fe7520cd784f81c5",
         "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
         "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
         "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
         "src/server/postgres.ts#createPostgresPool": "e5656061b2e55b12",
         "pkg:pg": "bba8fb4b856406c4",
+        "src/constants/auth.ts#AUTH.reservedSchemas": "96aeee1bb4d6e114",
+        "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
         "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
         "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
         "src/types/residents.ts#ResidentSettings": "1ff02023a23c2727",
@@ -133,8 +153,8 @@
           "awaits": 2
         },
         "src/server/auth.ts#getIdentity": {
-          "awaits": 1,
-          "projectCalls": 1
+          "awaits": 3,
+          "projectCalls": 2
         },
         "src/server/auth.ts#requireAuth": {
           "awaits": 2,
@@ -144,8 +164,8 @@
           "projectCalls": 1
         },
         "src/app/api/auth/[...path]/route.ts#handler": {
-          "projectCalls": 1,
-          "awaits": 1
+          "awaits": 2,
+          "projectCalls": 2
         },
         "src/lib/auth-client.ts#<module>": {
           "projectCalls": 1
@@ -154,6 +174,9 @@
           "projectCalls": 1
         },
         "src/server/neon-auth.ts#getNeonAuth": {
+          "projectCalls": 1
+        },
+        "src/server/self-auth.ts#createSelfAuth": {
           "projectCalls": 1
         },
         "src/server/database.ts#getDatabase": {
@@ -165,8 +188,13 @@
           "database": 8
         },
         "src/server/database.ts#initialize": {
-          "awaits": 8,
-          "database": 8
+          "awaits": 5,
+          "database": 6,
+          "awaitInLoop": 3
+        },
+        "src/server/database.ts#schemaVersion": {
+          "awaits": 1,
+          "database": 1
         },
         "src/server/residents.ts#resolveResidentAccess": {
           "awaits": 1,
@@ -177,58 +205,31 @@
         }
       },
       "uncommittedFiles": [
-        "src/app/api/auth/[...path]/route.ts",
-        "src/components/login.tsx",
-        "src/constants/auth.ts",
         "src/constants/doorbell.ts",
-        "src/lib/auth-client.ts",
-        "src/server/auth.ts",
-        "src/server/config.ts",
-        "src/server/database.ts",
-        "src/server/neon-auth.ts",
-        "src/server/resident-access.ts",
-        "src/server/residents.ts",
-        "src/types/auth.ts",
-        "src/types/residents.ts"
+        "src/server/database.ts"
       ]
     },
     "evidence": [
       {
-        "kind": "review",
-        "outcome": "pass",
-        "recordedAt": "2026-10-29T21:54:55.535Z",
-        "source": "attested",
-        "summary": "Administracion por identidad verificada y bootstrap protegido; invitaciones persistentes con limite y lock, revocacion de dispositivos bajo mismo lock, SSR de roster solo admin, acciones pending con reintento idempotente, confirmacion y recuperacion inline. Review independiente sin Important."
-      },
-      {
-        "command": "npm test -- tests/residents.test.ts",
-        "durationMs": 1906,
+        "command": "npx playwright test tests/e2e/auth.spec.ts --reporter=line",
+        "durationMs": 9652,
         "exitCode": 0,
         "kind": "test",
         "outcome": "pass",
-        "outputSha256": "255322e0744e9678048a565fa6ba40fa35e3fc024bdae8aca5f4df96935413d9",
-        "recordedAt": "2026-10-29T21:54:57.614Z",
+        "outputSha256": "70fa586597a2dee8b0fdf893ce8b58fb7c30cc9ef8aa222900f0831a7625d35f",
+        "recordedAt": "2026-10-30T01:16:26.412Z",
         "source": "witnessed",
         "summary": "exit code 0"
-      },
-      {
-        "kind": "browser",
-        "outcome": "pass",
-        "recordedAt": "2026-10-29T21:55:40.350Z",
-        "source": "attested",
-        "summary": "Playwright posterior a begin monta componente React real con HTTP y PostgreSQL embebido: agregar por doble click, confirmacion, cancelar, revocar y reintentar conservando email. Identidad de prueba inyectada solo en el borde de autenticacion. Correo del propietario autorizado en Neon/config; su cuenta aun no existe."
       }
     ],
     "limitations": [
-      "Falta registro y verificacion real del propietario para recorrer el panel completo con su identidad."
+      "Modo liviano sin cobertura verificada previa"
     ],
-    "mode": "full",
-    "pendingChecks": [
-      "Crear/verificar cuenta del propietario y recorrer Residentes desde el panel."
-    ],
-    "recordedAt": "2026-10-29T21:55:40.726Z",
+    "mode": "lightweight",
+    "pendingChecks": [],
+    "recordedAt": "2026-10-30T01:16:35.578Z",
     "result": "partial",
-    "runId": "20261029T215455Z-ea0dc7",
+    "runId": "20261030T011510Z-b151e8",
     "scope": {
       "decision": "incremental",
       "reasons": [
@@ -237,68 +238,68 @@
       "relevantChangesAtBegin": [
         {
           "change": "added",
-          "key": "pkg:@electric-sql/pglite",
+          "key": "pkg:better-auth",
           "reason": "new package in the flow (data, cache or mutation primitives)"
         },
         {
           "change": "added",
-          "key": "pkg:pg",
+          "key": "pkg:kysely",
           "reason": "new package in the flow (data, cache or mutation primitives)"
         },
         {
           "change": "added",
-          "key": "src/config/database.ts#<module>",
-          "reason": "new code reached by the unit"
+          "key": "pkg:next",
+          "reason": "new package in the flow (data, cache or mutation primitives)"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/api/auth/[...path]/route.ts#handler",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/brand.tsx#Brand",
+          "reason": "code reached by the unit changed"
         },
         {
           "change": "added",
-          "key": "src/config/database.ts#getPostgresConfig",
+          "key": "src/components/brand.tsx#BrandContents",
           "reason": "new code reached by the unit"
         },
         {
-          "change": "added",
-          "key": "src/constants/database.ts#<module>",
-          "reason": "new code reached by the unit"
+          "change": "modified",
+          "key": "src/components/login.tsx#Login~shell",
+          "reason": "component state or render changed"
         },
         {
           "change": "added",
-          "key": "src/constants/database.ts#DATABASE.applicationName",
+          "key": "src/constants/auth.ts#AUTH.reservedSchemas",
           "reason": "unclassified object member: lifecycle impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/database.ts#DATABASE.connectionTimeoutMs",
-          "reason": "lifecycle configuration member (connectionTimeoutMs)"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/database.ts#DATABASE.idleTimeoutMs",
-          "reason": "lifecycle configuration member (idleTimeoutMs)"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/database.ts#DATABASE.maxLifetimeSeconds",
-          "reason": "lifecycle configuration member (maxLifetimeSeconds)"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/database.ts#DATABASE.neonSuffix",
+          "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
           "reason": "unclassified object member: lifecycle impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/database.ts#DATABASE.poolMax",
-          "reason": "lifecycle configuration member (poolMax)"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/database.ts#DATABASE.verifiedSslMode",
+          "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
           "reason": "unclassified object member: lifecycle impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/database.ts#DATABASE~frame",
+          "key": "src/server/auth-mode.ts#<module>",
           "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#getIdentity",
+          "reason": "code reached by the unit changed"
         },
         {
           "change": "modified",
@@ -306,112 +307,100 @@
           "reason": "code reached by the unit changed"
         },
         {
-          "change": "added",
-          "key": "src/server/database.ts#<module>",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#connect",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#Database",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#databaseGlobal",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#getDatabase",
-          "reason": "new code reached by the unit"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/database.ts#initialize",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/database.ts#MIGRATION_LOCK",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/server/postgres.ts#<module>",
+          "key": "src/server/database.ts#MIGRATIONS",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/server/postgres.ts#createPostgresPool",
+          "key": "src/server/database.ts#schemaVersion",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/server/residents.ts#<module>",
+          "key": "src/server/database.ts#UNDEFINED_TABLE",
           "reason": "new code reached by the unit"
         },
         {
-          "change": "added",
-          "key": "src/server/residents.ts#emailList",
-          "reason": "new code reached by the unit"
+          "change": "modified",
+          "key": "src/server/neon-auth.ts#authConfigured",
+          "reason": "code reached by the unit changed"
         },
         {
-          "change": "added",
-          "key": "src/server/residents.ts#residentSettings",
-          "reason": "new code reached by the unit"
+          "change": "modified",
+          "key": "src/server/neon-auth.ts#getNeonAuth",
+          "reason": "code reached by the unit changed"
         },
         {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/residents.ts#resolveResidentAccess",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#<module>",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/types/residents.ts#<module>",
+          "key": "src/server/self-auth.ts#auth",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/types/residents.ts#ResidentAccess",
+          "key": "src/server/self-auth.ts#createSelfAuth",
           "reason": "new code reached by the unit"
         },
         {
           "change": "added",
-          "key": "src/types/residents.ts#ResidentSettings",
+          "key": "src/server/self-auth.ts#getSelfAuth",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/server/self-auth.ts#selfAuthConfigured",
           "reason": "new code reached by the unit"
         }
       ],
       "suggestedScope": [
-        "pending from the previous run: Configurar RESIDENT_EMAILS y probar cuenta verificada, OTP y recuperacion.",
-        "package @electric-sql/pglite — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
-        "package pg — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
-        "src/config/database.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
-        "src/config/database.ts › getPostgresConfig — operations that reach this code: intent, concurrency, rollback and reconciliation",
-        "src/constants/database.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
-        "src/constants/database.ts › DATABASE.applicationName — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/database.ts › DATABASE.connectionTimeoutMs — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/database.ts › DATABASE.idleTimeoutMs — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/database.ts › DATABASE.maxLifetimeSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/database.ts › DATABASE.neonSuffix — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/database.ts › DATABASE.poolMax — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/database.ts › DATABASE.verifiedSslMode — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
-        "src/constants/database.ts › DATABASE (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "pending from the previous run: Crear/verificar cuenta del propietario y recorrer Residentes desde el panel.",
+        "package better-auth — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+        "package kysely — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+        "package next — mutation, cache and cancellation primitives of this package after the change (onMutate, rollback, invalidation, retries)",
+        "src/app/api/auth/[...path]/route.ts › handler — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/components/brand.tsx › Brand — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/brand.tsx › BrandContents — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/components/login.tsx › Login (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+        "src/constants/auth.ts › AUTH.reservedSchemas — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH.schemaNamePattern — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/auth.ts › AUTH.selfManagedDefaultSchema — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/server/auth-mode.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/auth-mode.ts › isSelfManagedAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/auth.ts › getIdentity — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/auth.ts › requireAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/database.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/database.ts › connect — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/database.ts › Database — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/database.ts › databaseGlobal — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/database.ts › getDatabase — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/database.ts › initialize — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/postgres.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/postgres.ts › createPostgresPool — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › emailList — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/server/residents.ts › residentSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › MIGRATION_LOCK — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › MIGRATIONS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › schemaVersion — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/database.ts › UNDEFINED_TABLE — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/neon-auth.ts › authConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/neon-auth.ts › getNeonAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
         "src/server/residents.ts › resolveResidentAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
-        "src/types/residents.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
-        "src/types/residents.ts › ResidentAccess — operations that reach this code: intent, concurrency, rollback and reconciliation",
-        "src/types/residents.ts › ResidentSettings — operations that reach this code: intent, concurrency, rollback and reconciliation"
+        "src/server/self-auth.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › auth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › createSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › getSelfAuth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+        "src/server/self-auth.ts › selfAuthConfigured — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections"
       ]
     },
     "skill": {
@@ -427,8 +416,8 @@
       "name": "optimistic-action-mutations",
       "version": "1.2.0"
     },
-    "summary": "Integracion real de reglas y componente aprobado; bootstrap protegido y revocacion probados. No se simulo Neon ni su verificacion.",
-    "report": "runs/20261029T215455Z-ea0dc7.json"
+    "summary": "Sin cambios en el flujo de acceso; solo cambió el bootstrap del esquema",
+    "report": "runs/20261030T011510Z-b151e8.json"
   },
   "schemaVersion": 1,
   "skill": "optimistic-action-mutations",

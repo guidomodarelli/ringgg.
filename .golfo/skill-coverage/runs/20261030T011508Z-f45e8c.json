@@ -1,0 +1,681 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/doorbell-hardening-and-replies",
+    "commit": "8eb12c01cb0b41dcc166333e2f3d1cf38a5dec06",
+    "fingerprint": "sha256:3249b35e37530db1ae3a36654df081af792c0a546e0d6711d8182b4836ff048e",
+    "uncommittedFiles": [
+      "src/app/api/door/[token]/route.ts",
+      "src/app/api/door/[token]/visits/[id]/note/route.ts",
+      "src/app/api/door/[token]/visits/[id]/route.ts",
+      "src/components/visitor.tsx",
+      "src/constants/doorbell.ts",
+      "src/lib/quiet-hours.ts",
+      "src/server/database.ts",
+      "src/server/doorbell.ts",
+      "src/server/http.ts",
+      "src/server/push.ts",
+      "src/server/rate-limit.ts",
+      "src/types/doorbell.ts"
+    ],
+    "fileCount": 20,
+    "inputCount": 141
+  },
+  "evidence": [
+    {
+      "command": "npx vitest run tests/doorbell.test.ts",
+      "durationMs": 5741,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "0fd0e098adab99f9b706b64b59f5d7dc9604c4ab4b3a3c3da30b06c1b05d1b75",
+      "recordedAt": "2026-10-30T01:15:16.756Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/visitor-replies.spec.ts --reporter=line",
+      "durationMs": 18792,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "0da937eaff3288148e9847330ff860f871b49c8d6410df550050c03f47ac98ed",
+      "recordedAt": "2026-10-30T01:15:35.871Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T01:15:36.193Z",
+      "source": "attested",
+      "summary": "Tocar timbre: server-confirmed con ID de operación reutilizado al reintentar; límites por cliente y por casa dentro de la transacción con bloqueo de la vivienda. Respuesta del residente: el visitante la ve recién tras confirmarse. Mensaje del visitante: server-confirmed, ref anti doble envío, idempotente en servidor (una nota, un aviso). Horario de descanso: estado derivado en servidor."
+    }
+  ],
+  "limitations": [
+    "La acción de la notificación y el refresco por push no se probaron en un celular real"
+  ],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T01:16:33.772Z",
+  "result": "verified",
+  "runId": "20261030T011508Z-f45e8c",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "114 of 135 parts changed: the unit is reviewed as a whole"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@electric-sql/pglite",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:pg",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:web-push",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:zod",
+        "reason": "new package in the flow (data, cache or mutation primitives)"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#GET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#Params",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#ringSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#noteSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#POST",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#GET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/brand.tsx#Brand",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/brand.tsx#BrandContents",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#NoteForm/send",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#NoteForm~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#Visitor~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#waitingDetail",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/config/database.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/config/database.ts#getPostgresConfig",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE.applicationName",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE.connectionTimeoutMs",
+        "reason": "lifecycle configuration member (connectionTimeoutMs)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE.idleTimeoutMs",
+        "reason": "lifecycle configuration member (idleTimeoutMs)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE.maxLifetimeSeconds",
+        "reason": "lifecycle configuration member (maxLifetimeSeconds)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE.neonSuffix",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE.poolMax",
+        "reason": "lifecycle configuration member (poolMax)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE.verifiedSslMode",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/database.ts#DATABASE~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength",
+        "reason": "lifecycle configuration member (answeredByMaxLength)"
+      },
+      {
+        "change": "removed",
+        "key": "src/constants/doorbell.ts#DOORBELL.cooldownSeconds",
+        "reason": "code no longer reached by the unit: an operation may have been removed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.maxDevices",
+        "reason": "lifecycle configuration member (maxDevices)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.noteMaxLength",
+        "reason": "lifecycle configuration member (noteMaxLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.pushTimeoutMs",
+        "reason": "lifecycle configuration member (pushTimeoutMs)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.pushTtlSeconds",
+        "reason": "lifecycle configuration member (pushTtlSeconds)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.timeZone",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.badRequest",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.forbidden",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.internal",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#HTTP.unavailable",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#NOTIFICATION_REPLIES",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#QUIET_HOURS_PATTERN",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.clientCooldownSeconds",
+        "reason": "lifecycle configuration member (clientCooldownSeconds)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.clientMaxPerWindow",
+        "reason": "lifecycle configuration member (clientMaxPerWindow)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.clientWindowSeconds",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.homeMaxPerWindow",
+        "reason": "lifecycle configuration member (homeMaxPerWindow)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS.homeWindowSeconds",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#RING_LIMITS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.away",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.coming",
+        "reason": "lifecycle configuration member (coming)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.leave",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES.soon",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VISIT_REPLIES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#VisitReply",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#isQuietTime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#localMinutes/value",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#localMinutes~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/quiet-hours.ts#minutes",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireOrigin",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/config.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/config.ts#configGlobal",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/config.ts#getConfig",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/config.ts#LocalSecrets",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#connect",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#Database",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#databaseGlobal",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#initialize",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATION_LOCK",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#getHome",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#homeState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#leaveNote",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#PUBLIC_VISIT_COLUMNS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#publicHome",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#readVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#registerVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#requireToken",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#rotateToken",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#snapshot",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateQuietHours",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#VISIT_COLUMNS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/errors.ts#errorResponse",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#BODY_LIMIT",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readJson",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/postgres.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/postgres.ts#createPostgresPool",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#pushPayload",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#enforceRingLimits",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#ringClientKey",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#DashboardSnapshot",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#HomeState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/types/doorbell.ts#PublicHome",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#PublicVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Visit",
+        "reason": "code reached by the unit changed"
+      }
+    ],
+    "suggestedScope": [
+      "whole unit ringgg.visitor: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Timbre con límites por cliente, respuestas rápidas, mensaje del visitante y horario de descanso",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T01:15:08.883Z",
+  "unitId": "ringgg.visitor"
+}

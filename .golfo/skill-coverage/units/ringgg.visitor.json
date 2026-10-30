@@ -19,6 +19,18 @@
     {
       "path": "src/server/doorbell.ts",
       "symbol": "*"
+    },
+    {
+      "path": "src/app/api/door/[token]/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/door/[token]/visits/[id]/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/door/[token]/visits/[id]/note/route.ts",
+      "symbol": "*"
     }
   ],
   "origin": "manual"

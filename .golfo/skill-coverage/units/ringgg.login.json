@@ -9,7 +9,9 @@
     "subflow": "Registro, ingreso, verificación y recuperación con Neon Auth"
   },
   "routes": [
-    "/", "/sign-in", "/reset-password"
+    "/",
+    "/sign-in",
+    "/reset-password"
   ],
   "entries": [
     {
