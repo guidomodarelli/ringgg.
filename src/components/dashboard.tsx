@@ -59,7 +59,8 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   const { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync } = useDashboardState(initial, device.deviceId);
   const url = `${data.origin}/t/${data.home.token}`;
   const busy = Boolean(pending);
-  useAppUpdates(busy);
+  // `next.config.ts` inlines the build's version into this bundle: it names the code this page runs.
+  useAppUpdates({ busy, loadedVersion: process.env.APP_VERSION ?? '' });
 
   async function signOut() {
     const result = await authClient.signOut();

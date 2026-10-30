@@ -68,7 +68,9 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 ## Actualización de la app instalada
 
 - La PWA instalada puede quedar días en memoria y el panel nunca navega, así que seguía con el código viejo hasta cerrarla del todo. El service worker ya se activa solo (`skipWaiting` y `clients.claim`) y solo guarda la página offline: lo viejo era la página abierta.
-- Cada build fija su versión (`VERCEL_DEPLOYMENT_ID`, si no el commit, si no la hora del build) y `/api/version` la devuelve. El panel la lee al abrir y cada vez que vuelve al frente; si cambió, se recarga. Con una acción en curso espera a que termine. Se descartó el `deploymentId` de Next: solo detecta el cambio al navegar.
+- Cada build fija su versión (`VERCEL_DEPLOYMENT_ID`, si no el commit, si no la hora del build) y `/api/version` la devuelve. El `env` de `next.config.ts` también la deja escrita en el código del cliente, así que la página sabe qué versión corre. El panel consulta `/api/version` al abrir y cada vez que vuelve al frente, y la compara con la suya, no con la primera respuesta: si la primera lectura falla o la página abre en segundo plano y hay un deploy en el medio, igual se entera. Si cambió, se recarga.
+- Nunca recarga en medio de algo. Espera mientras corre una acción del panel y mientras haya pedidos que cambian datos sin respuesta: `api()` cuenta todas sus llamadas POST, también las de formularios con su propio estado (residentes, crear o eliminar casa), así ninguno queda afuera. Cuando termina el último, espera `APP_UPDATES.settleBeforeReloadMs` para que corra lo que sigue a la respuesta (el aviso, o abrir la casa recién creada) y vuelve a chequear antes de recargar.
+- Se descartó el `deploymentId` de Next: solo detecta el cambio al navegar.
 - No se aplica a la página del visitante: recargarla le haría perder la visita que está esperando.
 
 ## Pausa temporal y retención
