@@ -12,11 +12,12 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# Every check is its own job so they run in parallel and a failure names the check that failed.
 jobs:
-  checks:
-    name: Lint, tipos, tests y build
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -25,7 +26,7 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      # `bun lint` (golfo-lint) and `bun check` (typecheck) are only in Bun canary until 1.4.5.
+      # `bun lint` (golfo-lint) is only in Bun canary until 1.4.5.
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: canary
@@ -34,14 +35,65 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npx golfo-lint workflows
+
+  typecheck:
+    name: Tipos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      # `bun check` (typecheck) is only in Bun canary until 1.4.5.
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: canary
+      - run: npm ci
       - run: npm run typecheck
+
+  unit:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       - run: npm test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       - run: npm run build
 
   e2e:
-    name: E2E con Playwright
+    name: E2E con Playwright (${{ matrix.shard }}/2)
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      # One shard failing still lets the other finish, so a run reports every failing spec.
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -53,8 +105,9 @@ jobs:
       - run: npm ci
       # Full Chromium as well as the headless shell: the service worker spec needs notification permissions.
       - run: npx playwright install --with-deps chromium
-      # The live specs sign in against the dedicated Neon branch `ci`; without these secrets (forks) they are skipped.
-      - run: npm run test:e2e
+      # Each shard runs whole spec files with its own dev server and local database. The live specs sign in
+      # against the dedicated Neon branch `ci`; without these secrets (forks) they are skipped.
+      - run: npm run test:e2e -- --shard=${{ matrix.shard }}/2
         env:
           E2E_NEON_AUTH_EMAIL: ${{ secrets.E2E_NEON_AUTH_EMAIL }}
           E2E_NEON_AUTH_PASSWORD: ${{ secrets.E2E_NEON_AUTH_PASSWORD }}
@@ -62,6 +115,6 @@ jobs:
       - if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: playwright-results
+          name: playwright-results-${{ matrix.shard }}
           path: test-results/
           retention-days: 7

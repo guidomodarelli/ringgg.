@@ -86,4 +86,4 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 
 - golfo-lint (`npm run lint`): reglas de calidad del preset, todas como error y sin comentarios para silenciarlas. La CI también valida los workflows con actionlint y zizmor.
 - `bun check` reemplaza a `tsc` en `npm run typecheck` (mismos errores, en una fracción del tiempo) y revisa por separado el service worker, que usa la librería `webworker`.
-- La CI de GitHub corre lint, tipos, tests, build y las E2E, incluido el login real contra la rama `ci`. Dependabot propone actualizaciones semanales; las dependencias fijadas por seguridad en `overrides` se actualizan juntas y validando el login.
+- La CI de GitHub corre lint, tipos, tests, build y las E2E en jobs paralelos, con las E2E repartidas en dos shards (cada uno con su servidor y su base local), incluido el login real contra la rama `ci`. Un check que falla se ve por su nombre y no frena a los demás. Dependabot propone actualizaciones semanales; las dependencias fijadas por seguridad en `overrides` se actualizan juntas y validando el login.
