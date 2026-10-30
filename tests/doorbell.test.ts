@@ -2,7 +2,7 @@ import { test, beforeAll, beforeEach, afterAll, describe } from 'vitest';
 import assert from 'node:assert/strict';
 import { PGlite } from '@electric-sql/pglite';
 import { initialize, MIGRATIONS, type Database } from '../src/server/database';
-import { registerVisit, getHome, answerVisit, readVisit, snapshot, leaveNote, publicHome, updateQuietHours } from '../src/server/doorbell';
+import { registerVisit, getHome, answerVisit, readVisit, snapshot, leaveNote, publicHome, updateQuietHours, setDelivery } from '../src/server/doorbell';
 import { AppError } from '../src/server/errors';
 import { subscriptionSchema, saveDevice, pushPayload } from '../src/server/push';
 import { ringClientKey } from '../src/server/rate-limit';
@@ -89,6 +89,26 @@ describe('timbrazos', () => {
     await assert.rejects(registerVisit(database, home.token, crypto.randomUUID(), '', 'visitor-a'), code('PAUSED'));
     await database.query('UPDATE homes SET token = $1, enabled = TRUE WHERE id = 1', [crypto.randomUUID()]);
     await assert.rejects(registerVisit(database, home.token, crypto.randomUUID(), '', 'visitor-a'), code('INVALID_DOORBELL'));
+  });
+});
+
+describe('lecturas públicas', () => {
+  test('la consulta del visitante valida el QR y distingue un timbrazo inexistente', async () => {
+    const home = await getHome(database);
+    const id = crypto.randomUUID();
+    await registerVisit(database, home.token, id, 'Hola', 'visitor-a');
+    await assert.rejects(readVisit(database, 'otro-token', id), code('INVALID_DOORBELL'));
+    await assert.rejects(readVisit(database, home.token, crypto.randomUUID()), code('VISIT_NOT_FOUND'));
+    assert.deepEqual(Object.keys(await readVisit(database, home.token, id)).sort(), ['answered_at', 'created_at', 'delivery', 'id', 'noted', 'reply']);
+  });
+
+  test('guardar el estado del aviso devuelve la visita pública sin otra lectura', async () => {
+    const home = await getHome(database);
+    const id = crypto.randomUUID();
+    await registerVisit(database, home.token, id, 'Hola', 'visitor-a');
+    const visit = await setDelivery(database, id, 'partial');
+    assert.equal(visit.delivery, 'partial');
+    assert.deepEqual(visit, await readVisit(database, home.token, id));
   });
 });
 

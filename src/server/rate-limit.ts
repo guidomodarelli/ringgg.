@@ -20,12 +20,20 @@ export async function enforceRingLimits(transaction: Database, client: string) {
   await transaction.query('DELETE FROM rate_limits WHERE expires_at <= NOW()');
   const cooldownKey = `ring-cooldown:${client}`;
   const windowKey = `ring-window:${client}`;
-  const counters = await transaction.query<{ key: string; attempts: number }>('SELECT key, attempts FROM rate_limits WHERE key = ANY($1::text[])', [[cooldownKey, windowKey]]);
-  if (counters.rows.some((row) => row.key === cooldownKey)) throw new AppError(HTTP.tooMany, 'COOLDOWN', `Ya tocaste el timbre hace poco. Esperá ${RING_LIMITS.clientCooldownSeconds} segundos.`);
-  const attempts = counters.rows.find((row) => row.key === windowKey)?.attempts ?? 0;
-  if (attempts >= RING_LIMITS.clientMaxPerWindow) throw new AppError(HTTP.tooMany, 'RATE_LIMITED', 'Tocaste el timbre varias veces seguidas. Probá de nuevo en unos minutos.');
-  const recent = await transaction.query<{ count: string }>(`SELECT COUNT(*)::text AS count FROM visits WHERE created_at > NOW() - $1 * INTERVAL '1 second'`, [RING_LIMITS.homeWindowSeconds]);
-  if (Number(recent.rows[0].count) >= RING_LIMITS.homeMaxPerWindow) throw new AppError(HTTP.tooMany, 'BUSY', 'Este timbre recibió muchos avisos seguidos. Esperá unos minutos.');
-  await transaction.query(`INSERT INTO rate_limits (key, attempts, expires_at) VALUES ($1, 1, NOW() + $2 * INTERVAL '1 second')`, [cooldownKey, RING_LIMITS.clientCooldownSeconds]);
-  await transaction.query(`INSERT INTO rate_limits (key, attempts, expires_at) VALUES ($1, 1, NOW() + $2 * INTERVAL '1 second') ON CONFLICT (key) DO UPDATE SET attempts = rate_limits.attempts + 1`, [windowKey, RING_LIMITS.clientWindowSeconds]);
+  // One round trip reads the client's counters and the home-wide count.
+  const counters = (await transaction.query<{ cooling: boolean; attempts: number; recent: number }>(
+    `SELECT EXISTS(SELECT 1 FROM rate_limits WHERE key = $1) AS cooling,
+            COALESCE((SELECT attempts FROM rate_limits WHERE key = $2), 0) AS attempts,
+            (SELECT COUNT(*) FROM visits WHERE created_at > NOW() - $3 * INTERVAL '1 second')::int AS recent`,
+    [cooldownKey, windowKey, RING_LIMITS.homeWindowSeconds],
+  )).rows[0];
+  if (counters.cooling) throw new AppError(HTTP.tooMany, 'COOLDOWN', `Ya tocaste el timbre hace poco. Esperá ${RING_LIMITS.clientCooldownSeconds} segundos.`);
+  if (Number(counters.attempts) >= RING_LIMITS.clientMaxPerWindow) throw new AppError(HTTP.tooMany, 'RATE_LIMITED', 'Tocaste el timbre varias veces seguidas. Probá de nuevo en unos minutos.');
+  if (Number(counters.recent) >= RING_LIMITS.homeMaxPerWindow) throw new AppError(HTTP.tooMany, 'BUSY', 'Este timbre recibió muchos avisos seguidos. Esperá unos minutos.');
+  // The cooldown row cannot exist here (checked above under the home lock), so only the window row upserts.
+  await transaction.query(
+    `INSERT INTO rate_limits (key, attempts, expires_at) VALUES ($1, 1, NOW() + $3 * INTERVAL '1 second'), ($2, 1, NOW() + $4 * INTERVAL '1 second')
+     ON CONFLICT (key) DO UPDATE SET attempts = rate_limits.attempts + 1`,
+    [cooldownKey, windowKey, RING_LIMITS.clientCooldownSeconds, RING_LIMITS.clientWindowSeconds],
+  );
 }

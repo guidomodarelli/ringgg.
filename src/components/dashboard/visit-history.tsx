@@ -27,7 +27,7 @@ export function VisitHistory({ visits, now, url, pending, run, focusVisitId }: {
           {visit.answered_at ? <span className="visit-status"><Check size={14} /> Atendido</span>
             : open ? <div className="reply-actions" role="group" aria-label="Responder a la visita">{VISIT_REPLY_KEYS.map((reply) => {
               const key = `answer-${visit.id}-${reply}`;
-              return <button key={reply} className={`button small ${reply === 'coming' ? 'primary' : 'outline'}`} disabled={!!pending} onClick={() => run(key, () => api('answer', { id: visit.id, reply }), (result) => replyOutcomeMessage(reply, result as Visit))}>{pending === key ? 'Enviando…' : VISIT_REPLIES[reply].label}</button>;
+              return <button key={reply} className={`button small ${reply === 'coming' ? 'primary' : 'outline'}`} disabled={!!pending} onClick={() => run(key, () => api('answer', { id: visit.id, reply }), (result) => replyOutcomeMessage(reply, result as Visit), 'visit')}>{pending === key ? 'Enviando…' : VISIT_REPLIES[reply].label}</button>;
             })}</div>
             : <span className="visit-status muted">Sin respuesta</span>}
         </article>;

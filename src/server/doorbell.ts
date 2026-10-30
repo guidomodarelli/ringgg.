@@ -52,11 +52,18 @@ export async function registerVisit(database: Database, token: string, id: strin
   });
 }
 
+/** One round trip: the token check and the visit come from the same query. */
 export async function readVisit(database: Database, token: string, id: string): Promise<PublicVisit> {
-  requireToken(await getHome(database), token);
-  const result = await database.query<PublicVisit>(`SELECT ${PUBLIC_VISIT_COLUMNS} FROM visits WHERE id = $1`, [id]);
-  if (!result.rows[0]) throw new AppError(HTTP.notFound, 'VISIT_NOT_FOUND', 'No encontramos este timbrazo.');
-  return result.rows[0];
+  const result = await database.query<PublicVisit & { valid: boolean; found: boolean }>(
+    `SELECT h.token = $1 AS valid, v.id IS NOT NULL AS found, v.id, v.created_at, v.answered_at, v.delivery, v.reply, v.note IS NOT NULL AS noted
+     FROM homes h LEFT JOIN visits v ON v.id = $2 WHERE h.id = 1`,
+    [token, id],
+  );
+  const row = result.rows[0];
+  if (!row?.valid) throw new AppError(HTTP.notFound, 'INVALID_DOORBELL', 'Este timbre ya no está disponible. Pedí el QR actualizado.');
+  if (!row.found) throw new AppError(HTTP.notFound, 'VISIT_NOT_FOUND', 'No encontramos este timbrazo.');
+  const { valid: _valid, found: _found, ...visit } = row;
+  return visit;
 }
 
 /** Repeated acknowledgments preserve the first answer, reply and resident, and reject expired visits. */
@@ -90,8 +97,9 @@ export async function leaveNote(database: Database, token: string, id: string, n
   throw new AppError(HTTP.conflict, 'NOTE_UNAVAILABLE', 'Ya no se puede dejar un mensaje para este timbrazo.');
 }
 
-export async function setDelivery(database: Database, id: string, delivery: DeliveryStatus) {
-  await database.query('UPDATE visits SET delivery = $2 WHERE id = $1', [id, delivery]);
+/** Returns the visitor-facing visit so the ring response needs no extra read. */
+export async function setDelivery(database: Database, id: string, delivery: DeliveryStatus): Promise<PublicVisit> {
+  return (await database.query<PublicVisit>(`UPDATE visits SET delivery = $2 WHERE id = $1 RETURNING ${PUBLIC_VISIT_COLUMNS}`, [id, delivery])).rows[0];
 }
 
 export async function updateHomeSettings(database: Database, name: string, enabled: boolean) {

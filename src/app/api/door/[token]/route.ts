@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { DOORBELL } from '@/constants/doorbell';
 import { getDatabase } from '@/server/database';
-import { publicHome, readVisit, registerVisit, setDelivery } from '@/server/doorbell';
+import { publicHome, registerVisit, setDelivery } from '@/server/doorbell';
 import { apiRoute, readJson } from '@/server/http';
 import { sendPush } from '@/server/push';
 import { ringClientKey } from '@/server/rate-limit';
@@ -20,9 +20,8 @@ export const POST = apiRoute<Params>('door', async (request, { token }) => {
   const input = await readJson(request, ringSchema);
   const database = await getDatabase();
   const result = await registerVisit(database, token, input.id, input.message, ringClientKey(request.headers));
-  if (result.created) {
-    const outcome = await sendPush(database, { title: 'Hay alguien en la puerta', body: input.message || 'Tocaron el timbre. Abrí Ringgg para responder.', visitId: input.id, answerable: true });
-    await setDelivery(database, input.id, outcome.delivery);
-  }
-  return Response.json(await readVisit(database, token, input.id));
+  // A retry returns the visit read inside the registration transaction; a new visit returns the stored delivery.
+  if (!result.created) return Response.json(result.visit);
+  const outcome = await sendPush(database, { title: 'Hay alguien en la puerta', body: input.message || 'Tocaron el timbre. Abrí Ringgg para responder.', visitId: input.id, answerable: true });
+  return Response.json(await setDelivery(database, input.id, outcome.delivery));
 });

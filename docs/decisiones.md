@@ -31,7 +31,7 @@ Todas las mutaciones esperan confirmación del servidor. No se anticipan éxitos
 | Dispositivos | no compatible, permiso denegado, pendiente, conectado, prueba fallida | instrucción y feedback persistente; se puede volver a activar |
 | QR | generación, copia, descarga, renovación | confirmación antes de invalidar el QR; feedback tras persistencia |
 | Configuración | guardando, confirmado, error | conserva inputs, no adelanta éxito |
-| Horario de descanso | guardando, activo, desactivado, rango inválido | aviso inline si inicio y fin coinciden; el estado del panel muestra «Horario de descanso» |
+| Horario de descanso | guardando, activo, desactivado, rango inválido | desactivado por defecto: solo «Configurar horario», sin horas a la vista; aviso inline si inicio y fin coinciden; el estado del panel muestra «Horario de descanso» |
 
 No se conectó un sink de soporte externo porque no hay ninguno configurado. Los errores inesperados se correlacionan con un identificador seguro en la respuesta y logs JSON sin mensajes de visitantes, endpoints push ni credenciales. No se promete un reporte enviado a soporte.
 
@@ -58,3 +58,14 @@ El cooldown global de 30 segundos permitía que una sola persona con una foto de
 ## Permisos compartidos
 
 Todos los residentes verificados tienen los mismos permisos (decisión de la gestión compartida): cualquiera puede rotar el QR, pausar el timbre o desconectar un celular de la casa, por ejemplo uno perdido. Por eso no se agregaron permisos por rol en estas rutas.
+
+## Ciclo de vida de las acciones y costo por request
+
+Ninguna operación es optimista: todas tienen un efecto visible para el visitante, para otros residentes o para el proveedor de notificaciones.
+
+- **Confirmadas por el servidor**: tocar timbre, dejar mensaje, responder a una visita, regenerar el QR, desconectar un celular, probar avisos, activar notificaciones, residentes, ingreso y salida.
+- **Pendiente primero**: nombre de la casa, pausa y horario de descanso. Cambian lo que ve el visitante en el QR, así que el panel muestra «Guardando…» y confirma recién con la respuesta.
+
+Cada acción declara cómo reconcilia el estado al confirmarse (`Reconcile` en `src/components/dashboard/types.ts`). Las rutas que devuelven el snapshot (`settings`, `quiet-hours`, `rotate`) o la visita guardada (`answer`) se aplican directamente, sin un `GET /api/dashboard` extra; solo `subscribe` y `remove-device` vuelven a pedir el snapshot. El polling compara el snapshot serializado y no re-renderiza si no cambió. El reloj que vence los botones de respuesta solo corre mientras hay visitas dentro de la ventana de respuesta.
+
+En el servidor, el timbrazo usa 11 round trips en vez de 15: los contadores del límite salen de una sola consulta, los dos registros del límite van en un solo `INSERT` y la respuesta sale del `UPDATE ... RETURNING` del estado del aviso. La consulta del visitante usa 1 en vez de 2 (`homes LEFT JOIN visits`). El codificador de QR se carga con `import()` después de hidratar el panel.
