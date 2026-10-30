@@ -1,0 +1,255 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/perf-and-action-lifecycle",
+    "commit": "af7c6537f983de86f1f1a34fd08c5a080a28cac5",
+    "fingerprint": "sha256:7223498a29be3768886bae5313dfe5c889300b2475bdddd1ad84899576d5f049",
+    "uncommittedFiles": [
+      "src/app/api/door/[token]/route.ts",
+      "src/server/doorbell.ts",
+      "src/server/rate-limit.ts"
+    ],
+    "fileCount": 20,
+    "inputCount": 142
+  },
+  "evidence": [
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T03:10:41.644Z",
+      "source": "attested",
+      "summary": "Contadores en una consulta, INSERT único del límite, respuesta desde UPDATE RETURNING",
+      "tool": "measure-queries.ts",
+      "metric": "round trips SQL por timbrazo",
+      "before": "15",
+      "after": "11",
+      "conditions": "tsx + PGlite en memoria, route handlers reales, sin dispositivos push, 3 corridas, mediana"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T03:10:41.971Z",
+      "source": "attested",
+      "summary": "homes LEFT JOIN visits",
+      "tool": "measure-queries.ts",
+      "metric": "round trips SQL por poll del visitante",
+      "before": "2",
+      "after": "1",
+      "conditions": "tsx + PGlite en memoria, route handlers reales, sin dispositivos push, 3 corridas, mediana"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T03:10:42.254Z",
+      "source": "attested",
+      "summary": "Mediana de 3 corridas de 5 timbrazos",
+      "tool": "measure-queries.ts",
+      "metric": "p50 ms timbrazo (PGlite local)",
+      "before": "13.0",
+      "after": "9.9",
+      "conditions": "tsx + PGlite en memoria, route handlers reales, sin dispositivos push, 3 corridas, mediana"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T03:10:42.558Z",
+      "source": "attested",
+      "summary": "Mediana de 3 corridas de 9 polls",
+      "tool": "measure-queries.ts",
+      "metric": "p50 ms poll del visitante (PGlite local)",
+      "before": "2.23",
+      "after": "1.31",
+      "conditions": "tsx + PGlite en memoria, route handlers reales, sin dispositivos push, 3 corridas, mediana"
+    },
+    {
+      "command": "npx vitest run tests/doorbell.test.ts",
+      "durationMs": 5408,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "8b77ec367aa08a47256dc547132573ffeb60971a0841840a8524ea20839e6cf9",
+      "recordedAt": "2026-10-30T03:10:48.258Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/visitor-replies.spec.ts --reporter=line",
+      "durationMs": 15944,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "7158916088091cb3d339ad265d114c14001e5283cb89028875f112cb161d6870",
+      "recordedAt": "2026-10-30T03:11:04.498Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Latencia medida sobre PGlite local; en Neon el ahorro escala con el RTT de cada round trip"
+  ],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T03:11:05.156Z",
+  "result": "verified",
+  "runId": "20261030T031041Z-d0c2f7",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "full audit requested: previous coverage is not reused"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:@electric-sql/pglite",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:pg",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:web-push",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:zod",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#GET",
+        "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/route.ts#POST",
+        "reason": "adds load: +5 awaited steps, +3 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/route.ts#GET",
+        "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#NoteForm/send",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#Visitor~shell",
+        "reason": "adds load: +1 effects, +1 awaited steps, +2 timers or polling"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#requireOrigin",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#connect",
+        "reason": "adds load: +1 calls to I/O helpers, +8 awaited steps, +8 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#getDatabase",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#initialize",
+        "reason": "adds load: +5 awaited steps, +6 database queries, +3 awaited calls inside a loop"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#leaveNote",
+        "reason": "adds load: +3 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#rotateToken",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeSettings",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateQuietHours",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readJson",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/postgres.ts#createPostgresPool",
+        "reason": "adds load: +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#sendPush",
+        "reason": "adds load: +2 calls to I/O helpers, +4 awaited steps, +2 database queries, +1 awaited calls inside a loop"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#enforceRingLimits",
+        "reason": "adds load: +3 awaited steps, +3 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/rate-limit.ts#ringClientKey",
+        "reason": "adds load: +1 database queries, +1 calls to I/O helpers"
+      }
+    ],
+    "suggestedScope": [
+      "measure the complete flow /t/[token] before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "dce8f7b657dd1762",
+      "references/bundle-lazy-loading.md": "c22d17f51b8c04f2",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:97e4c157c5a7f546181e47736528acd926db1ee9b0e7cf03d3032f0caa50cb24",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "Menos round trips en el timbrazo y en el poll del visitante",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T03:10:41.330Z",
+  "unitId": "ringgg.visitor"
+}

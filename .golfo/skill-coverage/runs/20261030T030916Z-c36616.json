@@ -1,0 +1,284 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/perf-and-action-lifecycle",
+    "commit": "af7c6537f983de86f1f1a34fd08c5a080a28cac5",
+    "fingerprint": "sha256:2b756c485edc07700c3ad570f888e4082a4c27fba1df1d3e5a3cf2cf1b134def",
+    "uncommittedFiles": [
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/settings-section.tsx",
+      "src/components/dashboard/types.ts",
+      "src/components/dashboard/visit-history.tsx",
+      "src/server/doorbell.ts"
+    ],
+    "fileCount": 49,
+    "inputCount": 252
+  },
+  "evidence": [
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T03:09:16.428Z",
+      "source": "attested",
+      "summary": "Las acciones reconcilian con la respuesta confirmada en vez de pedir otro snapshot",
+      "tool": "Playwright fixture",
+      "metric": "requests por mutación (renombrar, horario, responder, rotar QR)",
+      "before": "2",
+      "after": "1",
+      "conditions": "PGlite en memoria, fixture E2E con el Dashboard real (solo authClient y next/navigation stubbeados), Chromium headless, React dev con Profiler, 3 corridas idénticas"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T03:09:16.726Z",
+      "source": "attested",
+      "summary": "El polling compara el snapshot serializado y solo corre el reloj si hay visitas esperando respuesta",
+      "tool": "React Profiler",
+      "metric": "commits de React en 3 polls sin cambios",
+      "before": "6",
+      "after": "0",
+      "conditions": "PGlite en memoria, fixture E2E con el Dashboard real (solo authClient y next/navigation stubbeados), Chromium headless, React dev con Profiler, 3 corridas idénticas"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-30T03:09:17.009Z",
+      "source": "attested",
+      "summary": "qrcode con import() dinámico",
+      "tool": "measure-bundle.mjs",
+      "metric": "JS de entrada de / (gzip KB)",
+      "before": "230.2",
+      "after": "221.9",
+      "conditions": "next build de producción (Turbopack), gzip -9 de rootMainFiles + layout + page del client reference manifest"
+    },
+    {
+      "command": "npx vitest run",
+      "durationMs": 7437,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "20a1af6c5e4bc6e1886ca5b0c1eabdac6a45d832356e66aa345e7bbd7c723b65",
+      "recordedAt": "2026-10-30T03:09:24.756Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/dashboard-reconcile.spec.ts tests/e2e/visitor-replies.spec.ts tests/e2e/doorbell-pause.spec.ts --reporter=line",
+      "durationMs": 35560,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "66d1bd4c385ba88c9c5847921a330ea28c6532b0129a8bcb2bdddec93c819408",
+      "recordedAt": "2026-10-30T03:10:00.678Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Sin sesión real de Neon: no se midió TTFB del panel ni el costo de getSession por poll"
+  ],
+  "mode": "full",
+  "pendingChecks": [
+    "Medir la latencia del poll en producción (getSession de Neon Auth por request)"
+  ],
+  "recordedAt": "2026-10-30T03:10:01.343Z",
+  "result": "partial",
+  "runId": "20261030T030916Z-c36616",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "full audit requested: previous coverage is not reused"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "pkg:kysely",
+        "reason": "new package in the flow (bundle or server cost)"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/answer/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/dashboard/route.ts#GET",
+        "reason": "adds load: +3 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/device-status/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/push-key/route.ts#GET",
+        "reason": "adds load: +1 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/quiet-hours/route.ts#POST",
+        "reason": "adds load: +5 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/remove-device/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/rotate/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/settings/route.ts#POST",
+        "reason": "adds load: +5 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/subscribe/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-my-devices/route.ts#POST",
+        "reason": "adds load: +3 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/test-push/route.ts#POST",
+        "reason": "adds load: +4 awaited steps, +2 calls to I/O helpers"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/signOut",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "adds load: +1 effects, +1 calls to I/O helpers, +5 listeners or subscriptions, +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel/copy",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+        "reason": "adds load: +1 effects, +1 dynamic imports"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/settings-section.tsx#SettingsSection",
+        "reason": "adds load: +1 effects"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#VisitHistory~shell",
+        "reason": "adds load: +1 effects"
+      },
+      {
+        "change": "added",
+        "key": "src/components/doorbell-pause-control.tsx#DoorbellPauseControl",
+        "reason": "adds load: +1 effects"
+      },
+      {
+        "change": "added",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
+        "reason": "adds load: +1 effects"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "adds load: +2 awaited steps, +1 calls to I/O helpers"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#initialize",
+        "reason": "adds load: +3 awaited calls inside a loop"
+      },
+      {
+        "change": "added",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#rotateToken",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateHomeSettings",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/doorbell.ts#updateQuietHours",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "adds load: +2 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readJson",
+        "reason": "adds load: +1 awaited steps"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#hasRegisteredDevice",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#removeDevice",
+        "reason": "adds load: +1 awaited steps, +1 database queries"
+      },
+      {
+        "change": "added",
+        "key": "src/server/self-auth.ts#createSelfAuth",
+        "reason": "adds load: +1 calls to I/O helpers"
+      }
+    ],
+    "suggestedScope": [
+      "measure the complete flow / before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "dce8f7b657dd1762",
+      "references/bundle-lazy-loading.md": "c22d17f51b8c04f2",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:97e4c157c5a7f546181e47736528acd926db1ee9b0e7cf03d3032f0caa50cb24",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "Menos requests por acción, sin re-renders en polling ocioso y QR diferido",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T03:09:16.100Z",
+  "unitId": "ringgg.resident"
+}

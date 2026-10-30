@@ -1,0 +1,55 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/perf-and-action-lifecycle",
+    "commit": "af7c6537f983de86f1f1a34fd08c5a080a28cac5",
+    "fingerprint": "sha256:e98553d13b17d0bcf0ae540f24dc769e80b84a1ee6965b9367452ba19d056e5a",
+    "uncommittedFiles": [],
+    "fileCount": 21,
+    "inputCount": 106
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T03:11:24.719Z",
+      "source": "attested",
+      "summary": "ResidentManagement: server-confirmed por permisos, lock contra doble disparo, conserva el correo ante error"
+    }
+  ],
+  "limitations": [
+    "Modo liviano"
+  ],
+  "mode": "lightweight",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T03:11:25.278Z",
+  "result": "partial",
+  "runId": "20261030T031124Z-abb5b3",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "full audit requested: previous coverage is not reused"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.residents.manage: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Revisión liviana sin cambios",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T03:11:24.414Z",
+  "unitId": "ringgg.residents.manage"
+}

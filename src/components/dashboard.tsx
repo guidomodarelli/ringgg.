@@ -10,13 +10,14 @@ import { VisitHistory } from './dashboard/visit-history';
 import { QrPanel } from './dashboard/qr-panel';
 import { DevicesSection } from './dashboard/devices-section';
 import { SettingsSection } from './dashboard/settings-section';
-import type { DashboardData, DashboardSnapshot } from '@/types/doorbell';
+import type { DashboardData, DashboardSnapshot, Visit } from '@/types/doorbell';
 import { DOORBELL } from '@/constants/doorbell';
 import { api } from '@/lib/api';
 import { needsNotificationSetup } from '@/lib/notification-setup';
 import { DASHBOARD_VIEW_EVENT, type DashboardView } from '@/constants/dashboard-views';
 import { getDashboardView } from '@/lib/dashboard-view';
 import { visitFromUrl } from '@/lib/visit-format';
+import type { Reconcile } from './dashboard/types';
 
 const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> = {
   overview: { title: 'Tu casa te llama', detail: 'Todo lo que pasa en tu puerta, estés donde estés.' },
@@ -26,6 +27,16 @@ const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> =
   residents: { title: 'Residentes', detail: 'Las personas que comparten esta vivienda.' },
   settings: { title: 'Configuración', detail: 'Elegí cómo funciona el timbre de tu casa.' },
 };
+
+/** Comparable form of the polled state; field order matches the `snapshot()` response. */
+function serializeSnapshot({ home, visits, devices }: DashboardSnapshot) {
+  return JSON.stringify({ home, visits, devices });
+}
+
+/** Visits still inside the answer window (plus one poll) need the clock to expire their buttons. */
+function awaitingAnswer(visits: Visit[]) {
+  return visits.some((visit) => !visit.answered_at && Date.now() - new Date(visit.created_at).getTime() < DOORBELL.responseWindowSeconds * 1000 + DOORBELL.pollIntervalMs);
+}
 
 function statusLabel(home: DashboardSnapshot['home']) {
   if (!home.enabled) return 'Timbre en pausa';
@@ -59,6 +70,10 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
 
   // Polls every few seconds and refreshes immediately when a push arrives, the tab regains focus
   // or a notification opens a visit. Refreshes never overlap and never overwrite a running action.
+  // An unchanged snapshot and a history without visits awaiting an answer do not re-render.
+  const visitsRef = useRef(initial.visits);
+  visitsRef.current = data.visits;
+  const lastSnapshot = useRef(serializeSnapshot(initial));
   useEffect(() => {
     let controller: AbortController | undefined;
     let timer: ReturnType<typeof setTimeout>;
@@ -67,11 +82,19 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
     async function refresh() {
       if (running || stopped) return;
       running = true; clearTimeout(timer);
-      setNow(Date.now());
+      if (awaitingAnswer(visitsRef.current)) setNow(Date.now());
       if (document.visibilityState === 'visible' && !actionLock.current) {
         const generation = refreshGeneration.current;
         controller = new AbortController();
-        try { const fresh = await api<DashboardSnapshot>('dashboard', undefined, controller.signal); if (!stopped && !actionLock.current && generation === refreshGeneration.current) setData((previous) => ({ ...previous, ...fresh })); }
+        try {
+          const fresh = await api<DashboardSnapshot>('dashboard', undefined, controller.signal);
+          const serialized = serializeSnapshot(fresh);
+          if (!stopped && !actionLock.current && generation === refreshGeneration.current && serialized !== lastSnapshot.current) {
+            lastSnapshot.current = serialized;
+            setData((previous) => ({ ...previous, ...fresh }));
+            if (awaitingAnswer(fresh.visits)) setNow(Date.now());
+          }
+        }
         catch (error) { if (!controller.signal.aborted && !stopped) setError(error instanceof Error ? error.message : 'No pudimos actualizar.'); }
       }
       running = false;
@@ -122,13 +145,16 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
     return () => { cancelled = true; controller.abort(); };
   }, []);
 
-  async function action(key: string, work: () => Promise<unknown>, success: string | ((result: unknown) => string)) {
+  async function action(key: string, work: () => Promise<unknown>, success: string | ((result: unknown) => string), reconcile: Reconcile = 'refetch') {
     if (actionLock.current) return false;
     actionLock.current = true; refreshGeneration.current += 1; setPending(key); setError(''); setFeedback('');
     try {
       const result = await work();
-      const fresh = await api<DashboardSnapshot>('dashboard');
-      setData((previous) => ({ ...previous, ...fresh })); setFeedback(typeof success === 'function' ? success(result) : success);
+      // Reconcile from the confirmed response when it already carries the new state.
+      if (reconcile === 'snapshot') { lastSnapshot.current = serializeSnapshot(result as DashboardSnapshot); setData((previous) => ({ ...previous, ...(result as DashboardSnapshot) })); }
+      else if (reconcile === 'visit') { const visit = result as Visit; setData((previous) => ({ ...previous, visits: previous.visits.map((item) => item.id === visit.id ? visit : item) })); }
+      else if (reconcile === 'refetch') { const fresh = await api<DashboardSnapshot>('dashboard'); lastSnapshot.current = serializeSnapshot(fresh); setData((previous) => ({ ...previous, ...fresh })); }
+      setFeedback(typeof success === 'function' ? success(result) : success);
       if (key === 'name') router.refresh();
       return true;
     } catch (error) { setError(error instanceof Error ? error.message : 'No pudimos completar la acción. Reintentá.'); return false; }
@@ -157,10 +183,10 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   }
 
   return <>
-    <header className="topbar"><span><House size={15} /> Mi espacio <span className="slash">/</span> <strong>{data.home.name}</strong></span><button className="text-button" disabled={!!pending} onClick={() => action('logout', signOut, '')}><LogOut size={16} /> Salir</button></header>
+    <header className="topbar"><span><House size={15} /> Mi espacio <span className="slash">/</span> <strong>{data.home.name}</strong></span><button className="text-button" disabled={!!pending} onClick={() => action('logout', signOut, '', 'none')}><LogOut size={16} /> Salir</button></header>
     <main className="dashboard-main" id="main" data-view={view}>
       <div className="page-heading"><div><span className="eyebrow">UN POCO MÁS CERCA</span><h1>{SECTION_TITLES[view].title}<span>.</span></h1><p>{SECTION_TITLES[view].detail}</p></div><span className={`status-pill ${data.home.enabled && !data.home.quiet ? 'active' : ''}`}><i />{statusLabel(data.home)}</span></div>
-      {showNotificationSetup && <NotificationOnboarding permission={notificationState} pending={!!pending} error={error} onRefresh={() => { setError(''); setNotificationState('Notification' in window ? Notification.permission : 'unsupported'); }} onSignOut={() => { void action('logout', signOut, ''); }} onActivate={() => { void action('subscribe', subscribe, 'Dispositivo conectado. Enviá una prueba para comprobarlo.').then((success) => { if (success) setShowNotificationSetup(false); }); }} />}
+      {showNotificationSetup && <NotificationOnboarding permission={notificationState} pending={!!pending} error={error} onRefresh={() => { setError(''); setNotificationState('Notification' in window ? Notification.permission : 'unsupported'); }} onSignOut={() => { void action('logout', signOut, '', 'none'); }} onActivate={() => { void action('subscribe', subscribe, 'Dispositivo conectado. Enviá una prueba para comprobarlo.').then((success) => { if (success) setShowNotificationSetup(false); }); }} />}
       <div className="feedback-wrap" aria-live="polite">{feedback && <p className="feedback success"><Check size={17} />{feedback}<button aria-label="Cerrar aviso" onClick={() => setFeedback('')}><X size={16} /></button></p>}{error && <p className="feedback error" role="alert">{error}<button aria-label="Cerrar error" onClick={() => setError('')}><X size={16} /></button></p>}</div>
       <div className="dashboard-grid"><div className="primary-column">
         <DoorOverview url={url} data={data} />
