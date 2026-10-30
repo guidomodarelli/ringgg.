@@ -1,0 +1,385 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/nombrar-dispositivo",
+    "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+    "fingerprint": "sha256:9e9618c3f7b3e72b94c75a1217f903f81da0be00e0fed4d06155b932bc10f88c",
+    "uncommittedFiles": [
+      "src/app/api/subscribe/route.ts",
+      "src/components/connect-device-form.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/use-device-name-suggestion.ts",
+      "src/components/dashboard/use-push-device.ts",
+      "src/components/device-name-dialog.tsx",
+      "src/components/notification-onboarding.tsx",
+      "src/components/required-name-dialog.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/devices.ts",
+      "src/lib/device-name.ts",
+      "src/server/device-names.ts",
+      "src/server/push.ts"
+    ],
+    "fileCount": 78,
+    "inputCount": 561
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T17:27:26.586Z",
+      "source": "attested",
+      "summary": "Conectar y nombrar el dispositivo son server-confirmed: la validación local bloquea antes del pedido y del permiso del navegador, el lock de acciones evita el doble envío y el diálogo se cierra recién cuando el snapshot confirmado trae el nombre nuevo; el servidor vuelve a validar (DEVICE_NAME_GENERIC, DEVICE_NAME_TAKEN) con el índice único como última barrera."
+    },
+    {
+      "command": "npx vitest run tests/labels.test.ts tests/devices.test.ts tests/residents.test.ts",
+      "durationMs": 6858,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "1e25c292990589cc4fbb94752b10cd0d1ed913b5a822c06add87d9384dc5b0e1",
+      "recordedAt": "2026-10-30T17:27:33.658Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T17:27:34.650Z",
+  "result": "verified",
+  "runId": "20261030T172649Z-2929d8",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "51 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/subscribe/route.ts#subscribeSchema",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#ConnectDeviceForm",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#ConnectDeviceFormProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard/activateNotifications",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/deviceNamesExcept",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/saveDeviceName",
+        "reason": "new action handler"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSection",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSectionProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#RenameForm",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#RenameFormProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCallout",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCalloutProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#browserUserAgent",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#ignoreChanges",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#serverUserAgent",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#subscribeToNothing",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#useDeviceNameSuggestion",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice/activate",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#DeviceNameDialog",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#DeviceNameDialogProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboardingProps",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#onboardingCopy",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#RequiredNameDialog",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#RequiredNameDialogProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-name-dialog.tsx#ResidentNameDialog",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#LEGACY_DEVICE_NAMES",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#COPY_SUFFIX",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#deviceNameProblem",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#deviceNameTakenMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#freeDeviceName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#GENERIC_DEVICE_NAME_MESSAGE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#GENERIC_KEYS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#isGenericDeviceName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_DEVICES",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#deviceNameTaken",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#rejectGenericDeviceName",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#renameDevice",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "code reached by the unit changed"
+      }
+    ],
+    "suggestedScope": [
+      "src/app/api/subscribe/route.ts › subscribeSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/components/connect-device-form.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/connect-device-form.tsx › ConnectDeviceForm — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/connect-device-form.tsx › ConnectDeviceFormProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard.tsx › Dashboard › activateNotifications — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard.tsx › Dashboard › deviceNamesExcept — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard.tsx › Dashboard › saveDeviceName — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/dashboard/devices-section.tsx › DevicesSection — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/devices-section.tsx › DevicesSectionProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/devices-section.tsx › RenameForm — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/devices-section.tsx › RenameFormProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/devices-section.tsx › ThisDeviceCallout — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/devices-section.tsx › ThisDeviceCalloutProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/qr-panel.tsx › QrPanel (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/dashboard/use-dashboard-state.ts › useDashboardState (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/dashboard/use-device-name-suggestion.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/dashboard/use-device-name-suggestion.ts › browserUserAgent — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/use-device-name-suggestion.ts › ignoreChanges — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/use-device-name-suggestion.ts › serverUserAgent — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/use-device-name-suggestion.ts › subscribeToNothing — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/use-device-name-suggestion.ts › useDeviceNameSuggestion — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/dashboard/use-push-device.ts › usePushDevice › activate — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/dashboard/use-push-device.ts › usePushDevice (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/device-name-dialog.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/device-name-dialog.tsx › DeviceNameDialog — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/device-name-dialog.tsx › DeviceNameDialogProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/notification-onboarding.tsx › NotificationOnboarding — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/notification-onboarding.tsx › NotificationOnboardingProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/notification-onboarding.tsx › onboardingCopy — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/required-name-dialog.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/required-name-dialog.tsx › RequiredNameDialog — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/required-name-dialog.tsx › RequiredNameDialogProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/resident-name-dialog.tsx › ResidentNameDialog — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/homes.ts › LEGACY_DEVICE_NAMES — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/device-name.ts › COPY_SUFFIX — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/device-name.ts › deviceNameProblem — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/device-name.ts › deviceNameTakenMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/device-name.ts › freeDeviceName — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/device-name.ts › GENERIC_DEVICE_NAME_MESSAGE — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/device-name.ts › GENERIC_KEYS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/device-name.ts › isGenericDeviceName — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/server/doorbell.ts › answerVisit — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › HOME_DEVICES — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › PAUSE_UPDATES.morning — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › deviceNameTaken — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › rejectGenericDeviceName — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › renameDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › saveDevice — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › listResidentHomes — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › resolveHomeAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T17:26:49.722Z",
+  "unitId": "ringgg.resident"
+}

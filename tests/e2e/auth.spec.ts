@@ -16,6 +16,11 @@ test('el acceso usa cuentas y muestra los flujos de registro, verificación y re
   await expect(page.getByLabel('Código de verificación')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Pedir código nuevo' })).toBeDisabled();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  // The public home links to the privacy policy, as Google verification checks.
+  await page.getByRole('link', { name: 'Política de privacidad' }).click();
+  await expect(page).toHaveURL(/\/privacidad$/);
+  await expect(page.getByRole('heading', { name: 'Política de privacidad.', level: 1 })).toBeVisible();
+  await expect(page.getByText('no accedemos a tus contactos', { exact: false })).toBeVisible();
 });
 
 test('sin Neon configurado no se acepta la clave anterior ni una cookie local falsificada', async ({ page, request }) => {

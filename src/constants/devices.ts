@@ -1,7 +1,7 @@
 export const DEVICES = {
   max: 10,
   nameMaxLength: 50,
-  /** Name for a device registered without one, for example when the browser renews its subscription. */
+  /** Base of the name a device with a generic one takes when its owner chooses their name: «Celular de Guido». */
   defaultName: 'Celular',
 };
 

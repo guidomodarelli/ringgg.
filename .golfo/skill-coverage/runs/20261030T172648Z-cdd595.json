@@ -1,0 +1,408 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/nombrar-dispositivo",
+    "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+    "fingerprint": "sha256:b6d265545b97c02904299bc290ce8264ebb6af9c13cc9f91617299f68dca04f4",
+    "uncommittedFiles": [
+      "src/app/api/subscribe/route.ts",
+      "src/components/connect-device-form.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/devices-section.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/dashboard/use-device-name-suggestion.ts",
+      "src/components/dashboard/use-push-device.ts",
+      "src/components/device-name-dialog.tsx",
+      "src/components/notification-onboarding.tsx",
+      "src/components/required-name-dialog.tsx",
+      "src/components/resident-name-dialog.tsx",
+      "src/constants/devices.ts",
+      "src/lib/device-name.ts",
+      "src/server/push.ts"
+    ],
+    "fileCount": 66,
+    "inputCount": 463
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T17:26:54.822Z",
+      "source": "attested",
+      "summary": "Conectar este dispositivo pide su nombre (precargado, obligatorio, no genérico ni repetido) en el modal de bienvenida y en Dispositivos, con el error junto al campo antes de pedir permiso; «¿Cómo se llama este dispositivo?» obligatorio para un dispositivo conectado como «Mi celular»; renombrar valida antes del pedido; separación entre «Imprimir cartel» y «Descargar QR»."
+    },
+    {
+      "command": "npx vitest run tests/labels.test.ts tests/devices.test.ts tests/residents.test.ts",
+      "durationMs": 5842,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "c605d961b874d5b7eeed51222b4778488a2c9f79c61b05381e02ebcc86c92993",
+      "recordedAt": "2026-10-30T17:27:00.909Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "npx playwright test tests/e2e/device-names.spec.ts tests/e2e/notification-onboarding.spec.ts tests/e2e/device-disconnect.spec.ts tests/e2e/dashboard-reconcile.spec.ts --reporter=line",
+      "durationMs": 24277,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "16aa77ebe201429294cfd32a40691cef3d120b89ed4a52c5364fe0eb35dd0a34",
+      "recordedAt": "2026-10-30T17:27:25.448Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-30T17:27:25.680Z",
+      "source": "attested",
+      "summary": "Playwright (Chromium) con el Dashboard real y PostgreSQL embebido: nombre genérico o repetido rechazado junto al campo al conectar, renombrar y en el diálogo obligatorio; reconexión con nombre propio; capturas a 390 px del modal, el aviso de Dispositivos, el diálogo y el panel del QR."
+    }
+  ],
+  "limitations": [],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T17:27:26.336Z",
+  "result": "verified",
+  "runId": "20261030T172648Z-cdd595",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "52 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/subscribe/route.ts#subscribeSchema",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#ConnectDeviceForm",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/connect-device-form.tsx#ConnectDeviceFormProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard/activateNotifications",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/deviceNamesExcept",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard.tsx#Dashboard/saveDeviceName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSection",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSectionProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#RenameForm",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#RenameFormProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCallout",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCalloutProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#browserUserAgent",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#ignoreChanges",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#serverUserAgent",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#subscribeToNothing",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#useDeviceNameSuggestion",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice/activate",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-push-device.ts#usePushDevice~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#DeviceNameDialog",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/device-name-dialog.tsx#DeviceNameDialogProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#NotificationOnboardingProps",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/notification-onboarding.tsx#onboardingCopy",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#RequiredNameDialog",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/required-name-dialog.tsx#RequiredNameDialogProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-name-dialog.tsx#ResidentNameDialog",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/homes.ts#LEGACY_DEVICE_NAMES",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#COPY_SUFFIX",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#deviceNameProblem",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#deviceNameTakenMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#freeDeviceName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#GENERIC_DEVICE_NAME_MESSAGE",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#GENERIC_KEYS",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#isGenericDeviceName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#nameKey",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/names.ts#uniqueName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_DEVICES",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#deviceNameTaken",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/push.ts#rejectGenericDeviceName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#renameDevice",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#saveDevice",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "visible or interactive code changed"
+      }
+    ],
+    "suggestedScope": [
+      "src/app/api/subscribe/route.ts › subscribeSchema — behavior of this code in every state of the unit that uses it",
+      "src/components/connect-device-form.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/components/connect-device-form.tsx › ConnectDeviceForm — behavior of this code in every state of the unit that uses it",
+      "src/components/connect-device-form.tsx › ConnectDeviceFormProps — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard.tsx › Dashboard › activateNotifications — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/dashboard.tsx › Dashboard › deviceNamesExcept — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/dashboard.tsx › Dashboard › saveDeviceName — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+      "src/components/dashboard/devices-section.tsx › DevicesSection — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/devices-section.tsx › DevicesSectionProps — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/devices-section.tsx › RenameForm — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/devices-section.tsx › RenameFormProps — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/devices-section.tsx › ThisDeviceCallout — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/devices-section.tsx › ThisDeviceCalloutProps — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/qr-panel.tsx › QrPanel (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+      "src/components/dashboard/use-dashboard-state.ts › useDashboardState (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+      "src/components/dashboard/use-device-name-suggestion.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/components/dashboard/use-device-name-suggestion.ts › browserUserAgent — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/use-device-name-suggestion.ts › ignoreChanges — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/use-device-name-suggestion.ts › serverUserAgent — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/use-device-name-suggestion.ts › subscribeToNothing — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/use-device-name-suggestion.ts › useDeviceNameSuggestion — behavior of this code in every state of the unit that uses it",
+      "src/components/dashboard/use-push-device.ts › usePushDevice › activate — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/dashboard/use-push-device.ts › usePushDevice (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+      "src/components/device-name-dialog.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/components/device-name-dialog.tsx › DeviceNameDialog — behavior of this code in every state of the unit that uses it",
+      "src/components/device-name-dialog.tsx › DeviceNameDialogProps — behavior of this code in every state of the unit that uses it",
+      "src/components/notification-onboarding.tsx › NotificationOnboarding — behavior of this code in every state of the unit that uses it",
+      "src/components/notification-onboarding.tsx › NotificationOnboardingProps — behavior of this code in every state of the unit that uses it",
+      "src/components/notification-onboarding.tsx › onboardingCopy — behavior of this code in every state of the unit that uses it",
+      "src/components/required-name-dialog.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/components/required-name-dialog.tsx › RequiredNameDialog — behavior of this code in every state of the unit that uses it",
+      "src/components/required-name-dialog.tsx › RequiredNameDialogProps — behavior of this code in every state of the unit that uses it",
+      "src/components/resident-name-dialog.tsx › ResidentNameDialog — behavior of this code in every state of the unit that uses it",
+      "src/constants/homes.ts › LEGACY_DEVICE_NAMES — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › COPY_SUFFIX — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › deviceNameProblem — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › deviceNameTakenMessage — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › freeDeviceName — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › GENERIC_DEVICE_NAME_MESSAGE — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › GENERIC_KEYS — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › isGenericDeviceName — behavior of this code in every state of the unit that uses it",
+      "src/lib/names.ts › nameKey — behavior of this code in every state of the unit that uses it",
+      "src/lib/names.ts › uniqueName — behavior of this code in every state of the unit that uses it",
+      "src/server/doorbell.ts › answerVisit — behavior of this code in every state of the unit that uses it",
+      "src/server/doorbell.ts › HOME_DEVICES — behavior of this code in every state of the unit that uses it",
+      "src/server/doorbell.ts › PAUSE_UPDATES.morning — copy or configuration read from this member, in every state that shows it",
+      "src/server/push.ts › deviceNameTaken — behavior of this code in every state of the unit that uses it",
+      "src/server/push.ts › rejectGenericDeviceName — behavior of this code in every state of the unit that uses it",
+      "src/server/push.ts › renameDevice — behavior of this code in every state of the unit that uses it",
+      "src/server/push.ts › saveDevice — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › resolveHomeAccess — behavior of this code in every state of the unit that uses it"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T17:26:48.837Z",
+  "unitId": "ringgg.resident"
+}

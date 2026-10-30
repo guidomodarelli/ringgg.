@@ -1,0 +1,102 @@
+{
+  "latest": null,
+  "schemaVersion": 1,
+  "skill": "ui-ux-flow-patterns",
+  "unitId": "ringgg.privacy",
+  "verified": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": "feature/nombrar-dispositivo",
+      "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+      "files": {
+        "src/app/privacidad/page.tsx": "b2bf6787955c31df",
+        "src/constants/legal.ts": "fe4d3b8d268343bb",
+        "src/components/brand.tsx": "0aca2f770c5b0b91",
+        "src/constants/doorbell.ts": "2edd18d9afbb7d3f"
+      },
+      "fingerprint": "sha256:af5a4f3f026cc6b32a38778f3ab7f0b7f50f2793c12f25747a95689f632672d1",
+      "inputs": {
+        "src/app/privacidad/page.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/privacidad/page.tsx#metadata.title": "85125940f0bc767e",
+        "src/app/privacidad/page.tsx#metadata.description": "6c7869739e041771",
+        "src/app/privacidad/page.tsx#metadata.robots": "8eefb84aa4d98f49",
+        "src/app/privacidad/page.tsx#metadata~frame": "1715002a4a420b10",
+        "src/app/privacidad/page.tsx#PrivacyPolicyPage": "3b03452b454d6d1c",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:next": "530097ba2f134bc2",
+        "src/constants/legal.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/legal.ts#PRIVACY_POLICY.path": "3f67eb58818699a1",
+        "src/constants/legal.ts#PRIVACY_POLICY.updatedAt": "d86d239b5a143c86",
+        "src/constants/legal.ts#PRIVACY_POLICY.contactEnvironmentVariable": "3df514c143d27c0d",
+        "src/constants/legal.ts#PRIVACY_POLICY~frame": "3089f3d8667b3217",
+        "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/brand.tsx#Brand": "ed7a027c7b6ee6ac",
+        "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
+        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b"
+      },
+      "uncommittedFiles": [
+        "src/app/privacidad/page.tsx",
+        "src/constants/legal.ts"
+      ]
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-10-30T17:28:41.461Z",
+        "source": "attested",
+        "summary": "Página pública de solo lectura: un estado único con contenido, fecha de actualización, vuelta al inicio y contacto opcional por PRIVACY_CONTACT_EMAIL (sin él, remite a quien administra la casa); texto que describe solo lo que Ringgg guarda y hace."
+      },
+      {
+        "command": "npx playwright test tests/e2e/auth.spec.ts --reporter=line",
+        "durationMs": 8953,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "1881424bfb6094f920d9908b2403ee9f33ede34fbe1a55062de6d5a7f68b5fb9",
+        "recordedAt": "2026-10-30T17:28:50.643Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-10-30T17:28:50.885Z",
+        "source": "attested",
+        "summary": "Playwright (Chromium): /privacidad responde 200 sin sesión ni redirección y muestra el título y el apartado de Google."
+      }
+    ],
+    "limitations": [],
+    "mode": "full",
+    "pendingChecks": [],
+    "recordedAt": "2026-10-30T17:28:51.344Z",
+    "result": "verified",
+    "runId": "20261030T172653Z-4fe0ed",
+    "scope": {
+      "decision": "full",
+      "reasons": [
+        "no previous coverage: the whole unit is analyzed"
+      ],
+      "relevantChangesAtBegin": [],
+      "suggestedScope": [
+        "whole unit ringgg.privacy: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "9fc5ee4bb0e2e4e9",
+        "references/feedback-channels.md": "aa0394882f505308",
+        "references/flow-catalog.md": "77527b8062d13243",
+        "references/sources.md": "018203bece1d2e8a",
+        "references/state-matrix.md": "026b6005f6fa0cae",
+        "references/validation-feedback.md": "3e4fb5d227cacfbd"
+      },
+      "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+      "name": "ui-ux-flow-patterns",
+      "version": "1.5.0"
+    },
+    "report": "runs/20261030T172653Z-4fe0ed.json"
+  }
+}

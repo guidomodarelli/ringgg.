@@ -2,7 +2,6 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { NOTIFICATION_SKIP_STORAGE_KEY } from '@/constants/devices';
 import { api } from '@/lib/api';
-import { suggestedDeviceName } from '@/lib/device-name';
 import { needsNotificationSetup } from '@/lib/notification-setup';
 
 type Permission = NotificationPermission | 'unsupported' | '';
@@ -81,7 +80,7 @@ function serverSkipped() {
  * activation. The device can be disconnected later, here or by another resident, so whether it still
  * rings is read from the home's confirmed snapshot (see `useDashboardState`), not from this id.
  */
-export function usePushDevice({ homeId, pushReady, viewerName }: { homeId: number; pushReady: boolean; viewerName: string }) {
+export function usePushDevice({ homeId, pushReady }: { homeId: number; pushReady: boolean }) {
   const permission = useSyncExternalStore(subscribeToPermission, currentPermission, serverPermission);
   const skipped = useSyncExternalStore(subscribeToSkipped, readSkippedChoice, serverSkipped);
   const [deviceId, setDeviceId] = useState<string | null>(null);
@@ -113,8 +112,11 @@ export function usePushDevice({ homeId, pushReady, viewerName }: { homeId: numbe
     return () => { cancelled = true; controller.abort(); };
   }, [homeId]);
 
-  /** Server-confirmed: the device counts as connected only after the server stored the subscription. */
-  async function activate() {
+  /**
+   * Server-confirmed: the device counts as connected only after the server stored the subscription,
+   * with the name the resident gave it (required, so no device is left as "Mi celular").
+   */
+  async function activate(name: string) {
     if (!pushSupported()) throw new Error('En iPhone, agregá Ringgg a Inicio y abrila desde su ícono. Usá un navegador compatible con notificaciones.');
     if (!pushReady) throw new Error('Falta configurar las claves de notificaciones en el servidor. Consultá la guía del proyecto.');
     // Permission is requested before the first await to preserve the user gesture on iOS.
@@ -124,11 +126,11 @@ export function usePushDevice({ homeId, pushReady, viewerName }: { homeId: numbe
     const registration = await navigator.serviceWorker.register('/sw.js');
     await navigator.serviceWorker.ready;
     const { publicKey } = await api<{ publicKey: string }>('push-key');
-    // One subscription per browser: activating another home reuses it. The server keeps the name a
-    // device already has in this home and only uses the suggestion for a new one.
+    // One subscription per browser: activating another home reuses it. A device already connected to
+    // this home keeps the name it has there.
     const existing = await registration.pushManager.getSubscription();
     const subscription = existing ?? await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: publicKey });
-    const saved = await api<{ deviceId: string }>('subscribe', { home: homeId, name: suggestedDeviceName(navigator.userAgent, viewerName), subscription: subscription.toJSON() });
+    const saved = await api<{ deviceId: string }>('subscribe', { home: homeId, name, subscription: subscription.toJSON() });
     setDeviceId(saved.deviceId);
     setShowSetup(false);
     saveSkippedChoice(false);

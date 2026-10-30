@@ -307,12 +307,12 @@ describe('avisos', () => {
     assert.equal(subscriptionSchema.safeParse(subscription).success, true);
     const user = { id: 'device-test-user', email: 'device@example.com', emailVerified: true };
     const settings = { bootstrapEmails: [user.email] };
-    await saveDevice(database, { homeId: HOME, name: 'Mi celular', subscription }, user, settings);
-    await saveDevice(database, { homeId: HOME, name: 'Mi teléfono', subscription }, user, settings);
+    await saveDevice(database, { homeId: HOME, name: 'Teléfono de prueba', subscription }, user, settings);
+    await saveDevice(database, { homeId: HOME, name: 'Otro nombre', subscription }, user, settings);
     const state = await snapshot(database, HOME);
     assert.equal(state.devices.length, 1);
     // Activating notifications again on the same browser does not rename it: names are chosen in Devices.
-    assert.equal(state.devices[0].name, 'Mi celular');
+    assert.equal(state.devices[0].name, 'Teléfono de prueba');
   });
 });
 

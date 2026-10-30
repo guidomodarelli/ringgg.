@@ -1,0 +1,70 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/nombrar-dispositivo",
+    "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+    "fingerprint": "sha256:c136b9211dc81a72f2353f8630bb03c04e468d59b97f2ff77552731ea14a97e2",
+    "uncommittedFiles": [
+      "src/components/login-shell.tsx",
+      "src/constants/devices.ts",
+      "src/constants/legal.ts"
+    ],
+    "fileCount": 26,
+    "inputCount": 186
+  },
+  "evidence": [
+    {
+      "command": "npx vitest run tests/resident-access.test.ts",
+      "durationMs": 2091,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "10c83426a310f1531c70fc570bf1c3f679c67fde5ec372e77a4188e4125e77d0",
+      "recordedAt": "2026-10-30T17:28:40.721Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Sin medición del flujo de ingreso; este cambio solo agrega un enlace."
+  ],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-30T17:28:41.233Z",
+  "result": "partial",
+  "runId": "20261030T172653Z-d60151",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "pending from the previous run: Medir TTFB de /sign-in y el tiempo de login contra Neon Auth.",
+      "measure the complete flow /, /sign-in, /reset-password before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-30T17:26:53.329Z",
+  "unitId": "ringgg.login"
+}

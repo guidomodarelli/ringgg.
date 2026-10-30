@@ -108,9 +108,11 @@ test('desconectar este dispositivo desde Dispositivos ofrece conectarlo otra vez
     await expect(notice).toBeVisible();
     await expect(connect).toBeVisible();
     await expect(page.locator('.setup-callout')).toHaveCount(1);
-    // The notice's button connects this browser to the home again.
+    // The notice connects this browser to the home again, under a name of its own.
+    await page.locator('#devices').getByLabel('Nombre de este dispositivo').fill('Compu del escritorio');
     await connect.click();
-    await expect(page.getByText('Dispositivo conectado. Enviá una prueba para comprobarlo.')).toBeVisible();
+    await expect(page.getByText('«Compu del escritorio» quedó conectado. Enviá una prueba para comprobarlo.')).toBeVisible();
+    await expect(page.locator('#devices .device-info strong').filter({ hasText: 'Compu del escritorio' })).toContainText('Este dispositivo');
     await expect(thisDeviceBadge).toBeVisible();
     await expect(notice).toHaveCount(0);
     await expect(page.locator('.setup-callout')).toHaveCount(0);

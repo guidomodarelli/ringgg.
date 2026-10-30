@@ -125,7 +125,7 @@ describe('eliminar casas', () => {
   test('eliminar una casa borra sus visitas y olvida los celulares que solo sonaban ahí', async () => {
     const { id: other } = await createHome(database, owner, 'Casa de mamá', settings);
     const shared = pushSubscription('shared');
-    await saveDevice(database, { homeId: other, name: 'Celular', subscription: pushSubscription('only-there') }, owner, settings);
+    await saveDevice(database, { homeId: other, name: 'Celu de mamá', subscription: pushSubscription('only-there') }, owner, settings);
     await saveDevice(database, { homeId: other, name: 'Compartido', subscription: shared }, owner, settings);
     await saveDevice(database, { homeId: HOME, name: 'Compartido', subscription: shared }, owner, settings);
     const { visit } = await ring((await getHome(database, other)).token);

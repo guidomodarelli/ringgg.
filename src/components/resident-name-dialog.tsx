@@ -1,8 +1,7 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
 import { UserRound } from 'lucide-react';
 import { RESIDENT_NAMES } from '@/constants/homes';
-import { cleanName } from '@/lib/names';
+import { RequiredNameDialog } from './required-name-dialog';
 
 interface ResidentNameDialogProps {
   homeName: string;
@@ -16,32 +15,10 @@ interface ResidentNameDialogProps {
   onSignOut: () => void;
 }
 
-/**
- * "¿Quién sos?": the first time in a home, the resident chooses how the others see them. It is
- * mandatory: Escape does not close it and saving needs a name; signing out is the only other way out.
- */
+/** "¿Quién sos?": the first time in a home, the resident chooses how the others see them. */
 export function ResidentNameDialog({ homeName, suggestedName, pending, error, onSave, onClearError, onSignOut }: ResidentNameDialogProps) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const [name, setName] = useState(suggestedName);
-  useEffect(() => {
-    const element = dialog.current;
-    if (element && !element.open) element.showModal();
-    return () => { if (element?.open) element.close(); };
-  }, []);
-  const clean = cleanName(name);
-  return <dialog ref={dialog} className="notification-onboarding resident-name-dialog" aria-labelledby="resident-name-title" aria-describedby="resident-name-description" onCancel={(event) => event.preventDefault()}>
-    <div className="notification-onboarding-icon"><UserRound size={36} /></div>
-    <span className="eyebrow">ANTES DE EMPEZAR</span>
-    <h2 id="resident-name-title">¿Quién sos<span>?</span></h2>
-    <p id="resident-name-description">Así te van a ver los demás residentes de «{homeName}»: en tus celulares, en quién respondió cada timbrazo y en la lista de residentes.</p>
-    <form className="resident-name-form" onSubmit={(event) => { event.preventDefault(); if (clean) onSave(clean); }}>
-      <label htmlFor="resident-name-input">Tu nombre</label>
-      <input id="resident-name-input" value={name} required maxLength={RESIDENT_NAMES.maxLength} autoComplete="nickname" disabled={pending}
-        aria-invalid={error ? true : undefined} aria-describedby={error ? 'resident-name-error' : undefined}
-        onChange={(event) => { setName(event.target.value); if (error) onClearError(); }} />
-      {error && <p id="resident-name-error" className="field-error" role="alert">{error}</p>}
-      <button className="button primary notification-onboarding-primary" disabled={pending || !clean}>{pending ? 'Guardando…' : 'Guardar mi nombre'}</button>
-    </form>
-    <button type="button" className="text-button notification-onboarding-later" disabled={pending} onClick={onSignOut}>Cerrar sesión</button>
-  </dialog>;
+  return <RequiredNameDialog icon={<UserRound size={36} />} eyebrow="ANTES DE EMPEZAR" title={<>¿Quién sos<span>?</span></>}
+    description={`Así te van a ver los demás residentes de «${homeName}»: en tus celulares, en quién respondió cada timbrazo y en la lista de residentes.`}
+    label="Tu nombre" initialName={suggestedName} maxLength={RESIDENT_NAMES.maxLength} submitLabel="Guardar mi nombre" autoComplete="nickname"
+    pending={pending} error={error} onSave={onSave} onClearError={onClearError} onSignOut={onSignOut} />;
 }

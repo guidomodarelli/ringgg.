@@ -11,8 +11,8 @@ function Fixture() {
     <button onClick={() => { setPermission('denied'); setOpen(true); }}>Permiso bloqueado</button>
     <button onClick={() => { setPermission('granted'); setOpen(true); }}>Permiso concedido</button>
     {outcome && <p>{outcome}</p>}
-    {open && <NotificationOnboarding permission={permission} homeName="Casa de prueba" pending={false} error=""
-      onActivate={() => { setOutcome('Activación solicitada'); setOpen(false); }}
+    {open && <NotificationOnboarding permission={permission} homeName="Casa de prueba" residentName="Guido" otherDeviceNames={['Android de Ana']} pending={false} error=""
+      onActivate={(name) => { setOutcome(`Activación solicitada: ${name}`); setOpen(false); }}
       onRefresh={() => setPermission('default')}
       onSkip={() => { setOutcome('Sigue sin avisos'); setOpen(false); }}
       onSignOut={() => { setOutcome('Sesión cerrada'); setOpen(false); }} />}
