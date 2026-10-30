@@ -69,6 +69,8 @@ test('el panel reconcilia cada acción con su propia respuesta y no re-renderiza
     await waitUntilSettled(page);
     // The first check after load uses the cadence without push; this browser then reports an active device.
     await page.clock.runFor(31_000);
+    // That check is a real fetch: wait until the server records it so it is not counted inside the idle window.
+    await expect.poll(() => hits.filter((hit) => hit.startsWith('GET /api/dashboard')).length).toBe(1);
     await measureWindow('idle', () => page.clock.runFor(65_000));
     await page.goto(`http://127.0.0.1:${port}/?home=${FIXTURE_HOME}&view=settings`); await waitUntilSettled(page);
     await measureWindow('rename home', async () => { await page.getByLabel('Nombre de tu casa').fill('Casa perf'); await page.getByRole('button', { name: 'Guardar nombre' }).click(); await page.getByText('Nombre actualizado.').waitFor(); await expect(page.locator('.home-switcher summary')).toHaveText('Casa perf'); });
