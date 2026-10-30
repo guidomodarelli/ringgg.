@@ -98,6 +98,25 @@ async function lockHome(database: Database, homeId: number) {
   await database.query('SELECT id FROM homes WHERE id = $1 FOR UPDATE', [homeId]);
 }
 
+/**
+ * Rollback compatibility: the single-home version reads access only from `residents` and
+ * `resident_revocations`, which migration 4 keeps. While that rollback stays supported, every access
+ * change in the original home is mirrored there in the caller's transaction, and other homes never touch
+ * them. A revocation also keeps out bootstrap emails, which that version accepts from the environment.
+ */
+export async function mirrorLegacyRevocation(database: Database, target: ResidentTarget) {
+  if (target.homeId !== HOMES.originalId) return;
+  await database.query('DELETE FROM residents WHERE email = $1', [target.email]);
+  await database.query('INSERT INTO resident_revocations (email) VALUES ($1) ON CONFLICT (email) DO NOTHING', [target.email]);
+}
+
+/** Authorization counterpart of `mirrorLegacyRevocation`: invites the email and lifts its revocation. */
+async function mirrorLegacyAuthorization(database: Database, target: ResidentTarget, invitedBy: string) {
+  if (target.homeId !== HOMES.originalId) return;
+  await database.query('DELETE FROM resident_revocations WHERE email = $1', [target.email]);
+  await database.query('INSERT INTO residents (email, invited_by) VALUES ($1, $2) ON CONFLICT (email) DO NOTHING', [target.email, invitedBy]);
+}
+
 /** Repeating an authorization is safe; the home lock prevents concurrent invitations exceeding the limit. */
 export async function addResident(database: Database, user: ResidentIdentity, target: ResidentTarget, settings = residentSettings()): Promise<void> {
   const email = residentEmailSchema.parse(target.email);
@@ -110,6 +129,7 @@ export async function addResident(database: Database, user: ResidentIdentity, ta
     if (!existing.rows.length && count.rows[0].count >= RESIDENTS.maximumInvitations) throw new AppError(HTTP.conflict, 'RESIDENT_LIMIT', `Llegaste al límite de ${RESIDENTS.maximumInvitations} residentes. Quitá uno para agregar otro.`);
     await transaction.query('DELETE FROM home_revocations WHERE home_id = $1 AND email = $2', [homeId, email]);
     await transaction.query('INSERT INTO home_members (home_id, email, invited_by) VALUES ($1, $2, $3) ON CONFLICT (home_id, email) DO NOTHING', [homeId, email, user.id]);
+    await mirrorLegacyAuthorization(transaction, { homeId, email }, user.id);
   });
 }
 
@@ -127,6 +147,7 @@ export async function removeResident(database: Database, user: ResidentIdentity,
     await transaction.query('DELETE FROM devices d WHERE d.resident_email = $1 AND NOT EXISTS (SELECT 1 FROM device_homes dh WHERE dh.device_id = d.id)', [email]);
     await transaction.query('DELETE FROM home_members WHERE home_id = $1 AND email = $2', [homeId, email]);
     await transaction.query('INSERT INTO home_revocations (home_id, email) VALUES ($1, $2) ON CONFLICT (home_id, email) DO NOTHING', [homeId, email]);
+    await mirrorLegacyRevocation(transaction, { homeId, email });
   });
 }
 

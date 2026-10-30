@@ -4,10 +4,12 @@ import { initialize } from '../src/server/database';
 import { addResident, listResidentHomes, listResidents, removeResident, renameResident, resolveHomeAccess, residentSettings, suggestedResidentName } from '../src/server/residents';
 import { findOwnDevice, saveDevice } from '../src/server/push';
 import { snapshot } from '../src/server/doorbell';
+import { createHome } from '../src/server/homes';
 import { HOMES, RESIDENT_NAMES } from '../src/constants/homes';
 import { ZodError } from 'zod';
 import { testDatabase } from './support/test-database';
 import { pushSubscription } from './support/push-subscription';
+import { legacyAccess } from './support/legacy-access';
 
 const postgres = new PGlite();
 const database = testDatabase(postgres);
@@ -19,10 +21,8 @@ const settings = { bootstrapEmails: [owner.email] };
 
 beforeAll(async () => { await initialize(database); });
 beforeEach(async () => {
-  await database.query('DELETE FROM home_members');
-  await database.query('DELETE FROM home_revocations');
-  await database.query('DELETE FROM devices');
-  await database.query('DELETE FROM visits');
+  for (const table of ['home_members', 'home_revocations', 'residents', 'resident_revocations', 'devices', 'visits']) await database.query(`DELETE FROM ${table}`);
+  await database.query('DELETE FROM homes WHERE id <> $1', [HOME]);
 });
 afterAll(async () => { await postgres.close(); });
 
@@ -104,6 +104,33 @@ describe('residentes de una casa', () => {
   test('rechaza correos inválidos sin crear invitaciones', async () => {
     await expect(addResident(database, owner, { homeId: HOME, email: 'esto-no-es-un-correo' }, settings)).rejects.toThrow(ZodError);
     expect((await database.query('SELECT email FROM home_members')).rows).toHaveLength(0);
+  });
+});
+
+describe('rollback a la versión de una sola casa', () => {
+  test('quitar a alguien de la casa original lo revoca también para la versión anterior, y volver a autorizarlo lo invita de nuevo', async () => {
+    await addResident(database, owner, { homeId: HOME, email: member.email }, settings);
+    expect(await legacyAccess(database)).toEqual({ invited: [member.email], revoked: [] });
+    await removeResident(database, owner, { homeId: HOME, email: member.email }, settings);
+    expect(await legacyAccess(database)).toEqual({ invited: [], revoked: [member.email] });
+    await addResident(database, owner, { homeId: HOME, email: member.email }, settings);
+    expect(await legacyAccess(database)).toEqual({ invited: [member.email], revoked: [] });
+  });
+
+  test('un correo de arranque quitado de la casa original queda revocado para la versión anterior, que lo acepta por configuración', async () => {
+    await addResident(database, owner, { homeId: HOME, email: member.email }, settings);
+    await removeResident(database, member, { homeId: HOME, email: owner.email }, settings);
+    expect(await legacyAccess(database)).toEqual({ invited: [member.email], revoked: [owner.email] });
+  });
+
+  test('las altas y bajas de otra casa no cambian el acceso de la versión anterior', async () => {
+    await addResident(database, owner, { homeId: HOME, email: member.email }, settings);
+    const before = await legacyAccess(database);
+    const { id: other } = await createHome(database, owner, 'Casa de mamá', settings);
+    await addResident(database, owner, { homeId: other, email: member.email }, settings);
+    await addResident(database, owner, { homeId: other, email: outsider.email }, settings);
+    await removeResident(database, owner, { homeId: other, email: member.email }, settings);
+    expect(await legacyAccess(database)).toEqual(before);
   });
 });
 

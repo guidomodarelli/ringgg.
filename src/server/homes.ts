@@ -6,7 +6,7 @@ import type { ResidentIdentity } from '../types/auth';
 import type { HomeSummary } from '../types/residents';
 import type { Database } from './database';
 import { AppError } from './errors';
-import { listResidentHomes, listResidents, resolveHomeAccess, residentSettings } from './residents';
+import { listResidentHomes, listResidents, mirrorLegacyRevocation, resolveHomeAccess, residentSettings } from './residents';
 
 /** Home ids arrive as JSON numbers or query strings. */
 export const homeIdSchema = z.coerce.number().int().positive();
@@ -56,6 +56,7 @@ export async function createHome(database: Database, user: ResidentIdentity, inp
 /**
  * Deletes a home with its visits, residents and device registrations. Only its sole resident can, and
  * only while they keep another home: nobody deletes a home others use, and nobody ends up without one.
+ * Deleting the original home also revokes that resident in the legacy tables, so a rollback cannot reopen it.
  */
 export async function deleteHome(database: Database, user: ResidentIdentity, homeId: number, settings = residentSettings()): Promise<{ nextHomeId: number }> {
   const email = user.email.trim().toLowerCase();
@@ -67,6 +68,7 @@ export async function deleteHome(database: Database, user: ResidentIdentity, hom
     const next = (await listResidentHomes(transaction, user, settings)).find((home) => home.id !== homeId);
     if (!next) throw new AppError(HTTP.conflict, 'LAST_HOME', 'Es tu única casa, así que no se puede eliminar.');
     await transaction.query('DELETE FROM homes WHERE id = $1', [homeId]);
+    await mirrorLegacyRevocation(transaction, { homeId, email });
     await transaction.query('DELETE FROM devices d WHERE d.resident_email = $1 AND NOT EXISTS (SELECT 1 FROM device_homes dh WHERE dh.device_id = d.id)', [email]);
     return { nextHomeId: next.id };
   });

@@ -10,6 +10,7 @@ import { HOMES } from '../src/constants/homes';
 import { ZodError } from 'zod';
 import { testDatabase } from './support/test-database';
 import { pushSubscription } from './support/push-subscription';
+import { legacyAccess } from './support/legacy-access';
 
 const postgres = new PGlite();
 const database = testDatabase(postgres);
@@ -134,6 +135,20 @@ describe('eliminar casas', () => {
     expect((await snapshot(database, HOME)).devices.map((device) => device.name)).toEqual(['Compartido']);
     expect((await database.query<{ count: number }>('SELECT COUNT(*)::int AS count FROM devices')).rows[0].count).toBe(1);
     expect(await listResidentHomes(database, owner, settings)).toEqual([{ id: HOME, name: ORIGINAL_NAME }]);
+  });
+
+  test('eliminar la casa original también la cierra para la versión anterior', async () => {
+    // Its own database: the other tests need the original home.
+    const isolated = new PGlite();
+    try {
+      const isolatedDatabase = testDatabase(isolated);
+      await initialize(isolatedDatabase);
+      await addResident(isolatedDatabase, owner, { homeId: HOME, email: member.email }, settings);
+      await removeResident(isolatedDatabase, member, { homeId: HOME, email: owner.email }, settings);
+      await createHome(isolatedDatabase, member, 'Depto', settings);
+      await deleteHome(isolatedDatabase, member, HOME, settings);
+      expect(await legacyAccess(isolatedDatabase)).toEqual({ invited: [], revoked: [member.email, owner.email] });
+    } finally { await isolated.close(); }
   });
 });
 
