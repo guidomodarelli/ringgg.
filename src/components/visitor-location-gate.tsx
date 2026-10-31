@@ -126,7 +126,7 @@ function PreciseLocationSteps() {
 
 /** After the server found the visitor away from the door: every ring takes a new reading, so getting closer is enough. */
 export function FarFromDoorHelp() {
-  return <p className="visitor-location-note"><MapPin size={14} /> Acercate a la puerta y volvé a tocar: en cada timbrazo medimos tu ubicación de nuevo. Si ya estás ahí, esperá unos segundos a que tu celular se ubique mejor.</p>;
+  return <p className="visitor-location-note">Acercate a la puerta y volvé a tocar: en cada timbrazo medimos tu ubicación de nuevo. Si ya estás ahí, esperá unos segundos a que tu celular se ubique mejor.</p>;
 }
 
 function gateAction(state: LocationGateState) {
