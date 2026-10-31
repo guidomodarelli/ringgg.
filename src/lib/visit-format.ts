@@ -33,6 +33,19 @@ export function answerSummary(visit: Pick<Visit, 'created_at' | 'answered_at' | 
   return [visit.answered_by, reply, `respondió en ${responseTime(visit)}`].filter(Boolean).join(' · ');
 }
 
+/** Whether a quick reply still reaches the visitor at `now` (ms): unanswered and inside the response window. */
+export function awaitsAnswer(visit: Pick<Visit, 'created_at' | 'answered_at'>, now: number) {
+  return !visit.answered_at && now - new Date(visit.created_at).getTime() < DOORBELL.responseWindowSeconds * TIME.secondMs;
+}
+
+/**
+ * The visits that still wait for an answer, in the order given. Without a clock (the server render and
+ * hydration) there are none: reply buttons appear once the browser reads it, so both renders match.
+ */
+export function visitsAwaitingAnswer<Entry extends Pick<Visit, 'created_at' | 'answered_at'>>(visits: Entry[], now: number | null): Entry[] {
+  return now === null ? [] : visits.filter((visit) => awaitsAnswer(visit, now));
+}
+
 /** Feedback after answering: only the first reply reaches the visitor, so confirm the stored one. */
 export function replyOutcomeMessage(requested: VisitReply, visit: Pick<Visit, 'reply' | 'answered_by'> | null | undefined) {
   const stored = visit?.reply ?? requested;

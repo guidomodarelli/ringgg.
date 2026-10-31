@@ -9,7 +9,7 @@ import { ResidentNameDialog } from './resident-name-dialog';
 import { DeviceNameDialog } from './device-name-dialog';
 import { HomeSwitcher } from './home-switcher';
 import { DashboardSectionLink } from './dashboard-section-link';
-import { DoorOverview } from './dashboard/door-overview';
+import { DoorOverview, DoorWaiting } from './dashboard/door-overview';
 import { VisitHistory } from './dashboard/visit-history';
 import { QrPanel } from './dashboard/qr-panel';
 import { DevicesSection, isDeviceRename } from './dashboard/devices-section';
@@ -17,6 +17,7 @@ import { SettingsSection } from './dashboard/settings-section';
 import { useDashboardState } from './dashboard/use-dashboard-state';
 import { useDashboardView, useFocusVisitId } from './dashboard/use-dashboard-view';
 import { usePushDevice } from './dashboard/use-push-device';
+import { usePublishAwaitingVisits } from './dashboard/use-awaiting-visits';
 import { useAppUpdates } from './use-app-updates';
 import { useTrackedNavigation } from './use-tracked-navigation';
 import type { DashboardData, DashboardSnapshot, HomeState } from '@/types/doorbell';
@@ -25,6 +26,7 @@ import { pauseEnd, pauseEndLabel } from '@/lib/pause';
 import { dashboardHref } from '@/lib/dashboard-view';
 import { api } from '@/lib/api';
 import { isGenericDeviceName } from '@/lib/device-name';
+import { visitsAwaitingAnswer } from '@/lib/visit-format';
 import type { ResidentEntry } from '@/types/residents';
 
 const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> = {
@@ -62,6 +64,9 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   const { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, signedOut, now, run, retrySync } = useDashboardState(initial, device.deviceId);
   const url = `${data.origin}/t/${data.home.token}`;
   const busy = Boolean(pending);
+  // Visits a quick reply still reaches: the overview lists them and «Timbrazos» counts them in the sidebar.
+  const awaiting = visitsAwaitingAnswer(data.visits, now);
+  usePublishAwaitingVisits(data.home.id, awaiting.length);
   // `next.config.ts` inlines the build's version into this bundle: it names the code this page runs.
   useAppUpdates({ busy, loadedVersion: process.env.APP_VERSION ?? '' });
 
@@ -118,7 +123,8 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
           : syncError && <p className="sync-notice">{syncError} Seguimos intentando solos.<button className="text-button" onClick={retrySync}><RefreshCw size={15} /> Reintentar ahora</button></p>}
       </div>
       <div className="dashboard-grid"><div className="primary-column">
-        <DoorOverview url={url} data={data} />
+        {view === 'overview' && <DoorWaiting visits={awaiting} pending={pending} run={run} />}
+        <DoorOverview url={url} data={data} someoneWaiting={awaiting.length > 0} />
         <VisitHistory visits={data.visits} now={now} url={url} pending={pending} run={run} focusVisitId={focusVisitId} />
       </div><aside className="context-column">
         <QrPanel url={url} homeId={data.home.id} homeName={data.home.name} pending={pending} run={run} onFeedback={setFeedback} onError={setError} />

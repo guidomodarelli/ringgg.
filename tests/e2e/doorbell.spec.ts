@@ -50,7 +50,8 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await expect(visitor.getByRole('heading', { name: '¡Ding, dong!' })).toBeVisible();
   await expect(visitor.getByText('Tu timbrazo quedó registrado, pero no pudimos enviar una notificación.')).toBeVisible();
   // Without push on this browser the panel would see the ring on its next check; focusing it checks now.
-  await page.getByRole('link', { name: 'Timbrazos', exact: true }).click();
+  // A check that already saw the ring names the link «Timbrazos, 1 por responder».
+  await page.getByRole('link', { name: /^Timbrazos(, \d+ por responder)?$/ }).click();
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.getByRole('heading', { name: 'Soy Juan, del delivery' })).toBeVisible({ timeout: 15_000 });
   await visitor.clock.install();
