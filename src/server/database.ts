@@ -153,6 +153,20 @@ export const MIGRATIONS: Migration[] = [
     `ALTER TABLE homes ADD COLUMN IF NOT EXISTS longitude DOUBLE PRECISION`,
     `ALTER TABLE homes ADD COLUMN IF NOT EXISTS nearby_only BOOLEAN NOT NULL DEFAULT FALSE`,
   ],
+  [
+    // What the doorbell did, kept like the visits for the retention window and without visitor data. Additive:
+    // the previous deployment ignores these tables and the new column.
+    // Rings that did not go through, counted per home, day (in the home's time zone) and reason.
+    `CREATE TABLE IF NOT EXISTS ring_rejections (home_id INTEGER NOT NULL REFERENCES homes (id) ON DELETE CASCADE, day DATE NOT NULL, code TEXT NOT NULL, count INTEGER NOT NULL, PRIMARY KEY (home_id, day, code))`,
+    // Milliseconds from the ring's request until its delivery was stored: what the visitor waited.
+    `ALTER TABLE visits ADD COLUMN IF NOT EXISTS ring_ms INTEGER`,
+    // What the provider answered for each device and notice of a visit. No reference to the device: the row
+    // outlives a device the provider removed.
+    `CREATE TABLE IF NOT EXISTS visit_deliveries (visit_id TEXT NOT NULL REFERENCES visits (id) ON DELETE CASCADE, device_id TEXT NOT NULL, kind TEXT NOT NULL, outcome TEXT NOT NULL, status INTEGER, sent_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY (visit_id, device_id, kind))`,
+    // Devices removed because the provider said their subscription no longer exists, per home they rang for.
+    `CREATE TABLE IF NOT EXISTS device_removals (home_id INTEGER NOT NULL REFERENCES homes (id) ON DELETE CASCADE, device_id TEXT NOT NULL, name TEXT NOT NULL, name_key TEXT NOT NULL, resident_email TEXT, owner_name TEXT, status INTEGER NOT NULL, removed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY (home_id, device_id))`,
+    `CREATE INDEX IF NOT EXISTS device_removals_removed_at_idx ON device_removals (removed_at)`,
+  ],
 ];
 async function runStep(database: Database, step: MigrationStep) {
   if (typeof step === 'string') await database.query(step);

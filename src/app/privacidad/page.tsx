@@ -28,8 +28,9 @@ export default function PrivacyPolicyPage() {
     <ul>
       <li><strong>Tu cuenta:</strong> tu correo, tu nombre y si verificaste el correo. Si ingresás con Google, recibimos solo esos tres datos; no accedemos a tus contactos, archivos, calendario ni a ningún otro dato de tu cuenta de Google.</li>
       <li><strong>Tus casas:</strong> el nombre de cada casa, los correos autorizados como residentes, el nombre con el que te ven en cada casa, su QR y su configuración (pausa, horario de descanso y, si la cargan, la ubicación de la puerta).</li>
-      <li><strong>Tus dispositivos:</strong> el nombre que le pusiste a cada uno, de quién es, la suscripción de notificaciones que da el navegador (una dirección del servicio de avisos y sus claves de cifrado) y cuándo recibió el último aviso.</li>
-      <li><strong>Las visitas:</strong> el momento del timbrazo, el mensaje que la visita quiera dejar (es opcional), la respuesta elegida, quién respondió y la nota que la visita deje si nadie atiende. Se borran solas a los {DOORBELL.retentionDays} días.</li>
+      <li><strong>Tus dispositivos:</strong> el nombre que le pusiste a cada uno, de quién es, la suscripción de notificaciones que da el navegador (una dirección del servicio de avisos y sus claves de cifrado), cuándo recibió el último aviso y qué respondió el servicio de avisos a cada aviso de una visita. Si el servicio da de baja una suscripción, borramos el dispositivo y la casa conserva su nombre, de quién era y la fecha durante {DOORBELL.retentionDays} días, para avisarles que dejó de recibir avisos.</li>
+      <li><strong>Las visitas:</strong> el momento del timbrazo, cuánto tardó en salir el aviso, el mensaje que la visita quiera dejar (es opcional), la respuesta elegida, quién respondió y la nota que la visita deje si nadie atiende. Se borran solas a los {DOORBELL.retentionDays} días.</li>
+      <li><strong>Los timbrazos que no sonaron:</strong> por día, cuántos se rechazaron y por qué (por ejemplo, desde lejos de la puerta o con el timbre en pausa), sin ningún dato de quién tocó.</li>
       <li><strong>Las visitas no necesitan cuenta.</strong> Para evitar abusos guardamos una huella cifrada de su dirección de red, nunca la dirección, y vence a los pocos minutos.</li>
     </ul>
 
@@ -52,7 +53,7 @@ export default function PrivacyPolicyPage() {
     <p>Si tocás un timbre, tu celular guarda la referencia de ese timbrazo (no tu mensaje ni tu ubicación) para mostrarte la respuesta aunque recargues la página o vuelvas a escanear el QR. Deja de usarse a los {DOORBELL.noteWindowSeconds / TIME.minuteSeconds} minutos: se borra en ese momento si tenés la página abierta y, si no, la próxima vez que abras un timbre de Ringgg en ese navegador. También se borra si tocás «Volver a tocar» o si borrás los datos del sitio en tu navegador.</p>
 
     <h2>Cuánto tiempo los guardamos</h2>
-    <p>Las visitas, sus mensajes y sus notas se borran a los {DOORBELL.retentionDays} días. Tu cuenta, tus casas y tus dispositivos se guardan mientras uses Ringgg. Cuando alguien deja de ser residente de una casa, pierde el acceso y sus celulares dejan de recibir avisos de esa casa; al eliminar una casa se borran su historial, su QR y los registros de sus celulares.</p>
+    <p>Las visitas, sus mensajes, sus notas y el resultado de sus avisos se borran a los {DOORBELL.retentionDays} días, igual que los conteos de timbrazos rechazados y el rastro de los dispositivos dados de baja. Tu cuenta, tus casas y tus dispositivos se guardan mientras uses Ringgg. Cuando alguien deja de ser residente de una casa, pierde el acceso y sus celulares dejan de recibir avisos de esa casa; al eliminar una casa se borran su historial, su QR y los registros de sus celulares.</p>
 
     <h2>Cómo controlar o borrar tus datos</h2>
     <p>Desde el panel podés cambiar tu nombre y el de tus dispositivos, desconectar un dispositivo, quitar residentes, salir de una casa y eliminar una casa de la que seas el único residente.</p>

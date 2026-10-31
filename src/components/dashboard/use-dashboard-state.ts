@@ -18,8 +18,8 @@ export function dashboardPath(homeId: number) {
 }
 
 /** Comparable form of the polled state; field order matches the `snapshot()` response. */
-export function serializeSnapshot({ home, visits, devices }: DashboardSnapshot) {
-  return JSON.stringify({ home, visits, devices });
+export function serializeSnapshot({ home, visits, devices, rejectedRings, removedDevices }: DashboardSnapshot) {
+  return JSON.stringify({ home, visits, devices, rejectedRings, removedDevices });
 }
 
 /**

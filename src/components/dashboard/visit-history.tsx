@@ -1,8 +1,9 @@
 import { useEffect, useRef, type Ref } from 'react';
-import { ArrowUpRight, Bell, BellRing, Check, MessageSquareText } from 'lucide-react';
+import { ArrowUpRight, Bell, BellOff, BellRing, Check, MessageSquareText } from 'lucide-react';
 import { VISIT_REPLIES, VISIT_REPLY_KEYS } from '@/constants/doorbell';
-import type { Visit } from '@/types/doorbell';
+import type { RingRejection, Visit } from '@/types/doorbell';
 import { api } from '@/lib/api';
+import { rejectedRingsSummary } from '@/lib/ring-rejections';
 import { answerSummary, awaitsAnswer, DELIVERY_LABELS, receiptLabel, replyOutcomeMessage, visitTime } from '@/lib/visit-format';
 import type { RunAction } from './types';
 
@@ -34,12 +35,31 @@ export function VisitRow({ visit, open, pending, run, focused = false, ref }: { 
   </article>;
 }
 
+/** Today's rings that did not sound: one quiet line, only when there were some, so a home that asks for the visitor's location sees how many it turns away. */
+function RejectedRings({ rejections }: { rejections: RingRejection[] }) {
+  const summary = rejectedRingsSummary(rejections);
+  if (!summary) return null;
+  return <p className="history-rejections"><BellOff size={14} aria-hidden="true" /> <span>{summary}</span></p>;
+}
+
+interface VisitHistoryProps {
+  visits: Visit[];
+  /** Today's rejected rings by reason, from the same snapshot. */
+  rejectedRings: RingRejection[];
+  now: number | null;
+  url: string;
+  pending: string;
+  run: RunAction;
+  focusVisitId: string;
+}
+
 /** History with quick replies on visits still inside the response window. */
-export function VisitHistory({ visits, now, url, pending, run, focusVisitId }: { visits: Visit[]; now: number | null; url: string; pending: string; run: RunAction; focusVisitId: string }) {
+export function VisitHistory({ visits, rejectedRings, now, url, pending, run, focusVisitId }: VisitHistoryProps) {
   const focused = useRef<HTMLElement | null>(null);
   const focusTarget = visits.some((visit) => visit.id === focusVisitId) ? focusVisitId : '';
   useEffect(() => { if (focusTarget) focused.current?.scrollIntoView({ block: 'center' }); }, [focusTarget]);
   return <section id="history" className="history section-block"><div className="section-title"><div><h2>En tu puerta</h2><p>Los últimos timbrazos de tu casa.</p></div><span className="count-badge">{visits.length}</span></div>
+    <RejectedRings rejections={rejectedRings} />
     {visits.length === 0 ? <div className="empty-visits"><div className="empty-icon"><Bell size={27} /></div><h3>Por ahora, todo tranquilo</h3><p>Cuando alguien toque tu timbre, lo vas a ver acá.</p><a href={url} target="_blank" rel="noreferrer">Probá tu primer timbrazo <ArrowUpRight size={15} /></a></div>
       : <div className="visit-list">{visits.map((visit) => <VisitRow key={visit.id} ref={visit.id === focusTarget ? focused : undefined} visit={visit} open={now !== null && awaitsAnswer(visit, now)} focused={visit.id === focusTarget} pending={pending} run={run} />)}</div>}
     <p className="section-footnote">Hasta 50 timbrazos · Historial de los últimos 30 días</p>

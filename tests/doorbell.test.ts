@@ -366,7 +366,7 @@ describe('retención', () => {
     await database.query(`INSERT INTO visit_receipts (visit_id, device_id) VALUES ($1, 'device')`, [old]);
     await database.query(`INSERT INTO rate_limits (key, attempts, expires_at) VALUES ('expired', 1, NOW() - INTERVAL '1 minute'), ('active', 1, NOW() + INTERVAL '1 minute')`);
     assert.deepEqual((await snapshot(database, HOME)).visits.map((visit) => visit.message), ['Reciente']);
-    assert.deepEqual(await purgeExpiredData(database), { visits: 1, rateLimits: 1 });
+    assert.deepEqual(await purgeExpiredData(database), { visits: 1, rateLimits: 1, rejectedRings: 0, removedDevices: 0 });
     assert.equal((await database.query('SELECT visit_id FROM visit_receipts')).rows.length, 0);
     assert.deepEqual((await database.query<{ key: string }>('SELECT key FROM rate_limits')).rows, [{ key: 'active' }]);
   });

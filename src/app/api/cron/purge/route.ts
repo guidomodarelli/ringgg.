@@ -6,7 +6,10 @@ import { apiRoute } from '@/server/http';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-/** Daily Vercel Cron job (see `vercel.json`): keeps the retention promise even when nobody rings. */
+/**
+ * Daily Vercel Cron job (see `vercel.json`): keeps the retention promise even when nobody rings, for visits
+ * and everything recorded about them (rejected rings, per-device deliveries, removed devices).
+ */
 export const GET = apiRoute('cron.purge', async (request) => {
   requireCronSecret(request);
   const purged = await purgeExpiredData(await getDatabase());
