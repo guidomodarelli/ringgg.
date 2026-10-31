@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "ringgg.chat.worker",
+  "kind": "backend",
+  "hierarchy": {
+    "module": "Ringgg",
+    "page": "Chat",
+    "section": null,
+    "subflow": "Sala por visita y avisos firmados"
+  },
+  "description": "Worker de Cloudflare: tokens, Durable Object por visita, retención y el aviso firmado que la app convierte en push.",
+  "entries": [
+    {
+      "path": "chat/src/index.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/app/api/chat/notify/route.ts",
+      "symbol": "*"
+    }
+  ],
+  "origin": "manual"
+}

@@ -3,31 +3,41 @@ import { z } from 'zod';
 import { HTTP } from '@/constants/doorbell';
 import { requireOrigin } from './auth';
 import { AppError, errorResponse } from './errors';
+import { parseJson } from './json';
 import { forwardSetCookies, withRouteSession } from './session-cookies';
 
 const BODY_LIMIT = 8192;
 
-export async function readJson<T extends z.ZodType>(request: Request, schema: T): Promise<z.infer<T>> {
+/** The raw body, for routes that verify a signature over the exact bytes they received. */
+export async function readText(request: Request): Promise<string> {
   const text = await request.text();
   if (text.length > BODY_LIMIT) throw new AppError(HTTP.badRequest, 'BODY_LIMIT', 'La solicitud es demasiado grande.');
-  let value: unknown;
-  try { value = JSON.parse(text); } catch (error) { throw new AppError(HTTP.badRequest, 'INVALID_JSON', 'La solicitud no tiene un formato válido.', { cause: error }); }
-  return schema.parse(value);
+  return text;
+}
+
+export async function readJson<T extends z.ZodType>(request: Request, schema: T): Promise<z.infer<T>> {
+  return parseJson(await readText(request), schema);
 }
 
 type Handler<Params> = (request: NextRequest, params: Params) => Promise<Response>;
+
+/**
+ * `checkOrigin: false` is only for requests that never come from a browser and prove who sent them
+ * another way, such as the chat Worker's signed notifications.
+ */
+interface ApiRouteOptions { checkOrigin?: boolean }
 
 /**
  * Shared envelope for every API route: Origin check on mutations, no-store responses and
  * safe error bodies. Each route still authenticates on its own before opening private data.
  * Session cookies renewed while it does go out with the response, also when the route then fails.
  */
-export function apiRoute<Params = Record<string, never>>(operation: string, handler: Handler<Params>) {
+export function apiRoute<Params = Record<string, never>>(operation: string, handler: Handler<Params>, { checkOrigin = true }: ApiRouteOptions = {}) {
   return async (request: NextRequest, context: { params: Promise<Params> }) => {
     const session = { requestHeaders: request.headers, responseCookies: new Headers() };
     let response: Response;
     try {
-      if (request.method !== 'GET' && request.method !== 'HEAD') requireOrigin(request);
+      if (checkOrigin && request.method !== 'GET' && request.method !== 'HEAD') requireOrigin(request);
       const params = await context.params;
       response = await withRouteSession(session, () => handler(request, params));
     } catch (error) {

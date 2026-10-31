@@ -1,0 +1,2 @@
+# Copiá este archivo a chat/.dev.vars para `npm run chat:dev`. Tiene que ser el mismo CHAT_SECRET que .env.local.
+CHAT_SECRET=

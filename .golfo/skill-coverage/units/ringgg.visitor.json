@@ -31,6 +31,14 @@
     {
       "path": "src/app/api/door/[token]/visits/[id]/note/route.ts",
       "symbol": "*"
+    },
+    {
+      "path": "src/app/api/door/[token]/visits/[id]/chat/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/components/chat/visit-chat.tsx",
+      "symbol": "*"
     }
   ],
   "origin": "manual"

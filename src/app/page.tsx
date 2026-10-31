@@ -10,6 +10,7 @@ import { visitFromUrl } from '@/lib/visit-format';
 import { getIdentity } from '@/server/auth';
 import { listResidents, resolveHomeAccess, suggestedResidentName } from '@/server/residents';
 import { AppError } from '@/server/errors';
+import { chatSettings } from '@/server/chat';
 import { getConfig, pushConfigured } from '@/server/config';
 import { getDatabase } from '@/server/database';
 import { snapshot } from '@/server/doorbell';
@@ -39,6 +40,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ v
   return <div className="app-shell">
     <a className="skip-link" href="#main">Ir al contenido</a>
     <DashboardSidebar homeId={member.homeId} homeName={data.home.name} viewer={viewer} initialView={initialView} />
-    <div className="workspace"><Dashboard key={member.homeId} initialView={initialView} initial={{ ...data, pushReady: pushConfigured(config), origin: config.origin, viewer, homes, residents, focusVisitId }} /></div>
+    <div className="workspace"><Dashboard key={member.homeId} initialView={initialView} initial={{ ...data, pushReady: pushConfigured(config), origin: config.origin, viewer, homes, residents, focusVisitId, chatEnabled: chatSettings() !== null }} /></div>
   </div>;
 }

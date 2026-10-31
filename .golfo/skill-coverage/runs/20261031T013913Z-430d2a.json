@@ -1,0 +1,104 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:183492f32c818a9bbaf5b079326130957b763b2f71efd4bcf3bff18971aed266",
+    "uncommittedFiles": [
+      "src/app/api/chat/access/route.ts",
+      "src/components/chat/use-chat-connection.ts",
+      "src/components/chat/use-chat-outbox.ts",
+      "src/components/chat/use-visit-chat.ts",
+      "src/components/chat/visit-chat.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/visit-history.tsx",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/push.ts",
+      "src/lib/chat-protocol.ts",
+      "src/lib/visit-format.ts",
+      "src/server/chat.ts",
+      "src/server/http.ts",
+      "src/server/json.ts",
+      "src/types/doorbell.ts"
+    ],
+    "fileCount": 97,
+    "inputCount": 728
+  },
+  "evidence": [
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-31T01:39:16.383Z",
+      "source": "attested",
+      "summary": "Bytes gzip del bundle minificado de src/components/dashboard/visit-history.tsx sin el chat (stash de los archivos que lo montan) y con el chat",
+      "tool": "esbuild --minify + gzip -9",
+      "metric": "JS del componente (bytes gzip)",
+      "before": "2648",
+      "after": "6728",
+      "conditions": "Bundle ESM del componente sin react, react-dom, lucide-react ni next; mismo comando antes y después",
+      "baselineKind": "previous-revision"
+    },
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-31T01:39:16.801Z",
+      "source": "attested",
+      "summary": "Carga nueva: 1 GET de token (1 query) + 1 WebSocket por conexión, solo con el chat visible; sin polling nuevo; reconexión con backoff 1-15 s; pestaña oculta cierra el socket. Sin N+1 ni cascadas evitables. Costo de JS razonable (~4 KB gzip): no se difiere con import dinámico."
+    },
+    {
+      "command": "fnm exec --using=24 -- npx.cmd vitest run tests/chat.test.ts tests/chat-worker.test.ts",
+      "durationMs": 7582,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "026f214954d164f94a594cebc846fc9125be41cc39e6d38597a61720018791e2",
+      "recordedAt": "2026-10-31T01:39:24.869Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Latencia del WebSocket y del token en producción sin medir: requiere el Worker desplegado."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:39:26.015Z",
+  "result": "verified",
+  "runId": "20261031T013913Z-430d2a",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "previous run was partial"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "pending from the previous run: missing passing evidence of kind measurement",
+      "measure the complete flow /: before = the first revision that contains the last measured code (it was recorded over uncommitted changes on top of 37720334beb2, which does not include them), or the revision without the new load, after = working tree"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "Costo agregado del chat",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:39:14.001Z",
+  "unitId": "ringgg.resident"
+}

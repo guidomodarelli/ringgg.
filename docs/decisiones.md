@@ -21,8 +21,12 @@
 | `src/app/cartel/page.tsx` | Cartel imprimible con el QR en SVG, renderizado en servidor |
 | `src/components/dashboard.tsx` y `dashboard/*` | Panel: estado y polling (`use-dashboard-state`), notificaciones de este navegador (`use-push-device`) y secciones |
 | `src/components/home-switcher.tsx`, `resident-name-dialog.tsx` | Selector de casas con «Agregar casa» y el «¿Quién sos?» obligatorio |
-| `src/components/visitor.tsx`, `use-stored-visit.ts`, `src/lib/visit-storage.ts` | Tocar timbre, esperar una respuesta explícita, dejar un mensaje y retomar el timbrazo después de recargar |
+| `src/components/visitor.tsx`, `use-stored-visit.ts`, `src/lib/visit-storage.ts` | Tocar timbre, esperar una respuesta explícita, dejar un mensaje (o chatear) y retomar el timbrazo después de recargar |
 | `src/components/dashboard/use-awaiting-visits.ts` | Conteo de visitas por responder que el panel publica para la marca de «Timbrazos» |
+| `chat/` | Worker de Cloudflare del chat: valida tokens (`index.ts`), un Durable Object por visita (`chat-room.ts`, `room-store.ts`) y el aviso firmado a la app (`notify.ts`) |
+| `src/lib/chat-protocol.ts`, `src/constants/chat.ts` | Contrato del chat que comparten la app, el navegador y el Worker: tokens, firmas y mensajes |
+| `src/server/chat.ts`, `src/app/api/chat/*`, `api/door/[token]/visits/[id]/chat` | Tokens de la visita y de los residentes, y el aviso del Worker convertido en push |
+| `src/components/chat/` | Chat de una visita: conexión (`use-chat-connection`), envíos pendientes (`use-chat-outbox`), estado (`use-visit-chat`) y la interfaz (`visit-chat`) |
 | `src/service-worker/` | Service worker en TypeScript; `npm run build:sw` lo compila a `public/sw.js` |
 | `src/lib/push-notification.ts` | Lectura del payload, acciones y URLs del service worker, compartido con sus tests |
 
@@ -44,11 +48,12 @@ Todos los residentes verificados de una casa tienen los mismos permisos en ella:
 
 ## Ciclo de vida de las acciones
 
-Ninguna operación es optimista: todas tienen un efecto visible para el visitante, para otros residentes o para el proveedor de notificaciones.
+Ninguna operación es optimista salvo enviar un mensaje del chat: todas las demás tienen un efecto visible para el visitante, para otros residentes o para el proveedor de notificaciones.
 
 - **Confirmadas por el servidor**: tocar timbre, dejar mensaje, responder, regenerar el QR, desconectar o renombrar un celular, probar avisos, activar notificaciones, residentes, ingreso y salida.
 - **Pendiente primero**: nombre de la casa, pausa y horario de descanso. Cambian lo que ve el visitante, así que el panel muestra «Guardando…» o «Pausando…» y confirma con la respuesta.
 - **Solo locales**: «Seguir sin avisos en este dispositivo» (se recuerda en `localStorage`, con alternativa si no está disponible) y «Compartir invitación» (Web Share o portapapeles).
+- **Optimista**: enviar un mensaje del chat. Aparece al instante como «Enviando…» y se confirma con el broadcast de la sala. Su id lo elige el navegador, así que reenviarlo al reconectar o con «Reintentar» nunca lo duplica. Sin confirmación a los 10 s queda «No pudimos confirmar el envío», no «falló»: pudo haber llegado, y el reintento es seguro igual.
 
 Cada acción declara cómo reconcilia (`Reconcile` en `src/components/dashboard/types.ts`). Las rutas que devuelven el snapshot (`settings`, `pause`, `quiet-hours`, `rotate`, `rename-device`) o la visita (`answer`) se aplican sin otro `GET`. Guardar el nombre ya no envía el estado de la pausa: antes un formulario viejo podía reactivar un timbre que otro residente acababa de pausar.
 
@@ -70,6 +75,16 @@ La app instalada abre en `/` (Resumen), donde el historial está oculto, y en iP
 El panel consultaba cada 5 segundos aunque no pasara nada: 720 pedidos por hora por pestaña visible, y el cómputo de Neon no llegaba a apagarse (la rama `production` estuvo activa unas 15 de sus primeras 19,5 horas). Ahora consulta cada 5 s solo mientras una visita se puede responder, porque otro residente puede contestarla. Si no, consulta cada 30 s, o cada 60 s si este navegador recibe notificaciones: el push del service worker actualiza el panel al instante y la consulta queda de respaldo por si el push falla en silencio, siempre dentro de la espera de dos minutos del visitante. Se descartó una cadencia de minutos por ese riesgo. Una consulta fallida muestra un aviso discreto que se borra solo con la siguiente exitosa, separado de los errores de las acciones.
 
 Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBouncer en modo transacción) no mantiene `LISTEN`, y una conexión SSE abierta en Vercel consume tiempo de función.
+
+## Chat con la visita
+
+El chat necesita sockets abiertos, que Vercel no mantiene. Se eligió un Worker de Cloudflare con un Durable Object por visita y WebSocket Hibernation: entra en el plan gratis (100.000 requests por día) y mientras nadie escribe no se cobra duración. Neon Realtime quedó descartado: está en beta, solo en cuatro regiones (la base está en `aws-sa-east-1`) y pide logical replication. Polling contra Vercel y Neon mantendría despierto el cómputo de Neon mientras el chat esté abierto.
+
+- **La app no habla con el Worker.** Firma tokens cortos (HMAC con `CHAT_SECRET`) que el navegador presenta al abrir el socket, y recibe un único pedido del Worker: el aviso firmado cuando la visita escribe y ningún residente lee. Así el Worker no necesita la base ni la sesión.
+- **Una sala por visita y por origen** (`chatRoomName`): un preview y producción nunca comparten sala aunque usen el mismo Worker. El token lleva el origen canónico de la app, que nombra la sala y recibe los avisos, y el de la página que lo pidió, si es uno de los de la app (un preview responde en su URL de rama y en la del deployment). El Worker solo acepta el socket desde esa página, y todas las páginas de un deployment comparten la sala.
+- **El chat reemplaza a la nota** cuando está configurado, con la misma ventana de 15 minutos. Sin configurar, todo sigue como antes. Al cerrarse la ventana con la página abierta, la visita vuelve al formulario del timbre, igual que sin chat; la conversación cerrada la leen solo los residentes. «El chat de esta visita terminó» le aparece a la visita si el Worker cierra la sala antes que su reloj.
+- **Presencia sin estado propio.** «Algún residente está leyendo» son los sockets de residentes abiertos en la sala. Una pestaña oculta cierra el suyo, y también el chat de **Timbrazos** cuando el panel muestra otra sección, para que un panel olvidado en la compu no apague las notificaciones de los celulares. Si el chat terminó con el socket cerrado, al volver lee el historial una vez más.
+- **Retención.** El Durable Object borra su SQLite con una alarma a los 30 días del cierre. Riesgo residual: eliminar una casa no borra en el momento los chats de sus visitas; desaparecen con esa alarma.
 
 ## Avisos, recibos y salud de los dispositivos
 

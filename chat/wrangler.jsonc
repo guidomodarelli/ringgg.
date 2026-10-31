@@ -1,0 +1,14 @@
+// Chat Worker of Ringgg: one Durable Object per visit holds its sockets and messages.
+// Deploy with `npm run chat:deploy` after `npx wrangler secret put CHAT_SECRET --config chat/wrangler.jsonc`.
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "ringgg-chat",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "observability": { "enabled": true },
+  "durable_objects": {
+    "bindings": [{ "name": "CHAT_ROOMS", "class_name": "ChatRoom" }]
+  },
+  // SQLite-backed objects are the ones the Workers Free plan can create.
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ChatRoom"] }]
+}

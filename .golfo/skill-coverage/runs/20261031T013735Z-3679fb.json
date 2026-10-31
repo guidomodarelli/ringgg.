@@ -1,0 +1,142 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:67af3d8d139755c88b1574e34854b00f9bf77378e9b1053db5d249822883b552",
+    "uncommittedFiles": [
+      "src/app/privacidad/page.tsx",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts"
+    ],
+    "fileCount": 7,
+    "inputCount": 30
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-31T01:37:36.212Z",
+      "source": "attested",
+      "summary": "Solo copy: datos del chat, Cloudflare como proveedor, privacidad de quién responde y retención de 30 días. Sin estados ni acciones nuevas."
+    },
+    {
+      "command": "fnm exec --using=24 -- npm.cmd run typecheck:build",
+      "durationMs": 7958,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "f438a8ed5597ea684b16236a9ec6a4964df3791a3a2d509c756282c5c276f9d4",
+      "recordedAt": "2026-10-31T01:37:44.625Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Sin test ni recorrido en navegador de /privacidad en esta sesión (el E2E que la cubre falla en local por /cartel sin Neon Auth, igual que en main)."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:37:45.463Z",
+  "result": "partial",
+  "runId": "20261031T013735Z-3679fb",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "12 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/privacidad/page.tsx#PrivacyPolicyPage",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.windowSeconds",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#MINUTE_SECONDS",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.minuteSeconds",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME~frame",
+        "reason": "new visible or interactive code"
+      }
+    ],
+    "suggestedScope": [
+      "src/app/privacidad/page.tsx › PrivacyPolicyPage — behavior of this code in every state of the unit that uses it",
+      "src/constants/chat.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/constants/chat.ts › CHAT.windowSeconds — copy or configuration read from this member, in every state that shows it",
+      "src/constants/chat.ts › CHAT (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/constants/doorbell.ts › DOORBELL.noteWindowSeconds — copy or configuration read from this member, in every state that shows it",
+      "src/constants/location.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/constants/location.ts › NEARBY_RINGING.radiusMeters — copy or configuration read from this member, in every state that shows it",
+      "src/constants/location.ts › NEARBY_RINGING (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/constants/time.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/constants/time.ts › MINUTE_SECONDS — behavior of this code in every state of the unit that uses it",
+      "src/constants/time.ts › TIME.minuteSeconds — copy or configuration read from this member, in every state that shows it",
+      "src/constants/time.ts › TIME (object structure) — behavior of this code in every state of the unit that uses it"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Copy del chat en la política",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:37:35.809Z",
+  "unitId": "ringgg.privacy"
+}

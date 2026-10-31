@@ -1,0 +1,1207 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:5fa9b4aceea4980f708ace3c4c5e5b0c09c9d94d8a013e1e2356c40ce70216fb",
+    "uncommittedFiles": [
+      "src/app/api/door/[token]/visits/[id]/chat/route.ts",
+      "src/components/chat/use-chat-connection.ts",
+      "src/components/chat/use-chat-outbox.ts",
+      "src/components/chat/use-visit-chat.ts",
+      "src/components/chat/visit-chat.tsx",
+      "src/components/visitor.tsx",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/push.ts",
+      "src/lib/chat-protocol.ts",
+      "src/lib/visit-format.ts",
+      "src/server/chat.ts",
+      "src/server/http.ts",
+      "src/server/json.ts",
+      "src/types/doorbell.ts"
+    ],
+    "fileCount": 47,
+    "inputCount": 410
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-31T01:32:38.799Z",
+      "source": "attested",
+      "summary": "Operaciones: obtener token (lectura, GET por conexión, abortable al desmontar, sin respuestas viejas porque cada efecto descarta la suya), abrir socket (lectura en vivo con reintento exponencial 1-15 s y reconexión manual), enviar mensaje (optimistic: id del cliente, confirmado por broadcast, idempotente en el Durable Object; timeout 10 s marca no confirmado y Reintentar no duplica; rechazo deja el texto en el hilo; al cerrar la ventana los pendientes quedan no enviados), descartar (local). Doble Enter: cada envío es un mensaje nuevo con su id; el composer se vacía al agregarlo."
+    },
+    {
+      "command": "fnm exec --using=24 -- npx.cmd vitest run tests/chat.test.ts tests/chat-worker.test.ts",
+      "durationMs": 9676,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "93df0e3cf3b13664fa511d353feb2141692f4b45f534c516d8a7517a40338b83",
+      "recordedAt": "2026-10-31T01:32:48.953Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "fnm exec --using=24 -- npx.cmd playwright test tests/e2e/visit-chat.spec.ts tests/e2e/visitor-replies.spec.ts --reporter=line",
+      "durationMs": 49779,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "eb0f9dfb28391e68925b991ad3dc00c645a9950dba4667baaa1cecbb11f44efe",
+      "recordedAt": "2026-10-31T01:33:39.135Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:33:40.338Z",
+  "result": "verified",
+  "runId": "20261031T013238Z-994005",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "186 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/door/[token]/route.ts#POST",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/door/[token]/route.ts#ringSchema",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#dynamic",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#GET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#runtime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#ChatConnectionOptions",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#NORMAL_CLOSURE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#useChatConnection/reconnect",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#useChatConnection~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#OPEN_SOCKET",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#OutgoingMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#UNCONFIRMED_FAILURE",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/add",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/confirm",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/discard",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/failWaiting",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/markFailed",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/resendWaiting",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/retry",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/update",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#chatStatus",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ChatStatus",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ChatViewer",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#isOwn",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#subscribeToVisibility",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ThreadMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#usePageVisible",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/endChat",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/onAccess",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/receive",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/send",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#VisitChatOptions",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#withMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#authorLabel",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer/onKeyDown",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer/submit",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatConnectionStatus",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatThread",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#MessageDelivery",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest/jumpToLatest",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest/onScroll",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ViewerRole",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChat",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChatProps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChatState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#browserUserAgent",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#ignoreChanges",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#phonePlatform",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#serverUserAgent",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#subscribeToNothing",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#useBrowserUserAgent",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#failureDetail",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#gateAction",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#LocationGate/ask",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#LocationGate~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#LocationGateState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#permissionState",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#UnblockSteps",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#useLocationGate/recordFailure",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#useLocationGate/request",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#useLocationGate~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#Visitor/ring",
+        "reason": "action handler changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#Visitor~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#VisitorChat/requestAccess",
+        "reason": "new action handler"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#VisitorChat~shell",
+        "reason": "component state or render changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#VisitResult",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#VisitResultProps",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_PATHS.socket",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_PATHS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.CHAT_CLOSED",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.MESSAGE_INVALID",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.ROOM_FULL",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.messageMaxLength",
+        "reason": "lifecycle configuration member (messageMaxLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.protocol",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.reconnect",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.scrollStickinessPx",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.secretMinimumLength",
+        "reason": "lifecycle configuration member (secretMinimumLength)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.sendTimeoutMs",
+        "reason": "lifecycle configuration member (sendTimeoutMs)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.tokenTtlSeconds",
+        "reason": "lifecycle configuration member (tokenTtlSeconds)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.windowSeconds",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#ChatRejection",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#COORDINATE_LIMITS.accuracyMeters",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#COORDINATE_LIMITS.latitudeDegrees",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#COORDINATE_LIMITS.longitudeDegrees",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#COORDINATE_LIMITS~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.doorMaxAccuracyMeters",
+        "reason": "lifecycle configuration member (doorMaxAccuracyMeters)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.maxAccuracyMeters",
+        "reason": "lifecycle configuration member (maxAccuracyMeters)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.maximumAgeMs",
+        "reason": "lifecycle configuration member (maximumAgeMs)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.timeoutMs",
+        "reason": "lifecycle configuration member (timeoutMs)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/push.ts#PUSH_POLICIES.chat",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "modified",
+        "key": "src/constants/push.ts#PushKind",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#mutationsInFlight",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#request",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#currentPosition",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.1",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.2",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.3",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#LocationError",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#locationFailure",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#LocationFailure",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatAccess",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatRole",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#chatSocketProtocols",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#chatSocketUrl",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#encodeBase64Url",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#encoder",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#HMAC.hash",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#HMAC.name",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#HMAC~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#hmacKey",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#isChatMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#isVisitId",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#parseServerChatMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ServerChatMessage",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#sign",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#signChatToken",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#UUID_PATTERN",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#checkNearby",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#Coordinates",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#distanceMeters",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#EARTH_RADIUS_METERS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#HALF_TURN_DEGREES",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#NearbyCheck",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#Position",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#radians",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#chatTime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#ChatContext",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#chatSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#ChatSettings",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#closingTime",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#issueAccess",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#requireChat",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#visitNotFound",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#visitorChatAccess",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_COLUMNS",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_DEVICES",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#leaveNote",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#publicHome",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#readVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#registerVisit",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#ApiRouteOptions",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#readJson",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readText",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/json.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/json.ts#parseJson",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#positionSchema",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#requireNearby",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#requiresNearby",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#recordDeliveryHealth",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/rate-limit.ts#enforceRingLimits",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#PublicHome",
+        "reason": "code reached by the unit changed"
+      }
+    ],
+    "suggestedScope": [
+      "src/app/api/door/[token]/route.ts › POST — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/door/[token]/route.ts › ringSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/door/[token]/visits/[id]/chat/route.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/door/[token]/visits/[id]/chat/route.ts › dynamic — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/door/[token]/visits/[id]/chat/route.ts › GET — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/app/api/door/[token]/visits/[id]/chat/route.ts › runtime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/components/chat/use-chat-connection.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/chat/use-chat-connection.ts › ChatConnectionOptions — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-chat-connection.ts › NORMAL_CLOSURE — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-chat-connection.ts › useChatConnection › reconnect — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-connection.ts › useChatConnection (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/chat/use-chat-outbox.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/chat/use-chat-outbox.ts › OPEN_SOCKET — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › OutgoingMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › UNCONFIRMED_FAILURE — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › add — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › confirm — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › discard — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › failWaiting — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › markFailed — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › resendWaiting — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › retry — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › stopTimer — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › transmit — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › update — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/chat/use-visit-chat.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/chat/use-visit-chat.ts › chatStatus — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › ChatStatus — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › ChatViewer — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › isOwn — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › subscribeToVisibility — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › ThreadMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › usePageVisible — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › endChat — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › onAccess — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › receive — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › send — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/chat/use-visit-chat.ts › VisitChatOptions — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/use-visit-chat.ts › withMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/chat/visit-chat.tsx › authorLabel — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › ChatComposer › onKeyDown — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/visit-chat.tsx › ChatComposer › submit — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/visit-chat.tsx › ChatComposer (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/chat/visit-chat.tsx › ChatConnectionStatus — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › ChatThread — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › MessageDelivery — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › STATUS_TEXT (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › useStickToLatest › jumpToLatest — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/visit-chat.tsx › useStickToLatest › onScroll — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/chat/visit-chat.tsx › useStickToLatest (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/chat/visit-chat.tsx › ViewerRole — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › VisitChat — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › VisitChatProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/chat/visit-chat.tsx › VisitChatState — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/use-browser-user-agent.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/use-browser-user-agent.ts › browserUserAgent — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/use-browser-user-agent.ts › ignoreChanges — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/use-browser-user-agent.ts › phonePlatform — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/use-browser-user-agent.ts › serverUserAgent — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/use-browser-user-agent.ts › subscribeToNothing — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/use-browser-user-agent.ts › useBrowserUserAgent — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/visitor-location-gate.tsx (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/components/visitor-location-gate.tsx › failureDetail — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/visitor-location-gate.tsx › gateAction — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/visitor-location-gate.tsx › LocationGate › ask — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/visitor-location-gate.tsx › LocationGate (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/visitor-location-gate.tsx › LocationGateState — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/visitor-location-gate.tsx › permissionState — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/visitor-location-gate.tsx › UnblockSteps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/visitor-location-gate.tsx › useLocationGate › recordFailure — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/visitor-location-gate.tsx › useLocationGate › request — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/visitor-location-gate.tsx › useLocationGate (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/visitor.tsx › Visitor › ring — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/visitor.tsx › Visitor (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/visitor.tsx › VisitorChat › requestAccess — the action of this handler: class (optimistic, pending-first or server-confirmed), double submit, stale responses, rollback, unknown outcome and reconciliation",
+      "src/components/visitor.tsx › VisitorChat (component body outside its handlers) — how the component state and render show pending, optimistic and confirmed values, and what is cleaned up on unmount or context change",
+      "src/components/visitor.tsx › VisitResult — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/components/visitor.tsx › VisitResultProps — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/chat.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/constants/chat.ts › CHAT_PATHS.socket — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT_PATHS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/chat.ts › CHAT_REJECTIONS.CHAT_CLOSED — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT_REJECTIONS.MESSAGE_INVALID — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT_REJECTIONS.ROOM_FULL — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT_REJECTIONS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/chat.ts › CHAT.messageMaxLength — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT.protocol — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT.reconnect — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT.scrollStickinessPx — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT.secretMinimumLength — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT.sendTimeoutMs — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT.tokenTtlSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT.windowSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/chat.ts › ChatRejection — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/location.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/constants/location.ts › COORDINATE_LIMITS.accuracyMeters — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › COORDINATE_LIMITS.latitudeDegrees — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › COORDINATE_LIMITS.longitudeDegrees — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › COORDINATE_LIMITS (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/location.ts › NEARBY_RINGING.doorMaxAccuracyMeters — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › NEARBY_RINGING.maxAccuracyMeters — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › NEARBY_RINGING.maximumAgeMs — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › NEARBY_RINGING.radiusMeters — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › NEARBY_RINGING.timeoutMs — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › NEARBY_RINGING (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/push.ts › PUSH_POLICIES.chat — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/push.ts › PushKind — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/api.ts › api — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/api.ts › mutationsInFlight — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/api.ts › request — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/browser-location.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/browser-location.ts › currentPosition — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/browser-location.ts › FAILURES.1 — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/lib/browser-location.ts › FAILURES.2 — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/lib/browser-location.ts › FAILURES.3 — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/lib/browser-location.ts › FAILURES (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/browser-location.ts › LocationError — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/browser-location.ts › locationFailure — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/browser-location.ts › LocationFailure — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/chat-protocol.ts › ChatAccess — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › ChatMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › ChatRole — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › chatSocketProtocols — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › chatSocketUrl — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › encodeBase64Url — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › encoder — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › HMAC.hash — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/lib/chat-protocol.ts › HMAC.name — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/lib/chat-protocol.ts › HMAC (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › hmacKey — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › isChatMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › isVisitId — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › parseServerChatMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › ServerChatMessage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › sign — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › signChatToken — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/chat-protocol.ts › UUID_PATTERN — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/geo.ts › checkNearby — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts › Coordinates — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts › distanceMeters — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts › EARTH_RADIUS_METERS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts › HALF_TURN_DEGREES — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts › NearbyCheck — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts › Position — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/geo.ts › radians — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/lib/visit-format.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/lib/visit-format.ts › chatTime — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/server/chat.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › ChatContext — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › chatSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › ChatSettings — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › closingTime — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › issueAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › requireChat — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › visitNotFound — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/chat.ts › visitorChatAccess — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/database.ts › MIGRATIONS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › answerVisit — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › HOME_COLUMNS — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › HOME_DEVICES — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › leaveNote — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › PAUSE_UPDATES.morning — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › publicHome — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › readVisit — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/doorbell.ts › registerVisit — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › apiRoute — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › ApiRouteOptions — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › readJson — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/http.ts › readText — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/json.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/json.ts › parseJson — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/location.ts (module directives and side effects) — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/location.ts › positionSchema — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/location.ts › requireNearby — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/location.ts › requiresNearby — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/push.ts › recordDeliveryHealth — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/rate-limit.ts › enforceRingLimits — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/server/residents.ts › listResidentHomes — server contract of the operation: idempotency, transactions, minimal reconciliation payload, versions and permission rejections",
+      "src/types/doorbell.ts › Home — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/types/doorbell.ts › PublicHome — operations that reach this code: intent, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Envío optimista e idempotente del chat",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:32:38.323Z",
+  "unitId": "ringgg.visitor"
+}

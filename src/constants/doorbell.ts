@@ -59,5 +59,5 @@ export const PAUSE_OPTIONS = [
   { mode: 'indefinite', label: 'Hasta que lo reactive', feedback: 'Timbre pausado hasta que lo reactives.' },
 ] as const satisfies ReadonlyArray<{ mode: Exclude<PauseMode, 'resume'>; label: string; feedback: string }>;
 
-export const HTTP = { noContent: 204, badRequest: 400, unauthorized: 401, forbidden: 403, notFound: 404, conflict: 409, gone: 410, tooMany: 429, unavailable: 503, internal: 500 };
+export const HTTP = { switchingProtocols: 101, ok: 200, noContent: 204, badRequest: 400, unauthorized: 401, forbidden: 403, notFound: 404, conflict: 409, gone: 410, upgradeRequired: 426, tooMany: 429, unavailable: 503, internal: 500 };
 export const APP = { name: 'ringgg', theme: '#f26545', background: '#f8f7f3' };

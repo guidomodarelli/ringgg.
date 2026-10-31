@@ -51,6 +51,7 @@ Detalle en [casas, residentes y nombres](docs/residentes.md).
 5. En **Mi código QR**, **Imprimir cartel para la puerta** abre un cartel con el QR, el nombre de la casa y las instrucciones para la visita (se imprime o se guarda como PDF).
 6. Al recibir una visita, responder dentro de dos minutos con una respuesta rápida: **Ya voy**, **En 5 minutos**, **Dejalo en la puerta** o **No estoy**. El visitante ve la respuesta elegida, nunca quién respondió. En Android, **Ya voy** y **Dejalo en la puerta** aparecen como botones de la notificación. Mientras una visita espera respuesta, el **Resumen** la muestra arriba («Hay alguien en la puerta») con los mismos botones, así que abrir la app desde su ícono alcanza para responder, y «Timbrazos» marca cuántas esperan. En **Timbrazos**, una línea dice cuántos timbrazos no sonaron hoy y por qué (por ejemplo «Hoy no sonaron 2 timbrazos: 1 con ubicación imprecisa y 1 desde lejos de la puerta.»).
 7. Si nadie responde a tiempo o la respuesta fue **No estoy**, el visitante puede dejar un único mensaje durante los 15 minutos siguientes al timbrazo. Llega como notificación y queda en el historial. Si la visita recarga la página o vuelve a escanear el QR en ese lapso, retoma su timbrazo: ve la respuesta y puede dejar el mensaje sin volver a tocar.
+   Con el **chat con la visita** activado (ver [chat con la visita](docs/chat.md)), el chat reemplaza a ese mensaje: la visita y los residentes se escriben en vivo durante esos 15 minutos. En **Timbrazos**, **Chat con la visita** abre la conversación de cada timbrazo. La visita ve los mensajes de los residentes con el nombre de la casa, nunca con el de quien escribió. Si ningún residente tiene el chat abierto, el primer mensaje llega como notificación.
 8. En **Configuración**, el timbre se puede pausar **durante 1 hora**, **hasta mañana a las 8** o **hasta que lo reactive**, y definir un **horario de descanso** diario (en hora de Buenos Aires). El visitante ve hasta cuándo dura.
 
 ## Avisos
@@ -79,8 +80,8 @@ Detalle en [casas, residentes y nombres](docs/residentes.md).
 
 ```sh
 npm run lint        # golfo-lint: solo reglas de calidad, todo como error
-npm run typecheck   # bun check: app y service worker
-npm test            # Vitest con PostgreSQL embebido real
+npm run typecheck   # bun check: app, service worker y Worker del chat
+npm test            # Vitest con PostgreSQL embebido real y el Worker del chat en workerd
 npm run test:postgres   # Vitest contra PostgreSQL real; necesita TEST_POSTGRES_URL
 npm run build
 npx playwright install chromium

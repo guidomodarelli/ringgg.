@@ -1,0 +1,920 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:3debb655bd832a6d3e4520d4e59a811e80d23aaa7e87f62b7abcdf8b56e3dd5f",
+    "uncommittedFiles": [
+      "src/app/api/door/[token]/visits/[id]/chat/route.ts",
+      "src/components/chat/use-chat-connection.ts",
+      "src/components/chat/use-chat-outbox.ts",
+      "src/components/chat/use-visit-chat.ts",
+      "src/components/chat/visit-chat.tsx",
+      "src/components/visitor.tsx",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts",
+      "src/lib/chat-protocol.ts",
+      "src/lib/visit-format.ts",
+      "src/server/chat.ts",
+      "src/server/http.ts",
+      "src/types/doorbell.ts"
+    ],
+    "fileCount": 38,
+    "inputCount": 331
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-31T01:31:01.912Z",
+      "source": "attested",
+      "summary": "Matriz del chat de la visita: conectando (estado con spinner inline), abierto vacío (texto guía), con mensajes (log con autor y hora, propios a la derecha), enviando (optimista «Enviando…»), no confirmado/rechazado (en el hilo con Reintentar y Eliminar, sin toast), reconectando (estado + «Reintentar ahora» + error del token), pausado (pestaña oculta), cerrado (sin composer, texto de cierre). Composer: Enter envía, Shift+Enter salto, contador y bloqueo antes del envío si excede 300; textarea 16px para no hacer zoom en iOS. La nota se oculta cuando hay chat. Privacidad: los residentes se muestr…"
+    },
+    {
+      "command": "fnm exec --using=24 -- npx.cmd playwright test tests/e2e/visit-chat.spec.ts tests/e2e/visitor-replies.spec.ts --reporter=line",
+      "durationMs": 53498,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "79c554fc91e9c0494bb3fe8c8df45644f7aeaf7410e400aec91148a4db0d20f9",
+      "recordedAt": "2026-10-31T01:31:55.802Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "kind": "browser",
+      "outcome": "pass",
+      "recordedAt": "2026-10-31T01:31:56.209Z",
+      "source": "attested",
+      "summary": "Recorridos en tests/e2e/visit-chat.spec.ts: chat en vivo entre visita y residente, apertura desde notificación, ocultar chat, corte de conexión con «Reconectando…» y reenvío sin duplicar, cierre de la ventana con reloj adelantado y lectura sin composer.",
+      "tool": "Playwright + Chromium"
+    }
+  ],
+  "limitations": [
+    "Sin lector de pantalla: roles (region, log, status) y labels verificados con Playwright."
+  ],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:31:57.234Z",
+  "result": "verified",
+  "runId": "20261031T013101Z-f5112c",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "previous run was partial and there is no verified coverage: only a full analysis can accredit the unit"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/api/door/[token]/route.ts#POST",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/door/[token]/route.ts#ringSchema",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#dynamic",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#GET",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#runtime",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#ChatConnectionOptions",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#NORMAL_CLOSURE",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#useChatConnection/reconnect",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#useChatConnection~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#OPEN_SOCKET",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#OutgoingMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#UNCONFIRMED_FAILURE",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/add",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/confirm",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/discard",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/failWaiting",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/markFailed",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/resendWaiting",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/retry",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/update",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#chatStatus",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ChatStatus",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ChatViewer",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#isOwn",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#subscribeToVisibility",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ThreadMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#usePageVisible",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/endChat",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/onAccess",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/receive",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/send",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#VisitChatOptions",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#withMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#authorLabel",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer/onKeyDown",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer/submit",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatConnectionStatus",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatThread",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#MessageDelivery",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT.connecting",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT.paused",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT.reconnecting",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest/jumpToLatest",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest/onScroll",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ViewerRole",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChat",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChatProps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChatState",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#browserUserAgent",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#ignoreChanges",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#phonePlatform",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#serverUserAgent",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#subscribeToNothing",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#useBrowserUserAgent",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#failureDetail",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#gateAction",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#LocationGate/ask",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#LocationGate~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#LocationGateState",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#permissionState",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#UnblockSteps",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#useLocationGate/recordFailure",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#useLocationGate/request",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor-location-gate.tsx#useLocationGate~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#Visitor/ring",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#Visitor~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#VisitorChat/requestAccess",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/visitor.tsx#VisitorChat~shell",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#VisitResult",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/visitor.tsx#VisitResultProps",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.CHAT_CLOSED",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.MESSAGE_INVALID",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.ROOM_FULL",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.messageMaxLength",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.protocol",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.reconnect",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.scrollStickinessPx",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.sendTimeoutMs",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.windowSeconds",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#ChatRejection",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.doorMaxAccuracyMeters",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.maxAccuracyMeters",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.maximumAgeMs",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.timeoutMs",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#mutationsInFlight",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#request",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#currentPosition",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.1",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.2",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.3",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#LocationError",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#locationFailure",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#LocationFailure",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatAccess",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatRole",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#chatSocketProtocols",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#isChatMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#parseServerChatMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ServerChatMessage",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#checkNearby",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#Coordinates",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#distanceMeters",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#EARTH_RADIUS_METERS",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#HALF_TURN_DEGREES",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#NearbyCheck",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#Position",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#radians",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#chatTime",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#ChatContext",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#chatSettings",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#ChatSettings",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#closingTime",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#issueAccess",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#requireChat",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#visitNotFound",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#visitorChatAccess",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#answerVisit",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_COLUMNS",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_DEVICES",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#leaveNote",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#publicHome",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#readVisit",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#registerVisit",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#ApiRouteOptions",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#readJson",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readText",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#positionSchema",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#requireNearby",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/location.ts#requiresNearby",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#recordDeliveryHealth",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/rate-limit.ts#enforceRingLimits",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#PublicHome",
+        "reason": "visible or interactive code changed"
+      }
+    ],
+    "suggestedScope": [
+      "pending from the previous run: Recorrer en un teléfono real la espera, la respuesta y la nota.",
+      "whole unit ringgg.visitor: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Chat de la visita",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:31:01.556Z",
+  "unitId": "ringgg.visitor"
+}
