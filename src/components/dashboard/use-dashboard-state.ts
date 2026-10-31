@@ -2,14 +2,13 @@
 import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTrackedNavigation } from '../use-tracked-navigation';
-import { DOORBELL } from '@/constants/doorbell';
 import { DASHBOARD_POLLING } from '@/constants/polling';
 import { WORKER_MESSAGES } from '@/constants/push';
 import { DASHBOARD_VIEW_EVENT } from '@/constants/dashboard-views';
-import { TIME } from '@/constants/time';
 import { HOMES } from '@/constants/homes';
 import type { DashboardData, DashboardSnapshot, Visit } from '@/types/doorbell';
 import { api } from '@/lib/api';
+import { awaitsAnswer } from '@/lib/visit-format';
 import type { Reconcile, RunAction } from './types';
 
 /** Snapshot address of one home. */
@@ -27,7 +26,7 @@ export function serializeSnapshot({ home, visits, devices }: DashboardSnapshot) 
  * after the window advances once and hides the reply buttons before ticks stop.
  */
 export function awaitingAnswer(visits: Visit[], renderedNow: number | null) {
-  return visits.some((visit) => !visit.answered_at && (renderedNow === null || renderedNow - new Date(visit.created_at).getTime() < DOORBELL.responseWindowSeconds * TIME.secondMs));
+  return visits.some((visit) => renderedNow === null ? !visit.answered_at : awaitsAnswer(visit, renderedNow));
 }
 
 /**
