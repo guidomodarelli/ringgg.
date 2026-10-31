@@ -41,7 +41,11 @@ async function rememberedEndpoint() {
   return stored ? stored.text() : null;
 }
 
-/** Tells open dashboards to refresh now instead of waiting for the next poll. */
+/**
+ * Tells open dashboards to refresh now instead of waiting for the next poll. Handlers send it once the
+ * notification they show settled: Chromium can drop a notification from `getNotifications()` when that list
+ * is read while the notification is still being shown, so the message marks when reading it is safe.
+ */
 async function notifyClients(message: { type: string; visitId?: string; url?: string }) {
   const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
   for (const client of clients) client.postMessage(message);
@@ -84,8 +88,7 @@ self.addEventListener('push', (event) => {
     data: { url: dashboardUrl(data.url, self.location.origin), visitId: data.visitId },
   };
   event.waitUntil(Promise.all([
-    self.registration.showNotification(data.title, options),
-    notifyClients({ type: WORKER_MESSAGES.push, visitId: data.visitId }),
+    self.registration.showNotification(data.title, options).finally(() => notifyClients({ type: WORKER_MESSAGES.push, visitId: data.visitId })),
     confirmReceipt(data.visitId),
   ]));
 });
@@ -119,30 +122,33 @@ self.addEventListener('pushsubscriptionchange', (event) => {
 interface StoredAnswer { reply?: unknown; answered_by?: unknown }
 
 /**
- * Sends the answer with the resident's session and tells open dashboards. Resolves the stored visit
- * (`stored` is `null` when its body is unreadable), or `null` when the answer did not go through.
+ * Sends the answer with the resident's session. Resolves the stored visit (`stored` is `null` when its
+ * body is unreadable), or `null` when the answer did not go through.
  */
 async function sendAnswer(visitId: string, reply: string): Promise<{ stored: StoredAnswer | null } | null> {
   try {
     const response = await fetch('/api/answer', { method: 'POST', headers: JSON_HEADERS, body: JSON.stringify({ id: visitId, reply }) });
     if (!response.ok) return null;
-    const stored = await response.json().catch(() => null) as StoredAnswer | null;
-    await notifyClients({ type: WORKER_MESSAGES.push, visitId });
-    return { stored };
+    return { stored: await response.json().catch(() => null) as StoredAnswer | null };
   } catch { return null; }
+}
+
+/** Confirms what was stored, not what was tapped: another resident may have answered first. */
+function answerConfirmation(stored: StoredAnswer | null, reply: string, title: string) {
+  if (stored && typeof stored.reply === 'string' && stored.reply !== reply) {
+    const who = typeof stored.answered_by === 'string' && stored.answered_by ? `${stored.answered_by} ya había respondido` : 'Alguien ya había respondido';
+    return { title: 'Ya respondieron', body: `${who}: tu visita ve otra respuesta.` };
+  }
+  return { title: 'Respuesta enviada', body: `Le avisamos a tu visita: «${title}».` };
 }
 
 /** Answers from the notification with the resident's session; on any failure, opens the visit instead. */
 async function answerFromNotification(visitId: string, reply: string, url: string, title: string) {
   const answer = await sendAnswer(visitId, reply);
   if (!answer) return openDashboard(url);
-  // Confirm what was stored, not what was tapped.
-  const { stored } = answer;
-  if (stored && typeof stored.reply === 'string' && stored.reply !== reply) {
-    const who = typeof stored.answered_by === 'string' && stored.answered_by ? `${stored.answered_by} ya había respondido` : 'Alguien ya había respondido';
-    return self.registration.showNotification('Ya respondieron', { body: `${who}: tu visita ve otra respuesta.`, icon: ICON, badge: ICON, tag: visitId, data: { url } });
-  }
-  return self.registration.showNotification('Respuesta enviada', { body: `Le avisamos a tu visita: «${title}».`, icon: ICON, badge: ICON, tag: visitId, data: { url } });
+  const confirmation = answerConfirmation(answer.stored, reply, title);
+  return self.registration.showNotification(confirmation.title, { body: confirmation.body, icon: ICON, badge: ICON, tag: visitId, data: { url } })
+    .finally(() => notifyClients({ type: WORKER_MESSAGES.push, visitId }));
 }
 
 self.addEventListener('notificationclick', (event) => {
