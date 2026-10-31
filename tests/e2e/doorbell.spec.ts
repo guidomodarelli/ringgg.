@@ -43,6 +43,9 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await expect(page.getByAltText(/QR para tocar/)).toBeVisible();
   const visitorContext = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   const visitor = await visitorContext.newPage();
+  // The server renders the visitor page without the ring stored in the browser: hydrating it must not disagree.
+  const hydrationErrors: string[] = [];
+  visitor.on('console', (message) => { if (message.type() === 'error' && /hydrat/i.test(message.text())) hydrationErrors.push(message.text()); });
   await visitor.goto(publicUrl!);
   await visitor.getByLabel('¿Querés decir quién sos?').fill('Soy Juan, del delivery');
   await visitor.screenshot({ path: 'test-results/ringgg-visitor-mobile.png', fullPage: true });
@@ -74,6 +77,7 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await visitor.getByRole('button', { name: 'Volver a tocar', exact: true }).click();
   await visitor.reload();
   await expect(visitor.getByRole('heading', { name: 'El timbre está en pausa' })).toBeVisible();
+  expect(hydrationErrors).toEqual([]);
   await page.getByRole('button', { name: 'Activar timbre', exact: true }).click();
   await page.getByRole('link', { name: 'Mi código QR', exact: true }).click();
   await page.getByRole('button', { name: 'Regenerar QR', exact: true }).click();
