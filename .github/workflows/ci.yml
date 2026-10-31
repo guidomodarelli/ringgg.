@@ -106,7 +106,8 @@ jobs:
           cache: npm
       - run: npm ci
       # Full Chromium as well as the headless shell: the service worker spec needs notification permissions.
-      - run: npx playwright install --with-deps chromium
+      # WebKit lays out the panel like Safari for the iPhone safe area spec.
+      - run: npx playwright install --with-deps chromium webkit
       # Each shard runs whole spec files with its own dev server and local database. The live specs sign in
       # against the dedicated Neon branch `ci`; without these secrets (forks) they are skipped.
       - run: npm run test:e2e -- --shard=${{ matrix.shard }}/2
