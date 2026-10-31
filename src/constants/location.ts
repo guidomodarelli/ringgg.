@@ -11,8 +11,11 @@ export const NEARBY_RINGING = {
   doorMaxAccuracyMeters: 50,
   /** How long the browser may look for a precise reading before giving up. */
   timeoutMs: 15_000,
-  /** A reading this recent is still where the person is now. */
-  maximumAgeMs: 60_000,
+  /**
+   * No cached reading: one from a minute ago may have been taken down the street, or before the visitor turned on
+   * the precise location, and retrying would only get that same reading back.
+   */
+  maximumAgeMs: 0,
 };
 
 /** What a browser may report: anything outside these is not a location on Earth. */
