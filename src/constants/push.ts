@@ -17,6 +17,12 @@ export const PUSH_POLICIES = {
 
 export const PUSH = {
   timeoutMs: 8_000,
+  /**
+   * How long a request holds a visit's notice while it sends it. Longer than a send, whose provider calls
+   * time out after `timeoutMs`, so neither a retry nor the visitor's poll sends it again meanwhile. When the
+   * request died before sending, the next poll (for a ring) or retry (for a note) after this long sends it.
+   */
+  claimSeconds: 20,
   /** Status codes with which the provider says the subscription no longer exists. */
   goneStatuses: [HTTP.notFound, HTTP.gone],
   endpointMaxLength: 2048,
