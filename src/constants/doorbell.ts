@@ -11,6 +11,9 @@ export const DOORBELL = {
   timeZone: 'America/Argentina/Buenos_Aires',
 };
 
+/** Where a visitor's browser keeps its ring at one door (plus the door's token), so a reload or a new scan of the QR shows it again. */
+export const VISIT_STORAGE_KEY_PREFIX = 'ringgg:visit:';
+
 /**
  * Ring limits apply per visitor client (a hashed network address) plus a home-wide burst cap,
  * so a single client cannot lock real visitors out by ringing every few seconds.

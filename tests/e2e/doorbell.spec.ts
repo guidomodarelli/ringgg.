@@ -68,6 +68,10 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await expect(page.getByText('Mientras el timbre esté pausado', { exact: false })).toBeVisible();
   await page.getByRole('button', { name: 'Hasta que lo reactive', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Activar timbre', exact: true })).toBeVisible();
+  // A reload keeps the visitor's answered ring; ringing again starts over and shows that the bell is paused.
+  await visitor.reload();
+  await expect(visitor.getByRole('heading', { name: '¡Ya van!' })).toBeVisible();
+  await visitor.getByRole('button', { name: 'Volver a tocar', exact: true }).click();
   await visitor.reload();
   await expect(visitor.getByRole('heading', { name: 'El timbre está en pausa' })).toBeVisible();
   await page.getByRole('button', { name: 'Activar timbre', exact: true }).click();
