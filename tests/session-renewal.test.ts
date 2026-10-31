@@ -134,4 +134,22 @@ describe('sesión propia renovada por las rutas de la API', () => {
     expect(sessionCookieSet(expired, resident.cookieName)?.maxAgeSeconds).toBe(0);
     expect(await storedExpiry(resident.token)).toBeNull();
   }, 30_000);
+
+  test('si la sesión desaparece mientras se renueva (se cerró en otro dispositivo), la ruta pide ingresar y no informa una falla del acceso', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    at(START_MS);
+    const resident = await signIn();
+    // The trigger skips the renewal's UPDATE, as when another request deletes the session between Better Auth's read and its write.
+    const schema = AUTH.selfManagedDefaultSchema;
+    await postgres.exec(`CREATE FUNCTION ${schema}.skip_session_update() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NULL; END $$;
+      CREATE TRIGGER skip_session_update BEFORE UPDATE ON ${schema}.session FOR EACH ROW EXECUTE FUNCTION ${schema}.skip_session_update();`);
+    try {
+      at(START_MS + 2 * RENEWAL_MS);
+      const closed = await pollDashboard(resident.cookie);
+      expect(closed.status).toBe(401);
+      expect(await closed.json()).toMatchObject({ code: ERROR_CODES.authRequired });
+    } finally {
+      await postgres.exec(`DROP TRIGGER skip_session_update ON ${schema}.session; DROP FUNCTION ${schema}.skip_session_update();`);
+    }
+  }, 30_000);
 });

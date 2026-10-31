@@ -7,6 +7,7 @@ import { isSelfManagedAuth } from './auth-mode';
 import { getSelfAuth } from './self-auth';
 import { currentRouteSession, forwardSetCookies } from './session-cookies';
 import { headers } from 'next/headers';
+import { isAPIError } from 'better-auth/api';
 import { resolveHomeAccess } from './residents';
 import { getDatabase } from './database';
 import type { ResidentIdentity } from '@/types/auth';
@@ -21,9 +22,15 @@ import type { HomeMember } from '@/types/residents';
 async function selfManagedSession() {
   const route = currentRouteSession();
   if (!route) return getSelfAuth().api.getSession({ headers: await headers(), query: { disableRefresh: true } });
-  const { headers: answer, response: session } = await getSelfAuth().api.getSession({ headers: route.requestHeaders, returnHeaders: true });
-  forwardSetCookies(answer, route.responseCookies);
-  return session;
+  try {
+    const { headers: answer, response: session } = await getSelfAuth().api.getSession({ headers: route.requestHeaders, returnHeaders: true });
+    forwardSetCookies(answer, route.responseCookies);
+    return session;
+  } catch (error) {
+    // Renewing a session deleted meanwhile (signed out on another device) means it is closed, not that auth is down.
+    if (isAPIError(error) && error.statusCode === HTTP.unauthorized) return null;
+    throw error;
+  }
 }
 
 /** The SDK validates provider sessions; Ringgg never trusts browser-provided user identifiers. */
