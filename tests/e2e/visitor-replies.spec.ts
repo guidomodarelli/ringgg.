@@ -1,34 +1,13 @@
 import { test, expect } from '@playwright/test';
-import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { PGlite } from '@electric-sql/pglite';
 import { initialize } from '../../src/server/database';
 import { answerVisit, getHome, leaveNote, publicHome, readVisit, registerVisit, setDelivery, snapshot } from '../../src/server/doorbell';
 import { setHomeLocation, setNearbyOnly } from '../../src/server/location';
-import { AppError } from '../../src/server/errors';
-import { bundleFixture } from './support/bundle-fixture';
 import { FIXTURE_HOME } from './support/dashboard-initial';
+import { readBody, serveFixture as serve } from './support/visitor-fixture';
 import { testDatabase } from '../support/test-database';
-import { readText } from './support/read-text';
 
 // Real React components, HTTP transport and PostgreSQL. Push providers and the resident session are outside the fixture.
-async function readBody(request: IncomingMessage) { return JSON.parse(await readText(request) || '{}'); }
-function sendError(response: ServerResponse, error: unknown) { response.statusCode = error instanceof AppError ? error.status : 500; response.end(JSON.stringify({ error: error instanceof AppError ? error.message : 'No se pudo completar la prueba.' })); }
-
-async function serve(entry: string, inject: string, api: (request: IncomingMessage, response: ServerResponse, path: string) => Promise<boolean>) {
-  const bundled = await bundleFixture(entry);
-  async function answer(request: IncomingMessage, response: ServerResponse) {
-    const path = request.url || '/';
-    if (path === '/bundle.js') { response.setHeader('Content-Type', 'text/javascript'); response.end(bundled); return; }
-    if (path.startsWith('/api/')) { response.setHeader('Content-Type', 'application/json'); try { if (await api(request, response, path.slice(5))) return; response.statusCode = 404; response.end('{}'); } catch (error) { sendError(response, error); } return; }
-    response.setHeader('Content-Type', 'text/html');
-    response.end(`<!doctype html><html lang="es"><meta charset="utf-8"><body><div id="root"></div><script>${inject}</script><script src="/bundle.js"></script></body></html>`);
-  }
-  const server = createServer((request, response) => { void answer(request, response); });
-  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
-  const address = server.address();
-  if (!address || typeof address === 'string') throw new Error('Fixture server did not expose a TCP port');
-  return { url: `http://127.0.0.1:${address.port}`, close: () => new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve())) };
-}
 
 test('el visitante ve "No están en casa" y deja un único mensaje aunque haga doble click', async ({ page }) => {
   const postgres = new PGlite();
