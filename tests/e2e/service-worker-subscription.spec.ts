@@ -116,11 +116,12 @@ test('si el navegador da de baja la suscripción, el worker se suscribe de nuevo
 test('«Ya voy» desde la notificación de una visita vencida no la responde y el worker va a abrirla en el panel', async () => {
   test.setTimeout(EXPIRY_TEST_TIMEOUT_MS);
   const { context, page, devtools, homes, visit } = sharedResident();
+  // The response window closes on the server's clock (this machine's). The ring arrives only then: Chrome on Linux
+  // takes a notification off the screen on its own within those two minutes, and the worker answers the same either way.
+  await expect.poll(() => Date.now() - Date.parse(visit.created_at), { timeout: EXPIRY_TEST_TIMEOUT_MS, intervals: [TIME.secondMs] }).toBeGreaterThan(RESPONSE_WINDOW_MS + CLOCK_MARGIN_MS);
   await page.goto(`/?home=${homes.first.id}&view=history`);
   await devtools.deliverPush(ringPush(homes.first, visit));
   await expect.poll(() => workerMessages(page)).toContainEqual({ type: WORKER_MESSAGES.push, visitId: visit.id });
-  // The notification still offers its replies after the response window, which the server's clock (this machine's) closes.
-  await expect.poll(() => Date.now() - Date.parse(visit.created_at), { timeout: EXPIRY_TEST_TIMEOUT_MS, intervals: [TIME.secondMs] }).toBeGreaterThan(RESPONSE_WINDOW_MS + CLOCK_MARGIN_MS);
   const answered = nextApiResponse(context, '/api/answer');
   await tapNotification(await devtools.worker(), visit.id, 'reply:coming');
 
