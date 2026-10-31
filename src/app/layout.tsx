@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   icons: { apple: '/icons/icon-192.png', icon: '/icons/icon-192.png' },
   robots: { index: false, follow: false },
 };
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#f8f7f3' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover', themeColor: '#f8f7f3' };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return <html lang="es-AR"><body><Pwa />{children}</body></html>;
 }
