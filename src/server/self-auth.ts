@@ -22,12 +22,16 @@ export function selfAuthConfigured(): boolean {
   return selfAuthSettings() !== null;
 }
 
-/** The isolated schema prevents either auth server from modifying the other's tables. */
+/**
+ * The isolated schema prevents either auth server from modifying the other's tables. A session in use is
+ * renewed once `updateAge` passes: by API routes, and by the proxy before a page renders.
+ */
 function createSelfAuth(settings: SelfAuthSettings) {
   return betterAuth({
     baseURL: settings.baseUrl,
     secret: settings.secret,
     database: { dialect: new PostgresDialect({ pool: createPostgresPool(settings.databaseUrl) }), type: 'postgres', schemaName: settings.schema },
+    session: { expiresIn: AUTH.sessionLifetimeSeconds, updateAge: AUTH.sessionRenewalSeconds },
     advanced: { database: { generateId: 'uuid' } },
     socialProviders: { google: { clientId: settings.googleClientId, clientSecret: settings.googleClientSecret } },
     plugins: [oneTap({ clientId: settings.googleClientId })],

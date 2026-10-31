@@ -5,19 +5,33 @@ import { AppError } from './errors';
 import { getNeonAuth, authConfigured } from './neon-auth';
 import { isSelfManagedAuth } from './auth-mode';
 import { getSelfAuth } from './self-auth';
+import { currentRouteSession, forwardSetCookies } from './session-cookies';
 import { headers } from 'next/headers';
 import { resolveHomeAccess } from './residents';
 import { getDatabase } from './database';
 import type { ResidentIdentity } from '@/types/auth';
 import type { HomeMember } from '@/types/residents';
 
+/**
+ * The self-managed session of this request. In an API route Better Auth renews it once `updateAge`
+ * passes and the renewed cookies go out with the route's response, so an installed app that only
+ * calls the API (polling, answers and receipts from the service worker) keeps it alive. Server
+ * components cannot write cookies: there it is only read, and the proxy renews it before the page.
+ */
+async function selfManagedSession() {
+  const route = currentRouteSession();
+  if (!route) return getSelfAuth().api.getSession({ headers: await headers(), query: { disableRefresh: true } });
+  const { headers: answer, response: session } = await getSelfAuth().api.getSession({ headers: route.requestHeaders, returnHeaders: true });
+  forwardSetCookies(answer, route.responseCookies);
+  return session;
+}
+
 /** The SDK validates provider sessions; Ringgg never trusts browser-provided user identifiers. */
 export async function getIdentity(): Promise<ResidentIdentity | null> {
   if (!authConfigured()) return null;
   if (isSelfManagedAuth()) {
     try {
-      // Server components cannot write cookies; the proxy renews the session before the panel renders.
-      const session = await getSelfAuth().api.getSession({ headers: await headers(), query: { disableRefresh: true } });
+      const session = await selfManagedSession();
       return session?.user ? { id: session.user.id, email: session.user.email, name: session.user.name, emailVerified: session.user.emailVerified } : null;
     } catch (error) { throw new AppError(HTTP.unavailable, 'AUTH_UPSTREAM', 'No pudimos comprobar tu sesión. Volvé a intentar en un momento.', { cause: error }); }
   }

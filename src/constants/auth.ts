@@ -1,4 +1,16 @@
+import { TIME } from './time';
+
+const DAY_SECONDS = TIME.dayMs / TIME.secondMs;
+/**
+ * A doorbell can go more than a week without ringing, so a session outlives that; removing a resident
+ * already revokes their access to a home, whatever their session.
+ */
+const SESSION_LIFETIME_DAYS = 30;
+
 export const AUTH = {
+  /** A self-managed session lasts this long and is renewed at most once a day (`updateAge`) while it is used. */
+  sessionLifetimeSeconds: SESSION_LIFETIME_DAYS * DAY_SECONDS,
+  sessionRenewalSeconds: DAY_SECONDS,
   minimumPasswordLength: 8,
   maximumPasswordLength: 128,
   cookieSecretMinimumLength: 32,
