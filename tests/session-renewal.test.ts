@@ -135,6 +135,29 @@ describe('sesión propia renovada por las rutas de la API', () => {
     expect(await storedExpiry(resident.token)).toBeNull();
   }, 30_000);
 
+  test('la caché de la sesión evita leerla de la base durante unos minutos; una sesión cerrada en otro dispositivo deja de valer cuando vence', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    at(START_MS);
+    const resident = await signIn();
+    const context = await getSelfAuth().$context;
+    const cacheName = context.authCookies.sessionData.name;
+    const first = await pollDashboard(resident.cookie);
+    expect(first.status).toBe(200);
+    const cache = first.headers.getSetCookie().find((cookie) => cookie.startsWith(`${cacheName}=`))?.split(';')[0];
+    expect(cache).toBeDefined();
+    const cookies = `${resident.cookie}; ${cache}`;
+
+    // Signed out on another device: the session row is gone, but the cache still vouches for it.
+    await context.internalAdapter.deleteSession(resident.token);
+    at(START_MS + (AUTH.selfManagedSessionCacheSeconds - 1) * TIME.secondMs);
+    expect((await pollDashboard(cookies)).status).toBe(200);
+
+    at(START_MS + (AUTH.selfManagedSessionCacheSeconds + 1) * TIME.secondMs);
+    const closed = await pollDashboard(cookies);
+    expect(closed.status).toBe(401);
+    expect(await closed.json()).toMatchObject({ code: ERROR_CODES.authRequired });
+  }, 30_000);
+
   test('si la sesión desaparece mientras se renueva (se cerró en otro dispositivo), la ruta pide ingresar y no informa una falla del acceso', async () => {
     vi.useFakeTimers({ toFake: ['Date'] });
     at(START_MS);

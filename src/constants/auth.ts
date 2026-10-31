@@ -6,6 +6,8 @@ const DAY_SECONDS = TIME.dayMs / TIME.secondMs;
  * already revokes their access to a home, whatever their session.
  */
 const SESSION_LIFETIME_DAYS = 30;
+/** How long a self-managed session is trusted from its signed cookie before the database is checked again. */
+const SELF_MANAGED_SESSION_CACHE_MINUTES = 5;
 
 export const AUTH = {
   /** A self-managed session lasts this long and is renewed at most once a day (`updateAge`) while it is used. */
@@ -15,6 +17,12 @@ export const AUTH = {
   maximumPasswordLength: 128,
   cookieSecretMinimumLength: 32,
   sessionCacheSeconds: 60,
+  /**
+   * The self-managed session is read from its signed cookie for this long before Better Auth checks the
+   * database again, so reopening the app or polling the panel skips that query. A session closed on another
+   * device keeps working here for at most this long.
+   */
+  selfManagedSessionCacheSeconds: SELF_MANAGED_SESSION_CACHE_MINUTES * TIME.minuteSeconds,
   verificationCodeLength: 6,
   requestTimeoutMs: 15_000,
   selfManagedDefaultSchema: 'ringgg_auth',

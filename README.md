@@ -66,7 +66,7 @@ Detalle en [casas, residentes y nombres](docs/residentes.md).
 
 ## Contratos y límites
 
-- Panel y endpoints privados protegidos con sesiones validadas por el SDK de Neon. El proxy de Next.js renueva cookies antes de renderizar el panel y el cartel. Las mutaciones validan Origin; en un preview sin `APP_URL` se aceptan su URL de rama y la del deployment.
+- Panel y endpoints privados protegidos con sesiones validadas por el SDK de Neon. Con Neon Auth, el proxy de Next.js renueva cookies antes de renderizar el panel y el cartel; con la sesión propia la renuevan las rutas de la API, y el proxy no consulta la base para no demorar la apertura de la app. Las mutaciones validan Origin; en un preview sin `APP_URL` se aceptan su URL de rama y la del deployment.
 - El QR es una capacidad pública revocable: permite tocar el timbre, nunca administrar.
 - Medición del timbrazo, sin datos de la visita: cuántos timbrazos rechaza cada casa por día y motivo, cuánto tarda cada timbrazo del lado del servidor (`visits.ring_ms`), qué respondió el servicio de avisos a cada celular en cada visita (`visit_deliveries`) y qué celulares dio de baja (`device_removals`). Las consultas para leerlo están en [decisiones](docs/decisiones.md#medir-el-embudo-del-timbrazo).
 - Las funciones corren en `gru1` (São Paulo, `vercel.json`), junto a la base Neon de `aws-sa-east-1`: en `iad1` cada consulta cruzaba el continente (~113 ms) y un timbrazo hace diez antes de que salga el aviso.
