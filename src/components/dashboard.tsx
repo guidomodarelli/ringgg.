@@ -68,7 +68,7 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   const awaiting = visitsAwaitingAnswer(data.visits, now);
   usePublishAwaitingVisits(data.home.id, awaiting.length);
   // `next.config.ts` inlines the build's version into this bundle: it names the code this page runs.
-  useAppUpdates({ busy, loadedVersion: process.env.APP_VERSION ?? '' });
+  const updating = useAppUpdates({ busy, loadedVersion: process.env.APP_VERSION ?? '' });
 
   async function signOut() {
     const result = await authClient.signOut();
@@ -135,7 +135,8 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
       <SettingsSection home={data.home} homes={initial.homes.length} residents={initial.residents.length} pending={pending} run={run} />
       <ResidentManagement key={rosterKey(initial.residents)} homeId={data.home.id} initial={initial.residents} homeName={data.home.name} origin={data.origin} viewerEmail={initial.viewer.email} />
       <footer className="dashboard-footer"><span>ringgg. <span>Una forma más simple de llegar.</span></span><span>Hecho para estar cerca <span className="orange">✳</span></span></footer>
-      {pending && <span className="operation-status" role="status"><LoaderCircle className="spin" size={15} /> Procesando…</span>}
+      {/* Only one runs at a time: the update reload waits for every action, and holds taps while it loads. */}
+      {(pending || updating) && <span className="operation-status" role="status"><LoaderCircle className="spin" size={15} /> {updating ? 'Actualizando Ringgg…' : 'Procesando…'}</span>}
     </main>
   </>;
 }

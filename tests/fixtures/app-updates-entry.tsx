@@ -47,15 +47,18 @@ function AppUpdatesFixture() {
   const [busy, setBusy] = useState(false);
   const [saving, setSaving] = useState(false);
   const [editorOpen, setEditorOpen] = useState(true);
-  useAppUpdates({ busy, loadedVersion });
+  const updating = useAppUpdates({ busy, loadedVersion });
   let status = 'Sin acciones';
-  if (busy) status = 'Acción en curso';
+  if (updating) status = 'Actualizando';
+  else if (busy) status = 'Acción en curso';
   else if (saving) status = 'Guardando cambio';
   return <main>
     <p role="status">{status}</p>
     <button type="button" onClick={() => setBusy((current) => !current)}>{busy ? 'Terminar acción' : 'Empezar acción'}</button>
     {editorOpen && <ChangeEditor saving={saving} onSavingChange={setSaving} />}
     <button type="button" onClick={() => setEditorOpen(false)}>Cambiar de casa</button>
+    {/* A section of the panel: another address of the same app. */}
+    <a href="?view=history" onClick={(event) => { event.preventDefault(); window.history.pushState(null, '', '/?view=history'); }}>Timbrazos</a>
   </main>;
 }
 

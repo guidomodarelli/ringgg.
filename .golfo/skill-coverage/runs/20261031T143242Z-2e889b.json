@@ -1,0 +1,132 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "fix/mobile-tap-latency",
+    "commit": "802b4ed0db4049b902377f388c7889340c90fd1e",
+    "fingerprint": "sha256:aed49f84ce6afe76104d7c8bd4dd428d59bb5a03e9aab32b8402de808ea50952",
+    "uncommittedFiles": [
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/qr-panel.tsx",
+      "src/components/use-app-updates.ts",
+      "src/constants/app-updates.ts",
+      "src/lib/reload-following-taps.ts"
+    ],
+    "fileCount": 103,
+    "inputCount": 795
+  },
+  "evidence": [
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-31T14:32:42.445Z",
+      "source": "attested",
+      "summary": "Toque en Timbrazos mientras la recarga carga: sección final medida tras la recarga",
+      "tool": "Playwright",
+      "metric": "toques de sección conservados durante recarga por versión nueva",
+      "before": "0/3",
+      "after": "3/3",
+      "conditions": "next build + next start local (PGlite, identidad stub solo para medir, revertida), Playwright Chromium Pixel 7, CPU 4x, SW bloqueado, mediana de 3; documento demorado 1500ms; toque 100/400/900ms tras leer la versión"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-31T14:32:42.753Z",
+      "source": "attested",
+      "summary": "Tiempo hasta skeleton, spinner del enlace o cartel",
+      "tool": "Playwright",
+      "metric": "ms toque Imprimir cartel -> primer feedback (servidor +1500ms)",
+      "before": "1865",
+      "after": "156",
+      "conditions": "next build + next start local (PGlite, identidad stub solo para medir, revertida), Playwright Chromium Pixel 7, CPU 4x, SW bloqueado, mediana de 3; documento/RSC +1500ms, prefetch +300ms, toque 1s después de abrir Mi código QR"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-31T14:32:43.051Z",
+      "source": "attested",
+      "summary": "Tiempo hasta #poster-title; dentro del ruido",
+      "tool": "Playwright",
+      "metric": "ms toque Imprimir cartel -> cartel completo (servidor +1500ms)",
+      "before": "1972",
+      "after": "2036",
+      "conditions": "next build + next start local (PGlite, identidad stub solo para medir, revertida), Playwright Chromium Pixel 7, CPU 4x, SW bloqueado, mediana de 3; mismas demoras"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-31T14:32:43.361Z",
+      "source": "attested",
+      "summary": "Tiempo hasta #poster-title",
+      "tool": "Playwright",
+      "metric": "ms toque Imprimir cartel -> cartel completo (sin demora)",
+      "before": "394",
+      "after": "267",
+      "conditions": "next build + next start local (PGlite, identidad stub solo para medir, revertida), Playwright Chromium Pixel 7, CPU 4x, SW bloqueado, mediana de 3; sin demora"
+    },
+    {
+      "kind": "measurement",
+      "outcome": "measured",
+      "recordedAt": "2026-10-31T14:32:43.675Z",
+      "source": "attested",
+      "summary": "Sin cambio esperado: control",
+      "tool": "Playwright",
+      "metric": "ms toque de sección ya hidratado -> sección marcada",
+      "before": "74",
+      "after": "73",
+      "conditions": "next build + next start local (PGlite, identidad stub solo para medir, revertida), Playwright Chromium Pixel 7, CPU 4x, SW bloqueado, mediana de 3; sin demora"
+    },
+    {
+      "command": "npx playwright test tests/e2e/app-updates.spec.ts tests/e2e/dashboard-navigation.spec.ts",
+      "durationMs": 12776,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "33aaa90922d6faa2dcf0105b862081832b49ae878818eaa4e45390db1d2d8f0c",
+      "recordedAt": "2026-10-31T14:32:56.773Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Sin medición en iPhone real ni en producción: la latencia del servidor se simuló con demoras"
+  ],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T14:32:57.669Z",
+  "result": "verified",
+  "runId": "20261031T143242Z-2e889b",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "previous run was partial"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "pending from the previous run: missing passing evidence of kind measurement",
+      "measure the complete flow /: before = the first revision that contains the last measured code (it was recorded over uncommitted changes on top of 802b4ed0db40, which does not include them), or the revision without the new load, after = working tree"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T14:32:42.124Z",
+  "unitId": "ringgg.resident"
+}
