@@ -16,8 +16,13 @@ export interface ChatClaims {
   role: ChatRole;
   /** How the room shows a resident to the other residents; always `null` for the visitor. */
   name: string | null;
-  /** The app that issued it: the room only accepts sockets from this origin and notifies it. */
+  /** The app that issued it: it names the room and receives its notifications, the same for every page of the deployment. */
   origin: string;
+  /**
+   * The page that opens the socket, one of the app's allowed origins (a preview answers on its branch
+   * URL and on its deployment URL). The Worker only accepts sockets from it.
+   */
+  pageOrigin: string;
   /** When the visit stops taking messages, in epoch milliseconds. */
   closesAt: number;
   /** When the token stops opening sockets, in epoch milliseconds. */
@@ -90,7 +95,7 @@ function isChatClaims(value: unknown): value is ChatClaims {
   if (typeof value !== 'object' || value === null) return false;
   const claims = value as Record<string, unknown>;
   return isVisitId(claims.visitId) && (claims.role === 'visitor' || claims.role === 'resident')
-    && (claims.name === null || typeof claims.name === 'string') && typeof claims.origin === 'string'
+    && (claims.name === null || typeof claims.name === 'string') && typeof claims.origin === 'string' && typeof claims.pageOrigin === 'string'
     && typeof claims.closesAt === 'number' && typeof claims.expiresAt === 'number';
 }
 

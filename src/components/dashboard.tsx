@@ -125,7 +125,7 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
       <div className="dashboard-grid"><div className="primary-column">
         {view === 'overview' && <DoorWaiting visits={awaiting} pending={pending} run={run} />}
         <DoorOverview url={url} data={data} someoneWaiting={awaiting.length > 0} />
-        <VisitHistory visits={data.visits} rejectedRings={data.rejectedRings} now={now} url={url} pending={pending} run={run} focusVisitId={focusVisitId} chatEnabled={initial.chatEnabled} homeName={data.home.name} />
+        <VisitHistory visits={data.visits} rejectedRings={data.rejectedRings} now={now} url={url} pending={pending} run={run} focusVisitId={focusVisitId} chatEnabled={initial.chatEnabled} homeName={data.home.name} onScreen={view === 'history'} />
       </div><aside className="context-column">
         <QrPanel url={url} homeId={data.home.id} homeName={data.home.name} pending={pending} run={run} onFeedback={setFeedback} onError={setError} />
         {!pushActive && <section className="setup-callout"><span className="soft-icon"><Smartphone size={21} /></span><h3>Tu timbre va con vos</h3><p>Activá las notificaciones en este celular para enterarte cuando alguien llega.</p><DashboardSectionLink className="text-link" view="devices" homeId={data.home.id}>Configurar mi celular <ArrowUpRight size={16} /></DashboardSectionLink></section>}

@@ -27,14 +27,18 @@ function chatClosesAt(visit: Visit) {
 }
 
 /** A resident's side of a visit's chat: the visitor shows as «Visita» and the other residents by name. */
-function ResidentChat({ visit, homeName }: { visit: Visit; homeName: string }) {
+function ResidentChat({ visit, homeName, onScreen }: { visit: Visit; homeName: string; onScreen: boolean }) {
   const requestAccess = useCallback((signal: AbortSignal) => api<ChatAccess>(`chat/access?visit=${encodeURIComponent(visit.id)}`, undefined, signal), [visit.id]);
   return <VisitChat title="Chat con la visita" viewerRole="resident" homeName={homeName} requestAccess={requestAccess} knownClosesAt={chatClosesAt(visit)}
-    emptyText="La visita todavía no escribió. Podés escribirle vos." closedText="El chat de esta visita terminó." />;
+    emptyText="La visita todavía no escribió. Podés escribirle vos." closedText="El chat de esta visita terminó." onScreen={onScreen} />;
 }
 
-/** The row's chat, when the deployment has one: whether it is open and how to toggle it. */
-interface VisitRowChat { expanded: boolean; onToggle: () => void; homeName: string }
+/**
+ * The row's chat, when the deployment has one: whether it is open, how to toggle it and whether the
+ * history is on screen. An open chat in a hidden section lets its socket go, so it does not keep the
+ * Worker from notifying the residents' phones.
+ */
+interface VisitRowChat { expanded: boolean; onToggle: () => void; homeName: string; onScreen: boolean }
 
 interface VisitRowProps { visit: Visit; open: boolean; pending: string; run: RunAction; focused?: boolean; ref?: Ref<HTMLElement>; chat?: VisitRowChat }
 
@@ -58,7 +62,7 @@ export function VisitRow({ visit, open, pending, run, focused = false, ref, chat
       </button>}
     </div>
     <VisitStatus visit={visit} open={open} pending={pending} run={run} />
-    {chat?.expanded && <div id={chatId} className="visit-chat-panel"><ResidentChat visit={visit} homeName={chat.homeName} /></div>}
+    {chat?.expanded && <div id={chatId} className="visit-chat-panel"><ResidentChat visit={visit} homeName={chat.homeName} onScreen={chat.onScreen} /></div>}
   </article>;
 }
 
@@ -97,15 +101,17 @@ interface VisitHistoryProps {
   /** This deployment has the chat: each visit offers its conversation. */
   chatEnabled?: boolean;
   homeName?: string;
+  /** Whether the history is the dashboard section on screen; the others keep it mounted but hidden. */
+  onScreen?: boolean;
 }
 
 /** History with quick replies on visits still inside the response window, and each visit's chat. */
-export function VisitHistory({ visits, rejectedRings, now, url, pending, run, focusVisitId, chatEnabled = false, homeName = '' }: VisitHistoryProps) {
+export function VisitHistory({ visits, rejectedRings, now, url, pending, run, focusVisitId, chatEnabled = false, homeName = '', onScreen = true }: VisitHistoryProps) {
   const focused = useRef<HTMLElement | null>(null);
   const focusTarget = visits.some((visit) => visit.id === focusVisitId) ? focusVisitId : '';
   useEffect(() => { if (focusTarget) focused.current?.scrollIntoView({ block: 'center' }); }, [focusTarget]);
   const chats = useExpandedChat(chatEnabled ? focusTarget : '', visits, now);
-  const chatFor = (visit: Visit): VisitRowChat | undefined => chatEnabled ? { expanded: chats.expanded === visit.id, onToggle: () => chats.toggle(visit.id), homeName } : undefined;
+  const chatFor = (visit: Visit): VisitRowChat | undefined => chatEnabled ? { expanded: chats.expanded === visit.id, onToggle: () => chats.toggle(visit.id), homeName, onScreen } : undefined;
   return <section id="history" className="history section-block"><div className="section-title"><div><h2>En tu puerta</h2><p>Los últimos timbrazos de tu casa.</p></div><span className="count-badge">{visits.length}</span></div>
     <RejectedRings rejections={rejectedRings} />
     {visits.length === 0 ? <div className="empty-visits"><div className="empty-icon"><Bell size={27} /></div><h3>Por ahora, todo tranquilo</h3><p>Cuando alguien toque tu timbre, lo vas a ver acá.</p><a href={url} target="_blank" rel="noreferrer">Probá tu primer timbrazo <ArrowUpRight size={15} /></a></div>

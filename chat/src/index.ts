@@ -12,7 +12,8 @@ function plain(text: string, status: number) {
 /**
  * Entry point of the chat Worker. `GET /visits/<id>` upgrades to the room of that visit once the token
  * in `Sec-WebSocket-Protocol` checks out: signed by the app, unexpired, for this visit and used from
- * the app's own origin. Only then does the request reach the room, with the verified claims.
+ * the page it was issued to. Only then does the request reach the room, with the verified claims. The
+ * room is named after the app's canonical origin, so every page of a deployment shares it.
  */
 export default {
   async fetch(request, env) {
@@ -23,7 +24,7 @@ export default {
     if (request.headers.get('Upgrade')?.toLowerCase() !== 'websocket') return plain('Expected a WebSocket upgrade', HTTP.upgradeRequired);
     const token = tokenFromProtocols(request.headers.get('Sec-WebSocket-Protocol'));
     const claims = token ? await verifyChatToken(token, env.CHAT_SECRET) : null;
-    if (claims?.visitId !== visitId || request.headers.get('Origin') !== claims.origin) return plain('Unauthorized', HTTP.unauthorized);
+    if (claims?.visitId !== visitId || request.headers.get('Origin') !== claims.pageOrigin) return plain('Unauthorized', HTTP.unauthorized);
     const headers = new Headers(request.headers);
     headers.set(CLAIMS_HEADER, JSON.stringify(claims));
     const room = env.CHAT_ROOMS.get(env.CHAT_ROOMS.idFromName(chatRoomName(claims.origin, visitId)));

@@ -19,7 +19,8 @@ const postgres = new PGlite();
 const database = testDatabase(postgres);
 const HOME = HOMES.originalId;
 const SECRET = 'ringgg-chat-secret-for-tests-32-chars!!';
-const SETTINGS: ChatSettings = { url: 'wss://chat.ringgg.test', secret: SECRET, origin: 'https://ringgg.test' };
+const PREVIEW_DEPLOYMENT = 'https://ringgg-abc123.vercel.app';
+const SETTINGS: ChatSettings = { url: 'wss://chat.ringgg.test', secret: SECRET, origin: 'https://ringgg.test', allowedOrigins: ['https://ringgg.test', PREVIEW_DEPLOYMENT] };
 const owner = { id: 'owner-identity', email: 'owner@example.com', name: 'Guido', emailVerified: true };
 const stranger = { id: 'stranger-identity', email: 'stranger@example.com', name: 'Otra persona', emailVerified: true };
 const residents = { bootstrapEmails: [owner.email] };
@@ -49,7 +50,7 @@ describe('configuración', () => {
   test('el chat existe solo con la URL del Worker y un secreto largo; si no, queda la nota', () => {
     expect(chatSettings({})).toBeNull();
     expect(chatSettings({ CHAT_URL: 'wss://chat.example', CHAT_SECRET: 'corto' })).toBeNull();
-    expect(chatSettings({ CHAT_URL: 'wss://chat.example/', CHAT_SECRET: SECRET, APP_URL: 'https://ringgg.test' })).toEqual({ url: 'wss://chat.example', secret: SECRET, origin: 'https://ringgg.test' });
+    expect(chatSettings({ CHAT_URL: 'wss://chat.example/', CHAT_SECRET: SECRET, APP_URL: 'https://ringgg.test' })).toEqual({ url: 'wss://chat.example', secret: SECRET, origin: 'https://ringgg.test', allowedOrigins: ['https://ringgg.test'] });
   });
 
   test('producción rechaza el chat a medio configurar, sin mostrar sus valores', () => {
@@ -63,7 +64,7 @@ describe('configuración', () => {
 
 describe('tokens', () => {
   test('un token solo vale con su secreto, sin alterar y antes de vencer', async () => {
-    const claims: ChatClaims = { visitId: crypto.randomUUID(), role: 'resident', name: 'Guido', origin: SETTINGS.origin, closesAt: Date.now(), expiresAt: Date.now() + 60_000 };
+    const claims: ChatClaims = { visitId: crypto.randomUUID(), role: 'resident', name: 'Guido', origin: SETTINGS.origin, pageOrigin: SETTINGS.origin, closesAt: Date.now(), expiresAt: Date.now() + 60_000 };
     const token = await signChatToken(claims, SECRET);
     expect(await verifyChatToken(token, SECRET)).toEqual(claims);
     expect(await verifyChatToken(token, 'otro-secreto-cualquiera-de-32-caracteres')).toBeNull();
@@ -118,6 +119,17 @@ describe('acceso de los residentes', () => {
     expect(await verifyChatToken(access.token, SECRET)).toMatchObject({ role: 'resident', name: 'Guido M.', visitId: visit.id });
     await age(visit.id, CHAT.windowSeconds + 1);
     await expect(residentChatAccess(database, owner, visit.id, { settings: SETTINGS, residents })).resolves.toHaveProperty('token');
+  });
+
+  test('el token vale para la página que lo pidió si es de la app, y la sala sigue siendo la del origen de la app', async () => {
+    const visit = await ring();
+    const fromDeployment = await residentChatAccess(database, owner, visit.id, { settings: SETTINGS, residents, pageOrigin: PREVIEW_DEPLOYMENT });
+    expect(await verifyChatToken(fromDeployment.token, SECRET)).toMatchObject({ origin: SETTINGS.origin, pageOrigin: PREVIEW_DEPLOYMENT });
+    const fromVisitorPage = await visitorChatAccess(database, visit.token, visit.id, { settings: SETTINGS, pageOrigin: SETTINGS.origin });
+    expect(await verifyChatToken(fromVisitorPage.token, SECRET)).toMatchObject({ origin: SETTINGS.origin, pageOrigin: SETTINGS.origin });
+    // A page outside the app gets the canonical origin, which its own socket cannot present.
+    const fromElsewhere = await visitorChatAccess(database, visit.token, visit.id, { settings: SETTINGS, pageOrigin: 'https://otro-sitio.example' });
+    expect(await verifyChatToken(fromElsewhere.token, SECRET)).toMatchObject({ pageOrigin: SETTINGS.origin });
   });
 
   test('quien no es residente de esa casa no abre su chat', async () => {

@@ -20,6 +20,8 @@ interface VisitChatProps {
   emptyText: string;
   /** Shown instead of the composer once the chat ended. */
   closedText: string;
+  /** `false` while the panel is mounted but out of sight (another section of the dashboard): it lets its socket go. */
+  onScreen?: boolean;
 }
 
 const STATUS_TEXT: Partial<Record<ChatStatus, string>> = {
@@ -134,8 +136,8 @@ function ChatComposer({ onSend }: { onSend: (body: string) => boolean }) {
  * stays in its place with «Reintentar» and «Eliminar»; once the chat ends, the composer gives way to
  * the closing text and the conversation stays readable.
  */
-export function VisitChat({ title, viewerRole, homeName, requestAccess, knownClosesAt, emptyText, closedText }: VisitChatProps) {
-  const chat = useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd: viewerRole === 'resident' });
+export function VisitChat({ title, viewerRole, homeName, requestAccess, knownClosesAt, emptyText, closedText, onScreen = true }: VisitChatProps) {
+  const chat = useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd: viewerRole === 'resident', onScreen });
   const headingId = useId();
   const closed = chat.status === 'closed';
   return <section className="visit-chat" aria-labelledby={headingId}>

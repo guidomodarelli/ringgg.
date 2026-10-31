@@ -15,14 +15,19 @@ import { parseJson } from './json';
 import { sendPush } from './push';
 import { memberName, residentSettings, resolveHomeAccess } from './residents';
 
-/** Where the chat Worker runs, the secret both sides sign with, and this app's origin, which the tokens carry. */
-export interface ChatSettings { url: string; secret: string; origin: string }
+/**
+ * Where the chat Worker runs, the secret both sides sign with, this app's canonical origin, which names
+ * the rooms, and the origins its pages answer on, which may open sockets.
+ */
+export interface ChatSettings { url: string; secret: string; origin: string; allowedOrigins: string[] }
 
 /** `null` when this deployment has no chat: without `CHAT_URL` and a long enough `CHAT_SECRET`, the note stays. */
 export function chatSettings(env: Environment = process.env): ChatSettings | null {
   const url = env.CHAT_URL?.trim().replace(/\/$/, '');
   const secret = env.CHAT_SECRET ?? '';
-  return url && secret.length >= CHAT.secretMinimumLength ? { url, secret, origin: getConfig(env).origin } : null;
+  if (!url || secret.length < CHAT.secretMinimumLength) return null;
+  const { origin, allowedOrigins } = getConfig(env);
+  return { url, secret, origin, allowedOrigins };
 }
 
 function requireChat(settings: ChatSettings | null): ChatSettings {
@@ -39,25 +44,35 @@ function closingTime(createdAt: string | Date) {
   return new Date(createdAt).getTime() + CHAT.windowSeconds * TIME.secondMs;
 }
 
-async function issueAccess(settings: ChatSettings, claims: Omit<ChatClaims, 'origin' | 'expiresAt'>, now: number): Promise<ChatAccess> {
-  const token = await signChatToken({ ...claims, origin: settings.origin, expiresAt: now + CHAT.tokenTtlSeconds * TIME.secondMs }, settings.secret);
+/** The page that asked, when it is one of the app's own origins; any other one gets the canonical origin, which its socket cannot use. */
+function socketOrigin(settings: ChatSettings, pageOrigin: string | undefined) {
+  return pageOrigin && settings.allowedOrigins.includes(pageOrigin) ? pageOrigin : settings.origin;
+}
+
+type IssuedClaims = Omit<ChatClaims, 'origin' | 'pageOrigin' | 'expiresAt'>;
+
+async function issueAccess(settings: ChatSettings, claims: IssuedClaims, { now, pageOrigin }: { now: number; pageOrigin?: string }): Promise<ChatAccess> {
+  const token = await signChatToken({ ...claims, origin: settings.origin, pageOrigin: socketOrigin(settings, pageOrigin), expiresAt: now + CHAT.tokenTtlSeconds * TIME.secondMs }, settings.secret);
   return { url: chatSocketUrl(settings.url, claims.visitId), token, closesAt: claims.closesAt, role: claims.role, name: claims.name };
 }
 
-/** The deployment's chat, its bootstrap residents and the current time; tests pass their own. */
-interface ChatContext { settings?: ChatSettings | null; residents?: ResidentSettings; now?: number }
+/**
+ * The deployment's chat, its bootstrap residents, the current time and the origin of the page asking
+ * (the route's own URL); tests pass their own.
+ */
+interface ChatContext { settings?: ChatSettings | null; residents?: ResidentSettings; now?: number; pageOrigin?: string }
 
 /**
  * The visitor opens the chat with what only they have: the QR token and the id of the visit they rang
  * with. Once the chat closes they get no token, so the visitor never reads replies after the window.
  */
-export async function visitorChatAccess(database: Database, token: string, visitId: string, { settings = chatSettings(), now = Date.now() }: ChatContext = {}): Promise<ChatAccess> {
+export async function visitorChatAccess(database: Database, token: string, visitId: string, { settings = chatSettings(), now = Date.now(), pageOrigin }: ChatContext = {}): Promise<ChatAccess> {
   const chat = requireChat(settings);
   if (!isVisitId(visitId)) throw visitNotFound();
   const visit = await readVisit(database, token, visitId);
   const closesAt = closingTime(visit.created_at);
   if (now >= closesAt) throw new AppError(HTTP.conflict, 'CHAT_CLOSED', CHAT_REJECTIONS.CHAT_CLOSED);
-  return issueAccess(chat, { visitId, role: 'visitor', name: null, closesAt }, now);
+  return issueAccess(chat, { visitId, role: 'visitor', name: null, closesAt }, { now, pageOrigin });
 }
 
 /** The home and ring time of a visit, or `null` when it is no longer in the history. */
@@ -71,12 +86,12 @@ async function visitTiming(database: Database, visitId: string) {
  * A resident of the visit's home joins under the name that home uses for them. They can read the
  * conversation while the visit stays in the history; the room itself rejects messages after it closes.
  */
-export async function residentChatAccess(database: Database, user: ResidentIdentity, visitId: string, { settings = chatSettings(), residents = residentSettings(), now = Date.now() }: ChatContext = {}): Promise<ChatAccess> {
+export async function residentChatAccess(database: Database, user: ResidentIdentity, visitId: string, { settings = chatSettings(), residents = residentSettings(), now = Date.now(), pageOrigin }: ChatContext = {}): Promise<ChatAccess> {
   const chat = requireChat(settings);
   const visit = await visitTiming(database, visitId);
   if (!visit) throw visitNotFound();
   const member = await resolveHomeAccess(database, user, visit.homeId, residents);
-  return issueAccess(chat, { visitId, role: 'resident', name: memberName(member), closesAt: visit.closesAt }, now);
+  return issueAccess(chat, { visitId, role: 'resident', name: memberName(member), closesAt: visit.closesAt }, { now, pageOrigin });
 }
 
 const notificationSchema = z.object({

@@ -22,7 +22,7 @@ sequenceDiagram
   W-->>R: historial con el mensaje
 ```
 
-- **Permisos:** la app firma tokens HMAC-SHA256 con `CHAT_SECRET`. Un token sirve para una visita, un rol (visita o residente) y un origen, y vence a los 2 minutos; cada reconexión pide otro. El Worker rechaza los tokens de otra visita, vencidos, firmados con otro secreto o usados desde otro origen. El token viaja en `Sec-WebSocket-Protocol`, nunca en la URL, así que no queda en los logs.
+- **Permisos:** la app firma tokens HMAC-SHA256 con `CHAT_SECRET`. Un token sirve para una visita, un rol (visita o residente) y la página que lo pidió (uno de los orígenes de la app: un preview responde en su URL de rama y en la del deployment), y vence a los 2 minutos; cada reconexión pide otro. El Worker rechaza los tokens de otra visita, vencidos, firmados con otro secreto o usados desde otra página. La sala se nombra con el origen canónico de la app, así que todas sus páginas la comparten. El token viaja en `Sec-WebSocket-Protocol`, nunca en la URL, así que no queda en los logs.
 - **La visita** obtiene su token con lo que solo ella tiene: el QR y el id del timbrazo. Después de los 15 minutos ya no recibe tokens.
 - **Los residentes** obtienen el suyo con su sesión, si son residentes de la casa de esa visita. Entran con el nombre que les da la casa y pueden leer el chat mientras la visita siga en el historial (30 días).
 - **Privacidad:** la visita nunca ve quién respondió. El Worker le manda los mensajes de los residentes sin nombre y la página muestra el nombre de la casa.

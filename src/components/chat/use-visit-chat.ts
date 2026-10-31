@@ -9,7 +9,7 @@ import { useChatOutbox } from './use-chat-outbox';
  * - `connecting`: asking for a token and opening the socket the first time.
  * - `open`: the room is live and takes messages.
  * - `reconnecting`: the socket dropped, or the token request failed, and a new attempt is scheduled.
- * - `paused`: the page is hidden; its socket is closed so a forgotten tab does not count as reading.
+ * - `paused`: the page, or the section that holds the chat, is hidden; its socket is closed so a chat nobody sees does not count as reading.
  * - `closed`: the chat no longer takes messages; what was said stays readable.
  */
 export type ChatStatus = 'connecting' | 'open' | 'reconnecting' | 'paused' | 'closed';
@@ -25,6 +25,8 @@ interface VisitChatOptions {
   knownClosesAt?: number;
   /** Whether a chat that already ended still connects once to show what was said (residents) or not at all (the visitor). */
   historyAfterEnd?: boolean;
+  /** `false` while the chat is mounted but out of sight; like a hidden page, it closes the socket. */
+  onScreen?: boolean;
 }
 
 function isOwn(message: ChatMessage, viewer: ChatViewer | null) {
@@ -57,8 +59,9 @@ function chatStatus({ ended, visible, connected, retrying, loaded }: { ended: bo
  * The live chat of one visit. Sending is optimistic: the message shows in the thread right away as
  * «Enviando…» and the room's broadcast confirms it. The chat ends at its time even if the room says
  * nothing: the composer goes away, the socket closes and what was still on its way is marked as not sent.
+ * A chat that ended while its socket was closed reads the history once more, so it never shows half a conversation as the whole one.
  */
-export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = true }: VisitChatOptions) {
+export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = true, onScreen = true }: VisitChatOptions) {
   const socketRef = useRef<WebSocket | null>(null);
   const { outgoing, add, retry, discard, confirm, markFailed, resendWaiting, failWaiting } = useChatOutbox(socketRef);
   const [confirmed, setConfirmed] = useState<ChatMessage[]>([]);
@@ -66,9 +69,16 @@ export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = t
   const [closesAt, setClosesAt] = useState<number | null>(knownClosesAt ?? null);
   const [ended, setEnded] = useState(() => knownClosesAt !== undefined && Date.now() >= knownClosesAt);
   const [loaded, setLoaded] = useState(false);
-  const visible = usePageVisible();
+  // The thread holds everything said until the end: read after it, or live through it.
+  const [complete, setComplete] = useState(false);
+  const connectedRef = useRef(false);
+  const visible = usePageVisible() && onScreen;
 
-  const endChat = useCallback(() => { setEnded(true); failWaiting(CHAT_REJECTIONS.CHAT_CLOSED); }, [failWaiting]);
+  const endChat = useCallback(() => {
+    setEnded(true);
+    if (connectedRef.current) setComplete(true);
+    failWaiting(CHAT_REJECTIONS.CHAT_CLOSED);
+  }, [failWaiting]);
 
   const receive = useCallback((message: ServerChatMessage) => {
     if (message.type === 'history') {
@@ -76,7 +86,7 @@ export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = t
       setConfirmed(message.messages);
       setClosesAt(message.closesAt);
       confirm(new Set(message.messages.map((stored) => stored.id)));
-      if (Date.now() >= message.closesAt) endChat(); else resendWaiting();
+      if (Date.now() >= message.closesAt) { setComplete(true); endChat(); } else resendWaiting();
     } else if (message.type === 'message') {
       setConfirmed((messages) => withMessage(messages, message.message));
       confirm(new Set([message.message.id]));
@@ -87,8 +97,9 @@ export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = t
   }, [confirm, endChat, markFailed, resendWaiting]);
 
   const onAccess = useCallback((access: ChatAccess) => { setViewer({ role: access.role, name: access.name }); setClosesAt(access.closesAt); }, []);
-  // An ended chat only connects to read what was said, and lets the socket go once it has it.
-  const connection = useChatConnection({ socketRef, requestAccess, active: visible && (!ended || (historyAfterEnd && !loaded)), onAccess, onMessage: receive });
+  // An ended chat only connects to read what was said, and lets the socket go once it has all of it.
+  const connection = useChatConnection({ socketRef, requestAccess, active: visible && (!ended || (historyAfterEnd && !complete)), onAccess, onMessage: receive });
+  useEffect(() => { connectedRef.current = connection.connected; }, [connection.connected]);
 
   useEffect(() => {
     if (closesAt === null || ended) return;

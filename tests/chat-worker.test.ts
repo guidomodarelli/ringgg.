@@ -43,10 +43,10 @@ let receiver: Awaited<ReturnType<typeof startNotificationReceiver>>;
 
 function claimsFor(role: ChatRole, overrides: Partial<ChatClaims> = {}): ChatClaims {
   const now = Date.now();
-  return { visitId: crypto.randomUUID(), role, name: role === 'resident' ? 'Guido' : null, origin: receiver.origin, closesAt: now + CHAT.windowSeconds * TIME.secondMs, expiresAt: now + CHAT.tokenTtlSeconds * TIME.secondMs, ...overrides };
+  return { visitId: crypto.randomUUID(), role, name: role === 'resident' ? 'Guido' : null, origin: receiver.origin, pageOrigin: receiver.origin, closesAt: now + CHAT.windowSeconds * TIME.secondMs, expiresAt: now + CHAT.tokenTtlSeconds * TIME.secondMs, ...overrides };
 }
 
-function upgrade(claims: ChatClaims, token: string, origin = claims.origin) {
+function upgrade(claims: ChatClaims, token: string, origin = claims.pageOrigin) {
   return harness.fetch(chatSocketUrl(workerUrl, claims.visitId), { headers: { Upgrade: 'websocket', Origin: origin, 'Sec-WebSocket-Protocol': `${CHAT.protocol}, ${token}` } });
 }
 
@@ -110,6 +110,19 @@ describe('acceso a la sala', () => {
     expect((await upgrade(claims, await signChatToken({ ...claims, expiresAt: Date.now() - 1 }, SECRET))).status).toBe(401);
     expect((await upgrade(claims, await signChatToken({ ...claims, visitId: crypto.randomUUID() }, SECRET))).status).toBe(401);
     expect((await upgrade(claims, await signChatToken(claims, SECRET), 'https://otro-sitio.example')).status).toBe(401);
+  });
+
+  test('las páginas de un preview abiertas por su URL de rama y por la del deployment comparten la sala', async () => {
+    const visitor = claimsFor('visitor');
+    const resident = { ...visitor, role: 'resident' as const, name: 'Guido', pageOrigin: 'https://ringgg-abc123.vercel.app' };
+    const visitorChat = await connect(visitor);
+    const residentChat = await connect(resident);
+    await history(visitorChat);
+    await history(residentChat);
+    visitorChat.send(crypto.randomUUID(), 'Hola desde la URL de la rama');
+    expect((await delivered(residentChat)).body).toBe('Hola desde la URL de la rama');
+    // The token is bound to the page it was issued to, not to every origin of the app.
+    expect((await upgrade(resident, await signChatToken(resident, SECRET), visitor.pageOrigin)).status).toBe(401);
   });
 
   test('responde 426 sin upgrade y 404 fuera de una sala de visita', async () => {

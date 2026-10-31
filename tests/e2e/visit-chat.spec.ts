@@ -47,7 +47,7 @@ async function startFixture(): Promise<ChatFixtureServer> {
   const bundled = await bundleFixture('tests/fixtures/visit-chat-entry.tsx');
   let origin = '';
   let notified = 0;
-  const settings = (): ChatSettings => ({ url: workerUrl, secret: SECRET, origin });
+  const settings = (): ChatSettings => ({ url: workerUrl, secret: SECRET, origin, allowedOrigins: [origin] });
 
   async function api(request: IncomingMessage, url: URL) {
     const path = url.pathname.slice('/api/'.length);
@@ -170,6 +170,36 @@ test('lo que se escribe mientras se corta la conexión sale al reconectar, una s
     await resident.goto(`${fixture.url}/panel`);
     const residentChat = resident.getByRole('region', { name: 'Chat con la visita' });
     await expect(residentChat.getByText('Escrito sin conexión')).toHaveCount(1);
+  } finally { await fixture.close(); }
+});
+
+test('un chat que el residente dejó de ver no silencia los avisos y, al volver, muestra lo que se escribió aunque haya terminado', async ({ browser }) => {
+  const fixture = await startFixture();
+  try {
+    const visitor = await browser.newPage();
+    await visitor.goto(fixture.url);
+    await visitor.getByRole('button', { name: 'Tocar timbre', exact: true }).click();
+    const visitorChat = visitor.getByRole('region', { name: `Chat con ${fixture.home.name}` });
+    await expect(visitorChat.getByText('Escribiles acá', { exact: false })).toBeVisible();
+
+    const resident = await browser.newPage();
+    await resident.clock.install();
+    await resident.goto(`${fixture.url}/panel`);
+    const residentChat = resident.getByRole('region', { name: 'Chat con la visita' });
+    await expect(residentChat.getByText('La visita todavía no escribió', { exact: false })).toBeVisible();
+    // Another dashboard section keeps the history mounted but hidden: its chat stops counting as reading.
+    await resident.getByRole('button', { name: 'Ir al resumen' }).click();
+
+    await write(visitor, visitorChat, 'Te dejo el paquete con el portero');
+    await expect(visitorChat.getByText('Enviando…')).toHaveCount(0);
+    await expect.poll(fixture.notifications).toBe(1);
+
+    // The chat ends while the resident looks elsewhere; coming back reads what was said in the meantime.
+    await resident.clock.fastForward(CHAT.windowSeconds * 1000);
+    await resident.getByRole('button', { name: 'Volver a Timbrazos' }).click();
+    await expect(residentChat.getByRole('log')).toContainText('Te dejo el paquete con el portero');
+    await expect(residentChat.getByText('El chat de esta visita terminó.')).toBeVisible();
+    await expect(residentChat.getByLabel('Mensaje', { exact: true })).toHaveCount(0);
   } finally { await fixture.close(); }
 });
 
