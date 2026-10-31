@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { ArrowDownToLine, Copy, Printer, QrCode, RefreshCw } from 'lucide-react';
+import Link, { useLinkStatus } from 'next/link';
+import { ArrowDownToLine, Copy, LoaderCircle, Printer, QrCode, RefreshCw } from 'lucide-react';
 import { api } from '@/lib/api';
 import type { RunAction } from './types';
+
+/**
+ * Icon of the poster link. Until its skeleton is prefetched, the tap waits for the server; the printer
+ * turns into a spinner of the same size meanwhile, so the tap shows at once and nothing moves.
+ */
+function PosterLinkIcon() {
+  const { pending } = useLinkStatus();
+  return pending ? <LoaderCircle className="spin" size={17} aria-hidden="true" /> : <Printer size={17} aria-hidden="true" />;
+}
 
 export function QrPanel({ url, homeId, homeName, pending, run, onFeedback, onError }: { url: string; homeId: number; homeName: string; pending: string; run: RunAction; onFeedback: (message: string) => void; onError: (message: string) => void }) {
   const [qr, setQr] = useState('');
@@ -23,7 +33,8 @@ export function QrPanel({ url, homeId, homeName, pending, run, onFeedback, onErr
     <div className="qr-frame">{qr ? <Image src={qr} width={184} height={184} alt={`QR para tocar el timbre de ${homeName}`} unoptimized loading="eager" /> : <div className="skeleton qr-skeleton" />}</div>
     <strong className="qr-home">{homeName}</strong><span className="qr-caption">No hace falta descargar ninguna app.</span>
     <div className="qr-actions">
-      <a className="button primary full" href={`/cartel?home=${homeId}`}><Printer size={17} /> Imprimir cartel para la puerta</a>
+      {/* A client navigation opens the poster skeleton while the server prepares the poster. */}
+      <Link className="button primary full" href={`/cartel?home=${homeId}`}><PosterLinkIcon /> Imprimir cartel para la puerta</Link>
       <a className={`button outline full ${!qr ? 'disabled' : ''}`} href={qr || undefined} download="ringgg-mi-timbre.png"><ArrowDownToLine size={17} /> Descargar QR</a>
     </div>
     <button className="text-button centered" onClick={() => { void copy(); }}><Copy size={15} /> Copiar enlace</button>

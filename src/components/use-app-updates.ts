@@ -1,7 +1,8 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { api, pendingMutations } from '@/lib/api';
 import { pendingNavigations } from '@/lib/pending-navigations';
+import { reloadFollowingTaps } from '@/lib/reload-following-taps';
 import type { AppVersion } from '@/types/app';
 
 interface AppUpdatesOptions {
@@ -22,13 +23,19 @@ interface AppUpdatesOptions {
  * Otherwise nothing is scheduled: the next return to the app checks again. So a reload never cuts
  * an action short, nor what follows its answer (a confirmation, or opening a just-created home),
  * however long that takes.
+ *
+ * Returns `true` while that reload loads the new version. The page stays on screen until then, so
+ * it says so, and a tap meanwhile is not lost: a link opens its address on the new version, and
+ * anything else waits for it (`reloadFollowingTaps`).
  */
-export function useAppUpdates({ busy, loadedVersion }: AppUpdatesOptions) {
+export function useAppUpdates({ busy, loadedVersion }: AppUpdatesOptions): boolean {
+  const [updating, setUpdating] = useState(false);
   const busyRef = useRef(busy);
   useEffect(() => { busyRef.current = busy; }, [busy]);
   useEffect(() => {
     if (!loadedVersion) return;
     let stopped = false;
+    let stopFollowingTaps: (() => void) | null = null;
     async function reloadIfOutdated() {
       if (document.visibilityState !== 'visible') return;
       const addressBeforeRead = window.location.href;
@@ -39,9 +46,12 @@ export function useAppUpdates({ busy, loadedVersion }: AppUpdatesOptions) {
         // Offline or a failed read: the next return to the app checks again.
         return;
       }
-      if (stopped || !deployedVersion || deployedVersion === loadedVersion) return;
+      if (stopped || stopFollowingTaps || !deployedVersion || deployedVersion === loadedVersion) return;
       const somethingRunning = busyRef.current || pendingMutations() > 0 || pendingNavigations() > 0 || window.location.href !== addressBeforeRead;
-      if (!somethingRunning) window.location.reload();
+      if (somethingRunning) return;
+      setUpdating(true);
+      // A reload the browser stopped leaves this page as it was; the next return to the app checks again.
+      stopFollowingTaps = reloadFollowingTaps(() => { stopFollowingTaps = null; setUpdating(false); });
     }
     const checkNow = () => { void reloadIfOutdated(); };
     checkNow();
@@ -50,8 +60,10 @@ export function useAppUpdates({ busy, loadedVersion }: AppUpdatesOptions) {
     window.addEventListener('pageshow', checkNow);
     return () => {
       stopped = true;
+      stopFollowingTaps?.();
       document.removeEventListener('visibilitychange', checkNow);
       window.removeEventListener('pageshow', checkNow);
     };
   }, [loadedVersion]);
+  return updating;
 }

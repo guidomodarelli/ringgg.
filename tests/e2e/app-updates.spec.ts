@@ -13,14 +13,19 @@ const VERSION_HEADER = 'x-fixture-version';
 // The real hook in a real browser; the fixture server plays the deployment and can switch versions.
 async function serveDeployments() {
   const bundled = await bundleFixture('tests/fixtures/app-updates-entry.tsx');
-  const deployment = { version: 'deploy-1', pageLoads: [] as string[], versionReadsFail: false, holdVersionReads: false };
+  const deployment = { version: 'deploy-1', pageLoads: [] as string[], versionReadsFail: false, holdVersionReads: false, holdPageLoads: false };
   /** Requests that wait here until the spec answers them, so what they belong to stays in progress. */
-  const held = { saves: [] as ServerResponse[], nextPages: [] as ServerResponse[], versionReads: [] as ServerResponse[] };
+  const held = { saves: [] as ServerResponse[], nextPages: [] as ServerResponse[], versionReads: [] as ServerResponse[], pageLoads: [] as ServerResponse[] };
   const answerJson = (response: ServerResponse, body: unknown) => {
     response.setHeader('Content-Type', 'application/json'); response.end(JSON.stringify(body));
   };
   const answerVersion = (response: ServerResponse) => {
     response.setHeader(VERSION_HEADER, deployment.version); answerJson(response, { version: deployment.version });
+  };
+  const answerPage = (response: ServerResponse) => {
+    response.setHeader('Content-Type', 'text/html');
+    // Each deployment's page carries its own version, as a build inlines it into the bundle.
+    response.end(`<!doctype html><html lang="es"><meta charset="utf-8"><body><div id="root" data-app-version="${deployment.version}"></div><script src="/bundle.js"></script></body></html>`);
   };
   const server = createServer((request, response) => {
     if (request.url === '/bundle.js') { response.setHeader('Content-Type', 'text/javascript'); response.end(bundled); return; }
@@ -33,9 +38,9 @@ async function serveDeployments() {
     // The data of the next page, as a router push reads it before changing the address.
     if (request.headers.rsc) { held.nextPages.push(response); return; }
     deployment.pageLoads.push(request.url ?? '');
-    response.setHeader('Content-Type', 'text/html');
-    // Each deployment's page carries its own version, as a build inlines it into the bundle.
-    response.end(`<!doctype html><html lang="es"><meta charset="utf-8"><body><div id="root" data-app-version="${deployment.version}"></div><script src="/bundle.js"></script></body></html>`);
+    // A slow deployment: the page being left stays on screen until its answer arrives.
+    if (deployment.holdPageLoads) { held.pageLoads.push(response); return; }
+    answerPage(response);
   });
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
   const address = server.address();
@@ -45,6 +50,7 @@ async function serveDeployments() {
     answerSaves: () => { for (const response of held.saves.splice(0)) answerJson(response, { next: NEXT_PAGE }); },
     answerNextPages: () => { for (const response of held.nextPages.splice(0)) answerJson(response, {}); },
     answerVersionReads: () => { for (const response of held.versionReads.splice(0)) answerVersion(response); },
+    answerPageLoads: () => { for (const response of held.pageLoads.splice(0)) answerPage(response); },
     close: () => new Promise<void>((resolve, reject) => {
       for (const response of Object.values(held).flatMap((responses) => responses.splice(0))) response.destroy();
       server.close((error) => error ? reject(error) : resolve());
@@ -222,5 +228,37 @@ test('si se abre otra página mientras lee la versión no la corta: recarga en l
     expect(await reloadsStarted(page)).toBe(0);
     await leaveAndReturn(page);
     await expect.poll(() => fixture.deployment.pageLoads).toEqual(['/', NEXT_PAGE]);
+  } finally { await fixture.close(); }
+});
+
+/** Center of an element, to tap it with raw input while a reload is pending: a locator's click would wait for it to finish. */
+async function centerOf(page: Page, name: string, role: 'button' | 'link') {
+  const box = await page.getByRole(role, { name }).boundingBox();
+  if (!box) throw new Error(`${name} is not on screen`);
+  return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}
+
+test('un toque mientras recarga por un deploy nuevo no se pierde: un enlace abre su dirección en la versión nueva y lo demás espera', async ({ page }) => {
+  const fixture = await serveDeployments();
+  try {
+    await openApp(page, fixture.url);
+    const save = await centerOf(page, 'Guardar cambio', 'button');
+    const section = await centerOf(page, 'Timbrazos', 'link');
+    fixture.deployment.version = 'deploy-2';
+    fixture.deployment.holdPageLoads = true;
+    await leaveAndReturn(page);
+    // The reload is on its way, and the page being left is still on screen and takes taps.
+    await expect.poll(() => fixture.deployment.pageLoads).toEqual(['/', '/']);
+    // A change saved now would be cut by the reload: it is not sent.
+    await page.mouse.click(save.x, save.y);
+    // A section tapped now opens on the new version, instead of the reload bringing back the old one.
+    await page.mouse.click(section.x, section.y);
+    await expect.poll(() => fixture.deployment.pageLoads).toEqual(['/', '/', '/?view=history']);
+    expect(fixture.held.saves).toHaveLength(0);
+    fixture.deployment.holdPageLoads = false;
+    fixture.answerPageLoads();
+    await expect(page).toHaveURL(`${fixture.url}/?view=history`);
+    await expect(page.locator('#root[data-app-version="deploy-2"]').getByRole('status')).toHaveText('Sin acciones');
+    expect(fixture.held.saves).toHaveLength(0);
   } finally { await fixture.close(); }
 });
