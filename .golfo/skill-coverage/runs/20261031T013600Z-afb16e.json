@@ -1,0 +1,1168 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:5bfd5aa7d2892c7301154cc2d25356678972ec6e786b4747600d24b6888f3135",
+    "uncommittedFiles": [
+      "src/app/api/chat/access/route.ts",
+      "src/app/globals.css",
+      "src/app/page.tsx",
+      "src/components/chat/use-chat-connection.ts",
+      "src/components/chat/use-chat-outbox.ts",
+      "src/components/chat/use-visit-chat.ts",
+      "src/components/chat/visit-chat.tsx",
+      "src/components/dashboard.tsx",
+      "src/components/dashboard/visit-history.tsx",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/push.ts",
+      "src/lib/chat-protocol.ts",
+      "src/lib/visit-format.ts",
+      "src/server/chat.ts",
+      "src/server/environment.ts",
+      "src/server/http.ts",
+      "src/types/doorbell.ts"
+    ],
+    "fileCount": 107,
+    "inputCount": 751
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-31T01:36:01.272Z",
+      "source": "attested",
+      "summary": "Hojas cliente: src/components/chat/* con 'use client'; visitor.tsx y dashboard ya eran cliente. Páginas /t/[token] y / solo leen chatSettings() (síncrono, sin await nuevo); loading.tsx existentes cubren el segmento. Route handlers nuevos con runtime nodejs y force-dynamic. Sin hydration mismatch: el chat no se renderiza en SSR (expanded nulo hasta tener reloj)."
+    },
+    {
+      "command": "fnm exec --using=24 -- npm.cmd run typecheck:build",
+      "durationMs": 9315,
+      "exitCode": 0,
+      "kind": "command",
+      "outcome": "pass",
+      "outputSha256": "f438a8ed5597ea684b16236a9ec6a4964df3791a3a2d509c756282c5c276f9d4",
+      "recordedAt": "2026-10-31T01:36:10.952Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "fnm exec --using=24 -- npx.cmd playwright test tests/e2e/visit-chat.spec.ts tests/e2e/dashboard-polling.spec.ts tests/e2e/dashboard-reconcile.spec.ts --reporter=line",
+      "durationMs": 51437,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "55cb28cc7daeefad2706004227e5a19d9898d73b42f87198ae26a875e11f36ba",
+      "recordedAt": "2026-10-31T01:37:02.925Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [],
+  "mode": "incremental",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:37:04.353Z",
+  "result": "verified",
+  "runId": "20261031T013600Z-afb16e",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "179 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "next.config.ts#APP_VERSION",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "next.config.ts#nextConfig.env",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "modified",
+        "key": "next.config.ts#nextConfig.headers",
+        "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+      },
+      {
+        "change": "added",
+        "key": "pkg:CHAT_SECRET",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "pkg:CHAT_URL",
+        "reason": "new package in the route: it may need a client island"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/chat/access/route.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/chat/access/route.ts#dynamic",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/chat/access/route.ts#GET",
+        "reason": "adds awaited work to the render path (+3 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/app/api/chat/access/route.ts#runtime",
+        "reason": "new route file: segment, layout or boundary added"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/page.tsx#Page",
+        "reason": "route file changed: segment layout, boundary or page"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#ChatConnectionOptions",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#NORMAL_CLOSURE",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#useChatConnection/reconnect",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-connection.ts#useChatConnection~shell",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#OPEN_SOCKET",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#OutgoingMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#UNCONFIRMED_FAILURE",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/add",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/confirm",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/discard",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/failWaiting",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/markFailed",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/resendWaiting",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/retry",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/update",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#chatStatus",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ChatStatus",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ChatViewer",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#isOwn",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#subscribeToVisibility",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#ThreadMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#usePageVisible",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/endChat",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/onAccess",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/receive",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat/send",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#useVisitChat~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#VisitChatOptions",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/use-visit-chat.ts#withMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#authorLabel",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer/onKeyDown",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer/submit",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatComposer~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatConnectionStatus",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ChatThread",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#MessageDelivery",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest/jumpToLatest",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest/onScroll",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#useStickToLatest~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#ViewerRole",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChat",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChatProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/chat/visit-chat.tsx#VisitChatState",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard/signOut",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#Dashboard~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting/remove",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/devices-section.tsx#DevicesSection",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/do-not-disturb-help.tsx#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/do-not-disturb-help.tsx#ANDROID_STEPS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/do-not-disturb-help.tsx#DoNotDisturbHelp",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/do-not-disturb-help.tsx#IOS_STEPS",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#locationDescription",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#LocationSetting/clear",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#LocationSetting/saveCurrentSpot",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#LocationSetting/toggle",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#LocationSetting~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.denied",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.timeout",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.unavailable",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.unsupported",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#saveSpotLabel",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/location-setting.tsx#toggleLabel",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/settings-section.tsx#SettingsSection",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState/run",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/use-device-name-suggestion.ts#useDeviceNameSuggestion",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#chatClosesAt",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#ResidentChat/requestAccess",
+        "reason": "new interactive handler in the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#ResidentChat~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#useExpandedChat",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/dashboard/visit-history.tsx#VisitHistory~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/dashboard/visit-history.tsx#VisitHistoryProps",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/home-switcher.tsx#NewHomeForm/create",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/home-switcher.tsx#NewHomeForm~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/applyConfirmed",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "interactive handler changed: navigation or server action calls may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-app-updates.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-app-updates.ts#AppUpdatesOptions",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-app-updates.ts#useAppUpdates",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#phonePlatform",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-browser-user-agent.ts#useBrowserUserAgent",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-tracked-navigation.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-tracked-navigation.ts#useTrackedNavigation",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.CHAT_CLOSED",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.MESSAGE_INVALID",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS.ROOM_FULL",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT_REJECTIONS~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.messageMaxLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.protocol",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.reconnect",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.scrollStickinessPx",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.secretMinimumLength",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.sendTimeoutMs",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.windowSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#ChatRejection",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.maximumAgeMs",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.timeoutMs",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#mutationsInFlight",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#pendingMutations",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#request",
+        "reason": "adds awaited work to the render path (+3 awaited steps, +1 requests): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#currentPosition",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.1",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.2",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES.3",
+        "reason": "object member read by the route changed: route configuration impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#FAILURES~frame",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#LocationError",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#locationFailure",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/browser-location.ts#LocationFailure",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatAccess",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ChatRole",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#chatSocketProtocols",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#isChatMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#parseServerChatMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/chat-protocol.ts#ServerChatMessage",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#Coordinates",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/geo.ts#Position",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pending-navigations.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pending-navigations.ts#holdNavigation",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pending-navigations.ts#navigationsInFlight",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pending-navigations.ts#pendingNavigations",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/visit-format.ts#chatTime",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#ChatContext",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#chatSettings",
+        "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#ChatSettings",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#closingTime",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#issueAccess",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#requireChat",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#residentChatAccess",
+        "reason": "adds awaited work to the render path (+2 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#visitNotFound",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "added",
+        "key": "src/server/chat.ts#visitTiming",
+        "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/doorbell.ts#HOME_COLUMNS",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/environment.ts#isSecureWebSocketUrl",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/environment.ts#productionEnvironmentProblems~shell",
+        "reason": "component render changed: hooks, Suspense or client imports may differ"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#ApiRouteOptions",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#readJson",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readText",
+        "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#recordDeliveryHealth",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#recordPushReceipt",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/push.ts#upsertDevice",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/app.ts#<module>",
+        "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/app.ts#AppVersion",
+        "reason": "new code rendered by the route"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#DashboardData",
+        "reason": "code rendered by the route changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#Home",
+        "reason": "code rendered by the route changed"
+      }
+    ],
+    "suggestedScope": [
+      "next.config.ts › APP_VERSION — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+      "next.config.ts › nextConfig.env — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+      "next.config.ts › nextConfig.headers — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+      "package CHAT_SECRET — whether what the route imports from this package runs on the server or needs a client island",
+      "package CHAT_URL — whether what the route imports from this package runs on the server or needs a client island",
+      "src/app/api/chat/access/route.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/app/api/chat/access/route.ts › dynamic — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+      "src/app/api/chat/access/route.ts › GET — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+      "src/app/api/chat/access/route.ts › runtime — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+      "src/app/page.tsx › Page — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+      "src/components/chat/use-chat-connection.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/chat/use-chat-connection.ts › ChatConnectionOptions — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-chat-connection.ts › NORMAL_CLOSURE — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-chat-connection.ts › useChatConnection › reconnect — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-connection.ts › useChatConnection (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/chat/use-chat-outbox.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/chat/use-chat-outbox.ts › OPEN_SOCKET — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-chat-outbox.ts › OutgoingMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-chat-outbox.ts › UNCONFIRMED_FAILURE — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › add — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › confirm — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › discard — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › failWaiting — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › markFailed — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › resendWaiting — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › retry — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › stopTimer — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › transmit — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox › update — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-chat-outbox.ts › useChatOutbox (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/chat/use-visit-chat.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/chat/use-visit-chat.ts › chatStatus — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › ChatStatus — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › ChatViewer — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › isOwn — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › subscribeToVisibility — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › ThreadMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › usePageVisible — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › endChat — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › onAccess — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › receive — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat › send — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/use-visit-chat.ts › useVisitChat (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/chat/use-visit-chat.ts › VisitChatOptions — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/use-visit-chat.ts › withMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/chat/visit-chat.tsx › authorLabel — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › ChatComposer › onKeyDown — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/visit-chat.tsx › ChatComposer › submit — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/visit-chat.tsx › ChatComposer (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/chat/visit-chat.tsx › ChatConnectionStatus — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › ChatThread — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › MessageDelivery — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › STATUS_TEXT (object structure) — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › useStickToLatest › jumpToLatest — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/visit-chat.tsx › useStickToLatest › onScroll — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/chat/visit-chat.tsx › useStickToLatest (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/chat/visit-chat.tsx › ViewerRole — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › VisitChat — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › VisitChatProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/chat/visit-chat.tsx › VisitChatState — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard.tsx › Dashboard › signOut — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/delete-home-setting.tsx › DeleteHomeSetting › remove — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard/delete-home-setting.tsx › DeleteHomeSetting (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/devices-section.tsx › DevicesSection — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/do-not-disturb-help.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/dashboard/do-not-disturb-help.tsx › ANDROID_STEPS — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/do-not-disturb-help.tsx › DoNotDisturbHelp — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/do-not-disturb-help.tsx › IOS_STEPS — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/location-setting.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/dashboard/location-setting.tsx › locationDescription — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/location-setting.tsx › LocationSetting › clear — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard/location-setting.tsx › LocationSetting › saveCurrentSpot — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard/location-setting.tsx › LocationSetting › toggle — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard/location-setting.tsx › LocationSetting (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.denied — route configuration read from this member, in every segment that uses it",
+      "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.timeout — route configuration read from this member, in every segment that uses it",
+      "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.unavailable — route configuration read from this member, in every segment that uses it",
+      "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.unsupported — route configuration read from this member, in every segment that uses it",
+      "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES (object structure) — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/location-setting.tsx › saveSpotLabel — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/location-setting.tsx › toggleLabel — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/settings-section.tsx › SettingsSection — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/use-dashboard-state.ts › useDashboardState › run — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard/use-dashboard-state.ts › useDashboardState (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/use-device-name-suggestion.ts › useDeviceNameSuggestion — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/visit-history.tsx › chatClosesAt — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/visit-history.tsx › ResidentChat › requestAccess — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/dashboard/visit-history.tsx › ResidentChat (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/visit-history.tsx › useExpandedChat — server/client split and awaited work of this code in every route of the unit",
+      "src/components/dashboard/visit-history.tsx › VisitHistory (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/dashboard/visit-history.tsx › VisitHistoryProps — server/client split and awaited work of this code in every route of the unit",
+      "src/components/home-switcher.tsx › NewHomeForm › create — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/home-switcher.tsx › NewHomeForm (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/resident-management.tsx › ResidentManagement › applyConfirmed — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/resident-management.tsx › ResidentManagement › update — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+      "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/components/use-app-updates.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/use-app-updates.ts › AppUpdatesOptions — server/client split and awaited work of this code in every route of the unit",
+      "src/components/use-app-updates.ts › useAppUpdates — server/client split and awaited work of this code in every route of the unit",
+      "src/components/use-browser-user-agent.ts › phonePlatform — server/client split and awaited work of this code in every route of the unit",
+      "src/components/use-browser-user-agent.ts › useBrowserUserAgent — server/client split and awaited work of this code in every route of the unit",
+      "src/components/use-tracked-navigation.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/components/use-tracked-navigation.ts › useTrackedNavigation — server/client split and awaited work of this code in every route of the unit",
+      "src/constants/chat.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/constants/chat.ts › CHAT_REJECTIONS.CHAT_CLOSED — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT_REJECTIONS.MESSAGE_INVALID — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT_REJECTIONS.ROOM_FULL — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT_REJECTIONS (object structure) — server/client split and awaited work of this code in every route of the unit",
+      "src/constants/chat.ts › CHAT.messageMaxLength — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT.protocol — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT.reconnect — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT.scrollStickinessPx — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT.secretMinimumLength — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT.sendTimeoutMs — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT.windowSeconds — route configuration read from this member, in every segment that uses it",
+      "src/constants/chat.ts › CHAT (object structure) — server/client split and awaited work of this code in every route of the unit",
+      "src/constants/chat.ts › ChatRejection — server/client split and awaited work of this code in every route of the unit",
+      "src/constants/doorbell.ts › DOORBELL.noteWindowSeconds — route configuration read from this member, in every segment that uses it",
+      "src/constants/location.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/constants/location.ts › NEARBY_RINGING.maximumAgeMs — route configuration read from this member, in every segment that uses it",
+      "src/constants/location.ts › NEARBY_RINGING.radiusMeters — route configuration read from this member, in every segment that uses it",
+      "src/constants/location.ts › NEARBY_RINGING.timeoutMs — route configuration read from this member, in every segment that uses it",
+      "src/constants/location.ts › NEARBY_RINGING (object structure) — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/api.ts › api — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/api.ts › mutationsInFlight — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/api.ts › pendingMutations — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/api.ts › request — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/browser-location.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/lib/browser-location.ts › currentPosition — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/browser-location.ts › FAILURES.1 — route configuration read from this member, in every segment that uses it",
+      "src/lib/browser-location.ts › FAILURES.2 — route configuration read from this member, in every segment that uses it",
+      "src/lib/browser-location.ts › FAILURES.3 — route configuration read from this member, in every segment that uses it",
+      "src/lib/browser-location.ts › FAILURES (object structure) — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/browser-location.ts › LocationError — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/browser-location.ts › locationFailure — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/browser-location.ts › LocationFailure — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/chat-protocol.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/lib/chat-protocol.ts › ChatAccess — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/chat-protocol.ts › ChatMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/chat-protocol.ts › ChatRole — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/chat-protocol.ts › chatSocketProtocols — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/chat-protocol.ts › isChatMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/chat-protocol.ts › parseServerChatMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/chat-protocol.ts › ServerChatMessage — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/geo.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/lib/geo.ts › Coordinates — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/geo.ts › Position — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/pending-navigations.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/lib/pending-navigations.ts › holdNavigation — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/pending-navigations.ts › navigationsInFlight — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/pending-navigations.ts › pendingNavigations — server/client split and awaited work of this code in every route of the unit",
+      "src/lib/visit-format.ts › chatTime — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/server/chat.ts › ChatContext — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › chatSettings — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › ChatSettings — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › closingTime — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › issueAccess — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › requireChat — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › residentChatAccess — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › visitNotFound — server/client split and awaited work of this code in every route of the unit",
+      "src/server/chat.ts › visitTiming — server/client split and awaited work of this code in every route of the unit",
+      "src/server/database.ts › MIGRATIONS — server/client split and awaited work of this code in every route of the unit",
+      "src/server/doorbell.ts › HOME_COLUMNS — server/client split and awaited work of this code in every route of the unit",
+      "src/server/environment.ts › isSecureWebSocketUrl — server/client split and awaited work of this code in every route of the unit",
+      "src/server/environment.ts › productionEnvironmentProblems (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+      "src/server/http.ts › apiRoute — server/client split and awaited work of this code in every route of the unit",
+      "src/server/http.ts › ApiRouteOptions — server/client split and awaited work of this code in every route of the unit",
+      "src/server/http.ts › readJson — server/client split and awaited work of this code in every route of the unit",
+      "src/server/http.ts › readText — server/client split and awaited work of this code in every route of the unit",
+      "src/server/push.ts › recordDeliveryHealth — server/client split and awaited work of this code in every route of the unit",
+      "src/server/push.ts › recordPushReceipt — server/client split and awaited work of this code in every route of the unit",
+      "src/server/push.ts › upsertDevice — server/client split and awaited work of this code in every route of the unit",
+      "src/types/app.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+      "src/types/app.ts › AppVersion — server/client split and awaited work of this code in every route of the unit",
+      "src/types/doorbell.ts › DashboardData — server/client split and awaited work of this code in every route of the unit",
+      "src/types/doorbell.ts › Home — server/client split and awaited work of this code in every route of the unit"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "summary": "Boundaries sin cambios; chat como hoja cliente",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:36:00.853Z",
+  "unitId": "ringgg.resident"
+}

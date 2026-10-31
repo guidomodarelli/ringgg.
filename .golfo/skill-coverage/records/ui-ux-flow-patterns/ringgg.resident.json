@@ -6,10 +6,10 @@
   "verified": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "feature/nombrar-dispositivo",
-      "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+      "branch": "feature/chat-visita",
+      "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
       "files": {
-        "src/components/dashboard.tsx": "79545ff5e7388339",
+        "src/components/dashboard.tsx": "11b208d5d6c58dfd",
         "src/app/api/dashboard/route.ts": "0eeb86cc770ea5c6",
         "src/app/api/answer/route.ts": "a460797f988df70f",
         "src/app/api/settings/route.ts": "b53eee5c43bda503",
@@ -25,58 +25,76 @@
         "src/app/api/rename-device/route.ts": "68ab3bd678a9b62e",
         "src/app/api/push-receipt/route.ts": "bf9c3e00a78856be",
         "src/service-worker/service-worker.ts": "e5ff774c6d75a9b3",
+        "src/app/api/chat/access/route.ts": "d500567f5fc33a42",
+        "src/components/chat/visit-chat.tsx": "a60dd9dcfb9a81f5",
         "src/lib/pause.ts": "73a9193594a117d8",
         "src/lib/auth-client.ts": "9a9cfb57791ffeb4",
-        "src/types/doorbell.ts": "8697f08bc5f8c5e7",
-        "src/lib/api.ts": "30cc1b9da1f9b7fd",
+        "src/types/doorbell.ts": "0d95585bea9cb975",
+        "src/lib/api.ts": "8948022ea63ca047",
         "src/components/dashboard-section-link.tsx": "fd3326d94fbca42e",
         "src/constants/dashboard-views.ts": "f11919bf877e7511",
         "src/components/device-name-dialog.tsx": "d20ec0e36f843a24",
-        "src/components/dashboard/devices-section.tsx": "ca1a0d0620861744",
+        "src/components/dashboard/devices-section.tsx": "bd7f7762f0d6888b",
         "src/components/dashboard/door-overview.tsx": "ba1f4d74276d5033",
-        "src/components/home-switcher.tsx": "5c89eb08f0847363",
+        "src/components/home-switcher.tsx": "9504211a56867f2a",
         "src/components/notification-onboarding.tsx": "9e1b7e7f2877f479",
         "src/components/dashboard/qr-panel.tsx": "21e5fcb53e590ed6",
-        "src/components/resident-management.tsx": "195e9e9c136b4142",
+        "src/components/resident-management.tsx": "0c97e78142ef2b6f",
         "src/components/resident-name-dialog.tsx": "b8ee16c37389523d",
-        "src/components/dashboard/settings-section.tsx": "97f3df8e43c3bd02",
-        "src/components/dashboard/visit-history.tsx": "d6edb539c14d8d68",
+        "src/components/dashboard/settings-section.tsx": "b9162ed7b24476ea",
+        "src/components/dashboard/visit-history.tsx": "38325daed2d44e36",
         "src/lib/device-name.ts": "0d65ee7d835d0117",
-        "src/components/dashboard/use-dashboard-state.ts": "800148ae528dd667",
+        "src/components/use-app-updates.ts": "3d672971adebea6f",
+        "src/components/dashboard/use-dashboard-state.ts": "09db3927904a568a",
         "src/components/dashboard/use-dashboard-view.ts": "ee43bdf816799a47",
         "src/components/dashboard/use-push-device.ts": "45cf7c8475c53af4",
+        "src/components/use-tracked-navigation.ts": "c1af4e1ffa007184",
         "src/constants/homes.ts": "564484a011173893",
-        "src/server/http.ts": "428ffa6b9703d32a",
-        "src/server/database.ts": "f11b89b5e9ccd3e8",
+        "src/server/http.ts": "4d548c03ba96ac9f",
+        "src/server/database.ts": "01770c1699b19ed3",
         "src/server/homes.ts": "305f738a47a4fb67",
         "src/server/auth.ts": "12d87f7b42214a39",
-        "src/server/doorbell.ts": "64cb2f91786d00ac",
-        "src/constants/doorbell.ts": "2edd18d9afbb7d3f",
+        "src/server/doorbell.ts": "87276ac974348e7b",
+        "src/constants/doorbell.ts": "c888dd9c0c1a7214",
         "src/server/residents.ts": "1880c4500fc8bc91",
         "src/server/push.ts": "949dab3c08f1dc6e",
         "src/server/errors.ts": "45863b0b5c1144b1",
         "src/server/config.ts": "24322283cee795e4",
-        "src/constants/push.ts": "aece530313c03db8",
+        "src/constants/push.ts": "df6b6f76d7b373f1",
         "src/lib/push-notification.ts": "76bf5fe8e19d602e",
+        "src/server/chat.ts": "140abea011601c0d",
+        "src/lib/chat-protocol.ts": "0285646dbbfb3578",
+        "src/components/chat/use-visit-chat.ts": "f19810877e9c0fdc",
+        "src/constants/chat.ts": "c931a0dee7bf7c72",
+        "src/lib/visit-format.ts": "7ac84054e98655f3",
         "src/constants/time.ts": "199df09277e5fcba",
         "src/types/residents.ts": "b7a6c448a73bacc3",
         "src/lib/dashboard-view.ts": "6ebdce9298bb7dd8",
         "src/constants/devices.ts": "e0d711d90ce4ec41",
         "src/components/required-name-dialog.tsx": "26d9454e00c3e4ed",
-        "src/components/dashboard/use-device-name-suggestion.ts": "cb17bfd636cfafd8",
+        "src/components/dashboard/use-device-name-suggestion.ts": "a116a5162c80100d",
         "src/components/dashboard/types.ts": "91873e97b2c059fc",
+        "src/components/dashboard/do-not-disturb-help.tsx": "2bfaa20d4f81cbe5",
         "src/components/connect-device-form.tsx": "1539b6ea24f40aa5",
         "src/lib/device-health.ts": "d4f94434fbf61cd3",
         "src/lib/names.ts": "5fefc809b3ce8988",
         "src/constants/residents.ts": "9c43f4fc81ec3dd1",
         "src/lib/invitation.ts": "a1c74d9d55e29e10",
-        "src/components/dashboard/delete-home-setting.tsx": "0aee18ff8bcb9602",
+        "src/components/dashboard/delete-home-setting.tsx": "ccecc04a04b84954",
         "src/components/doorbell-pause-control.tsx": "70478b1dc38cc647",
-        "src/lib/visit-format.ts": "eec9901dee9164e8",
+        "src/components/dashboard/location-setting.tsx": "7e82035489d5b2bf",
+        "src/types/app.ts": "4d90ef5c15c86775",
+        "src/lib/pending-navigations.ts": "9571a9bdfd5d28ab",
         "src/constants/polling.ts": "8eb5b771610e285c",
-        "src/lib/notification-setup.ts": "52fa623c987d9a5e"
+        "src/lib/notification-setup.ts": "52fa623c987d9a5e",
+        "src/components/chat/use-chat-connection.ts": "75d6a34158641cb7",
+        "src/components/chat/use-chat-outbox.ts": "a926c418a8c5318f",
+        "src/components/use-browser-user-agent.ts": "7d49bae46ad1226e",
+        "src/lib/browser-location.ts": "a496083efdf5dc7b",
+        "src/constants/location.ts": "1a083ca74dae65a3",
+        "src/lib/geo.ts": "e626403dfbbfcf9a"
       },
-      "fingerprint": "sha256:b6d265545b97c02904299bc290ce8264ebb6af9c13cc9f91617299f68dca04f4",
+      "fingerprint": "sha256:a72f9eee3cc6e21155552e36409f3231d941c02306ed5c092791000e18f90601",
       "inputs": {
         "src/components/dashboard.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/dashboard.tsx#SECTION_TITLES.overview": "6e6e06d5d0397ae2",
@@ -88,12 +106,12 @@
         "src/components/dashboard.tsx#SECTION_TITLES~frame": "f9fdcb21d3b79012",
         "src/components/dashboard.tsx#rosterKey": "f7154082fba491be",
         "src/components/dashboard.tsx#statusLabel": "248400b079cb7dc4",
-        "src/components/dashboard.tsx#Dashboard/signOut": "19c475b04854d981",
+        "src/components/dashboard.tsx#Dashboard/signOut": "ce5bfdb9756f526c",
         "src/components/dashboard.tsx#Dashboard/deviceNamesExcept": "5495b3adb92321cf",
         "src/components/dashboard.tsx#Dashboard/activateNotifications": "8e43f54090470114",
         "src/components/dashboard.tsx#Dashboard/saveDeviceName": "4c682c6b321e0576",
         "src/components/dashboard.tsx#Dashboard/saveViewerName": "13ccea37f4e5fc22",
-        "src/components/dashboard.tsx#Dashboard~shell": "a94fb922f3c3de47",
+        "src/components/dashboard.tsx#Dashboard~shell": "de861fe35bc1ec39",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "pkg:next": "530097ba2f134bc2",
         "pkg:react": "f4529719455f2af2",
@@ -183,6 +201,29 @@
         "src/service-worker/service-worker.ts#renewSubscription": "b95f3be50b0b2d87",
         "src/service-worker/service-worker.ts#rememberedEndpoint": "d4db813959818536",
         "src/service-worker/service-worker.ts#DoorbellNotificationOptions": "6d807b4b0c477bec",
+        "src/app/api/chat/access/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/chat/access/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/chat/access/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/chat/access/route.ts#GET": "7cb1b3a1736d212c",
+        "src/components/chat/visit-chat.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/visit-chat.tsx#ViewerRole": "9e097e9d77dccf8c",
+        "src/components/chat/visit-chat.tsx#VisitChatProps": "2cc771681d928e31",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT.connecting": "96e0b7f3d39e7381",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT.reconnecting": "ad1a929adde017c3",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT.paused": "3276a1d039bb8b26",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT~frame": "5181c7615f1c8016",
+        "src/components/chat/visit-chat.tsx#authorLabel": "07a406ead55bf19d",
+        "src/components/chat/visit-chat.tsx#MessageDelivery": "0559022414f478f4",
+        "src/components/chat/visit-chat.tsx#useStickToLatest/onScroll": "d2a0dbab03d2d303",
+        "src/components/chat/visit-chat.tsx#useStickToLatest/jumpToLatest": "5c67662ce5873291",
+        "src/components/chat/visit-chat.tsx#useStickToLatest~shell": "8677ee0525f1a60c",
+        "src/components/chat/visit-chat.tsx#VisitChatState": "898afab1033901ab",
+        "src/components/chat/visit-chat.tsx#ChatThread": "3801f04a04b9201b",
+        "src/components/chat/visit-chat.tsx#ChatConnectionStatus": "b9c072c24ad75a08",
+        "src/components/chat/visit-chat.tsx#ChatComposer/submit": "c8554de884f8005b",
+        "src/components/chat/visit-chat.tsx#ChatComposer/onKeyDown": "fd6c19a8fa0c3153",
+        "src/components/chat/visit-chat.tsx#ChatComposer~shell": "e7575ccee3386105",
+        "src/components/chat/visit-chat.tsx#VisitChat": "02a53aa176f42b92",
         "src/lib/pause.ts#<module>": "2da3ec2294295eb1",
         "src/lib/pause.ts#pauseEnd": "4d0f2a3b2adb7759",
         "src/lib/pause.ts#isPaused": "150bd904b5f22cff",
@@ -195,13 +236,15 @@
         "src/types/doorbell.ts#DashboardSnapshot": "e6b3bd2b8c14cf6f",
         "src/types/doorbell.ts#Device": "e3f4e61b99a40c5f",
         "src/types/doorbell.ts#HomeState": "37835fab33246f44",
-        "src/types/doorbell.ts#Home": "3b8a7daf1448ba2f",
+        "src/types/doorbell.ts#Home": "32c5fccda153f366",
         "src/types/doorbell.ts#Visit": "7456ab9619ff53ed",
         "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
         "src/lib/api.ts#<module>": "2da3ec2294295eb1",
-        "src/lib/api.ts#api": "d04e08cca10d550a",
+        "src/lib/api.ts#api": "cc02c09740313f78",
+        "src/lib/api.ts#mutationsInFlight": "803da898ef95cd5d",
+        "src/lib/api.ts#request": "18ca96271a92faed",
         "src/lib/api.ts#serverErrorMessage": "deaccf05eea7bb64",
-        "src/types/doorbell.ts#DashboardData": "ac64c6b2b79592a3",
+        "src/types/doorbell.ts#DashboardData": "435fd9561318e07e",
         "src/types/doorbell.ts#Viewer": "a36f5213bc650381",
         "src/components/dashboard-section-link.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/dashboard-section-link.tsx#DashboardSectionLink/openInPlace": "8abb64884cec73b2",
@@ -213,7 +256,7 @@
         "src/components/device-name-dialog.tsx#DeviceNameDialog": "d89b14cca50e71b1",
         "src/components/device-name-dialog.tsx#DeviceNameDialogProps": "fecd30b8e3e994ea",
         "src/components/dashboard/devices-section.tsx#<module>": "2da3ec2294295eb1",
-        "src/components/dashboard/devices-section.tsx#DevicesSection": "9c55355f89eae9a7",
+        "src/components/dashboard/devices-section.tsx#DevicesSection": "b7457a487f785839",
         "src/components/dashboard/devices-section.tsx#DevicesSectionProps": "cf5958066ad44c07",
         "src/components/dashboard/devices-section.tsx#NotificationState": "d6fc94bedaee4490",
         "src/components/dashboard/devices-section.tsx#RenameForm": "741e54add54dc115",
@@ -228,9 +271,9 @@
         "src/components/dashboard/door-overview.tsx#DoorOverview": "98ac93dbc0b8440b",
         "src/components/home-switcher.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/home-switcher.tsx#HomeSwitcher": "e59502cdb4bd6f8c",
-        "src/components/home-switcher.tsx#NewHomeForm/create": "8fbc500742c46685",
+        "src/components/home-switcher.tsx#NewHomeForm/create": "9d16cc5f75a9c5b4",
         "src/components/home-switcher.tsx#homeHref": "ad439ef1a875fade",
-        "src/components/home-switcher.tsx#NewHomeForm~shell": "773e31ebf352a72a",
+        "src/components/home-switcher.tsx#NewHomeForm~shell": "7520386439b6994e",
         "src/components/notification-onboarding.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/notification-onboarding.tsx#NotificationOnboarding": "c263f790d105fa53",
         "src/components/notification-onboarding.tsx#NotificationOnboardingProps": "cc2fc3c893cd89e6",
@@ -240,14 +283,14 @@
         "src/components/dashboard/qr-panel.tsx#QrPanel~shell": "9433bf29e30d3398",
         "pkg:qrcode": "eae5e9f465245e84",
         "src/components/resident-management.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/resident-management.tsx#ResidentManagement/applyConfirmed": "8001909497d22625",
+        "src/components/resident-management.tsx#ResidentManagement/applyConfirmed": "83951efdfa222bb4",
         "src/components/resident-management.tsx#CHANGE_MESSAGES.add": "2358cdcfe6bc7cad",
         "src/components/resident-management.tsx#CHANGE_MESSAGES.remove": "21f6c9c8cccc142b",
         "src/components/resident-management.tsx#CHANGE_MESSAGES.rename": "45a75cf5154025db",
         "src/components/resident-management.tsx#CHANGE_MESSAGES~frame": "9b2a0d4e5e82992b",
         "src/components/resident-management.tsx#ResidentChange": "36c4b072658d0e06",
-        "src/components/resident-management.tsx#ResidentManagement/update": "e6ac468276a8eda7",
-        "src/components/resident-management.tsx#ResidentManagement~shell": "46ddc4d583e689b0",
+        "src/components/resident-management.tsx#ResidentManagement/update": "fbcb4ad0ba9d9a5a",
+        "src/components/resident-management.tsx#ResidentManagement~shell": "a0e48fd4d9d9e7a8",
         "src/components/resident-management.tsx#ResidentManagementProps": "5c79f0eda8c77b9b",
         "src/components/resident-management.tsx#ResidentNameForm": "ba71ace0f576445c",
         "src/components/resident-management.tsx#ResidentManagement/share": "653531d19d598ba0",
@@ -255,7 +298,7 @@
         "src/components/resident-name-dialog.tsx#ResidentNameDialog": "933a33951a723b18",
         "src/components/resident-name-dialog.tsx#ResidentNameDialogProps": "3d75c7d7d2383db7",
         "src/components/dashboard/settings-section.tsx#<module>": "2da3ec2294295eb1",
-        "src/components/dashboard/settings-section.tsx#SettingsSection": "72a052cc6ec7722a",
+        "src/components/dashboard/settings-section.tsx#SettingsSection": "5aa903d55e365fd3",
         "src/components/dashboard/settings-section.tsx#QuietHoursForm/save": "a73acf9c8a4b2ba0",
         "src/components/dashboard/settings-section.tsx#QuietHoursForm/remove": "524d5a74a059ca54",
         "src/components/dashboard/settings-section.tsx#QuietHoursForm~shell": "28cc36ba24def9cf",
@@ -265,19 +308,27 @@
         "src/components/dashboard/settings-section.tsx#quietDescription": "d04faf7e8b8c0a7b",
         "src/components/dashboard/visit-history.tsx#<module>": "2da3ec2294295eb1",
         "src/components/dashboard/visit-history.tsx#VisitHistory/waiting": "d33a0051a6cd380f",
-        "src/components/dashboard/visit-history.tsx#VisitHistory~shell": "8de38235152792e5",
+        "src/components/dashboard/visit-history.tsx#VisitHistory~shell": "577992fb1b474fee",
+        "src/components/dashboard/visit-history.tsx#ResidentChat/requestAccess": "ada8c63433de066e",
+        "src/components/dashboard/visit-history.tsx#ResidentChat~shell": "b4942a2c6bf496d3",
+        "src/components/dashboard/visit-history.tsx#chatClosesAt": "63767aacc16e46bb",
+        "src/components/dashboard/visit-history.tsx#VisitHistoryProps": "56d1d6dd2b755767",
         "src/components/dashboard/visit-history.tsx#VisitStatus": "495a077280c887d2",
+        "src/components/dashboard/visit-history.tsx#useExpandedChat": "3a7c0a037508094a",
         "src/components/dashboard/devices-section.tsx#isDeviceRename": "8df4baf4c44d648f",
         "src/lib/device-name.ts#<module>": "2da3ec2294295eb1",
         "src/lib/device-name.ts#isGenericDeviceName": "165464617731ac0d",
         "src/lib/device-name.ts#COPY_SUFFIX": "9f8ca74dc14e355c",
         "src/lib/device-name.ts#GENERIC_KEYS": "6e17877d589b0ab4",
+        "src/components/use-app-updates.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/use-app-updates.ts#useAppUpdates": "263e1ac9a421dc8e",
+        "src/components/use-app-updates.ts#AppUpdatesOptions": "ead3ad9dc4a951f3",
         "src/components/dashboard/use-dashboard-state.ts#<module>": "80e0e5af9bb4622c",
         "src/components/dashboard/use-dashboard-state.ts#useDashboardState/applySnapshot": "c316db1e64698262",
         "src/components/dashboard/use-dashboard-state.ts#serializeSnapshot": "d84c8a88f6100255",
         "src/components/dashboard/use-dashboard-state.ts#useDashboardState/replaceVisit": "ef015d671d1d0b3a",
-        "src/components/dashboard/use-dashboard-state.ts#useDashboardState/run": "a576a72cf87738bb",
-        "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell": "c7d701fd454fde4e",
+        "src/components/dashboard/use-dashboard-state.ts#useDashboardState/run": "5e79f2bcbf72397e",
+        "src/components/dashboard/use-dashboard-state.ts#useDashboardState~shell": "baabc4e7ed6ba64c",
         "src/components/dashboard/use-dashboard-state.ts#createAnswerClock": "cb68812f64c72ee2",
         "src/components/dashboard/use-dashboard-state.ts#AnswerClock": "385b29c4f7b710b2",
         "src/components/dashboard/use-dashboard-state.ts#serverClock": "8c5bafc98d1b153a",
@@ -323,11 +374,14 @@
         "src/components/dashboard/use-push-device.ts#serverSkipped": "8defc73ed4bcf481",
         "src/components/dashboard/use-push-device.ts#subscribeToPermission": "4788354823434c40",
         "src/components/dashboard/use-push-device.ts#subscribeToSkipped": "690c1a817fdbcac1",
+        "src/components/use-tracked-navigation.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/use-tracked-navigation.ts#useTrackedNavigation": "e5ee9a4f42fd18e9",
         "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
         "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
         "src/constants/homes.ts#HOMES.queryParameter": "583ace4721823c56",
         "src/server/http.ts#<module>": "2da3ec2294295eb1",
-        "src/server/http.ts#apiRoute": "b5f0fffa9c3287e8",
+        "src/server/http.ts#apiRoute": "4cbaf2e37ac494b5",
+        "src/server/http.ts#ApiRouteOptions": "f82fd78b23d86a0c",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
         "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
         "src/server/database.ts#Database": "578aba9512306538",
@@ -338,7 +392,7 @@
         "src/server/database.ts#poolDatabase": "fedd878e554639d7",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
         "src/server/database.ts#initialize": "b63e6fa612388f19",
-        "src/server/database.ts#MIGRATIONS": "95212e268ff47ff1",
+        "src/server/database.ts#MIGRATIONS": "afd8365dff1b001a",
         "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
         "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
         "src/server/database.ts#runStep": "b8d318e23891085b",
@@ -356,7 +410,7 @@
         "src/server/doorbell.ts#VISIT_COLUMNS": "39811f22c51bc9bd",
         "src/server/doorbell.ts#RECEIPTS_COLUMN": "a0f044ac57a5d14b",
         "src/server/doorbell.ts#getHome": "e50eac6818bbe1a6",
-        "src/server/doorbell.ts#HOME_COLUMNS": "8392547fe61dc07e",
+        "src/server/doorbell.ts#HOME_COLUMNS": "04b06ee54ed0c7b5",
         "src/server/doorbell.ts#homeState": "d852610bae8c1c75",
         "src/server/doorbell.ts#toJsonSnapshot": "bbd2a7db3cc4496c",
         "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
@@ -371,7 +425,8 @@
         "src/server/residents.ts#<module>": "2da3ec2294295eb1",
         "src/server/residents.ts#memberName": "97a7e1ea9be44fdb",
         "src/server/residents.ts#accountName": "c65c89aa4218f369",
-        "src/server/http.ts#readJson": "26d0d571bd351155",
+        "src/server/http.ts#readJson": "bf50e393c276631b",
+        "src/server/http.ts#readText": "c65a2982df00bef0",
         "src/server/http.ts#BODY_LIMIT": "5e5df78db11b83f6",
         "src/server/residents.ts#resolveHomeAccess": "3c000f04ba186a83",
         "src/server/residents.ts#isBootstrap": "ed2221aada2e1745",
@@ -391,7 +446,7 @@
         "src/server/push.ts#deviceNameTaken": "1a2de2db4d0154d2",
         "src/server/push.ts#normalizedEmail": "0e392532bd054922",
         "src/server/push.ts#rejectGenericDeviceName": "275dbec8b57ae6bb",
-        "src/server/push.ts#upsertDevice": "d41d72b9c410b72a",
+        "src/server/push.ts#upsertDevice": "ccb2a8e7ae87876a",
         "src/server/push.ts#removeDevice": "1a87e100978bda0a",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
@@ -403,7 +458,7 @@
         "src/server/push.ts#homeDevices": "9c6ad95ea6505eee",
         "pkg:web-push": "6ab2287300696f64",
         "src/server/push.ts#pushPayload": "4e6d12e9dee850e4",
-        "src/server/push.ts#recordDeliveryHealth": "bc89e4f8814fae10",
+        "src/server/push.ts#recordDeliveryHealth": "cce488fe2b64f7d3",
         "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
         "src/server/push.ts#findOwnDevice": "ad8b12071ae8d1ed",
         "src/server/config.ts#<module>": "2da3ec2294295eb1",
@@ -420,7 +475,7 @@
         "src/server/doorbell.ts#PAUSE_UPDATES.morning": "dcbb4d24ade10703",
         "src/server/doorbell.ts#PAUSE_UPDATES~frame": "e3299b27b3e71831",
         "src/server/push.ts#renameDevice": "1ca1a086617537c1",
-        "src/server/push.ts#recordPushReceipt": "d95324bea3d0d000",
+        "src/server/push.ts#recordPushReceipt": "2303a2f9af967cc5",
         "src/constants/push.ts#<module>": "2da3ec2294295eb1",
         "src/constants/push.ts#WORKER_MESSAGES~frame": "474874efafda17f3",
         "src/constants/push.ts#WORKER_MESSAGES.push": "ca8c0ac0306f499e",
@@ -445,6 +500,40 @@
         "src/lib/push-notification.ts#text": "80d87e4e4bf987e5",
         "src/lib/push-notification.ts#renewalBody": "fdd557b4c59a9f45",
         "src/lib/push-notification.ts#replyFromAction": "c81f86d84a4ce6d4",
+        "src/server/chat.ts#<module>": "2da3ec2294295eb1",
+        "src/server/chat.ts#residentChatAccess": "6bef16bd3c859483",
+        "src/server/chat.ts#ChatContext": "7ce80fb7ae7899a9",
+        "src/server/chat.ts#ChatSettings": "e2d03b219fea1050",
+        "src/server/chat.ts#chatSettings": "e19e70fd633c88a3",
+        "src/server/chat.ts#issueAccess": "d71dac3974d18b06",
+        "src/server/chat.ts#requireChat": "1fcc320a01113eb2",
+        "src/server/chat.ts#visitNotFound": "f862c23b7fd6aefe",
+        "src/server/chat.ts#visitTiming": "16403b15217f51fc",
+        "src/server/chat.ts#closingTime": "b7b030e7c463db7e",
+        "src/lib/chat-protocol.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/chat-protocol.ts#ChatAccess": "5aa779ea116eb3c5",
+        "src/lib/chat-protocol.ts#ChatRole": "4df71e002ebf21cd",
+        "src/components/chat/use-visit-chat.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/use-visit-chat.ts#ThreadMessage": "a97011d4b74273ec",
+        "src/constants/chat.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/chat.ts#CHAT~frame": "ee4c777d216ac518",
+        "src/constants/chat.ts#CHAT.scrollStickinessPx": "e0504397af51b641",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/endChat": "bdb22af2bdfba38c",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/receive": "e16d100a59525b7b",
+        "src/components/chat/use-visit-chat.ts#useVisitChat~shell": "b96a7b0add5f34d5",
+        "src/components/chat/use-visit-chat.ts#ChatViewer": "87cc9b389b47af33",
+        "src/components/chat/use-visit-chat.ts#VisitChatOptions": "60a89626d84e6734",
+        "src/components/chat/use-visit-chat.ts#chatStatus": "ee51a6c4b91e8be5",
+        "src/components/chat/use-visit-chat.ts#ChatStatus": "266f42ba7d50014a",
+        "src/components/chat/use-visit-chat.ts#isOwn": "2279e35494390e1c",
+        "src/components/chat/use-visit-chat.ts#usePageVisible": "9fb7c23762bc41f5",
+        "src/components/chat/use-visit-chat.ts#subscribeToVisibility": "75921bd83f63b97e",
+        "src/components/chat/use-visit-chat.ts#withMessage": "32458ec797cff831",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/onAccess": "09196790ce169db0",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/send": "48b3eae19b99bce9",
+        "src/lib/visit-format.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/visit-format.ts#chatTime": "2dd9ee86efd50532",
+        "src/constants/chat.ts#CHAT.messageMaxLength": "6e7d9dda0d1188e3",
         "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
         "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
         "src/constants/time.ts#<module>": "2da3ec2294295eb1",
@@ -471,13 +560,13 @@
         "src/lib/device-name.ts#GENERIC_DEVICE_NAME_MESSAGE": "5d3d051014c75804",
         "src/lib/device-name.ts#deviceNameTakenMessage": "703d289c3b6b5829",
         "src/components/dashboard/use-device-name-suggestion.ts#<module>": "80e0e5af9bb4622c",
-        "src/components/dashboard/use-device-name-suggestion.ts#useDeviceNameSuggestion": "7c2a37db5e508e0a",
-        "src/components/dashboard/use-device-name-suggestion.ts#browserUserAgent": "7bde3da7090a3240",
-        "src/components/dashboard/use-device-name-suggestion.ts#serverUserAgent": "c8bf5282aa3074b0",
-        "src/components/dashboard/use-device-name-suggestion.ts#subscribeToNothing": "8874deeda0c25d24",
-        "src/components/dashboard/use-device-name-suggestion.ts#ignoreChanges": "09a3a87684b1023b",
+        "src/components/dashboard/use-device-name-suggestion.ts#useDeviceNameSuggestion": "ea5d06ddb564caac",
         "src/components/dashboard/types.ts#<module>": "2da3ec2294295eb1",
         "src/components/dashboard/types.ts#RunAction": "1be533fa6f3e0d6e",
+        "src/components/dashboard/do-not-disturb-help.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/dashboard/do-not-disturb-help.tsx#DoNotDisturbHelp": "b7f8740fec945c07",
+        "src/components/dashboard/do-not-disturb-help.tsx#ANDROID_STEPS": "5c5ab8da08ace730",
+        "src/components/dashboard/do-not-disturb-help.tsx#IOS_STEPS": "0a8b70365c4d6c18",
         "src/components/connect-device-form.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/connect-device-form.tsx#ConnectDeviceForm": "504cf61269aeb8be",
         "src/components/connect-device-form.tsx#ConnectDeviceFormProps": "9457fbf012b24788",
@@ -498,23 +587,36 @@
         "src/lib/invitation.ts#shareInvitation": "dd24dbafa85e8407",
         "src/lib/invitation.ts#ShareOutcome": "1ae0142d0dccc3b3",
         "src/components/dashboard/delete-home-setting.tsx#<module>": "80e0e5af9bb4622c",
-        "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting/remove": "fe0c945e9b7548f7",
-        "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting~shell": "d0d53822eee7aeef",
+        "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting/remove": "a5ff7c1cb19f990e",
+        "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting~shell": "e5937987e46e5c1d",
         "src/components/dashboard/delete-home-setting.tsx#blockedReason": "f5b98ae0b7735d02",
         "src/components/doorbell-pause-control.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/doorbell-pause-control.tsx#DoorbellPauseControl/toggle": "4a3d13f8cfa9c87b",
         "src/components/doorbell-pause-control.tsx#DoorbellPauseControl~shell": "c121cd22a28268e7",
         "src/components/doorbell-pause-control.tsx#DoorbellPauseControlProps": "8198239cda3267da",
         "src/components/doorbell-pause-control.tsx#toggleLabel": "c16b347aa08b439e",
+        "src/components/dashboard/location-setting.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/dashboard/location-setting.tsx#LocationSetting/saveCurrentSpot": "98b9dd37c6c703a3",
+        "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.unsupported": "2315ec8549d0524e",
+        "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.denied": "7cbfb033daaf9e3b",
+        "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.unavailable": "62d5a01feb99dbbb",
+        "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.timeout": "db86fca46fb12b99",
+        "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES~frame": "e1049ee3f44e36cc",
+        "src/components/dashboard/location-setting.tsx#LocationSetting/toggle": "123013873fd8eebd",
+        "src/components/dashboard/location-setting.tsx#LocationSetting/clear": "804a999a56854a37",
+        "src/components/dashboard/location-setting.tsx#LocationSetting~shell": "5d239f588f0add34",
+        "src/components/dashboard/location-setting.tsx#locationDescription": "60b64fc9acca84a5",
+        "src/components/dashboard/location-setting.tsx#saveSpotLabel": "320bc2e07496b583",
+        "src/components/dashboard/location-setting.tsx#toggleLabel": "1b36cadf7059523a",
         "src/constants/doorbell.ts#PAUSE_OPTIONS": "1f96fc709f16f5bd",
         "src/constants/doorbell.ts#DOORBELL.responseWindowSeconds": "3118d14dd26e2d8e",
         "src/constants/time.ts#TIME.secondMs": "3fbb41a7bfbb9a23",
-        "src/lib/visit-format.ts#<module>": "2da3ec2294295eb1",
         "src/lib/visit-format.ts#DELIVERY_LABELS.registered": "72a42921cd5cc4d3",
         "src/lib/visit-format.ts#DELIVERY_LABELS.sent": "ad7d298677b62d55",
         "src/lib/visit-format.ts#DELIVERY_LABELS.partial": "626a62c589c212aa",
         "src/lib/visit-format.ts#DELIVERY_LABELS.unavailable": "577a55f3e173f763",
         "src/lib/visit-format.ts#DELIVERY_LABELS~frame": "46465036860d68db",
+        "src/constants/chat.ts#CHAT.windowSeconds": "70a6ffbb03c8791b",
         "src/lib/visit-format.ts#replyOutcomeMessage": "c3a1d82e36d409da",
         "src/lib/visit-format.ts#answerSummary": "fb239513107df485",
         "src/lib/visit-format.ts#responseTime": "3ca76b766ecb2c00",
@@ -522,6 +624,12 @@
         "src/lib/visit-format.ts#visitTime": "f354bcc96505ee27",
         "src/constants/homes.ts#LEGACY_DEVICE_NAMES": "f1e4e5e9a32df184",
         "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
+        "src/types/app.ts#<module>": "2da3ec2294295eb1",
+        "src/types/app.ts#AppVersion": "dfef70ccf6c852b7",
+        "src/lib/api.ts#pendingMutations": "f566379610e11aaa",
+        "src/lib/pending-navigations.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/pending-navigations.ts#pendingNavigations": "498634cd58f315cd",
+        "src/lib/pending-navigations.ts#navigationsInFlight": "b4116232198ba8d7",
         "src/constants/polling.ts#<module>": "2da3ec2294295eb1",
         "src/constants/polling.ts#DASHBOARD_POLLING~frame": "bf4d325535fa9ab0",
         "src/constants/polling.ts#DASHBOARD_POLLING.answeringMs": "b199ae02594f958c",
@@ -534,119 +642,441 @@
         "src/constants/devices.ts#NOTIFICATION_SKIP_STORAGE_KEY": "61997882b746eba4",
         "src/lib/notification-setup.ts#<module>": "2da3ec2294295eb1",
         "src/lib/notification-setup.ts#needsNotificationSetup": "59b5b4179a9023d5",
+        "src/lib/pending-navigations.ts#holdNavigation": "6d44a8b3f7f6d80c",
+        "src/lib/chat-protocol.ts#ChatMessage": "d4c54352d41d8bfc",
+        "src/constants/chat.ts#CHAT_REJECTIONS~frame": "1b6ad59b2a11cdf9",
+        "src/constants/chat.ts#ChatRejection": "8c6449713b5c693d",
+        "src/constants/chat.ts#CHAT_REJECTIONS.CHAT_CLOSED": "ac4fc8a6ca2054fd",
+        "src/components/chat/use-chat-connection.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/use-chat-connection.ts#useChatConnection/reconnect": "d18e45fbb9dc34f4",
+        "src/components/chat/use-chat-connection.ts#useChatConnection~shell": "f3668ff96057232b",
+        "src/components/chat/use-chat-connection.ts#ChatConnectionOptions": "52042a857cd5b89e",
+        "src/components/chat/use-chat-connection.ts#NORMAL_CLOSURE": "cb38aa4f537e23d7",
+        "src/components/chat/use-chat-outbox.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/update": "564637151b3fe98d",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer": "6f4d6725fc7c7de8",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/markFailed": "3a91d36dae8cd2f7",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell": "59a666a9a2bc69ad",
+        "src/components/chat/use-chat-outbox.ts#OutgoingMessage": "4cf5a4fda9a307a8",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit": "e5fa1e11356c1ba9",
+        "src/components/chat/use-chat-outbox.ts#OPEN_SOCKET": "a9f61646834c209c",
+        "src/components/chat/use-chat-outbox.ts#UNCONFIRMED_FAILURE": "21d6ef47661d337c",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/add": "c22279f7d32c3fca",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/retry": "ecc44037ba3b5ca0",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/confirm": "c1fb087481f0e869",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/discard": "7eed0837efa7ee95",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/resendWaiting": "68d24024bf7891db",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/failWaiting": "e27d3c997d35bb10",
+        "src/constants/chat.ts#CHAT_REJECTIONS.MESSAGE_INVALID": "501897bfe6fd687f",
+        "src/constants/chat.ts#CHAT_REJECTIONS.ROOM_FULL": "a47414b7e9d3761b",
         "src/lib/device-name.ts#freeDeviceName": "e3ae024e7275c15f",
         "src/lib/device-name.ts#suggestedDeviceName": "a479dde2b250f7b4",
+        "src/components/use-browser-user-agent.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/use-browser-user-agent.ts#useBrowserUserAgent": "a356cbdeafb52ba6",
+        "src/components/use-browser-user-agent.ts#browserUserAgent": "7bde3da7090a3240",
+        "src/components/use-browser-user-agent.ts#serverUserAgent": "c8bf5282aa3074b0",
+        "src/components/use-browser-user-agent.ts#subscribeToNothing": "8874deeda0c25d24",
+        "src/components/use-browser-user-agent.ts#ignoreChanges": "09a3a87684b1023b",
+        "src/components/use-browser-user-agent.ts#phonePlatform": "5787c1eae77302a3",
+        "src/lib/browser-location.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/browser-location.ts#currentPosition": "1f4a822bd05e8665",
+        "src/lib/browser-location.ts#FAILURES.1": "2dfa1bcca4caeb04",
+        "src/lib/browser-location.ts#FAILURES.2": "478ee910d5fa47d7",
+        "src/lib/browser-location.ts#FAILURES.3": "7d6dbdea3c00f5cc",
+        "src/lib/browser-location.ts#FAILURES~frame": "9f216e85f43e9198",
+        "src/lib/browser-location.ts#LocationError": "7657f967541e2193",
+        "src/lib/browser-location.ts#locationFailure": "a780ebc5a357963e",
+        "src/lib/browser-location.ts#LocationFailure": "c9b9ed8cb2ae7809",
+        "src/constants/location.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/location.ts#NEARBY_RINGING~frame": "5e372ca440b25e82",
+        "src/constants/location.ts#NEARBY_RINGING.radiusMeters": "009c41a389d2a242",
+        "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds": "fd33aa68acf00bfc",
         "src/constants/time.ts#TIME.minuteSeconds": "f1911953e4c3484f",
         "src/constants/dashboard-views.ts#DASHBOARD_VIEWS": "d423df9642036c8e",
+        "src/constants/chat.ts#CHAT.reconnect": "e38cac43f1dd6580",
+        "src/lib/chat-protocol.ts#chatSocketProtocols": "56e4fa1b65ba691a",
+        "src/lib/chat-protocol.ts#parseServerChatMessage": "ad46eb31cd21b837",
+        "src/lib/chat-protocol.ts#ServerChatMessage": "014f0abcbdc8dd80",
+        "src/lib/chat-protocol.ts#isChatMessage": "05880347bd5601e9",
+        "src/constants/chat.ts#CHAT.sendTimeoutMs": "ed757eb5f80c7072",
         "src/constants/devices.ts#DEVICES.defaultName": "52ad5da0efc5311f",
         "src/constants/devices.ts#DEVICE_PLATFORMS": "93d83a1505fb18a0",
-        "src/lib/names.ts#uniqueName": "57ac10b978c09992"
+        "src/lib/names.ts#uniqueName": "57ac10b978c09992",
+        "src/constants/location.ts#NEARBY_RINGING.maximumAgeMs": "9c8c4203c867e88f",
+        "src/constants/location.ts#NEARBY_RINGING.timeoutMs": "cf97c5d719aa756d",
+        "src/lib/geo.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/geo.ts#Position": "63540c878fddb94d",
+        "src/lib/geo.ts#Coordinates": "12fd7a90e5c8f018",
+        "src/constants/chat.ts#CHAT.protocol": "adf3b049ef72ae91"
       },
       "uncommittedFiles": [
-        "src/app/api/subscribe/route.ts",
-        "src/components/connect-device-form.tsx",
+        "src/app/api/chat/access/route.ts",
+        "src/components/chat/use-chat-connection.ts",
+        "src/components/chat/use-chat-outbox.ts",
+        "src/components/chat/use-visit-chat.ts",
+        "src/components/chat/visit-chat.tsx",
         "src/components/dashboard.tsx",
-        "src/components/dashboard/devices-section.tsx",
-        "src/components/dashboard/qr-panel.tsx",
-        "src/components/dashboard/use-device-name-suggestion.ts",
-        "src/components/dashboard/use-push-device.ts",
-        "src/components/device-name-dialog.tsx",
-        "src/components/notification-onboarding.tsx",
-        "src/components/required-name-dialog.tsx",
-        "src/components/resident-name-dialog.tsx",
-        "src/constants/devices.ts",
-        "src/lib/device-name.ts",
-        "src/server/push.ts"
+        "src/components/dashboard/visit-history.tsx",
+        "src/constants/chat.ts",
+        "src/constants/doorbell.ts",
+        "src/constants/push.ts",
+        "src/lib/chat-protocol.ts",
+        "src/lib/visit-format.ts",
+        "src/server/chat.ts",
+        "src/server/http.ts",
+        "src/types/doorbell.ts"
       ]
     },
     "evidence": [
       {
         "kind": "review",
         "outcome": "pass",
-        "recordedAt": "2026-10-30T17:26:54.822Z",
+        "recordedAt": "2026-10-31T01:31:58.938Z",
         "source": "attested",
-        "summary": "Conectar este dispositivo pide su nombre (precargado, obligatorio, no genérico ni repetido) en el modal de bienvenida y en Dispositivos, con el error junto al campo antes de pedir permiso; «¿Cómo se llama este dispositivo?» obligatorio para un dispositivo conectado como «Mi celular»; renombrar valida antes del pedido; separación entre «Imprimir cartel» y «Descargar QR»."
+        "summary": "Historial: botón «Chat con la visita»/«Ocultar chat» con aria-expanded/aria-controls por timbrazo; un chat abierto a la vez; se abre solo al llegar desde la notificación de una visita con chat abierto (now nulo en SSR, sin mismatch). Mismos estados del panel de chat que la visita; un chat cerrado se lee sin composer y sin hilo vacío muestra «No hubo mensajes». Pestaña oculta cierra el socket para no apagar los avisos de los celulares."
       },
       {
-        "command": "npx vitest run tests/labels.test.ts tests/devices.test.ts tests/residents.test.ts",
-        "durationMs": 5842,
+        "command": "fnm exec --using=24 -- npx.cmd playwright test tests/e2e/visit-chat.spec.ts tests/e2e/dashboard-polling.spec.ts tests/e2e/dashboard-reconcile.spec.ts --reporter=line",
+        "durationMs": 36570,
         "exitCode": 0,
         "kind": "test",
         "outcome": "pass",
-        "outputSha256": "c605d961b874d5b7eeed51222b4778488a2c9f79c61b05381e02ebcc86c92993",
-        "recordedAt": "2026-10-30T17:27:00.909Z",
-        "source": "witnessed",
-        "summary": "exit code 0"
-      },
-      {
-        "command": "npx playwright test tests/e2e/device-names.spec.ts tests/e2e/notification-onboarding.spec.ts tests/e2e/device-disconnect.spec.ts tests/e2e/dashboard-reconcile.spec.ts --reporter=line",
-        "durationMs": 24277,
-        "exitCode": 0,
-        "kind": "test",
-        "outcome": "pass",
-        "outputSha256": "16aa77ebe201429294cfd32a40691cef3d120b89ed4a52c5364fe0eb35dd0a34",
-        "recordedAt": "2026-10-30T17:27:25.448Z",
+        "outputSha256": "dc85dc9bf787afb69d1a6bd8b7609a2fa4932f8095dd91673b5edbdf6fe24313",
+        "recordedAt": "2026-10-31T01:32:35.970Z",
         "source": "witnessed",
         "summary": "exit code 0"
       },
       {
         "kind": "browser",
         "outcome": "pass",
-        "recordedAt": "2026-10-30T17:27:25.680Z",
+        "recordedAt": "2026-10-31T01:32:36.329Z",
         "source": "attested",
-        "summary": "Playwright (Chromium) con el Dashboard real y PostgreSQL embebido: nombre genérico o repetido rechazado junto al campo al conectar, renombrar y en el diálogo obligatorio; reconexión con nombre propio; capturas a 390 px del modal, el aviso de Dispositivos, el diálogo y el panel del QR."
+        "summary": "Recorridos en tests/e2e/visit-chat.spec.ts: chat en vivo entre visita y residente, apertura desde notificación, ocultar chat, corte de conexión con «Reconectando…» y reenvío sin duplicar, cierre de la ventana con reloj adelantado y lectura sin composer.",
+        "tool": "Playwright + Chromium"
       }
     ],
-    "limitations": [],
+    "limitations": [
+      "Sin lector de pantalla: roles (region, log, status) y labels verificados con Playwright."
+    ],
     "mode": "incremental",
     "pendingChecks": [],
-    "recordedAt": "2026-10-30T17:27:26.336Z",
+    "recordedAt": "2026-10-31T01:32:37.442Z",
     "result": "verified",
-    "runId": "20261030T172648Z-cdd595",
+    "runId": "20261031T013158Z-d41239",
     "scope": {
       "decision": "incremental",
       "reasons": [
-        "52 relevant change(s) since the verified run"
+        "173 relevant change(s) since the verified run"
       ],
       "relevantChangesAtBegin": [
         {
+          "change": "added",
+          "key": "src/app/api/chat/access/route.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/chat/access/route.ts#dynamic",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/chat/access/route.ts#GET",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/app/api/chat/access/route.ts#runtime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-connection.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-connection.ts#ChatConnectionOptions",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-connection.ts#NORMAL_CLOSURE",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-connection.ts#useChatConnection/reconnect",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-connection.ts#useChatConnection~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#OPEN_SOCKET",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#OutgoingMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#UNCONFIRMED_FAILURE",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/add",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/confirm",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/discard",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/failWaiting",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/markFailed",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/resendWaiting",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/retry",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/update",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#chatStatus",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#ChatStatus",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#ChatViewer",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#isOwn",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#subscribeToVisibility",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#ThreadMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#usePageVisible",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/endChat",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/onAccess",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/receive",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/send",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#VisitChatOptions",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#withMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#authorLabel",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatComposer/onKeyDown",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatComposer/submit",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatComposer~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatConnectionStatus",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatThread",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#MessageDelivery",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT.connecting",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT.paused",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT.reconnecting",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#useStickToLatest/jumpToLatest",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#useStickToLatest/onScroll",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#useStickToLatest~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ViewerRole",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#VisitChat",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#VisitChatProps",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#VisitChatState",
+          "reason": "new visible or interactive code"
+        },
+        {
           "change": "modified",
-          "key": "src/app/api/subscribe/route.ts#subscribeSchema",
+          "key": "src/components/dashboard.tsx#Dashboard/signOut",
           "reason": "visible or interactive code changed"
-        },
-        {
-          "change": "added",
-          "key": "src/components/connect-device-form.tsx#<module>",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/connect-device-form.tsx#ConnectDeviceForm",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/connect-device-form.tsx#ConnectDeviceFormProps",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "modified",
-          "key": "src/components/dashboard.tsx#Dashboard/activateNotifications",
-          "reason": "visible or interactive code changed"
-        },
-        {
-          "change": "added",
-          "key": "src/components/dashboard.tsx#Dashboard/deviceNamesExcept",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/dashboard.tsx#Dashboard/saveDeviceName",
-          "reason": "new visible or interactive code"
         },
         {
           "change": "modified",
           "key": "src/components/dashboard.tsx#Dashboard~shell",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting/remove",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/dashboard/delete-home-setting.tsx#DeleteHomeSetting~shell",
           "reason": "visible or interactive code changed"
         },
         {
@@ -656,32 +1086,97 @@
         },
         {
           "change": "added",
-          "key": "src/components/dashboard/devices-section.tsx#DevicesSectionProps",
+          "key": "src/components/dashboard/do-not-disturb-help.tsx#<module>",
           "reason": "new visible or interactive code"
-        },
-        {
-          "change": "modified",
-          "key": "src/components/dashboard/devices-section.tsx#RenameForm",
-          "reason": "visible or interactive code changed"
         },
         {
           "change": "added",
-          "key": "src/components/dashboard/devices-section.tsx#RenameFormProps",
+          "key": "src/components/dashboard/do-not-disturb-help.tsx#ANDROID_STEPS",
           "reason": "new visible or interactive code"
-        },
-        {
-          "change": "modified",
-          "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCallout",
-          "reason": "visible or interactive code changed"
         },
         {
           "change": "added",
-          "key": "src/components/dashboard/devices-section.tsx#ThisDeviceCalloutProps",
+          "key": "src/components/dashboard/do-not-disturb-help.tsx#DoNotDisturbHelp",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/do-not-disturb-help.tsx#IOS_STEPS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#locationDescription",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#LocationSetting/clear",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#LocationSetting/saveCurrentSpot",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#LocationSetting/toggle",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#LocationSetting~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.denied",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.timeout",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.unavailable",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES.unsupported",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#RESIDENT_LOCATION_FAILURES~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#saveSpotLabel",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/location-setting.tsx#toggleLabel",
           "reason": "new visible or interactive code"
         },
         {
           "change": "modified",
-          "key": "src/components/dashboard/qr-panel.tsx#QrPanel~shell",
+          "key": "src/components/dashboard/settings-section.tsx#SettingsSection",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/dashboard/use-dashboard-state.ts#useDashboardState/run",
           "reason": "visible or interactive code changed"
         },
         {
@@ -690,239 +1185,630 @@
           "reason": "visible or interactive code changed"
         },
         {
-          "change": "added",
-          "key": "src/components/dashboard/use-device-name-suggestion.ts#<module>",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/dashboard/use-device-name-suggestion.ts#browserUserAgent",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/dashboard/use-device-name-suggestion.ts#ignoreChanges",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/dashboard/use-device-name-suggestion.ts#serverUserAgent",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/dashboard/use-device-name-suggestion.ts#subscribeToNothing",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/components/dashboard/use-device-name-suggestion.ts#useDeviceNameSuggestion",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "modified",
-          "key": "src/components/dashboard/use-push-device.ts#usePushDevice/activate",
-          "reason": "visible or interactive code changed"
-        },
-        {
-          "change": "modified",
-          "key": "src/components/dashboard/use-push-device.ts#usePushDevice~shell",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "added",
-          "key": "src/components/device-name-dialog.tsx#<module>",
+          "key": "src/components/dashboard/visit-history.tsx#chatClosesAt",
           "reason": "new visible or interactive code"
         },
         {
           "change": "added",
-          "key": "src/components/device-name-dialog.tsx#DeviceNameDialog",
+          "key": "src/components/dashboard/visit-history.tsx#ResidentChat/requestAccess",
           "reason": "new visible or interactive code"
         },
         {
           "change": "added",
-          "key": "src/components/device-name-dialog.tsx#DeviceNameDialogProps",
+          "key": "src/components/dashboard/visit-history.tsx#ResidentChat~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/dashboard/visit-history.tsx#useExpandedChat",
           "reason": "new visible or interactive code"
         },
         {
           "change": "modified",
-          "key": "src/components/notification-onboarding.tsx#NotificationOnboarding",
-          "reason": "visible or interactive code changed"
-        },
-        {
-          "change": "modified",
-          "key": "src/components/notification-onboarding.tsx#NotificationOnboardingProps",
-          "reason": "visible or interactive code changed"
-        },
-        {
-          "change": "modified",
-          "key": "src/components/notification-onboarding.tsx#onboardingCopy",
+          "key": "src/components/dashboard/visit-history.tsx#VisitHistory~shell",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "added",
-          "key": "src/components/required-name-dialog.tsx#<module>",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/required-name-dialog.tsx#RequiredNameDialog",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/components/required-name-dialog.tsx#RequiredNameDialogProps",
+          "key": "src/components/dashboard/visit-history.tsx#VisitHistoryProps",
           "reason": "new visible or interactive code"
         },
         {
           "change": "modified",
-          "key": "src/components/resident-name-dialog.tsx#ResidentNameDialog",
-          "reason": "visible or interactive code changed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/homes.ts#LEGACY_DEVICE_NAMES",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/device-name.ts#COPY_SUFFIX",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/device-name.ts#deviceNameProblem",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/device-name.ts#deviceNameTakenMessage",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/device-name.ts#freeDeviceName",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/device-name.ts#GENERIC_DEVICE_NAME_MESSAGE",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/device-name.ts#GENERIC_KEYS",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/device-name.ts#isGenericDeviceName",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/names.ts#nameKey",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/names.ts#uniqueName",
-          "reason": "new visible or interactive code"
-        },
-        {
-          "change": "modified",
-          "key": "src/server/doorbell.ts#answerVisit",
+          "key": "src/components/home-switcher.tsx#NewHomeForm/create",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "modified",
-          "key": "src/server/doorbell.ts#HOME_DEVICES",
+          "key": "src/components/home-switcher.tsx#NewHomeForm~shell",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "modified",
-          "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
+          "key": "src/components/resident-management.tsx#ResidentManagement/applyConfirmed",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "modified",
-          "key": "src/server/push.ts#deviceNameTaken",
+          "key": "src/components/resident-management.tsx#ResidentManagement/update",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagement~shell",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "added",
-          "key": "src/server/push.ts#rejectGenericDeviceName",
+          "key": "src/components/use-app-updates.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-app-updates.ts#AppUpdatesOptions",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-app-updates.ts#useAppUpdates",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#phonePlatform",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#useBrowserUserAgent",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-tracked-navigation.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-tracked-navigation.ts#useTrackedNavigation",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS.CHAT_CLOSED",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS.MESSAGE_INVALID",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS.ROOM_FULL",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.messageMaxLength",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.protocol",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.reconnect",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.scrollStickinessPx",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.sendTimeoutMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.windowSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#ChatRejection",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#NEARBY_RINGING.maximumAgeMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#NEARBY_RINGING.timeoutMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#NEARBY_RINGING~frame",
           "reason": "new visible or interactive code"
         },
         {
           "change": "modified",
-          "key": "src/server/push.ts#renameDevice",
+          "key": "src/lib/api.ts#api",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#mutationsInFlight",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#pendingMutations",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#request",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#currentPosition",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#FAILURES.1",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#FAILURES.2",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#FAILURES.3",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#FAILURES~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#LocationError",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#locationFailure",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#LocationFailure",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#ChatAccess",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#ChatMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#ChatRole",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#chatSocketProtocols",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#isChatMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#parseServerChatMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#ServerChatMessage",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/geo.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/geo.ts#Coordinates",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/geo.ts#Position",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pending-navigations.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pending-navigations.ts#holdNavigation",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pending-navigations.ts#navigationsInFlight",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pending-navigations.ts#pendingNavigations",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/visit-format.ts#chatTime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#ChatContext",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#chatSettings",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#ChatSettings",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#closingTime",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#issueAccess",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#requireChat",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#residentChatAccess",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#visitNotFound",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#visitTiming",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#MIGRATIONS",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "modified",
-          "key": "src/server/push.ts#saveDevice",
+          "key": "src/server/doorbell.ts#HOME_COLUMNS",
           "reason": "visible or interactive code changed"
         },
         {
           "change": "modified",
-          "key": "src/server/residents.ts#resolveHomeAccess",
+          "key": "src/server/http.ts#apiRoute",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#ApiRouteOptions",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/http.ts#readJson",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#readText",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/push.ts#recordDeliveryHealth",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/push.ts#recordPushReceipt",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/push.ts#upsertDevice",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/app.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/app.ts#AppVersion",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#DashboardData",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#Home",
           "reason": "visible or interactive code changed"
         }
       ],
       "suggestedScope": [
-        "src/app/api/subscribe/route.ts › subscribeSchema — behavior of this code in every state of the unit that uses it",
-        "src/components/connect-device-form.tsx (module directives and side effects) — client/server boundary and side effects of the module",
-        "src/components/connect-device-form.tsx › ConnectDeviceForm — behavior of this code in every state of the unit that uses it",
-        "src/components/connect-device-form.tsx › ConnectDeviceFormProps — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard.tsx › Dashboard › activateNotifications — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
-        "src/components/dashboard.tsx › Dashboard › deviceNamesExcept — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
-        "src/components/dashboard.tsx › Dashboard › saveDeviceName — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/app/api/chat/access/route.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/app/api/chat/access/route.ts › dynamic — behavior of this code in every state of the unit that uses it",
+        "src/app/api/chat/access/route.ts › GET — behavior of this code in every state of the unit that uses it",
+        "src/app/api/chat/access/route.ts › runtime — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-chat-connection.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/chat/use-chat-connection.ts › ChatConnectionOptions — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-chat-connection.ts › NORMAL_CLOSURE — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-chat-connection.ts › useChatConnection › reconnect — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-connection.ts › useChatConnection (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/chat/use-chat-outbox.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/chat/use-chat-outbox.ts › OPEN_SOCKET — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-chat-outbox.ts › OutgoingMessage — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-chat-outbox.ts › UNCONFIRMED_FAILURE — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › add — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › confirm — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › discard — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › failWaiting — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › markFailed — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › resendWaiting — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › retry — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › stopTimer — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › transmit — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › update — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/chat/use-visit-chat.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/chat/use-visit-chat.ts › chatStatus — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › ChatStatus — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › ChatViewer — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › isOwn — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › subscribeToVisibility — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › ThreadMessage — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › usePageVisible — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › endChat — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › onAccess — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › receive — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › send — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/use-visit-chat.ts › useVisitChat (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/chat/use-visit-chat.ts › VisitChatOptions — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/use-visit-chat.ts › withMessage — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/chat/visit-chat.tsx › authorLabel — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › ChatComposer › onKeyDown — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/visit-chat.tsx › ChatComposer › submit — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/visit-chat.tsx › ChatComposer (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/chat/visit-chat.tsx › ChatConnectionStatus — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › ChatThread — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › MessageDelivery — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › STATUS_TEXT.connecting — copy or configuration read from this member, in every state that shows it",
+        "src/components/chat/visit-chat.tsx › STATUS_TEXT.paused — copy or configuration read from this member, in every state that shows it",
+        "src/components/chat/visit-chat.tsx › STATUS_TEXT.reconnecting — copy or configuration read from this member, in every state that shows it",
+        "src/components/chat/visit-chat.tsx › STATUS_TEXT (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › useStickToLatest › jumpToLatest — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/visit-chat.tsx › useStickToLatest › onScroll — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/chat/visit-chat.tsx › useStickToLatest (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/chat/visit-chat.tsx › ViewerRole — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › VisitChat — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › VisitChatProps — behavior of this code in every state of the unit that uses it",
+        "src/components/chat/visit-chat.tsx › VisitChatState — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard.tsx › Dashboard › signOut — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
         "src/components/dashboard.tsx › Dashboard (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/dashboard/delete-home-setting.tsx › DeleteHomeSetting › remove — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/dashboard/delete-home-setting.tsx › DeleteHomeSetting (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
         "src/components/dashboard/devices-section.tsx › DevicesSection — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/devices-section.tsx › DevicesSectionProps — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/devices-section.tsx › RenameForm — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/devices-section.tsx › RenameFormProps — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/devices-section.tsx › ThisDeviceCallout — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/devices-section.tsx › ThisDeviceCalloutProps — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/qr-panel.tsx › QrPanel (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/dashboard/do-not-disturb-help.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/dashboard/do-not-disturb-help.tsx › ANDROID_STEPS — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/do-not-disturb-help.tsx › DoNotDisturbHelp — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/do-not-disturb-help.tsx › IOS_STEPS — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/location-setting.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/dashboard/location-setting.tsx › locationDescription — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/location-setting.tsx › LocationSetting › clear — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/dashboard/location-setting.tsx › LocationSetting › saveCurrentSpot — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/dashboard/location-setting.tsx › LocationSetting › toggle — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/dashboard/location-setting.tsx › LocationSetting (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.denied — copy or configuration read from this member, in every state that shows it",
+        "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.timeout — copy or configuration read from this member, in every state that shows it",
+        "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.unavailable — copy or configuration read from this member, in every state that shows it",
+        "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES.unsupported — copy or configuration read from this member, in every state that shows it",
+        "src/components/dashboard/location-setting.tsx › RESIDENT_LOCATION_FAILURES (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/location-setting.tsx › saveSpotLabel — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/location-setting.tsx › toggleLabel — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/settings-section.tsx › SettingsSection — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/use-dashboard-state.ts › useDashboardState › run — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
         "src/components/dashboard/use-dashboard-state.ts › useDashboardState (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
-        "src/components/dashboard/use-device-name-suggestion.ts (module directives and side effects) — client/server boundary and side effects of the module",
-        "src/components/dashboard/use-device-name-suggestion.ts › browserUserAgent — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/use-device-name-suggestion.ts › ignoreChanges — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/use-device-name-suggestion.ts › serverUserAgent — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/use-device-name-suggestion.ts › subscribeToNothing — behavior of this code in every state of the unit that uses it",
         "src/components/dashboard/use-device-name-suggestion.ts › useDeviceNameSuggestion — behavior of this code in every state of the unit that uses it",
-        "src/components/dashboard/use-push-device.ts › usePushDevice › activate — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
-        "src/components/dashboard/use-push-device.ts › usePushDevice (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
-        "src/components/device-name-dialog.tsx (module directives and side effects) — client/server boundary and side effects of the module",
-        "src/components/device-name-dialog.tsx › DeviceNameDialog — behavior of this code in every state of the unit that uses it",
-        "src/components/device-name-dialog.tsx › DeviceNameDialogProps — behavior of this code in every state of the unit that uses it",
-        "src/components/notification-onboarding.tsx › NotificationOnboarding — behavior of this code in every state of the unit that uses it",
-        "src/components/notification-onboarding.tsx › NotificationOnboardingProps — behavior of this code in every state of the unit that uses it",
-        "src/components/notification-onboarding.tsx › onboardingCopy — behavior of this code in every state of the unit that uses it",
-        "src/components/required-name-dialog.tsx (module directives and side effects) — client/server boundary and side effects of the module",
-        "src/components/required-name-dialog.tsx › RequiredNameDialog — behavior of this code in every state of the unit that uses it",
-        "src/components/required-name-dialog.tsx › RequiredNameDialogProps — behavior of this code in every state of the unit that uses it",
-        "src/components/resident-name-dialog.tsx › ResidentNameDialog — behavior of this code in every state of the unit that uses it",
-        "src/constants/homes.ts › LEGACY_DEVICE_NAMES — behavior of this code in every state of the unit that uses it",
-        "src/lib/device-name.ts › COPY_SUFFIX — behavior of this code in every state of the unit that uses it",
-        "src/lib/device-name.ts › deviceNameProblem — behavior of this code in every state of the unit that uses it",
-        "src/lib/device-name.ts › deviceNameTakenMessage — behavior of this code in every state of the unit that uses it",
-        "src/lib/device-name.ts › freeDeviceName — behavior of this code in every state of the unit that uses it",
-        "src/lib/device-name.ts › GENERIC_DEVICE_NAME_MESSAGE — behavior of this code in every state of the unit that uses it",
-        "src/lib/device-name.ts › GENERIC_KEYS — behavior of this code in every state of the unit that uses it",
-        "src/lib/device-name.ts › isGenericDeviceName — behavior of this code in every state of the unit that uses it",
-        "src/lib/names.ts › nameKey — behavior of this code in every state of the unit that uses it",
-        "src/lib/names.ts › uniqueName — behavior of this code in every state of the unit that uses it",
-        "src/server/doorbell.ts › answerVisit — behavior of this code in every state of the unit that uses it",
-        "src/server/doorbell.ts › HOME_DEVICES — behavior of this code in every state of the unit that uses it",
-        "src/server/doorbell.ts › PAUSE_UPDATES.morning — copy or configuration read from this member, in every state that shows it",
-        "src/server/push.ts › deviceNameTaken — behavior of this code in every state of the unit that uses it",
-        "src/server/push.ts › rejectGenericDeviceName — behavior of this code in every state of the unit that uses it",
-        "src/server/push.ts › renameDevice — behavior of this code in every state of the unit that uses it",
-        "src/server/push.ts › saveDevice — behavior of this code in every state of the unit that uses it",
-        "src/server/residents.ts › resolveHomeAccess — behavior of this code in every state of the unit that uses it"
+        "src/components/dashboard/visit-history.tsx › chatClosesAt — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/visit-history.tsx › ResidentChat › requestAccess — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/dashboard/visit-history.tsx › ResidentChat (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/dashboard/visit-history.tsx › useExpandedChat — behavior of this code in every state of the unit that uses it",
+        "src/components/dashboard/visit-history.tsx › VisitHistory (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/dashboard/visit-history.tsx › VisitHistoryProps — behavior of this code in every state of the unit that uses it",
+        "src/components/home-switcher.tsx › NewHomeForm › create — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/home-switcher.tsx › NewHomeForm (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/resident-management.tsx › ResidentManagement › applyConfirmed — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/resident-management.tsx › ResidentManagement › update — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/use-app-updates.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/use-app-updates.ts › AppUpdatesOptions — behavior of this code in every state of the unit that uses it",
+        "src/components/use-app-updates.ts › useAppUpdates — behavior of this code in every state of the unit that uses it",
+        "src/components/use-browser-user-agent.ts › phonePlatform — behavior of this code in every state of the unit that uses it",
+        "src/components/use-browser-user-agent.ts › useBrowserUserAgent — behavior of this code in every state of the unit that uses it",
+        "src/components/use-tracked-navigation.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/use-tracked-navigation.ts › useTrackedNavigation — behavior of this code in every state of the unit that uses it",
+        "src/constants/chat.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/constants/chat.ts › CHAT_REJECTIONS.CHAT_CLOSED — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT_REJECTIONS.MESSAGE_INVALID — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT_REJECTIONS.ROOM_FULL — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT_REJECTIONS (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/constants/chat.ts › CHAT.messageMaxLength — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT.protocol — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT.reconnect — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT.scrollStickinessPx — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT.sendTimeoutMs — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT.windowSeconds — copy or configuration read from this member, in every state that shows it",
+        "src/constants/chat.ts › CHAT (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/constants/chat.ts › ChatRejection — behavior of this code in every state of the unit that uses it",
+        "src/constants/doorbell.ts › DOORBELL.noteWindowSeconds — copy or configuration read from this member, in every state that shows it",
+        "src/constants/location.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/constants/location.ts › NEARBY_RINGING.maximumAgeMs — copy or configuration read from this member, in every state that shows it",
+        "src/constants/location.ts › NEARBY_RINGING.radiusMeters — copy or configuration read from this member, in every state that shows it",
+        "src/constants/location.ts › NEARBY_RINGING.timeoutMs — copy or configuration read from this member, in every state that shows it",
+        "src/constants/location.ts › NEARBY_RINGING (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › api — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › mutationsInFlight — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › pendingMutations — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › request — behavior of this code in every state of the unit that uses it",
+        "src/lib/browser-location.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/browser-location.ts › currentPosition — behavior of this code in every state of the unit that uses it",
+        "src/lib/browser-location.ts › FAILURES.1 — copy or configuration read from this member, in every state that shows it",
+        "src/lib/browser-location.ts › FAILURES.2 — copy or configuration read from this member, in every state that shows it",
+        "src/lib/browser-location.ts › FAILURES.3 — copy or configuration read from this member, in every state that shows it",
+        "src/lib/browser-location.ts › FAILURES (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/lib/browser-location.ts › LocationError — behavior of this code in every state of the unit that uses it",
+        "src/lib/browser-location.ts › locationFailure — behavior of this code in every state of the unit that uses it",
+        "src/lib/browser-location.ts › LocationFailure — behavior of this code in every state of the unit that uses it",
+        "src/lib/chat-protocol.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/chat-protocol.ts › ChatAccess — behavior of this code in every state of the unit that uses it",
+        "src/lib/chat-protocol.ts › ChatMessage — behavior of this code in every state of the unit that uses it",
+        "src/lib/chat-protocol.ts › ChatRole — behavior of this code in every state of the unit that uses it",
+        "src/lib/chat-protocol.ts › chatSocketProtocols — behavior of this code in every state of the unit that uses it",
+        "src/lib/chat-protocol.ts › isChatMessage — behavior of this code in every state of the unit that uses it",
+        "src/lib/chat-protocol.ts › parseServerChatMessage — behavior of this code in every state of the unit that uses it",
+        "src/lib/chat-protocol.ts › ServerChatMessage — behavior of this code in every state of the unit that uses it",
+        "src/lib/geo.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/geo.ts › Coordinates — behavior of this code in every state of the unit that uses it",
+        "src/lib/geo.ts › Position — behavior of this code in every state of the unit that uses it",
+        "src/lib/pending-navigations.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/pending-navigations.ts › holdNavigation — behavior of this code in every state of the unit that uses it",
+        "src/lib/pending-navigations.ts › navigationsInFlight — behavior of this code in every state of the unit that uses it",
+        "src/lib/pending-navigations.ts › pendingNavigations — behavior of this code in every state of the unit that uses it",
+        "src/lib/visit-format.ts › chatTime — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/server/chat.ts › ChatContext — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › chatSettings — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › ChatSettings — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › closingTime — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › issueAccess — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › requireChat — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › residentChatAccess — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › visitNotFound — behavior of this code in every state of the unit that uses it",
+        "src/server/chat.ts › visitTiming — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › MIGRATIONS — behavior of this code in every state of the unit that uses it",
+        "src/server/doorbell.ts › HOME_COLUMNS — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › apiRoute — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › ApiRouteOptions — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › readJson — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › readText — behavior of this code in every state of the unit that uses it",
+        "src/server/push.ts › recordDeliveryHealth — behavior of this code in every state of the unit that uses it",
+        "src/server/push.ts › recordPushReceipt — behavior of this code in every state of the unit that uses it",
+        "src/server/push.ts › upsertDevice — behavior of this code in every state of the unit that uses it",
+        "src/types/app.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/types/app.ts › AppVersion — behavior of this code in every state of the unit that uses it",
+        "src/types/doorbell.ts › DashboardData — behavior of this code in every state of the unit that uses it",
+        "src/types/doorbell.ts › Home — behavior of this code in every state of the unit that uses it"
       ]
     },
     "skill": {
@@ -938,6 +1824,7 @@
       "name": "ui-ux-flow-patterns",
       "version": "1.5.0"
     },
-    "report": "runs/20261030T172648Z-cdd595.json"
+    "summary": "Chat de la visita",
+    "report": "runs/20261031T013158Z-d41239.json"
   }
 }

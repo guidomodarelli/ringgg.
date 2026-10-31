@@ -1,0 +1,58 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:5852c3eb4b1b0abc51608f9f9770422d73d1e10598385782af06c9ebd4222541",
+    "uncommittedFiles": [
+      "chat/src/chat-room.ts",
+      "chat/src/env.ts",
+      "chat/src/index.ts",
+      "chat/src/notify.ts",
+      "chat/src/room-store.ts",
+      "src/app/api/chat/notify/route.ts",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts",
+      "src/lib/chat-protocol.ts",
+      "src/server/chat.ts",
+      "src/server/environment.ts",
+      "src/server/http.ts"
+    ],
+    "fileCount": 26,
+    "inputCount": 211
+  },
+  "evidence": [],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:38:00.518Z",
+  "result": "not-applicable",
+  "runId": "20261031T013759Z-ded50f",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.chat.worker: map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e10abe05f2183949",
+      "references/decision-rules.md": "5340413b30d4e7a7",
+      "references/nextjs-apis.md": "f605e820b5b5f34e",
+      "references/server-client-split.md": "748fa0a77772932b",
+      "references/skeleton-patterns.md": "65d4c31f0f8beb93",
+      "references/version-notes.md": "b6f6488947de60f0"
+    },
+    "definitionHash": "sha256:84aecfd00b66834709d022b71d64dfc146e8b312ec6b12736b9e8992b47dd958",
+    "name": "nextjs-route-ui-boundaries",
+    "version": "1.3.0"
+  },
+  "summary": "Route handler sin UI ni boundaries; el Worker no es Next.js.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:37:59.665Z",
+  "unitId": "ringgg.chat.worker"
+}

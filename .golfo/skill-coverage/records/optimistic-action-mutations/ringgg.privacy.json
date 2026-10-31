@@ -2,22 +2,25 @@
   "latest": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "feature/nombrar-dispositivo",
-      "commit": "534f6ee89c47fe40a1f7245085417e6f071a6060",
+      "branch": "feature/chat-visita",
+      "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
       "files": {
-        "src/app/privacidad/page.tsx": "b2bf6787955c31df",
+        "src/app/privacidad/page.tsx": "608b3f448657362a",
         "src/constants/legal.ts": "fe4d3b8d268343bb",
         "src/components/brand.tsx": "0aca2f770c5b0b91",
-        "src/constants/doorbell.ts": "2edd18d9afbb7d3f"
+        "src/constants/chat.ts": "c931a0dee7bf7c72",
+        "src/constants/doorbell.ts": "c888dd9c0c1a7214",
+        "src/constants/location.ts": "1a083ca74dae65a3",
+        "src/constants/time.ts": "199df09277e5fcba"
       },
-      "fingerprint": "sha256:af5a4f3f026cc6b32a38778f3ab7f0b7f50f2793c12f25747a95689f632672d1",
+      "fingerprint": "sha256:67af3d8d139755c88b1574e34854b00f9bf77378e9b1053db5d249822883b552",
       "inputs": {
         "src/app/privacidad/page.tsx#<module>": "2da3ec2294295eb1",
         "src/app/privacidad/page.tsx#metadata.title": "85125940f0bc767e",
         "src/app/privacidad/page.tsx#metadata.description": "6c7869739e041771",
         "src/app/privacidad/page.tsx#metadata.robots": "8eefb84aa4d98f49",
         "src/app/privacidad/page.tsx#metadata~frame": "1715002a4a420b10",
-        "src/app/privacidad/page.tsx#PrivacyPolicyPage": "3b03452b454d6d1c",
+        "src/app/privacidad/page.tsx#PrivacyPolicyPage": "2c5532a80fd909df",
         "pkg:lucide-react": "ac00db3dc7bc5934",
         "pkg:next": "530097ba2f134bc2",
         "src/constants/legal.ts#<module>": "2da3ec2294295eb1",
@@ -28,31 +31,115 @@
         "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
         "src/components/brand.tsx#Brand": "ed7a027c7b6ee6ac",
         "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
+        "src/constants/chat.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/chat.ts#CHAT~frame": "ee4c777d216ac518",
+        "src/constants/chat.ts#CHAT.windowSeconds": "70a6ffbb03c8791b",
         "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
-        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b"
+        "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
+        "src/constants/location.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/location.ts#NEARBY_RINGING~frame": "5e372ca440b25e82",
+        "src/constants/location.ts#NEARBY_RINGING.radiusMeters": "009c41a389d2a242",
+        "src/constants/time.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/time.ts#TIME~frame": "dff112b0e68b04c8",
+        "src/constants/time.ts#TIME.minuteSeconds": "f1911953e4c3484f",
+        "src/constants/time.ts#MINUTE_SECONDS": "1733b09f11b4bf52",
+        "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds": "fd33aa68acf00bfc"
       },
       "signals": {},
       "uncommittedFiles": [
         "src/app/privacidad/page.tsx",
-        "src/constants/legal.ts"
+        "src/constants/chat.ts",
+        "src/constants/doorbell.ts"
       ]
     },
     "evidence": [],
     "limitations": [],
-    "mode": "full",
+    "mode": "lightweight",
     "pendingChecks": [],
-    "recordedAt": "2026-10-30T17:28:51.828Z",
+    "recordedAt": "2026-10-31T01:37:46.889Z",
     "result": "not-applicable",
-    "runId": "20261030T172653Z-1b916e",
+    "runId": "20261031T013746Z-77b760",
     "scope": {
-      "decision": "full",
+      "decision": "incremental",
       "reasons": [
-        "no previous coverage: the whole unit is analyzed"
+        "relevant changes since the skill was recorded not applicable: re-evaluate applicability"
       ],
-      "relevantChangesAtBegin": [],
+      "relevantChangesAtBegin": [
+        {
+          "change": "modified",
+          "key": "src/app/privacidad/page.tsx#PrivacyPolicyPage",
+          "reason": "code reached by the unit changed"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.windowSeconds",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
+          "reason": "unclassified object member: lifecycle impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#NEARBY_RINGING~frame",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#<module>",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#MINUTE_SECONDS",
+          "reason": "new code reached by the unit"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME.minuteSeconds",
+          "reason": "lifecycle configuration member (minuteSeconds)"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME~frame",
+          "reason": "new code reached by the unit"
+        }
+      ],
       "suggestedScope": [
-        "whole unit ringgg.privacy: inventory every read, mutation and long-running operation, classify each mutation (optimistic, pending-first or server-confirmed) and review its transitions, concurrency, rollback and reconciliation"
+        "src/app/privacidad/page.tsx › PrivacyPolicyPage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/chat.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/constants/chat.ts › CHAT.windowSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/chat.ts › CHAT (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/doorbell.ts › DOORBELL.noteWindowSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/location.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/constants/location.ts › NEARBY_RINGING.radiusMeters — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/location.ts › NEARBY_RINGING (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/time.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+        "src/constants/time.ts › MINUTE_SECONDS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+        "src/constants/time.ts › TIME.minuteSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+        "src/constants/time.ts › TIME (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation"
       ]
     },
     "skill": {
@@ -68,8 +155,8 @@
       "name": "optimistic-action-mutations",
       "version": "1.2.0"
     },
-    "summary": "Página estática sin lecturas de datos ni acciones.",
-    "report": "runs/20261030T172653Z-1b916e.json"
+    "summary": "Página estática sin lecturas ni mutaciones.",
+    "report": "runs/20261031T013746Z-77b760.json"
   },
   "schemaVersion": 1,
   "skill": "optimistic-action-mutations",

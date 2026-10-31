@@ -1,0 +1,57 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:3694b0ad2af801a1a2ff959b8bce63e48d49fff56e10b0cb98f154a168dd79ab",
+    "uncommittedFiles": [
+      "chat/src/chat-room.ts",
+      "chat/src/env.ts",
+      "chat/src/index.ts",
+      "chat/src/notify.ts",
+      "chat/src/room-store.ts",
+      "src/app/api/chat/notify/route.ts",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts",
+      "src/lib/chat-protocol.ts",
+      "src/server/chat.ts",
+      "src/server/http.ts"
+    ],
+    "fileCount": 13,
+    "inputCount": 117
+  },
+  "evidence": [],
+  "limitations": [],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:37:58.905Z",
+  "result": "not-applicable",
+  "runId": "20261031T013757Z-2e8a50",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "whole unit ringgg.chat.worker: state matrix of every region (loading, empty, data, error, partial, no permission), feedback channel per event, copy and browser walk-through"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "summary": "Backend sin interfaz: el Worker y el route handler del aviso.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:37:57.876Z",
+  "unitId": "ringgg.chat.worker"
+}

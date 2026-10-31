@@ -1,0 +1,88 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:b6e5deca7535effb23ca7d290f0d39f1820a02db1078275ee5458fc82acf51c1",
+    "uncommittedFiles": [
+      "chat/src/chat-room.ts",
+      "chat/src/env.ts",
+      "chat/src/index.ts",
+      "chat/src/notify.ts",
+      "chat/src/room-store.ts",
+      "src/app/api/chat/notify/route.ts",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts",
+      "src/constants/push.ts",
+      "src/lib/chat-protocol.ts",
+      "src/server/chat.ts",
+      "src/server/http.ts",
+      "src/server/json.ts",
+      "src/types/doorbell.ts"
+    ],
+    "fileCount": 29,
+    "inputCount": 217
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-10-31T01:38:14.150Z",
+      "source": "attested",
+      "summary": "Por mensaje: 1 INSERT en SQLite del Durable Object y broadcast; aviso a la app como mucho 1/min/visita y solo sin residentes leyendo (2 queries + envío push). Hibernación: sin cobro de duración en reposo."
+    },
+    {
+      "command": "fnm exec --using=24 -- npx.cmd vitest run tests/chat.test.ts tests/chat-worker.test.ts",
+      "durationMs": 11967,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "851e8609414e6e9a87f688bac09812ae5d04e6b92c3e607cf6f1ba7d14f6e358",
+      "recordedAt": "2026-10-31T01:38:26.537Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Sin medición de latencia ni de requests facturados: requiere el Worker desplegado en Cloudflare."
+  ],
+  "mode": "full",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:38:27.849Z",
+  "result": "partial",
+  "runId": "20261031T013813Z-125612",
+  "scope": {
+    "decision": "full",
+    "reasons": [
+      "no previous coverage: the whole unit is analyzed"
+    ],
+    "relevantChangesAtBegin": [],
+    "suggestedScope": [
+      "measure the complete flow ringgg.chat.worker before and after, same build, data and throttling; median of 3 for noisy metrics"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "e01f3a44c4f2901b",
+      "references/bundle-lazy-loading.md": "687fd1107d865e9c",
+      "references/database-queries-n-plus-one.md": "3064b23acc3e9f7e",
+      "references/images-fonts-scripts.md": "693a7bf147c99358",
+      "references/incremental-sweep-jobs.md": "c5c8e71bdba2e4a9",
+      "references/large-lists-dom.md": "8c39b8868ea4dc47",
+      "references/main-thread-long-tasks.md": "e1f7dfa1a45a5115",
+      "references/measurement-tools.md": "12f1bb8923c65893",
+      "references/memory-leaks.md": "c4b83fb18b23d59b",
+      "references/react-doctor-react-scan.md": "a4eac505a9f7108b",
+      "references/requests-caching.md": "e3565440d17a8b6e",
+      "references/ssr-ttfb-streaming.md": "ed2209fcbbcd42f6",
+      "references/unnecessary-renders.md": "b7b15d98745bea71"
+    },
+    "definitionHash": "sha256:ca145c73a4965727d226a9148c797806fc59a07a23fb686dacac50cb5af3ae88",
+    "name": "measured-performance-optimization",
+    "version": "1.7.0"
+  },
+  "summary": "Carga del Worker",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:38:13.607Z",
+  "unitId": "ringgg.chat.worker"
+}

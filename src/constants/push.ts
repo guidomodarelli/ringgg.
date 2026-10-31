@@ -1,17 +1,20 @@
+import { CHAT } from './chat';
 import { HTTP } from './doorbell';
 
 /** What a notification announces; each kind has its own delivery policy. */
-export type PushKind = 'ring' | 'note' | 'test';
+export type PushKind = 'ring' | 'note' | 'chat' | 'test';
 export type PushUrgency = 'high' | 'normal';
 
 /**
  * Rings expire with the answer window, so a late delivery is useless. A note stays relevant for
- * hours, so a phone that was offline still gets it when it reconnects.
+ * hours, so a phone that was offline still gets it when it reconnects. A chat message is only worth
+ * answering while the visitor can still read the reply.
  */
 export const PUSH_POLICIES = {
   ring: { ttlSeconds: 90, urgency: 'high' },
   /** 12 hours. */
   note: { ttlSeconds: 43_200, urgency: 'normal' },
+  chat: { ttlSeconds: CHAT.windowSeconds, urgency: 'high' },
   test: { ttlSeconds: 90, urgency: 'high' },
 } as const satisfies Record<PushKind, { ttlSeconds: number; urgency: PushUrgency }>;
 

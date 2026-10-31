@@ -6,6 +6,11 @@ export function visitTime(value: string) {
   return new Intl.DateTimeFormat('es-AR', { timeZone: DOORBELL.timeZone, hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' }).format(new Date(value));
 }
 
+/** Hour and minute of a chat message: a visit's chat lasts minutes, so the day adds nothing. */
+export function chatTime(epochMs: number) {
+  return new Intl.DateTimeFormat('es-AR', { timeZone: DOORBELL.timeZone, hour: '2-digit', minute: '2-digit' }).format(new Date(epochMs));
+}
+
 export const DELIVERY_LABELS: Record<DeliveryStatus, string> = {
   registered: 'Registrando aviso',
   sent: 'Aviso enviado',

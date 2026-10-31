@@ -1,14 +1,17 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { BellRing, Check, ShieldCheck, ArrowUpRight, MessageSquareText, MapPin } from 'lucide-react';
 import { Brand } from './brand';
+import { VisitChat } from './chat/visit-chat';
+import { CHAT } from '@/constants/chat';
 import { DOORBELL, VISIT_REPLIES } from '@/constants/doorbell';
 import { VISITOR_POLLING } from '@/constants/polling';
 import { TIME } from '@/constants/time';
 import { pauseEndLabel } from '@/lib/pause';
 import type { PublicHome, PublicVisit } from '@/types/doorbell';
 import { api } from '@/lib/api';
+import type { ChatAccess } from '@/lib/chat-protocol';
 import { forgetStoredVisit, saveStoredVisit, type StoredVisit } from '@/lib/visit-storage';
 import { FarFromDoorHelp, LocationGate, locationRejection, useLocationGate } from './visitor-location-gate';
 import { useStoredVisit } from './use-stored-visit';
@@ -103,20 +106,32 @@ function UnavailableNotice({ home }: { home: PublicHome }) {
   return null;
 }
 
+/** The visitor's side of the chat: open from the ring until the window ends, with the residents shown as the home. */
+function VisitorChat({ token, visit, homeName }: { token: string; visit: PublicVisit; homeName: string }) {
+  const requestAccess = useCallback((signal: AbortSignal) => api<ChatAccess>(`door/${token}/visits/${visit.id}/chat`, undefined, signal), [token, visit.id]);
+  return <VisitChat title={`Chat con ${homeName}`} viewerRole="visitor" homeName={homeName} requestAccess={requestAccess}
+    knownClosesAt={new Date(visit.created_at).getTime() + CHAT.windowSeconds * TIME.secondMs}
+    emptyText="Escribiles acá: les llega al celular y te responden en este chat."
+    closedText="El chat de esta visita terminó. Si necesitás algo, volvé a tocar el timbre." />;
+}
+
 interface VisitResultProps {
   token: string;
+  homeName: string;
   visit: PublicVisit;
   expired: boolean;
+  /** This deployment has the chat: it replaces the note, which is a one-shot message. */
+  chat: boolean;
   notePending: boolean;
   onNotePendingChange: (pending: boolean) => void;
   onNoteSaved: (visit: PublicVisit) => void;
   onRingAgain: () => void;
 }
 
-/** The ring's progress: waiting, the residents' reply, or no answer in time, with the note form when it applies. */
-function VisitResult({ token, visit, expired, notePending, onNotePendingChange, onNoteSaved, onRingAgain }: VisitResultProps) {
+/** The ring's progress: waiting, the residents' reply, or no answer in time, with the chat or the note form when it applies. */
+function VisitResult({ token, homeName, visit, expired, chat, notePending, onNotePendingChange, onNoteSaved, onRingAgain }: VisitResultProps) {
   const reply = visit.answered_at ? VISIT_REPLIES[visit.reply ?? 'coming'] : null;
-  const canLeaveNote = !visit.noted && (expired || visit.reply === 'away');
+  const canLeaveNote = !chat && !visit.noted && (expired || visit.reply === 'away');
   let title = '¡Ding, dong!';
   let detail = waitingDetail(visit);
   if (reply) { title = reply.visitorTitle; detail = reply.visitorDetail; }
@@ -127,12 +142,13 @@ function VisitResult({ token, visit, expired, notePending, onNotePendingChange, 
     {!expired && !visit.answered_at && <span className="waiting-indicator"><i /> Esperando respuesta</span>}
     {visit.noted && <p className="feedback success" role="status"><Check size={17} /> Le dejamos tu mensaje.</p>}
     {canLeaveNote && <NoteForm token={token} visit={visit} onPendingChange={onNotePendingChange} onSaved={onNoteSaved} />}
+    {chat && <VisitorChat token={token} visit={visit} homeName={homeName} />}
     {/* An answered visit offers it too: a reload no longer starts over, so this is the way to ring again. */}
     {(expired || visit.answered_at !== null) && <button className="button outline full" disabled={notePending} onClick={onRingAgain}>Volver a tocar</button>}
   </div>;
 }
 
-export function Visitor({ home: initialHome, token }: { home: PublicHome; token: string }) {
+export function Visitor({ home: initialHome, token, chat = false }: { home: PublicHome; token: string; chat?: boolean }) {
   const [home, setHome] = useState(initialHome);
   const [message, setMessage] = useState('');
   const [visit, setVisit] = useState<PublicVisit | null>(null);
@@ -187,7 +203,7 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
   // Tapping again resends the stored operation id: the server returns that ring instead of ringing twice.
   function keepStoredOperation(reference: StoredVisit) { operationId.current = reference.operationId; setError('No pudimos revisar tu timbrazo anterior. Revisá tu conexión: si volvés a tocar, no se repite el aviso.'); }
 
-  const result = visit && <VisitResult token={token} visit={visit} expired={expired} notePending={notePending} onNotePendingChange={setNotePending} onNoteSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} onRingAgain={ringAgain} />;
+  const result = visit && <VisitResult token={token} homeName={home.name} visit={visit} expired={expired} chat={chat} notePending={notePending} onNotePendingChange={setNotePending} onNoteSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} onRingAgain={ringAgain} />;
   const ringForm = <form onSubmit={(event) => { event.preventDefault(); void ring(); }}><label htmlFor="visitor-message">¿Querés decir quién sos? <span>Opcional</span></label><textarea id="visitor-message" rows={3} placeholder="Hola, soy del delivery…" value={message} disabled={pending} maxLength={DOORBELL.messageMaxLength} onChange={(event) => setMessage(event.target.value)} /><div className="message-count">{message.length}/{DOORBELL.messageMaxLength}</div><button className="button primary ring-button" disabled={pending}><BellRing size={21} />{pending ? 'Tocando timbre…' : 'Tocar timbre'}</button>{home.nearbyOnly && <p className="visitor-location-note"><MapPin size={14} /> Usamos tu ubicación solo para confirmar que estás en la puerta. No la guardamos.</p>}</form>;
   const doorbell = locationBlocked
     ? <p className="waiting-indicator" role="status"><i /> {location.state === 'checking' ? 'Confirmando que estés en la puerta…' : 'Necesitamos tu ubicación para tocar el timbre.'}</p>

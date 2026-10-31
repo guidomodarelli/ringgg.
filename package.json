@@ -21,8 +21,11 @@
     "prebuild": "npm run build:sw",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
-    "typecheck": "bun check --no-script && bun check --no-script -p src/service-worker",
-    "typecheck:build": "tsc --noEmit && tsc --noEmit -p src/service-worker",
+    "typecheck": "bun check --no-script && bun check --no-script -p src/service-worker && bun check --no-script -p chat",
+    "typecheck:build": "tsc --noEmit && tsc --noEmit -p src/service-worker && tsc --noEmit -p chat",
+    "chat:dev": "wrangler dev --config chat/wrangler.jsonc",
+    "chat:deploy": "wrangler deploy --config chat/wrangler.jsonc",
+    "chat:types": "wrangler types --config chat/wrangler.jsonc chat/worker-configuration.d.ts",
     "lint": "golfo-lint lint",
     "test": "vitest run",
     "test:postgres": "vitest run --config vitest.postgres.config.ts",
@@ -60,10 +63,12 @@
     "@types/web-push": "^3.6.4",
     "esbuild": "^0.28.2",
     "eslint": "10.13.0",
+    "miniflare": "^5.20261023.3-beta",
     "nock": "^15.0.5",
     "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "wrangler": "^4.156.0"
   }
 }

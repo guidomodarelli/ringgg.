@@ -13,3 +13,8 @@ public/sw.js
 
 # Runtime state of the Codex auto-fix loop (never committed).
 .codex-autofix/
+
+# Local state of `wrangler dev` and the Worker's local secrets (`chat/.dev.vars.example` shows the format).
+.wrangler/
+.dev.vars*
+!.dev.vars.example

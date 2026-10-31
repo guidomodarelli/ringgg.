@@ -6,55 +6,71 @@
   "verified": {
     "baseline": {
       "analyzer": "babel-tokens/1",
-      "branch": "feature/mejoras-revision",
-      "commit": "847d295e22ba469f97a09ddcb006436c16ad0161",
+      "branch": "feature/chat-visita",
+      "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
       "files": {
-        "src/components/visitor.tsx": "72bdcea4ea1213a5",
-        "src/server/doorbell.ts": "64cb2f91786d00ac",
-        "src/app/api/door/[token]/route.ts": "97f20b9b6f4ba8b0",
+        "src/components/visitor.tsx": "c15c7158791494cd",
+        "src/server/doorbell.ts": "87276ac974348e7b",
+        "src/app/api/door/[token]/route.ts": "c474cb747ba20eff",
         "src/app/api/door/[token]/visits/[id]/route.ts": "700deb5f9e0e384a",
         "src/app/api/door/[token]/visits/[id]/note/route.ts": "5319853ebd5ad39c",
-        "src/app/t/[token]/page.tsx": "745d2f9eb2505e62",
-        "src/server/database.ts": "f11b89b5e9ccd3e8",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts": "f9b85ec2106c0a4b",
+        "src/components/chat/visit-chat.tsx": "a60dd9dcfb9a81f5",
+        "src/app/t/[token]/page.tsx": "90312fb76df2ebe7",
+        "src/server/chat.ts": "140abea011601c0d",
+        "src/server/database.ts": "01770c1699b19ed3",
         "src/app/error.tsx": "fa4f0349613a1692",
         "src/app/global-error.tsx": "9abfb1fa16e474f8",
         "src/app/layout.tsx": "24c6fa6672a8105e",
         "src/app/loading.tsx": "036cba12ba7c0374",
         "src/app/not-found.tsx": "a71078d6b36b561e",
         "src/app/t/[token]/loading.tsx": "df891f4c7364219e",
-        "next.config.ts": "0e8f4f16af6e9ed0",
+        "next.config.ts": "1642aff6f446236b",
         "src/proxy.ts": "c5ef7f8936da8173",
-        "src/types/doorbell.ts": "8697f08bc5f8c5e7",
-        "src/lib/api.ts": "30cc1b9da1f9b7fd",
-        "src/constants/doorbell.ts": "2edd18d9afbb7d3f",
+        "src/types/doorbell.ts": "0d95585bea9cb975",
+        "src/lib/api.ts": "8948022ea63ca047",
+        "src/constants/doorbell.ts": "c888dd9c0c1a7214",
         "src/constants/time.ts": "199df09277e5fcba",
         "src/constants/polling.ts": "8eb5b771610e285c",
         "src/lib/pause.ts": "73a9193594a117d8",
+        "src/lib/chat-protocol.ts": "0285646dbbfb3578",
+        "src/constants/chat.ts": "c931a0dee7bf7c72",
+        "src/lib/browser-location.ts": "a496083efdf5dc7b",
         "src/components/brand.tsx": "0aca2f770c5b0b91",
+        "src/components/visitor-location-gate.tsx": "2841c52c357de092",
         "src/server/errors.ts": "45863b0b5c1144b1",
         "src/lib/quiet-hours.ts": "0d2cd43f1ae429d3",
+        "src/server/location.ts": "f5d6d077aff0181d",
         "src/server/rate-limit.ts": "c4ebc0c121f1b263",
-        "src/server/homes.ts": "7b9e7f96c288ee3f",
-        "src/server/residents.ts": "eda9c188112cf624",
-        "src/server/http.ts": "428ffa6b9703d32a",
-        "src/server/push.ts": "ca98a31374e61e3b",
+        "src/server/homes.ts": "305f738a47a4fb67",
+        "src/server/residents.ts": "1880c4500fc8bc91",
+        "src/server/http.ts": "4d548c03ba96ac9f",
+        "src/server/push.ts": "949dab3c08f1dc6e",
+        "src/components/chat/use-visit-chat.ts": "f19810877e9c0fdc",
+        "src/lib/visit-format.ts": "7ac84054e98655f3",
+        "src/server/config.ts": "24322283cee795e4",
         "src/server/postgres.ts": "2355b8fc585ab8e4",
-        "src/constants/devices.ts": "92d451596518c800",
+        "src/constants/devices.ts": "e0d711d90ce4ec41",
         "src/constants/homes.ts": "564484a011173893",
         "src/lib/names.ts": "5fefc809b3ce8988",
-        "src/app/globals.css": "699be9ddc5996d3e",
+        "src/app/globals.css": "3eb25ac1760ca069",
         "src/components/pwa.tsx": "c7030612521a11f8",
-        "src/server/environment.ts": "9dbe4f846e117509",
+        "src/server/environment.ts": "cfce9c63966806d8",
         "src/server/session-cookies.ts": "c0b056fba8d649d6",
         "src/server/self-auth.ts": "a9dc6601b8d539eb",
         "src/server/neon-auth.ts": "0853ae91019a62c7",
         "src/server/auth-mode.ts": "55ab5ff52eeb427d",
+        "src/constants/location.ts": "1a083ca74dae65a3",
+        "src/lib/geo.ts": "e626403dfbbfcf9a",
+        "src/components/use-browser-user-agent.ts": "7d49bae46ad1226e",
         "src/types/residents.ts": "b7a6c448a73bacc3",
+        "src/components/chat/use-chat-connection.ts": "75d6a34158641cb7",
+        "src/components/chat/use-chat-outbox.ts": "a926c418a8c5318f",
+        "src/constants/environment.ts": "56dcab8047d696a2",
         "src/config/database.ts": "cfab3a8bb039650a",
-        "src/constants/auth.ts": "5ce7e906628ec790",
-        "src/constants/environment.ts": "56dcab8047d696a2"
+        "src/constants/auth.ts": "5ce7e906628ec790"
       },
-      "fingerprint": "sha256:4e597f637a5973a5179be3c695c7c1cdb13871ac9f1fc0692239fd8228e85e0e",
+      "fingerprint": "sha256:5d330265140a140dafd75ce0bbf97ea8ae1d8edc9df9b20d7ac790e58abcdaad",
       "inputs": {
         "pkg:next": "530097ba2f134bc2",
         "pkg:react": "f4529719455f2af2",
@@ -68,38 +84,40 @@
         "src/components/visitor.tsx#useAnswerPolling": "b0e2379f8c145652",
         "src/components/visitor.tsx#useAvailabilityCheck": "02d72381d036e253",
         "src/components/visitor.tsx#UnavailableNotice": "befa3029ad5eab75",
-        "src/components/visitor.tsx#VisitResultProps": "5b831e8fa5cb4949",
-        "src/components/visitor.tsx#VisitResult": "39150d5d7f1fb96f",
-        "src/components/visitor.tsx#Visitor/ring": "5a699da851b2f6df",
+        "src/components/visitor.tsx#VisitorChat/requestAccess": "3d6092eb067aff19",
+        "src/components/visitor.tsx#VisitorChat~shell": "7c762c29f940e0ae",
+        "src/components/visitor.tsx#VisitResultProps": "6a574980fe437a94",
+        "src/components/visitor.tsx#VisitResult": "db6fec095acf93ae",
+        "src/components/visitor.tsx#Visitor/ring": "b16fcc11c4c50f51",
         "src/components/visitor.tsx#Visitor/ringAgain": "71bec7540f7705e7",
-        "src/components/visitor.tsx#Visitor~shell": "1749265152604141",
+        "src/components/visitor.tsx#Visitor~shell": "74874aa858c3d4a5",
         "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
-        "src/server/doorbell.ts#HOME_COLUMNS": "8392547fe61dc07e",
+        "src/server/doorbell.ts#HOME_COLUMNS": "04b06ee54ed0c7b5",
         "src/server/doorbell.ts#PUBLIC_VISIT_COLUMNS": "21efc47d387c8cd3",
         "src/server/doorbell.ts#RECEIPTS_COLUMN": "a0f044ac57a5d14b",
         "src/server/doorbell.ts#VISIT_COLUMNS": "39811f22c51bc9bd",
-        "src/server/doorbell.ts#HOME_DEVICES": "4f8e8eee7b6af8d1",
+        "src/server/doorbell.ts#HOME_DEVICES": "1479fc61c3d44be4",
         "src/server/doorbell.ts#INVALID_DOORBELL_MESSAGE": "9a383fdc624077b1",
         "src/server/doorbell.ts#getHome": "e50eac6818bbe1a6",
         "src/server/doorbell.ts#homeByToken": "c2737d463060e416",
         "src/server/doorbell.ts#homeState": "d852610bae8c1c75",
         "src/server/doorbell.ts#toJsonSnapshot": "bbd2a7db3cc4496c",
         "src/server/doorbell.ts#snapshot": "6cbcf2f6e2a42769",
-        "src/server/doorbell.ts#publicHome": "39c6b37a3b070fd7",
+        "src/server/doorbell.ts#publicHome": "587a00f8528b50cb",
         "src/server/doorbell.ts#pausedMessage": "0d40cfbd984e5a5e",
-        "src/server/doorbell.ts#registerVisit": "399cbc68883ce422",
-        "src/server/doorbell.ts#readVisit": "9f9e80e82d289d9b",
+        "src/server/doorbell.ts#registerVisit": "8ed09976c3025e7d",
+        "src/server/doorbell.ts#readVisit": "20aca40f754d00ed",
         "src/server/doorbell.ts#visitHomeId": "c5f9b21fc32af1cf",
         "src/server/doorbell.ts#VisitKey": "96ac77b36928b82f",
-        "src/server/doorbell.ts#answerVisit": "241c179cf7629690",
-        "src/server/doorbell.ts#leaveNote": "b607a73ddf45d199",
+        "src/server/doorbell.ts#answerVisit": "c105ffa01ef654e9",
+        "src/server/doorbell.ts#leaveNote": "50056022c0db612e",
         "src/server/doorbell.ts#setDelivery": "501049ab30df1a48",
         "src/server/doorbell.ts#updateHomeName": "3f1b16f946001280",
         "src/server/doorbell.ts#updateQuietHours": "eaf2de10d46bbc46",
         "src/server/doorbell.ts#PAUSE_UPDATES.resume": "9fe0f72369af3ebc",
         "src/server/doorbell.ts#PAUSE_UPDATES.indefinite": "6bfa685be736ea86",
         "src/server/doorbell.ts#PAUSE_UPDATES.hour": "6b7b4f4f6bedd753",
-        "src/server/doorbell.ts#PAUSE_UPDATES.morning": "ad7e56d27f621f3f",
+        "src/server/doorbell.ts#PAUSE_UPDATES.morning": "dcbb4d24ade10703",
         "src/server/doorbell.ts#PAUSE_UPDATES~frame": "e3299b27b3e71831",
         "src/server/doorbell.ts#setPause": "6a116cc1170956ee",
         "src/server/doorbell.ts#rotateToken": "7be3c29c8df39341",
@@ -108,10 +126,10 @@
         "src/app/api/door/[token]/route.ts#runtime": "46ca4b1b24f285fc",
         "src/app/api/door/[token]/route.ts#dynamic": "a45532c1af88ffc5",
         "src/app/api/door/[token]/route.ts#Params": "8e2d2910cf8b986c",
-        "src/app/api/door/[token]/route.ts#ringSchema": "92350f5c3f1a41c0",
+        "src/app/api/door/[token]/route.ts#ringSchema": "2522af36bd485e00",
         "pkg:zod": "31d0566281954af7",
         "src/app/api/door/[token]/route.ts#GET": "cf1a88963fe34c2d",
-        "src/app/api/door/[token]/route.ts#POST": "fad723e29d55dd6f",
+        "src/app/api/door/[token]/route.ts#POST": "4dbe22e1dfe283ea",
         "src/app/api/door/[token]/visits/[id]/route.ts#<module>": "2da3ec2294295eb1",
         "src/app/api/door/[token]/visits/[id]/route.ts#runtime": "46ca4b1b24f285fc",
         "src/app/api/door/[token]/visits/[id]/route.ts#dynamic": "a45532c1af88ffc5",
@@ -121,9 +139,35 @@
         "src/app/api/door/[token]/visits/[id]/note/route.ts#dynamic": "a45532c1af88ffc5",
         "src/app/api/door/[token]/visits/[id]/note/route.ts#noteSchema": "44ec5b2bbfd69dcc",
         "src/app/api/door/[token]/visits/[id]/note/route.ts#POST": "d203f0154f2e3c34",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts#GET": "55f800d80047d2ce",
+        "src/components/chat/visit-chat.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/visit-chat.tsx#ViewerRole": "9e097e9d77dccf8c",
+        "src/components/chat/visit-chat.tsx#VisitChatProps": "2cc771681d928e31",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT.connecting": "96e0b7f3d39e7381",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT.reconnecting": "ad1a929adde017c3",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT.paused": "3276a1d039bb8b26",
+        "src/components/chat/visit-chat.tsx#STATUS_TEXT~frame": "5181c7615f1c8016",
+        "src/components/chat/visit-chat.tsx#authorLabel": "07a406ead55bf19d",
+        "src/components/chat/visit-chat.tsx#MessageDelivery": "0559022414f478f4",
+        "src/components/chat/visit-chat.tsx#useStickToLatest/onScroll": "d2a0dbab03d2d303",
+        "src/components/chat/visit-chat.tsx#useStickToLatest/jumpToLatest": "5c67662ce5873291",
+        "src/components/chat/visit-chat.tsx#useStickToLatest~shell": "8677ee0525f1a60c",
+        "src/components/chat/visit-chat.tsx#VisitChatState": "898afab1033901ab",
+        "src/components/chat/visit-chat.tsx#ChatThread": "3801f04a04b9201b",
+        "src/components/chat/visit-chat.tsx#ChatConnectionStatus": "b9c072c24ad75a08",
+        "src/components/chat/visit-chat.tsx#ChatComposer/submit": "c8554de884f8005b",
+        "src/components/chat/visit-chat.tsx#ChatComposer/onKeyDown": "fd6c19a8fa0c3153",
+        "src/components/chat/visit-chat.tsx#ChatComposer~shell": "e7575ccee3386105",
+        "src/components/chat/visit-chat.tsx#VisitChat": "02a53aa176f42b92",
         "src/app/t/[token]/page.tsx#<module>": "2da3ec2294295eb1",
         "src/app/t/[token]/page.tsx#dynamic": "a45532c1af88ffc5",
-        "src/app/t/[token]/page.tsx#DoorPage": "a65b94d1184060fb",
+        "src/app/t/[token]/page.tsx#DoorPage": "20e184bf85f64d9d",
+        "src/server/chat.ts#<module>": "2da3ec2294295eb1",
+        "src/server/chat.ts#chatSettings": "e19e70fd633c88a3",
+        "src/server/chat.ts#ChatSettings": "e2d03b219fea1050",
         "src/server/database.ts#<module>": "2da3ec2294295eb1",
         "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
         "src/server/database.ts#Database": "578aba9512306538",
@@ -134,7 +178,7 @@
         "src/server/database.ts#poolDatabase": "fedd878e554639d7",
         "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
         "src/server/database.ts#initialize": "b63e6fa612388f19",
-        "src/server/database.ts#MIGRATIONS": "95212e268ff47ff1",
+        "src/server/database.ts#MIGRATIONS": "afd8365dff1b001a",
         "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
         "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
         "src/server/database.ts#runStep": "b8d318e23891085b",
@@ -162,9 +206,11 @@
         "src/app/not-found.tsx#NotFound": "83f64e8f5b9b4e32",
         "src/app/t/[token]/loading.tsx#<module>": "2da3ec2294295eb1",
         "next.config.ts#<module>": "07b0ed1d803ba8ed",
+        "next.config.ts#APP_VERSION": "360c80b15fcdd48f",
+        "next.config.ts#nextConfig.env": "932539318ffb8a09",
         "next.config.ts#nextConfig.outputFileTracingExcludes": "cded7a2e918a49f8",
         "next.config.ts#nextConfig.serverExternalPackages": "2928dcd0750d3c3f",
-        "next.config.ts#nextConfig.headers": "bcc9a074c8c4b5d3",
+        "next.config.ts#nextConfig.headers": "a5ab1f3dd54f939d",
         "next.config.ts#nextConfig~frame": "94bd7f163d17efa5",
         "src/proxy.ts#<module>": "2da3ec2294295eb1",
         "src/proxy.ts#HOME_ID_PATTERN": "43df74154537f562",
@@ -177,7 +223,9 @@
         "src/types/doorbell.ts#PublicVisit": "50e1bd3c504a5545",
         "src/types/doorbell.ts#DeliveryStatus": "db3ca43305ed8e65",
         "src/lib/api.ts#<module>": "2da3ec2294295eb1",
-        "src/lib/api.ts#api": "d04e08cca10d550a",
+        "src/lib/api.ts#api": "cc02c09740313f78",
+        "src/lib/api.ts#mutationsInFlight": "803da898ef95cd5d",
+        "src/lib/api.ts#request": "18ca96271a92faed",
         "src/lib/api.ts#serverErrorMessage": "deaccf05eea7bb64",
         "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
         "src/constants/doorbell.ts#DOORBELL~frame": "8651d0b6803ebc89",
@@ -190,25 +238,51 @@
         "src/constants/polling.ts#<module>": "2da3ec2294295eb1",
         "src/constants/polling.ts#VISITOR_POLLING~frame": "996ecc74ed2d7439",
         "src/constants/polling.ts#VISITOR_POLLING.answerMs": "900bc489613c3265",
-        "src/types/doorbell.ts#PublicHome": "cde956840f1f2db5",
+        "src/types/doorbell.ts#PublicHome": "2b2aecd093fb645f",
         "src/constants/polling.ts#VISITOR_POLLING.availabilityMs": "dd53175ab3dbdafd",
         "src/lib/pause.ts#<module>": "2da3ec2294295eb1",
         "src/lib/pause.ts#pauseEndLabel": "c8e32311f3d4620c",
         "src/lib/pause.ts#localDay": "491d8bd7d5bab15a",
+        "src/lib/chat-protocol.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/chat-protocol.ts#ChatAccess": "5aa779ea116eb3c5",
+        "src/lib/chat-protocol.ts#ChatRole": "4df71e002ebf21cd",
+        "src/constants/chat.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/chat.ts#CHAT~frame": "ee4c777d216ac518",
+        "src/constants/chat.ts#CHAT.windowSeconds": "70a6ffbb03c8791b",
         "src/constants/doorbell.ts#VISIT_REPLIES.coming": "245f3961ed50b8a2",
         "src/constants/doorbell.ts#VISIT_REPLIES.soon": "b220984081a9560e",
         "src/constants/doorbell.ts#VISIT_REPLIES.leave": "c372cf806f24124c",
         "src/constants/doorbell.ts#VISIT_REPLIES.away": "7277976b5216c611",
         "src/constants/doorbell.ts#VISIT_REPLIES~frame": "a9d11de9883db8a6",
+        "src/lib/browser-location.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/browser-location.ts#currentPosition": "1f4a822bd05e8665",
+        "src/lib/browser-location.ts#FAILURES.1": "2dfa1bcca4caeb04",
+        "src/lib/browser-location.ts#FAILURES.2": "478ee910d5fa47d7",
+        "src/lib/browser-location.ts#FAILURES.3": "7d6dbdea3c00f5cc",
+        "src/lib/browser-location.ts#FAILURES~frame": "9f216e85f43e9198",
+        "src/lib/browser-location.ts#LocationError": "7657f967541e2193",
+        "src/lib/browser-location.ts#locationFailure": "a780ebc5a357963e",
+        "src/lib/browser-location.ts#LocationFailure": "c9b9ed8cb2ae7809",
         "src/components/brand.tsx#<module>": "2da3ec2294295eb1",
         "src/components/brand.tsx#Brand": "ed7a027c7b6ee6ac",
         "src/components/brand.tsx#BrandContents": "3b8915b78692c64c",
         "src/constants/doorbell.ts#DOORBELL.messageMaxLength": "a27bd7423302b1e4",
+        "src/components/visitor-location-gate.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/visitor-location-gate.tsx#LocationGate/ask": "26873b64ead6dbc6",
+        "src/components/visitor-location-gate.tsx#LocationGate~shell": "4c38fdfceccc8cc0",
+        "src/components/visitor-location-gate.tsx#LocationGateState": "e1c93291a91ced0d",
+        "src/components/visitor-location-gate.tsx#UnblockSteps": "3d20f8623239b93b",
+        "src/components/visitor-location-gate.tsx#failureDetail": "918959055652cc63",
+        "src/components/visitor-location-gate.tsx#gateAction": "ae597da641514b2b",
+        "src/components/visitor-location-gate.tsx#useLocationGate/recordFailure": "3af780eb40ebd630",
+        "src/components/visitor-location-gate.tsx#useLocationGate/request": "9f05272b4a84013a",
+        "src/components/visitor-location-gate.tsx#useLocationGate~shell": "5d578fc038a06869",
+        "src/components/visitor-location-gate.tsx#permissionState": "ee30a19d268e4f29",
         "src/server/errors.ts#<module>": "2da3ec2294295eb1",
         "src/server/errors.ts#AppError": "dbe25eff04f6331e",
         "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
         "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
-        "src/types/doorbell.ts#Home": "3b8a7daf1448ba2f",
+        "src/types/doorbell.ts#Home": "32c5fccda153f366",
         "src/types/doorbell.ts#HomeState": "37835fab33246f44",
         "src/lib/pause.ts#isPaused": "150bd904b5f22cff",
         "src/lib/quiet-hours.ts#<module>": "2da3ec2294295eb1",
@@ -222,16 +296,19 @@
         "src/constants/doorbell.ts#DOORBELL.historyLimit": "7710e896f7478db9",
         "src/constants/doorbell.ts#DOORBELL.retentionDays": "18f0b3554360380b",
         "src/lib/pause.ts#pauseEnd": "4d0f2a3b2adb7759",
+        "src/server/location.ts#<module>": "2da3ec2294295eb1",
+        "src/server/location.ts#requiresNearby": "2f5cc5de15ca9cec",
         "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
         "src/server/rate-limit.ts#<module>": "2da3ec2294295eb1",
-        "src/server/rate-limit.ts#enforceRingLimits": "d04826b3f0da5574",
+        "src/server/rate-limit.ts#enforceRingLimits": "502c890c91fa18ac",
+        "src/server/location.ts#requireNearby": "4b9742edbcb27eed",
         "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength": "dd3d5809acc874bc",
         "src/constants/doorbell.ts#HTTP.badRequest": "9c9fbbe79257ca54",
         "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds": "fd33aa68acf00bfc",
         "src/server/homes.ts#<module>": "2da3ec2294295eb1",
         "src/server/homes.ts#homeNameSchema": "a39b5760e9f84651",
         "src/server/residents.ts#<module>": "2da3ec2294295eb1",
-        "src/server/residents.ts#listResidentHomes": "6c9dd37c6e373640",
+        "src/server/residents.ts#listResidentHomes": "c0031e94c1144249",
         "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
         "src/server/residents.ts#residentSettings": "090458f99e66a86c",
         "src/server/residents.ts#emailList": "0021888d1f4f53a8",
@@ -241,9 +318,12 @@
         "src/constants/doorbell.ts#PAUSE.hourMinutes": "cd8c7472db654e63",
         "src/constants/doorbell.ts#DOORBELL.timeZone": "485e114ffd6311d6",
         "src/constants/doorbell.ts#PAUSE.morningResumeTime": "88b1a3eadd2a6464",
+        "src/server/location.ts#positionSchema": "1c5199b3981a96e6",
         "src/server/http.ts#<module>": "2da3ec2294295eb1",
-        "src/server/http.ts#apiRoute": "b5f0fffa9c3287e8",
-        "src/server/http.ts#readJson": "26d0d571bd351155",
+        "src/server/http.ts#apiRoute": "4cbaf2e37ac494b5",
+        "src/server/http.ts#ApiRouteOptions": "f82fd78b23d86a0c",
+        "src/server/http.ts#readJson": "bf50e393c276631b",
+        "src/server/http.ts#readText": "c65a2982df00bef0",
         "src/server/http.ts#BODY_LIMIT": "5e5df78db11b83f6",
         "src/server/rate-limit.ts#ringClientKey": "4ec8a84e11f1f095",
         "src/server/rate-limit.ts#rateLimitSalt": "e4f533427b069a3d",
@@ -255,7 +335,38 @@
         "src/server/push.ts#normalizedEmail": "0e392532bd054922",
         "pkg:web-push": "6ab2287300696f64",
         "src/server/push.ts#pushPayload": "4e6d12e9dee850e4",
-        "src/server/push.ts#recordDeliveryHealth": "bc89e4f8814fae10",
+        "src/server/push.ts#recordDeliveryHealth": "cce488fe2b64f7d3",
+        "src/server/chat.ts#visitorChatAccess": "f7a9c7bfc3067b48",
+        "src/server/chat.ts#ChatContext": "7ce80fb7ae7899a9",
+        "src/server/chat.ts#closingTime": "b7b030e7c463db7e",
+        "src/server/chat.ts#issueAccess": "d71dac3974d18b06",
+        "src/server/chat.ts#requireChat": "1fcc320a01113eb2",
+        "src/server/chat.ts#visitNotFound": "f862c23b7fd6aefe",
+        "src/components/chat/use-visit-chat.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/use-visit-chat.ts#ThreadMessage": "a97011d4b74273ec",
+        "src/constants/chat.ts#CHAT.scrollStickinessPx": "e0504397af51b641",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/endChat": "bdb22af2bdfba38c",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/receive": "e16d100a59525b7b",
+        "src/components/chat/use-visit-chat.ts#useVisitChat~shell": "b96a7b0add5f34d5",
+        "src/components/chat/use-visit-chat.ts#ChatViewer": "87cc9b389b47af33",
+        "src/components/chat/use-visit-chat.ts#VisitChatOptions": "60a89626d84e6734",
+        "src/components/chat/use-visit-chat.ts#chatStatus": "ee51a6c4b91e8be5",
+        "src/components/chat/use-visit-chat.ts#ChatStatus": "266f42ba7d50014a",
+        "src/components/chat/use-visit-chat.ts#isOwn": "2279e35494390e1c",
+        "src/components/chat/use-visit-chat.ts#usePageVisible": "9fb7c23762bc41f5",
+        "src/components/chat/use-visit-chat.ts#subscribeToVisibility": "75921bd83f63b97e",
+        "src/components/chat/use-visit-chat.ts#withMessage": "32458ec797cff831",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/onAccess": "09196790ce169db0",
+        "src/components/chat/use-visit-chat.ts#useVisitChat/send": "48b3eae19b99bce9",
+        "src/lib/visit-format.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/visit-format.ts#chatTime": "2dd9ee86efd50532",
+        "src/constants/chat.ts#CHAT.messageMaxLength": "6e7d9dda0d1188e3",
+        "src/constants/chat.ts#CHAT.secretMinimumLength": "504910b459c85358",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "22f06e9ffdb6f3e7",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "src/server/config.ts#httpsOrigin": "fd5040a991eedb92",
         "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
         "src/server/postgres.ts#createPostgresPool": "c3f88729989ad244",
         "pkg:pg": "bba8fb4b856406c4",
@@ -277,18 +388,21 @@
         "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
         "src/lib/names.ts#cleanName": "49186c6b44b377fb",
         "src/lib/names.ts#uniqueName": "57ac10b978c09992",
-        "src/app/globals.css#*": "699be9ddc5996d3e",
+        "src/app/globals.css#*": "3eb25ac1760ca069",
         "src/components/pwa.tsx#<module>": "80e0e5af9bb4622c",
         "src/components/pwa.tsx#Pwa": "d2a7fe3fb8455147",
         "src/server/environment.ts#<module>": "2da3ec2294295eb1",
         "src/server/environment.ts#assertDeployEnvironment": "3a839f1588e059c9",
         "src/server/environment.ts#describe": "5b660e3032f18044",
         "src/server/environment.ts#productionEnvironmentProblems/require": "aa893b03e254ceda",
-        "src/server/environment.ts#productionEnvironmentProblems~shell": "38f19a24f69f9f57",
+        "src/server/environment.ts#productionEnvironmentProblems~shell": "f43bcddcdc3f9301",
         "src/server/environment.ts#EnvironmentProblem": "cc34d47aedcf805f",
         "src/server/environment.ts#isHttpsUrl": "840d5797acf5dfa3",
         "src/server/environment.ts#isPostgresUrl": "78f94d0a3abf71ed",
+        "src/server/environment.ts#isSecureWebSocketUrl": "42e428853b9d34c1",
         "pkg:APP_URL": "d8bebac746d16852",
+        "pkg:CHAT_SECRET": "8ea0ef2831c2795e",
+        "pkg:CHAT_URL": "978947747edfe9e3",
         "pkg:CRON_SECRET": "eb2d4ee83c35ca0d",
         "pkg:DATABASE_URL": "050a604d33618562",
         "pkg:GOOGLE_CLIENT_ID": "509298bbba233096",
@@ -328,6 +442,20 @@
         "src/constants/time.ts#DAY_HOURS": "52466170f34b039d",
         "src/constants/time.ts#HOUR_MINUTES": "9385af560c3e57e3",
         "src/constants/time.ts#MINUTE_SECONDS": "1733b09f11b4bf52",
+        "src/constants/location.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/location.ts#NEARBY_RINGING~frame": "5e372ca440b25e82",
+        "src/constants/location.ts#NEARBY_RINGING.maximumAgeMs": "9c8c4203c867e88f",
+        "src/constants/location.ts#NEARBY_RINGING.timeoutMs": "cf97c5d719aa756d",
+        "src/lib/geo.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/geo.ts#Position": "63540c878fddb94d",
+        "src/lib/geo.ts#Coordinates": "12fd7a90e5c8f018",
+        "src/components/use-browser-user-agent.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/use-browser-user-agent.ts#phonePlatform": "5787c1eae77302a3",
+        "src/components/use-browser-user-agent.ts#useBrowserUserAgent": "a356cbdeafb52ba6",
+        "src/components/use-browser-user-agent.ts#browserUserAgent": "7bde3da7090a3240",
+        "src/components/use-browser-user-agent.ts#serverUserAgent": "c8bf5282aa3074b0",
+        "src/components/use-browser-user-agent.ts#subscribeToNothing": "8874deeda0c25d24",
+        "src/components/use-browser-user-agent.ts#ignoreChanges": "09a3a87684b1023b",
         "src/constants/doorbell.ts#QUIET_HOURS_PATTERN": "bbcf8d9d3ee4d8b3",
         "src/constants/time.ts#TIME.hourMinutes": "dca9372b02ed66f4",
         "src/constants/doorbell.ts#HTTP.tooMany": "6789b03bf6021a5e",
@@ -337,16 +465,51 @@
         "src/constants/doorbell.ts#RING_LIMITS.clientWindowSeconds": "0b7ca6a226f8e69c",
         "src/constants/doorbell.ts#RING_LIMITS.homeMaxPerWindow": "0ace28767f5ec402",
         "src/constants/doorbell.ts#RING_LIMITS.homeWindowSeconds": "846cc66b382b79c2",
+        "src/lib/geo.ts#checkNearby": "d70098b19f8d725c",
+        "src/lib/geo.ts#NearbyCheck": "6e0bcdc4ebb1d186",
+        "src/lib/geo.ts#distanceMeters": "ec47e01d9edac0f8",
+        "src/lib/geo.ts#EARTH_RADIUS_METERS": "8a853d8aed343a13",
+        "src/lib/geo.ts#radians": "245ebaa1a0f7ec6b",
+        "src/lib/geo.ts#HALF_TURN_DEGREES": "a1ce9e8877c605d5",
         "src/constants/doorbell.ts#DOORBELL.nameMaxLength": "1310c99c650e5157",
         "src/types/residents.ts#<module>": "2da3ec2294295eb1",
         "src/types/residents.ts#HomeSummary": "7565b2ddb5d5d58e",
         "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/lib/chat-protocol.ts#ChatMessage": "d4c54352d41d8bfc",
+        "src/constants/chat.ts#CHAT_REJECTIONS~frame": "1b6ad59b2a11cdf9",
+        "src/constants/chat.ts#ChatRejection": "8c6449713b5c693d",
+        "src/constants/chat.ts#CHAT_REJECTIONS.CHAT_CLOSED": "ac4fc8a6ca2054fd",
+        "src/components/chat/use-chat-connection.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/use-chat-connection.ts#useChatConnection/reconnect": "d18e45fbb9dc34f4",
+        "src/components/chat/use-chat-connection.ts#useChatConnection~shell": "f3668ff96057232b",
+        "src/components/chat/use-chat-connection.ts#ChatConnectionOptions": "52042a857cd5b89e",
+        "src/components/chat/use-chat-connection.ts#NORMAL_CLOSURE": "cb38aa4f537e23d7",
+        "src/components/chat/use-chat-outbox.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/update": "564637151b3fe98d",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer": "6f4d6725fc7c7de8",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/markFailed": "3a91d36dae8cd2f7",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell": "59a666a9a2bc69ad",
+        "src/components/chat/use-chat-outbox.ts#OutgoingMessage": "4cf5a4fda9a307a8",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit": "e5fa1e11356c1ba9",
+        "src/components/chat/use-chat-outbox.ts#OPEN_SOCKET": "a9f61646834c209c",
+        "src/components/chat/use-chat-outbox.ts#UNCONFIRMED_FAILURE": "21d6ef47661d337c",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/add": "c22279f7d32c3fca",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/retry": "ecc44037ba3b5ca0",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/confirm": "c1fb087481f0e869",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/discard": "7eed0837efa7ee95",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/resendWaiting": "68d24024bf7891db",
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/failWaiting": "e27d3c997d35bb10",
+        "src/constants/chat.ts#CHAT_REJECTIONS.MESSAGE_INVALID": "501897bfe6fd687f",
+        "src/constants/chat.ts#CHAT_REJECTIONS.ROOM_FULL": "a47414b7e9d3761b",
+        "src/constants/environment.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/environment.ts#LOCAL_DEFAULTS~frame": "5a1c7b91211fc6c8",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.origin": "060e2d02b491e60f",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject": "bcf01163df3d1130",
         "src/config/database.ts#<module>": "2da3ec2294295eb1",
         "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
         "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
         "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
         "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
-        "src/constants/environment.ts#<module>": "2da3ec2294295eb1",
         "src/constants/environment.ts#ENVIRONMENT_RULES~frame": "f2c49fc985dc519f",
         "src/constants/environment.ts#ENVIRONMENT_RULES.cronSecretMinimumLength": "eb3a9cfdbb78ee85",
         "src/constants/environment.ts#ENVIRONMENT_RULES.placeholderSubjectPattern": "d5cbde130fcd5add",
@@ -357,7 +520,17 @@
         "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
         "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
         "src/server/self-auth.ts#selfAuthConfigured": "c3a318e0d6dcd17d",
-        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285"
+        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/constants/location.ts#NEARBY_RINGING.radiusMeters": "009c41a389d2a242",
+        "src/constants/location.ts#NEARBY_RINGING.maxAccuracyMeters": "518355431b655d5e",
+        "src/constants/location.ts#NEARBY_RINGING.doorMaxAccuracyMeters": "adc7b3d37a6deeb2",
+        "src/constants/chat.ts#CHAT.reconnect": "e38cac43f1dd6580",
+        "src/lib/chat-protocol.ts#chatSocketProtocols": "56e4fa1b65ba691a",
+        "src/lib/chat-protocol.ts#parseServerChatMessage": "ad46eb31cd21b837",
+        "src/lib/chat-protocol.ts#ServerChatMessage": "014f0abcbdc8dd80",
+        "src/lib/chat-protocol.ts#isChatMessage": "05880347bd5601e9",
+        "src/constants/chat.ts#CHAT.sendTimeoutMs": "ed757eb5f80c7072",
+        "src/constants/chat.ts#CHAT.protocol": "adf3b049ef72ae91"
       },
       "signals": {
         "src/components/visitor.tsx#NoteForm/send": {
@@ -377,7 +550,7 @@
           "projectCalls": 1
         },
         "src/components/visitor.tsx#Visitor/ring": {
-          "awaits": 1
+          "awaits": 3
         },
         "src/server/doorbell.ts#getHome": {
           "awaits": 1,
@@ -459,8 +632,18 @@
           "awaits": 4,
           "projectCalls": 2
         },
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts#GET": {
+          "awaits": 2,
+          "projectCalls": 1
+        },
+        "src/components/chat/visit-chat.tsx#useStickToLatest~shell": {
+          "effects": 1
+        },
         "src/app/t/[token]/page.tsx#DoorPage": {
           "awaits": 3,
+          "projectCalls": 1
+        },
+        "src/server/chat.ts#chatSettings": {
           "projectCalls": 1
         },
         "src/server/database.ts#getDatabase": {
@@ -505,8 +688,27 @@
           "projectCalls": 1
         },
         "src/lib/api.ts#api": {
+          "awaits": 1
+        },
+        "src/lib/api.ts#request": {
           "awaits": 3,
           "fetch": 1
+        },
+        "src/components/visitor-location-gate.tsx#LocationGate~shell": {
+          "effects": 1
+        },
+        "src/components/visitor-location-gate.tsx#useLocationGate/request": {
+          "awaits": 1
+        },
+        "src/components/visitor-location-gate.tsx#useLocationGate~shell": {
+          "effects": 1,
+          "awaits": 2,
+          "database": 1,
+          "listeners": 1
+        },
+        "src/components/visitor-location-gate.tsx#permissionState": {
+          "awaits": 1,
+          "database": 1
         },
         "src/server/rate-limit.ts#enforceRingLimits": {
           "awaits": 3,
@@ -520,6 +722,9 @@
           "awaits": 2
         },
         "src/server/http.ts#readJson": {
+          "awaits": 1
+        },
+        "src/server/http.ts#readText": {
           "awaits": 1
         },
         "src/server/rate-limit.ts#ringClientKey": {
@@ -540,6 +745,19 @@
           "awaits": 1,
           "database": 1
         },
+        "src/server/chat.ts#visitorChatAccess": {
+          "awaits": 1
+        },
+        "src/server/chat.ts#issueAccess": {
+          "awaits": 1
+        },
+        "src/components/chat/use-visit-chat.ts#useVisitChat~shell": {
+          "effects": 1,
+          "timers": 1
+        },
+        "src/components/chat/use-visit-chat.ts#subscribeToVisibility": {
+          "listeners": 1
+        },
         "src/server/postgres.ts#createPostgresPool": {
           "projectCalls": 1
         },
@@ -554,274 +772,139 @@
         },
         "src/server/neon-auth.ts#getNeonAuth": {
           "projectCalls": 1
+        },
+        "src/components/chat/use-chat-connection.ts#useChatConnection~shell": {
+          "effects": 2,
+          "timers": 1,
+          "awaits": 1,
+          "listeners": 3
+        },
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer": {
+          "database": 1
+        },
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell": {
+          "effects": 1
+        },
+        "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit": {
+          "timers": 1
         }
       },
       "uncommittedFiles": [
-        "next.config.ts",
-        "src/app/api/door/[token]/route.ts",
-        "src/app/api/door/[token]/visits/[id]/note/route.ts",
-        "src/app/error.tsx",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts",
         "src/app/globals.css",
-        "src/app/not-found.tsx",
         "src/app/t/[token]/page.tsx",
-        "src/components/brand.tsx",
+        "src/components/chat/use-chat-connection.ts",
+        "src/components/chat/use-chat-outbox.ts",
+        "src/components/chat/use-visit-chat.ts",
+        "src/components/chat/visit-chat.tsx",
         "src/components/visitor.tsx",
-        "src/constants/auth.ts",
-        "src/constants/devices.ts",
+        "src/constants/chat.ts",
         "src/constants/doorbell.ts",
-        "src/constants/environment.ts",
-        "src/constants/homes.ts",
-        "src/constants/polling.ts",
-        "src/constants/time.ts",
-        "src/lib/api.ts",
-        "src/lib/names.ts",
-        "src/lib/pause.ts",
-        "src/lib/quiet-hours.ts",
-        "src/proxy.ts",
-        "src/server/database.ts",
-        "src/server/doorbell.ts",
+        "src/lib/chat-protocol.ts",
+        "src/lib/visit-format.ts",
+        "src/server/chat.ts",
         "src/server/environment.ts",
-        "src/server/errors.ts",
-        "src/server/homes.ts",
         "src/server/http.ts",
-        "src/server/neon-auth.ts",
-        "src/server/postgres.ts",
-        "src/server/push.ts",
-        "src/server/rate-limit.ts",
-        "src/server/residents.ts",
-        "src/server/self-auth.ts",
-        "src/server/session-cookies.ts",
-        "src/types/doorbell.ts",
-        "src/types/residents.ts"
+        "src/types/doorbell.ts"
       ]
     },
     "evidence": [
       {
         "kind": "review",
         "outcome": "pass",
-        "recordedAt": "2026-10-30T15:55:58.636Z",
+        "recordedAt": "2026-10-31T01:34:48.952Z",
         "source": "attested",
-        "summary": "/t/[token]: datos públicos renderizados en servidor, loading y error contenidos; varias casas no cambia boundaries ni agrega await en layouts."
+        "summary": "Hojas cliente: src/components/chat/* con 'use client'; visitor.tsx y dashboard ya eran cliente. Páginas /t/[token] y / solo leen chatSettings() (síncrono, sin await nuevo); loading.tsx existentes cubren el segmento. Route handlers nuevos con runtime nodejs y force-dynamic. Sin hydration mismatch: el chat no se renderiza en SSR (expanded nulo hasta tener reloj)."
       },
       {
-        "command": "npm run build",
-        "durationMs": 11514,
+        "command": "fnm exec --using=24 -- npm.cmd run typecheck:build",
+        "durationMs": 19618,
         "exitCode": 0,
         "kind": "command",
         "outcome": "pass",
-        "outputSha256": "7a304b420e61f786810ed31dfe90588cc36f8edad7cbe21e372669f370f2c147",
-        "recordedAt": "2026-10-30T15:56:10.400Z",
+        "outputSha256": "f438a8ed5597ea684b16236a9ec6a4964df3791a3a2d509c756282c5c276f9d4",
+        "recordedAt": "2026-10-31T01:35:09.023Z",
         "source": "witnessed",
         "summary": "exit code 0"
       },
       {
-        "command": "npx playwright test tests/e2e/visitor-replies.spec.ts tests/e2e/doorbell.spec.ts --reporter=line",
-        "durationMs": 50444,
+        "command": "fnm exec --using=24 -- npx.cmd playwright test tests/e2e/visit-chat.spec.ts tests/e2e/visitor-replies.spec.ts --reporter=line",
+        "durationMs": 49048,
         "exitCode": 0,
         "kind": "test",
         "outcome": "pass",
-        "outputSha256": "cf36bab93cdc3b90b9483e37a3d725a202ee8412302b29f0838e15f92883ae34",
-        "recordedAt": "2026-10-30T15:57:01.117Z",
+        "outputSha256": "2a7cdc630fa7f9a08b21bbbf7dfc8d747f252117e0ba1fe3e47b28f6abaf1dd3",
+        "recordedAt": "2026-10-31T01:35:58.578Z",
         "source": "witnessed",
         "summary": "exit code 0"
       }
     ],
     "limitations": [],
-    "mode": "full",
+    "mode": "incremental",
     "pendingChecks": [],
-    "recordedAt": "2026-10-30T15:57:01.782Z",
+    "recordedAt": "2026-10-31T01:35:59.647Z",
     "result": "verified",
-    "runId": "20261030T154603Z-acfd0f",
+    "runId": "20261031T013448Z-ef0ba0",
     "scope": {
-      "decision": "full",
+      "decision": "incremental",
       "reasons": [
-        "231 of 278 parts changed: the unit is reviewed as a whole"
+        "180 relevant change(s) since the verified run"
       ],
       "relevantChangesAtBegin": [
         {
-          "change": "modified",
-          "key": "next.config.ts#<module>",
+          "change": "added",
+          "key": "next.config.ts#APP_VERSION",
           "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
         },
         {
           "change": "added",
-          "key": "pkg:@neondatabase/auth",
+          "key": "next.config.ts#nextConfig.env",
+          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+        },
+        {
+          "change": "modified",
+          "key": "next.config.ts#nextConfig.headers",
+          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+        },
+        {
+          "change": "added",
+          "key": "pkg:CHAT_SECRET",
           "reason": "new package in the route: it may need a client island"
         },
         {
           "change": "added",
-          "key": "pkg:@vercel/functions",
+          "key": "pkg:CHAT_URL",
           "reason": "new package in the route: it may need a client island"
         },
         {
-          "change": "added",
-          "key": "pkg:APP_URL",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:better-auth",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:CRON_SECRET",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:DATABASE_URL",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:GOOGLE_CLIENT_ID",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:GOOGLE_CLIENT_SECRET",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:kysely",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:NEON_AUTH_BASE_URL",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:NEON_AUTH_COOKIE_SECRET",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:SELF_AUTH_DATABASE_URL",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:SELF_AUTH_SECRET",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:VAPID_PRIVATE_KEY",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:VAPID_PUBLIC_KEY",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:VAPID_SUBJECT",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:web-push",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "pkg:zod",
-          "reason": "new package in the route: it may need a client island"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/route.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/route.ts#dynamic",
-          "reason": "new route file: segment, layout or boundary added"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/route.ts#GET",
-          "reason": "adds awaited work to the render path (+2 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/route.ts#Params",
-          "reason": "new route file: segment, layout or boundary added"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/app/api/door/[token]/route.ts#POST",
-          "reason": "adds awaited work to the render path (+5 awaited steps, +3 calls to I/O helpers): navigation may wait without a loading boundary"
+          "reason": "route file changed: segment layout, boundary or page"
         },
         {
-          "change": "added",
+          "change": "modified",
           "key": "src/app/api/door/[token]/route.ts#ringSchema",
-          "reason": "new route file: segment, layout or boundary added"
+          "reason": "route file changed: segment layout, boundary or page"
         },
         {
           "change": "added",
-          "key": "src/app/api/door/[token]/route.ts#runtime",
-          "reason": "new route file: segment, layout or boundary added"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#<module>",
+          "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#<module>",
           "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#dynamic",
+          "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#dynamic",
           "reason": "new route file: segment, layout or boundary added"
         },
         {
           "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#noteSchema",
-          "reason": "new route file: segment, layout or boundary added"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#POST",
-          "reason": "adds awaited work to the render path (+4 awaited steps, +2 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/note/route.ts#runtime",
-          "reason": "new route file: segment, layout or boundary added"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/route.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/route.ts#dynamic",
-          "reason": "new route file: segment, layout or boundary added"
-        },
-        {
-          "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/route.ts#GET",
+          "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#GET",
           "reason": "adds awaited work to the render path (+2 awaited steps, +1 calls to I/O helpers): navigation may wait without a loading boundary"
         },
         {
           "change": "added",
-          "key": "src/app/api/door/[token]/visits/[id]/route.ts#runtime",
+          "key": "src/app/api/door/[token]/visits/[id]/chat/route.ts#runtime",
           "reason": "new route file: segment, layout or boundary added"
-        },
-        {
-          "change": "modified",
-          "key": "src/app/error.tsx#ErrorPage",
-          "reason": "route file changed: segment layout, boundary or page"
-        },
-        {
-          "change": "modified",
-          "key": "src/app/not-found.tsx#NotFound",
-          "reason": "route file changed: segment layout, boundary or page"
         },
         {
           "change": "modified",
@@ -829,49 +912,354 @@
           "reason": "route file changed: segment layout, boundary or page"
         },
         {
-          "change": "modified",
-          "key": "src/components/brand.tsx#Brand",
-          "reason": "code rendered by the route changed"
+          "change": "added",
+          "key": "src/components/chat/use-chat-connection.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/components/brand.tsx#BrandContents",
+          "key": "src/components/chat/use-chat-connection.ts#ChatConnectionOptions",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#AnswerPollingOptions",
+          "key": "src/components/chat/use-chat-connection.ts#NORMAL_CLOSURE",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#NoteForm/send",
+          "key": "src/components/chat/use-chat-connection.ts#useChatConnection/reconnect",
           "reason": "new interactive handler in the route"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#NoteForm~shell",
+          "key": "src/components/chat/use-chat-connection.ts#useChatConnection~shell",
+          "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#OPEN_SOCKET",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#OutgoingMessage",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#UNCONFIRMED_FAILURE",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/add",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/confirm",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/discard",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/failWaiting",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/markFailed",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/resendWaiting",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/retry",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/stopTimer",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/transmit",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox/update",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-chat-outbox.ts#useChatOutbox~shell",
           "reason": "component render changed: hooks, Suspense or client imports may differ"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#UnavailableNotice",
-          "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
+          "key": "src/components/chat/use-visit-chat.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#useAnswerPolling",
-          "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+          "key": "src/components/chat/use-visit-chat.ts#chatStatus",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#useAvailabilityCheck",
-          "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+          "key": "src/components/chat/use-visit-chat.ts#ChatStatus",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#Visitor/ringAgain",
+          "key": "src/components/chat/use-visit-chat.ts#ChatViewer",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#isOwn",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#subscribeToVisibility",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#ThreadMessage",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#usePageVisible",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/endChat",
           "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/onAccess",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/receive",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat/send",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#useVisitChat~shell",
+          "reason": "component render changed: hooks, Suspense or client imports may differ"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#VisitChatOptions",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/use-visit-chat.ts#withMessage",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#authorLabel",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatComposer/onKeyDown",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatComposer/submit",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatComposer~shell",
+          "reason": "component render changed: hooks, Suspense or client imports may differ"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatConnectionStatus",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ChatThread",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#MessageDelivery",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#STATUS_TEXT~frame",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#useStickToLatest/jumpToLatest",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#useStickToLatest/onScroll",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#useStickToLatest~shell",
+          "reason": "component render changed: hooks, Suspense or client imports may differ"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#ViewerRole",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#VisitChat",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#VisitChatProps",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/chat/visit-chat.tsx#VisitChatState",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#browserUserAgent",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#ignoreChanges",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#phonePlatform",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#serverUserAgent",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#subscribeToNothing",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-browser-user-agent.ts#useBrowserUserAgent",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#failureDetail",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#gateAction",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#LocationGate/ask",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#LocationGate~shell",
+          "reason": "component render changed: hooks, Suspense or client imports may differ"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#LocationGateState",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#permissionState",
+          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#UnblockSteps",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#useLocationGate/recordFailure",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#useLocationGate/request",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor-location-gate.tsx#useLocationGate~shell",
+          "reason": "adds awaited work to the render path (+2 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/visitor.tsx#Visitor/ring",
+          "reason": "interactive handler changed: navigation or server action calls may differ"
         },
         {
           "change": "modified",
@@ -880,337 +1268,142 @@
         },
         {
           "change": "added",
+          "key": "src/components/visitor.tsx#VisitorChat/requestAccess",
+          "reason": "new interactive handler in the route"
+        },
+        {
+          "change": "added",
+          "key": "src/components/visitor.tsx#VisitorChat~shell",
+          "reason": "component render changed: hooks, Suspense or client imports may differ"
+        },
+        {
+          "change": "modified",
           "key": "src/components/visitor.tsx#VisitResult",
-          "reason": "new code rendered by the route"
+          "reason": "code rendered by the route changed"
         },
         {
-          "change": "added",
+          "change": "modified",
           "key": "src/components/visitor.tsx#VisitResultProps",
-          "reason": "new code rendered by the route"
+          "reason": "code rendered by the route changed"
         },
         {
           "change": "added",
-          "key": "src/components/visitor.tsx#waitingDetail",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/config/database.ts#<module>",
+          "key": "src/constants/chat.ts#<module>",
           "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/config/database.ts#getPostgresConfig",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS.CHAT_CLOSED",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS.MESSAGE_INVALID",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS.ROOM_FULL",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT_REJECTIONS~frame",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#<module>",
+          "key": "src/constants/chat.ts#CHAT.messageMaxLength",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.protocol",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.reconnect",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.scrollStickinessPx",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.secretMinimumLength",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.sendTimeoutMs",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT.windowSeconds",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#CHAT~frame",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/chat.ts#ChatRejection",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS.origin",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/environment.ts#LOCAL_DEFAULTS~frame",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/location.ts#<module>",
           "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#AUTH.cookieSecretMinimumLength",
+          "key": "src/constants/location.ts#NEARBY_RINGING.doorMaxAccuracyMeters",
           "reason": "object member read by the route changed: route configuration impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#AUTH.reservedSchemas",
+          "key": "src/constants/location.ts#NEARBY_RINGING.maxAccuracyMeters",
           "reason": "object member read by the route changed: route configuration impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#AUTH.schemaNamePattern",
+          "key": "src/constants/location.ts#NEARBY_RINGING.maximumAgeMs",
           "reason": "object member read by the route changed: route configuration impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#AUTH.selfManagedDefaultSchema",
+          "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
           "reason": "object member read by the route changed: route configuration impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#AUTH.sessionCacheSeconds",
+          "key": "src/constants/location.ts#NEARBY_RINGING.timeoutMs",
           "reason": "object member read by the route changed: route configuration impact unknown"
         },
         {
           "change": "added",
-          "key": "src/constants/auth.ts#AUTH~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/devices.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/devices.ts#DEVICES.defaultName",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/devices.ts#DEVICES.nameMaxLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/devices.ts#DEVICES~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#DOORBELL.answeredByMaxLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "removed",
-          "key": "src/constants/doorbell.ts#DOORBELL.cooldownSeconds",
-          "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#DOORBELL.nameMaxLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#DOORBELL.noteMaxLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "removed",
-          "key": "src/constants/doorbell.ts#DOORBELL.pollIntervalMs",
-          "reason": "code no longer reached by the route: a layout, boundary or client island may have been removed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#DOORBELL.timeZone",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#HTTP.badRequest",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#HTTP.noContent",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#HTTP.unavailable",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#PAUSE.hourMinutes",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#PAUSE.morningResumeTime",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#PAUSE~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#QUIET_HOURS_PATTERN",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#RING_LIMITS.clientCooldownSeconds",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#RING_LIMITS.clientMaxPerWindow",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#RING_LIMITS.clientWindowSeconds",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#RING_LIMITS.homeMaxPerWindow",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#RING_LIMITS.homeWindowSeconds",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#RING_LIMITS~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#VISIT_REPLIES.away",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#VISIT_REPLIES.coming",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#VISIT_REPLIES.leave",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#VISIT_REPLIES.soon",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#VISIT_REPLIES~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/doorbell.ts#VisitReply",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/environment.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/environment.ts#ENVIRONMENT_RULES.cronSecretMinimumLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/environment.ts#ENVIRONMENT_RULES.placeholderSubjectPattern",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/environment.ts#ENVIRONMENT_RULES.vapidPrivateKeyLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/environment.ts#ENVIRONMENT_RULES.vapidPublicKeyLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/environment.ts#ENVIRONMENT_RULES~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/homes.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/homes.ts#HOMES.cookieMaxAgeSeconds",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/homes.ts#HOMES.cookieName",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/homes.ts#HOMES.originalId",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/homes.ts#HOMES.queryParameter",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/homes.ts#HOMES~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/polling.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/polling.ts#VISITOR_POLLING.answerMs",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/polling.ts#VISITOR_POLLING.availabilityMs",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/polling.ts#VISITOR_POLLING~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#DAY_HOURS",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#HOUR_MINUTES",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#MINUTE_SECONDS",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#SECOND_MS",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#TIME.dayMs",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#TIME.hourMinutes",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#TIME.secondMs",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/constants/time.ts#TIME~frame",
+          "key": "src/constants/location.ts#NEARBY_RINGING~frame",
           "reason": "new code rendered by the route"
         },
         {
@@ -1220,188 +1413,228 @@
         },
         {
           "change": "added",
-          "key": "src/lib/api.ts#serverErrorMessage",
+          "key": "src/lib/api.ts#mutationsInFlight",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/names.ts#<module>",
+          "key": "src/lib/api.ts#request",
+          "reason": "adds awaited work to the render path (+3 awaited steps, +1 requests): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#<module>",
           "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/lib/names.ts#cleanName",
+          "key": "src/lib/browser-location.ts#currentPosition",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/names.ts#nameKey",
+          "key": "src/lib/browser-location.ts#FAILURES.1",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#FAILURES.2",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#FAILURES.3",
+          "reason": "object member read by the route changed: route configuration impact unknown"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#FAILURES~frame",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/names.ts#uniqueName",
+          "key": "src/lib/browser-location.ts#LocationError",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/pause.ts#<module>",
+          "key": "src/lib/browser-location.ts#locationFailure",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/browser-location.ts#LocationFailure",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#<module>",
           "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/lib/pause.ts#isPaused",
+          "key": "src/lib/chat-protocol.ts#ChatAccess",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/pause.ts#localDay",
+          "key": "src/lib/chat-protocol.ts#ChatMessage",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/pause.ts#pauseEnd",
+          "key": "src/lib/chat-protocol.ts#ChatRole",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/pause.ts#pauseEndLabel",
+          "key": "src/lib/chat-protocol.ts#chatSocketProtocols",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/quiet-hours.ts#<module>",
+          "key": "src/lib/chat-protocol.ts#isChatMessage",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#parseServerChatMessage",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/chat-protocol.ts#ServerChatMessage",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/geo.ts#<module>",
           "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/lib/quiet-hours.ts#isQuietTime",
+          "key": "src/lib/geo.ts#checkNearby",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/lib/quiet-hours.ts#localMinutes/value",
-          "reason": "new interactive handler in the route"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/quiet-hours.ts#localMinutes~shell",
-          "reason": "component render changed: hooks, Suspense or client imports may differ"
-        },
-        {
-          "change": "added",
-          "key": "src/lib/quiet-hours.ts#minutesOfDay",
+          "key": "src/lib/geo.ts#Coordinates",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/proxy.ts#<module>",
-          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+          "key": "src/lib/geo.ts#distanceMeters",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/proxy.ts#config.matcher",
-          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+          "key": "src/lib/geo.ts#EARTH_RADIUS_METERS",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/proxy.ts#config~frame",
-          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+          "key": "src/lib/geo.ts#HALF_TURN_DEGREES",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/proxy.ts#HOME_ID_PATTERN",
-          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+          "key": "src/lib/geo.ts#NearbyCheck",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/proxy.ts#proxy",
-          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+          "key": "src/lib/geo.ts#Position",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/proxy.ts#rememberHome",
-          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
+          "key": "src/lib/geo.ts#radians",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/proxy.ts#renewSelfManagedSession",
-          "reason": "project configuration of rendering, caching or navigation changed: applies to every route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/auth-mode.ts#<module>",
+          "key": "src/lib/visit-format.ts#<module>",
           "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
           "change": "added",
-          "key": "src/server/auth-mode.ts#isSelfManagedAuth",
+          "key": "src/lib/visit-format.ts#chatTime",
           "reason": "new code rendered by the route"
         },
         {
           "change": "added",
-          "key": "src/server/database.ts#assignDevicesToOriginalHome",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +2 database queries, +1 awaited calls inside a loop): navigation may wait without a loading boundary"
+          "key": "src/server/chat.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
         },
         {
-          "change": "modified",
-          "key": "src/server/database.ts#connect",
+          "change": "added",
+          "key": "src/server/chat.ts#ChatContext",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#chatSettings",
           "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
         },
         {
-          "change": "modified",
-          "key": "src/server/database.ts#Database",
-          "reason": "code rendered by the route changed"
+          "change": "added",
+          "key": "src/server/chat.ts#ChatSettings",
+          "reason": "new code rendered by the route"
         },
         {
-          "change": "modified",
-          "key": "src/server/database.ts#getDatabase",
+          "change": "added",
+          "key": "src/server/chat.ts#closingTime",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#issueAccess",
           "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
         },
         {
+          "change": "added",
+          "key": "src/server/chat.ts#requireChat",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#visitNotFound",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/chat.ts#visitorChatAccess",
+          "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/config.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/config.ts#configGlobal",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/config.ts#getConfig",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/config.ts#httpsOrigin",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/config.ts#LocalSecrets",
+          "reason": "new code rendered by the route"
+        },
+        {
           "change": "modified",
-          "key": "src/server/database.ts#initialize",
-          "reason": "adds awaited work to the render path (+2 awaited calls inside a loop): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#MIGRATION_LOCK",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
           "key": "src/server/database.ts#MIGRATIONS",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#nestedTransaction",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#poolDatabase",
-          "reason": "adds awaited work to the render path (+7 awaited steps, +5 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#QueryResult",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#runStep",
-          "reason": "adds awaited work to the render path (+3 awaited steps, +2 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#schemaVersion",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/database.ts#UNDEFINED_TABLE",
-          "reason": "new code rendered by the route"
+          "reason": "code rendered by the route changed"
         },
         {
           "change": "modified",
@@ -1410,93 +1643,33 @@
         },
         {
           "change": "modified",
-          "key": "src/server/doorbell.ts#getHome",
+          "key": "src/server/doorbell.ts#HOME_COLUMNS",
           "reason": "code rendered by the route changed"
         },
         {
-          "change": "added",
-          "key": "src/server/doorbell.ts#HOME_COLUMNS",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/doorbell.ts#HOME_DEVICES",
-          "reason": "new code rendered by the route"
+          "reason": "code rendered by the route changed"
         },
         {
-          "change": "added",
-          "key": "src/server/doorbell.ts#homeByToken",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#homeState",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#INVALID_DOORBELL_MESSAGE",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/doorbell.ts#leaveNote",
-          "reason": "adds awaited work to the render path (+3 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+          "reason": "code rendered by the route changed"
         },
         {
-          "change": "added",
-          "key": "src/server/doorbell.ts#PAUSE_UPDATES.hour",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#PAUSE_UPDATES.indefinite",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/doorbell.ts#PAUSE_UPDATES.morning",
           "reason": "object member read by the route changed: route configuration impact unknown"
         },
         {
-          "change": "added",
-          "key": "src/server/doorbell.ts#PAUSE_UPDATES.resume",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#PAUSE_UPDATES~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#pausedMessage",
-          "reason": "adds awaited work to the render path (+2 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#PUBLIC_VISIT_COLUMNS",
-          "reason": "new code rendered by the route"
-        },
-        {
           "change": "modified",
           "key": "src/server/doorbell.ts#publicHome",
-          "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#purgeExpiredData",
-          "reason": "adds awaited work to the render path (+2 awaited steps, +2 database queries): navigation may wait without a loading boundary"
+          "reason": "code rendered by the route changed"
         },
         {
           "change": "modified",
           "key": "src/server/doorbell.ts#readVisit",
           "reason": "code rendered by the route changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#RECEIPTS_COLUMN",
-          "reason": "new code rendered by the route"
         },
         {
           "change": "modified",
@@ -1505,342 +1678,67 @@
         },
         {
           "change": "added",
-          "key": "src/server/doorbell.ts#rotateToken",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
+          "key": "src/server/environment.ts#isSecureWebSocketUrl",
+          "reason": "new code rendered by the route"
         },
         {
           "change": "modified",
-          "key": "src/server/doorbell.ts#setDelivery",
-          "reason": "code rendered by the route changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#setPause",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "modified",
-          "key": "src/server/doorbell.ts#snapshot",
-          "reason": "code rendered by the route changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#toJsonSnapshot",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#updateHomeName",
-          "reason": "adds awaited work to the render path (+2 awaited steps, +1 calls to I/O helpers, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#updateQuietHours",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#VISIT_COLUMNS",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#visitHomeId",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/doorbell.ts#VisitKey",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/environment.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/environment.ts#assertDeployEnvironment",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/environment.ts#describe",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/environment.ts#EnvironmentProblem",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/environment.ts#isHttpsUrl",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/environment.ts#isPostgresUrl",
-          "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/environment.ts#productionEnvironmentProblems/require",
-          "reason": "new interactive handler in the route"
-        },
-        {
-          "change": "added",
           "key": "src/server/environment.ts#productionEnvironmentProblems~shell",
           "reason": "component render changed: hooks, Suspense or client imports may differ"
         },
         {
-          "change": "added",
-          "key": "src/server/errors.ts#describeError",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/errors.ts#LOG_LIMITS.causeDepth",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/server/errors.ts#LOG_LIMITS.messageLength",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/server/errors.ts#LOG_LIMITS.stackLines",
-          "reason": "object member read by the route changed: route configuration impact unknown"
-        },
-        {
-          "change": "added",
-          "key": "src/server/errors.ts#LOG_LIMITS~frame",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/errors.ts#logError",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/homes.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/homes.ts#homeNameSchema",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/homes.ts#homeNameTaken",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/homes.ts#requireFreeHomeName",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/http.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/server/http.ts#apiRoute",
-          "reason": "adds awaited work to the render path (+2 awaited steps): navigation may wait without a loading boundary"
+          "reason": "code rendered by the route changed"
         },
         {
           "change": "added",
-          "key": "src/server/http.ts#BODY_LIMIT",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/http.ts#readJson",
-          "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/neon-auth.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/neon-auth.ts#auth",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/neon-auth.ts#authConfigured",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/neon-auth.ts#getNeonAuth",
-          "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/neon-auth.ts#neonAuthSettings",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/neon-auth.ts#NeonAuthSettings",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/postgres.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/postgres.ts#createPostgresPool",
-          "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#deliveryStatus",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#homeDevices",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#normalizedEmail",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#pushPayload",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#recordDeliveryHealth",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#SendOutcome",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/push.ts#sendPush",
-          "reason": "adds awaited work to the render path (+2 calls to I/O helpers, +5 awaited steps, +1 awaited calls inside a loop, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/rate-limit.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/rate-limit.ts#enforceRingLimits",
-          "reason": "adds awaited work to the render path (+3 awaited steps, +3 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/rate-limit.ts#rateLimitSalt",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/rate-limit.ts#ringClientKey",
-          "reason": "adds awaited work to the render path (+1 database queries, +1 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/residents.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/residents.ts#emailList",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/residents.ts#listResidentHomes",
-          "reason": "adds awaited work to the render path (+1 awaited steps, +1 database queries): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/residents.ts#normalizedEmail",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/residents.ts#residentSettings",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/self-auth.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/self-auth.ts#auth",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/self-auth.ts#createSelfAuth",
-          "reason": "adds awaited work to the render path (+1 calls to I/O helpers): navigation may wait without a loading boundary"
-        },
-        {
-          "change": "added",
-          "key": "src/server/self-auth.ts#getSelfAuth",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/self-auth.ts#selfAuthConfigured",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/self-auth.ts#selfAuthSettings",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/self-auth.ts#SelfAuthSettings",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/server/session-cookies.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/server/session-cookies.ts#forwardSetCookies",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/types/doorbell.ts#DashboardSnapshot",
+          "key": "src/server/http.ts#ApiRouteOptions",
           "reason": "new code rendered by the route"
         },
         {
           "change": "modified",
-          "key": "src/types/doorbell.ts#Device",
+          "key": "src/server/http.ts#readJson",
+          "reason": "code rendered by the route changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#readText",
+          "reason": "adds awaited work to the render path (+1 awaited steps): navigation may wait without a loading boundary"
+        },
+        {
+          "change": "added",
+          "key": "src/server/location.ts#<module>",
+          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/location.ts#positionSchema",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/location.ts#requireNearby",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "added",
+          "key": "src/server/location.ts#requiresNearby",
+          "reason": "new code rendered by the route"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/push.ts#recordDeliveryHealth",
+          "reason": "code rendered by the route changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/rate-limit.ts#enforceRingLimits",
+          "reason": "code rendered by the route changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#listResidentHomes",
           "reason": "code rendered by the route changed"
         },
         {
@@ -1849,43 +1747,192 @@
           "reason": "code rendered by the route changed"
         },
         {
-          "change": "added",
-          "key": "src/types/doorbell.ts#HomeState",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
+          "change": "modified",
           "key": "src/types/doorbell.ts#PublicHome",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "modified",
-          "key": "src/types/doorbell.ts#PublicVisit",
           "reason": "code rendered by the route changed"
-        },
-        {
-          "change": "modified",
-          "key": "src/types/doorbell.ts#Visit",
-          "reason": "code rendered by the route changed"
-        },
-        {
-          "change": "added",
-          "key": "src/types/residents.ts#<module>",
-          "reason": "module directives (\"use client\", \"use server\") or side-effect imports changed"
-        },
-        {
-          "change": "added",
-          "key": "src/types/residents.ts#HomeSummary",
-          "reason": "new code rendered by the route"
-        },
-        {
-          "change": "added",
-          "key": "src/types/residents.ts#ResidentSettings",
-          "reason": "new code rendered by the route"
         }
       ],
       "suggestedScope": [
-        "whole unit ringgg.visitor (/t/[token]): map the segments that wrap it (layouts, templates, loading, error, not-found), decide the server/client split of each element and the skeleton of each loading state, check the Next.js APIs against the installed version, and verify build, sibling navigation, error containment with retry and the server-rendered shell"
+        "next.config.ts › APP_VERSION — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+        "next.config.ts › nextConfig.env — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+        "next.config.ts › nextConfig.headers — rendering, caching and navigation options that apply to every route (cacheComponents, partial prefetching, redirects, middleware or proxy matchers)",
+        "package CHAT_SECRET — whether what the route imports from this package runs on the server or needs a client island",
+        "package CHAT_URL — whether what the route imports from this package runs on the server or needs a client island",
+        "src/app/api/door/[token]/route.ts › POST — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/app/api/door/[token]/route.ts › ringSchema — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts › dynamic — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts › GET — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/app/api/door/[token]/visits/[id]/chat/route.ts › runtime — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/app/t/[token]/page.tsx › DoorPage — segment decisions of this file: layout chrome, Suspense, loading and error boundaries, route segment config and the data it awaits",
+        "src/components/chat/use-chat-connection.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/components/chat/use-chat-connection.ts › ChatConnectionOptions — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-chat-connection.ts › NORMAL_CLOSURE — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-chat-connection.ts › useChatConnection › reconnect — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-connection.ts › useChatConnection (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/chat/use-chat-outbox.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/components/chat/use-chat-outbox.ts › OPEN_SOCKET — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-chat-outbox.ts › OutgoingMessage — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-chat-outbox.ts › UNCONFIRMED_FAILURE — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › add — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › confirm — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › discard — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › failWaiting — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › markFailed — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › resendWaiting — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › retry — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › stopTimer — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › transmit — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox › update — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-chat-outbox.ts › useChatOutbox (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/chat/use-visit-chat.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/components/chat/use-visit-chat.ts › chatStatus — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › ChatStatus — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › ChatViewer — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › isOwn — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › subscribeToVisibility — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › ThreadMessage — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › usePageVisible — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › endChat — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › onAccess — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › receive — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-visit-chat.ts › useVisitChat › send — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/use-visit-chat.ts › useVisitChat (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/chat/use-visit-chat.ts › VisitChatOptions — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/use-visit-chat.ts › withMessage — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/components/chat/visit-chat.tsx › authorLabel — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › ChatComposer › onKeyDown — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/visit-chat.tsx › ChatComposer › submit — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/visit-chat.tsx › ChatComposer (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/chat/visit-chat.tsx › ChatConnectionStatus — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › ChatThread — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › MessageDelivery — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › STATUS_TEXT (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › useStickToLatest › jumpToLatest — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/visit-chat.tsx › useStickToLatest › onScroll — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/chat/visit-chat.tsx › useStickToLatest (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/chat/visit-chat.tsx › ViewerRole — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › VisitChat — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › VisitChatProps — server/client split and awaited work of this code in every route of the unit",
+        "src/components/chat/visit-chat.tsx › VisitChatState — server/client split and awaited work of this code in every route of the unit",
+        "src/components/use-browser-user-agent.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/components/use-browser-user-agent.ts › browserUserAgent — server/client split and awaited work of this code in every route of the unit",
+        "src/components/use-browser-user-agent.ts › ignoreChanges — server/client split and awaited work of this code in every route of the unit",
+        "src/components/use-browser-user-agent.ts › phonePlatform — server/client split and awaited work of this code in every route of the unit",
+        "src/components/use-browser-user-agent.ts › serverUserAgent — server/client split and awaited work of this code in every route of the unit",
+        "src/components/use-browser-user-agent.ts › subscribeToNothing — server/client split and awaited work of this code in every route of the unit",
+        "src/components/use-browser-user-agent.ts › useBrowserUserAgent — server/client split and awaited work of this code in every route of the unit",
+        "src/components/visitor-location-gate.tsx (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/components/visitor-location-gate.tsx › failureDetail — server/client split and awaited work of this code in every route of the unit",
+        "src/components/visitor-location-gate.tsx › gateAction — server/client split and awaited work of this code in every route of the unit",
+        "src/components/visitor-location-gate.tsx › LocationGate › ask — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/visitor-location-gate.tsx › LocationGate (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/visitor-location-gate.tsx › LocationGateState — server/client split and awaited work of this code in every route of the unit",
+        "src/components/visitor-location-gate.tsx › permissionState — server/client split and awaited work of this code in every route of the unit",
+        "src/components/visitor-location-gate.tsx › UnblockSteps — server/client split and awaited work of this code in every route of the unit",
+        "src/components/visitor-location-gate.tsx › useLocationGate › recordFailure — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/visitor-location-gate.tsx › useLocationGate › request — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/visitor-location-gate.tsx › useLocationGate (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/visitor.tsx › Visitor › ring — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/visitor.tsx › Visitor (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/visitor.tsx › VisitorChat › requestAccess — this handler: client leaf, Next.js navigation (Link, Form, router), server action calls and revalidation",
+        "src/components/visitor.tsx › VisitorChat (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/components/visitor.tsx › VisitResult — server/client split and awaited work of this code in every route of the unit",
+        "src/components/visitor.tsx › VisitResultProps — server/client split and awaited work of this code in every route of the unit",
+        "src/constants/chat.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/constants/chat.ts › CHAT_REJECTIONS.CHAT_CLOSED — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT_REJECTIONS.MESSAGE_INVALID — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT_REJECTIONS.ROOM_FULL — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT_REJECTIONS (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/constants/chat.ts › CHAT.messageMaxLength — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT.protocol — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT.reconnect — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT.scrollStickinessPx — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT.secretMinimumLength — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT.sendTimeoutMs — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT.windowSeconds — route configuration read from this member, in every segment that uses it",
+        "src/constants/chat.ts › CHAT (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/constants/chat.ts › ChatRejection — server/client split and awaited work of this code in every route of the unit",
+        "src/constants/environment.ts › LOCAL_DEFAULTS.origin — route configuration read from this member, in every segment that uses it",
+        "src/constants/environment.ts › LOCAL_DEFAULTS.vapidSubject — route configuration read from this member, in every segment that uses it",
+        "src/constants/environment.ts › LOCAL_DEFAULTS (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/constants/location.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/constants/location.ts › NEARBY_RINGING.doorMaxAccuracyMeters — route configuration read from this member, in every segment that uses it",
+        "src/constants/location.ts › NEARBY_RINGING.maxAccuracyMeters — route configuration read from this member, in every segment that uses it",
+        "src/constants/location.ts › NEARBY_RINGING.maximumAgeMs — route configuration read from this member, in every segment that uses it",
+        "src/constants/location.ts › NEARBY_RINGING.radiusMeters — route configuration read from this member, in every segment that uses it",
+        "src/constants/location.ts › NEARBY_RINGING.timeoutMs — route configuration read from this member, in every segment that uses it",
+        "src/constants/location.ts › NEARBY_RINGING (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/api.ts › api — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/api.ts › mutationsInFlight — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/api.ts › request — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/browser-location.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/lib/browser-location.ts › currentPosition — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/browser-location.ts › FAILURES.1 — route configuration read from this member, in every segment that uses it",
+        "src/lib/browser-location.ts › FAILURES.2 — route configuration read from this member, in every segment that uses it",
+        "src/lib/browser-location.ts › FAILURES.3 — route configuration read from this member, in every segment that uses it",
+        "src/lib/browser-location.ts › FAILURES (object structure) — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/browser-location.ts › LocationError — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/browser-location.ts › locationFailure — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/browser-location.ts › LocationFailure — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/chat-protocol.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/lib/chat-protocol.ts › ChatAccess — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/chat-protocol.ts › ChatMessage — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/chat-protocol.ts › ChatRole — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/chat-protocol.ts › chatSocketProtocols — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/chat-protocol.ts › isChatMessage — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/chat-protocol.ts › parseServerChatMessage — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/chat-protocol.ts › ServerChatMessage — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/lib/geo.ts › checkNearby — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts › Coordinates — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts › distanceMeters — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts › EARTH_RADIUS_METERS — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts › HALF_TURN_DEGREES — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts › NearbyCheck — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts › Position — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/geo.ts › radians — server/client split and awaited work of this code in every route of the unit",
+        "src/lib/visit-format.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/lib/visit-format.ts › chatTime — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/server/chat.ts › ChatContext — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts › chatSettings — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts › ChatSettings — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts › closingTime — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts › issueAccess — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts › requireChat — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts › visitNotFound — server/client split and awaited work of this code in every route of the unit",
+        "src/server/chat.ts › visitorChatAccess — server/client split and awaited work of this code in every route of the unit",
+        "src/server/config.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/server/config.ts › configGlobal — server/client split and awaited work of this code in every route of the unit",
+        "src/server/config.ts › getConfig — server/client split and awaited work of this code in every route of the unit",
+        "src/server/config.ts › httpsOrigin — server/client split and awaited work of this code in every route of the unit",
+        "src/server/config.ts › LocalSecrets — server/client split and awaited work of this code in every route of the unit",
+        "src/server/database.ts › MIGRATIONS — server/client split and awaited work of this code in every route of the unit",
+        "src/server/doorbell.ts › answerVisit — server/client split and awaited work of this code in every route of the unit",
+        "src/server/doorbell.ts › HOME_COLUMNS — server/client split and awaited work of this code in every route of the unit",
+        "src/server/doorbell.ts › HOME_DEVICES — server/client split and awaited work of this code in every route of the unit",
+        "src/server/doorbell.ts › leaveNote — server/client split and awaited work of this code in every route of the unit",
+        "src/server/doorbell.ts › PAUSE_UPDATES.morning — route configuration read from this member, in every segment that uses it",
+        "src/server/doorbell.ts › publicHome — server/client split and awaited work of this code in every route of the unit",
+        "src/server/doorbell.ts › readVisit — server/client split and awaited work of this code in every route of the unit",
+        "src/server/doorbell.ts › registerVisit — server/client split and awaited work of this code in every route of the unit",
+        "src/server/environment.ts › isSecureWebSocketUrl — server/client split and awaited work of this code in every route of the unit",
+        "src/server/environment.ts › productionEnvironmentProblems (component body outside its handlers) — what this component renders: hooks that force a client island, awaited data, Suspense and the client components it imports",
+        "src/server/http.ts › apiRoute — server/client split and awaited work of this code in every route of the unit",
+        "src/server/http.ts › ApiRouteOptions — server/client split and awaited work of this code in every route of the unit",
+        "src/server/http.ts › readJson — server/client split and awaited work of this code in every route of the unit",
+        "src/server/http.ts › readText — server/client split and awaited work of this code in every route of the unit",
+        "src/server/location.ts (module directives and side effects) — where the server/client boundary falls (\"use client\", \"use server\") and what the client bundle imports through it",
+        "src/server/location.ts › positionSchema — server/client split and awaited work of this code in every route of the unit",
+        "src/server/location.ts › requireNearby — server/client split and awaited work of this code in every route of the unit",
+        "src/server/location.ts › requiresNearby — server/client split and awaited work of this code in every route of the unit",
+        "src/server/push.ts › recordDeliveryHealth — server/client split and awaited work of this code in every route of the unit",
+        "src/server/rate-limit.ts › enforceRingLimits — server/client split and awaited work of this code in every route of the unit",
+        "src/server/residents.ts › listResidentHomes — server/client split and awaited work of this code in every route of the unit",
+        "src/types/doorbell.ts › Home — server/client split and awaited work of this code in every route of the unit",
+        "src/types/doorbell.ts › PublicHome — server/client split and awaited work of this code in every route of the unit"
       ]
     },
     "skill": {
@@ -1901,6 +1948,7 @@
       "name": "nextjs-route-ui-boundaries",
       "version": "1.3.0"
     },
-    "report": "runs/20261030T154603Z-acfd0f.json"
+    "summary": "Boundaries sin cambios; chat como hoja cliente",
+    "report": "runs/20261031T013448Z-ef0ba0.json"
   }
 }

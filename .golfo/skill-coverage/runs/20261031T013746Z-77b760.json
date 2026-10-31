@@ -1,0 +1,121 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feature/chat-visita",
+    "commit": "37720334beb233920046a5fc9a0526e8c7ca5df6",
+    "fingerprint": "sha256:67af3d8d139755c88b1574e34854b00f9bf77378e9b1053db5d249822883b552",
+    "uncommittedFiles": [
+      "src/app/privacidad/page.tsx",
+      "src/constants/chat.ts",
+      "src/constants/doorbell.ts"
+    ],
+    "fileCount": 7,
+    "inputCount": 30
+  },
+  "evidence": [],
+  "limitations": [],
+  "mode": "lightweight",
+  "pendingChecks": [],
+  "recordedAt": "2026-10-31T01:37:46.889Z",
+  "result": "not-applicable",
+  "runId": "20261031T013746Z-77b760",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "relevant changes since the skill was recorded not applicable: re-evaluate applicability"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/app/privacidad/page.tsx#PrivacyPolicyPage",
+        "reason": "code reached by the unit changed"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT.windowSeconds",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/chat.ts#CHAT~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/doorbell.ts#DOORBELL.noteWindowSeconds",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING.radiusMeters",
+        "reason": "unclassified object member: lifecycle impact unknown"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/location.ts#NEARBY_RINGING~frame",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#<module>",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#MINUTE_SECONDS",
+        "reason": "new code reached by the unit"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME.minuteSeconds",
+        "reason": "lifecycle configuration member (minuteSeconds)"
+      },
+      {
+        "change": "added",
+        "key": "src/constants/time.ts#TIME~frame",
+        "reason": "new code reached by the unit"
+      }
+    ],
+    "suggestedScope": [
+      "src/app/privacidad/page.tsx › PrivacyPolicyPage — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/chat.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/constants/chat.ts › CHAT.windowSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/chat.ts › CHAT (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/doorbell.ts › DOORBELL.noteWindowSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/constants/location.ts › NEARBY_RINGING.radiusMeters — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/location.ts › NEARBY_RINGING (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/time.ts (module directives and side effects) — module directives (\"use client\", \"use server\") and side effects that change where the operation runs",
+      "src/constants/time.ts › MINUTE_SECONDS — operations that reach this code: intent, concurrency, rollback and reconciliation",
+      "src/constants/time.ts › TIME.minuteSeconds — lifecycle configuration read from this member (timing, limits, endpoints, cache keys) in every operation that uses it",
+      "src/constants/time.ts › TIME (object structure) — operations that reach this code: intent, concurrency, rollback and reconciliation"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "96d98d49220f2894",
+      "references/action-catalog.md": "3011dc2f28c2e91c",
+      "references/concurrency-reconciliation.md": "1bb4d0816b1a483d",
+      "references/framework-primitives.md": "16fc928cc9cc1f3c",
+      "references/interaction-state-machine.md": "c09f8f0c506bdd54",
+      "references/optimistic-decision.md": "62c41b62a67ed97a"
+    },
+    "definitionHash": "sha256:e7f9e58f5862e859cec90782e0920de1b6583e9e1904af2e8818f971aeb3448f",
+    "name": "optimistic-action-mutations",
+    "version": "1.2.0"
+  },
+  "summary": "Página estática sin lecturas ni mutaciones.",
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T01:37:46.154Z",
+  "unitId": "ringgg.privacy"
+}

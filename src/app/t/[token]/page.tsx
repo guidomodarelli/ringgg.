@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Visitor } from '@/components/visitor';
+import { chatSettings } from '@/server/chat';
 import { getDatabase } from '@/server/database';
 import { publicHome } from '@/server/doorbell';
 import { AppError } from '@/server/errors';
@@ -12,5 +13,5 @@ export default async function DoorPage({ params }: { params: Promise<{ token: st
     throw error;
   });
   if (!home) notFound();
-  return <Visitor home={home} token={token} />;
+  return <Visitor home={home} token={token} chat={chatSettings() !== null} />;
 }

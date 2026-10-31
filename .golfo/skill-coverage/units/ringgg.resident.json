@@ -75,6 +75,14 @@
     {
       "path": "src/service-worker/service-worker.ts",
       "symbol": "*"
+    },
+    {
+      "path": "src/app/api/chat/access/route.ts",
+      "symbol": "*"
+    },
+    {
+      "path": "src/components/chat/visit-chat.tsx",
+      "symbol": "*"
     }
   ],
   "origin": "manual"

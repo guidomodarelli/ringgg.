@@ -33,7 +33,8 @@ export interface DashboardSnapshot { home: HomeState; visits: Visit[]; devices: 
  * `suggestedName` prefills that choice from their other homes or their account.
  */
 export interface Viewer { name: string | null; suggestedName: string; email: string }
-export interface DashboardData extends DashboardSnapshot { pushReady: boolean; origin: string; viewer: Viewer; homes: HomeSummary[]; residents: ResidentEntry[]; focusVisitId?: string }
+/** `chatEnabled`: this deployment runs the visit chat (it has `CHAT_URL` and `CHAT_SECRET`). */
+export interface DashboardData extends DashboardSnapshot { pushReady: boolean; origin: string; viewer: Viewer; homes: HomeSummary[]; residents: ResidentEntry[]; focusVisitId?: string; chatEnabled?: boolean }
 /** A visitor's ring: `id` makes retries idempotent and `client` is the salted key its rate limits count. */
 export interface RingRequest { id: string; message: string; client: string; /** Where the visitor is; only checked, never stored. */ position?: Position | null }
 /** Visitor-facing visit: never includes the message, the note, or who answered. */
