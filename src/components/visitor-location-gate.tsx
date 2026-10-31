@@ -159,7 +159,7 @@ export function LocationGate({ homeName, state, failure, onRequest }: { homeName
     <h2 id="location-gate-title">Este timbre necesita tu ubicación<span>.</span></h2>
     <p id="location-gate-description">«{homeName}» solo recibe timbrazos desde la puerta. Tu ubicación se usa únicamente para comparar la distancia y no se guarda.</p>
     {state === 'denied' && <div className="notification-onboarding-help" role="alert"><p>Bloqueaste la ubicación para esta página, y sin ella no se puede tocar este timbre. Para activarla:</p><UnblockSteps /></div>}
-    {state === 'imprecise' && <div className="notification-onboarding-help" role="alert"><p>Tu celular está compartiendo una ubicación aproximada, y con eso no podemos confirmar que estés en la puerta. Activá la ubicación precisa y volvé a intentar:</p><PreciseLocationSteps /></div>}
+    {state === 'imprecise' && <div className="notification-onboarding-help" role="alert"><p>Tu celular está dando una ubicación aproximada, y con eso no podemos confirmar que estés en la puerta. Si la ubicación precisa está apagada, activala; si ya está activa, probá frente a la puerta, al aire libre, y volvé a intentar:</p><PreciseLocationSteps /></div>}
     {state === 'failed' && <p className="notification-onboarding-help" role="alert">{failureDetail(failure)}</p>}
     <button type="button" className="button primary notification-onboarding-primary" disabled={pending} onClick={ask}>{pending ? 'Buscando tu ubicación…' : gateAction(state)}</button>
   </dialog>;

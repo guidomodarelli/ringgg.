@@ -68,7 +68,7 @@ dialog.notification-onboarding:not([open]){display:none}dialog.notification-onbo
 :root{--primary-action:#cc472a;--focus-ring:var(--primary-action)}.button.primary{background:var(--primary-action)}.button.primary:hover{background:var(--accent-dark)}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,.home-switcher summary:focus-visible,.visit-row.focused{outline-color:var(--focus-ring)}
 /* The phone rule .button{font-size:12px;min-height:44px} comes after .ring-button with the same specificity and shrank the visitor's main action. */
 .button.ring-button{font-size:14px;min-height:54px}
-/* iOS Safari zooms into a field under 16px when it gets focus. :root outranks .visitor-content textarea (13px); any-pointer also covers a tablet with a keyboard or trackpad. */
+/* iOS Safari zooms into a field under 16px when it gets focus. :root :is(...) has the same specificity as .visitor-content textarea (13px) and wins because it comes later, so keep this block at the end; any-pointer also covers a tablet with a keyboard or trackpad. */
 @media (max-width:700px),(any-pointer:coarse){:root :is(input,textarea,select){font-size:16px}}
 /* Overview: the visits still waiting for an answer, above the door drawing, and their count on «Timbrazos» in the navigation. */
 .door-waiting{padding:18px 18px 10px;margin-bottom:22px;background:#fff2e9;border:1px solid #f4d8c8;border-radius:12px}.door-waiting .count-badge{border-color:#f4d8c8;color:var(--accent-dark)}.door-waiting .visit-list{display:grid;gap:8px;margin-top:12px}.door-waiting .visit-row,.door-waiting .visit-row.waiting{margin:0;padding:14px 12px;border:0;border-radius:9px;background:#fffaf6}
