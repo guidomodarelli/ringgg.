@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { HTTP } from '@/constants/doorbell';
+import { ERROR_CODES } from '@/constants/error-codes';
 import { COORDINATE_LIMITS, NEARBY_RINGING } from '@/constants/location';
 import { checkNearby, type Position } from '@/lib/geo';
 import type { Home } from '@/types/doorbell';
@@ -25,10 +26,10 @@ export function requiresNearby(home: Pick<Home, 'nearby_only' | 'latitude' | 'lo
  */
 export function requireNearby(home: Home, position: Position | null | undefined) {
   if (!requiresNearby(home) || home.latitude === null || home.longitude === null) return;
-  if (!position) throw new AppError(HTTP.conflict, 'LOCATION_REQUIRED', `«${home.name}» solo recibe timbrazos desde la puerta. Permití la ubicación para tocar.`);
+  if (!position) throw new AppError(HTTP.conflict, ERROR_CODES.locationRequired, `«${home.name}» solo recibe timbrazos desde la puerta. Permití la ubicación para tocar.`);
   const check = checkNearby({ latitude: home.latitude, longitude: home.longitude }, position);
-  if (check === 'imprecise') throw new AppError(HTTP.conflict, 'LOCATION_IMPRECISE', 'No pudimos confirmar que estés en la puerta: la ubicación de tu celular no es precisa. Activá la ubicación precisa y volvé a intentar.');
-  if (check === 'far') throw new AppError(HTTP.conflict, 'TOO_FAR', `Parece que no estás en la puerta de «${home.name}». Acercate para tocar el timbre.`);
+  if (check === 'imprecise') throw new AppError(HTTP.conflict, ERROR_CODES.locationImprecise, 'No pudimos confirmar que estés en la puerta: la ubicación de tu celular no es precisa. Activá la ubicación precisa y volvé a intentar.');
+  if (check === 'far') throw new AppError(HTTP.conflict, ERROR_CODES.tooFar, `Parece que no estás en la puerta de «${home.name}». Acercate para tocar el timbre.`);
 }
 
 /**

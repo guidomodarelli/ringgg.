@@ -1,4 +1,5 @@
 import { HTTP } from '@/constants/doorbell';
+import { ERROR_CODES } from '@/constants/error-codes';
 import { getConfig } from './config';
 import { AppError } from './errors';
 import { getNeonAuth, authConfigured } from './neon-auth';
@@ -29,7 +30,7 @@ export async function getIdentity(): Promise<ResidentIdentity | null> {
 export async function requireIdentity(): Promise<ResidentIdentity> {
   if (!authConfigured()) throw new AppError(HTTP.unavailable, 'AUTH_NOT_CONFIGURED', 'El acceso no está disponible en este momento. Intentá más tarde.');
   const user = await getIdentity();
-  if (!user) throw new AppError(HTTP.unauthorized, 'AUTH_REQUIRED', 'Ingresá de nuevo para continuar.');
+  if (!user) throw new AppError(HTTP.unauthorized, ERROR_CODES.authRequired, 'Ingresá de nuevo para continuar.');
   if (!user.emailVerified) throw new AppError(HTTP.forbidden, 'EMAIL_UNVERIFIED', 'Verificá tu correo para acceder a tu vivienda.');
   return user;
 }

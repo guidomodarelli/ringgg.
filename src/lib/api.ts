@@ -1,9 +1,25 @@
 import { HTTP } from '@/constants/doorbell';
 
-/** The `error` message of a failed response body, when the server sent one. */
-function serverErrorMessage(body: unknown) {
-  if (typeof body === 'object' && body !== null && 'error' in body && typeof body.error === 'string' && body.error) return body.error;
-  return 'No pudimos conectar. Revisá tu conexión y reintentá.';
+/** A response the server rejected, with the `code` and `requestId` it sent so callers can react to the cause. */
+export class ApiError extends Error {
+  readonly status: number;
+  readonly code: string | undefined;
+  readonly requestId: string | undefined;
+
+  constructor(message: string, status: number, code?: string, requestId?: string) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+    this.code = code;
+    this.requestId = requestId;
+  }
+}
+
+/** A string field of a failed response body, when the server sent one. */
+function bodyField(body: unknown, field: 'error' | 'code' | 'requestId') {
+  if (typeof body !== 'object' || body === null || !(field in body)) return undefined;
+  const value: unknown = (body as Record<string, unknown>)[field];
+  return typeof value === 'string' && value ? value : undefined;
 }
 
 /** Requests that change data (every call with `data`) still waiting for their answer. */
@@ -42,7 +58,7 @@ async function request<T>(path: string, data: unknown, signal: AbortSignal | und
   }
   if (!response.ok) {
     const body: unknown = await response.json().catch(() => null);
-    throw new Error(serverErrorMessage(body));
+    throw new ApiError(bodyField(body, 'error') ?? 'No pudimos conectar. Revisá tu conexión y reintentá.', response.status, bodyField(body, 'code'), bodyField(body, 'requestId'));
   }
   if (response.status === HTTP.noContent || response.headers.get('content-length') === '0') return undefined as T;
   const text = await response.text();
