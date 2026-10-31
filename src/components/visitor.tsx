@@ -9,10 +9,8 @@ import { TIME } from '@/constants/time';
 import { pauseEndLabel } from '@/lib/pause';
 import type { PublicHome, PublicVisit } from '@/types/doorbell';
 import { api } from '@/lib/api';
-import { currentPosition, locationFailure } from '@/lib/browser-location';
-import type { Position } from '@/lib/geo';
 import { forgetStoredVisit, saveStoredVisit, type StoredVisit } from '@/lib/visit-storage';
-import { LocationGate, useLocationGate } from './visitor-location-gate';
+import { FarFromDoorHelp, LocationGate, locationRejection, useLocationGate } from './visitor-location-gate';
 import { useStoredVisit } from './use-stored-visit';
 
 /** Whether residents can no longer answer: from then on the visitor can leave a note. */
@@ -142,6 +140,7 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
   const [error, setError] = useState('');
   const [expired, setExpired] = useState(false);
   const [notePending, setNotePending] = useState(false);
+  const [farFromDoor, setFarFromDoor] = useState(false);
   const operationId = useRef('');
   const sending = useRef(false);
   useAnswerPolling({ token, visit, expired, setVisit, setExpired, setError });
@@ -155,26 +154,33 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
   useAvailabilityCheck({ token, waiting: visit === null && (!available || locationBlocked), setHome });
 
   async function ring() {
-    if (sending.current) return; sending.current = true; setPending(true); setError('');
+    if (sending.current) return; sending.current = true; setPending(true); setError(''); setFarFromDoor(false);
     operationId.current ||= crypto.randomUUID();
-    // A fresh reading for every ring: it is compared on the server and never stored.
-    let position: Position | null = null;
-    if (home.nearbyOnly) {
-      try { position = await currentPosition(); }
-      catch (error) { location.recordFailure(locationFailure(error)); setPending(false); sending.current = false; return; }
-    }
     try {
+      // A new reading for every ring: it is compared on the server and never stored.
+      const position = home.nearbyOnly ? await location.read() : null;
+      // Without one that can place the visitor at the door, nothing is sent: the location gate shows why.
+      if (home.nearbyOnly && !position) return;
       const result = await api<PublicVisit>(`door/${token}`, { id: operationId.current, message, position });
       setVisit(result); saveStoredVisit(token, { visitId: result.id, operationId: operationId.current, createdAt: result.created_at });
     }
     catch (error) {
-      setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.');
+      showRingFailure(error);
       // The home may have changed since the page loaded (location required, paused, quiet hours):
       // rereading it lets the page show what blocks the ring instead of repeating the same rejection.
       try { setHome(await api<PublicHome>(`door/${token}`)); }
       catch { /* Keep the last known state; the message above already explains the failed ring. */ }
     }
     finally { setPending(false); sending.current = false; }
+  }
+  /** A missing or vague location gets the gate and its steps; any other rejection shows here, with what to do when far. */
+  function showRingFailure(error: unknown) {
+    const rejection = locationRejection(error);
+    if (rejection === 'imprecise') { location.recordImprecise(); return; }
+    // The home started asking for the location after this page loaded: the gate asks for it right away.
+    if (rejection === 'required') { setHome((current) => ({ ...current, nearbyOnly: true })); return; }
+    setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.');
+    setFarFromDoor(rejection === 'far');
   }
   function ringAgain() { setVisit(null); setExpired(false); operationId.current = ''; forgetStoredVisit(token); }
   function restoreVisit(restoredVisit: PublicVisit, reference: StoredVisit) { operationId.current = reference.operationId; setVisit(restoredVisit); setExpired(!restoredVisit.answered_at && answerWindowClosed(restoredVisit)); }
@@ -193,5 +199,6 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
     {result ?? restoring ?? (available ? doorbell : <UnavailableNotice home={home} />)}
     {!result && available && locationBlocked && location.state !== 'checking' && <LocationGate homeName={home.name} state={location.state} failure={location.failure} onRequest={location.request} />}
     {error && <p role="alert" className="feedback error">{error}</p>}
+    {farFromDoor && <FarFromDoorHelp />}
     <div className="visitor-privacy"><ShieldCheck size={16} /> No compartimos tus datos con el residente.</div></div><footer>Un timbre de <Link href="/">ringgg. <ArrowUpRight size={13} /></Link></footer></main>;
 }

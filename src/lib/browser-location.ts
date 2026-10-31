@@ -16,8 +16,8 @@ export class LocationError extends Error {
 const FAILURES: Record<number, LocationFailure> = { 1: 'denied', 2: 'unavailable', 3: 'timeout' };
 
 /**
- * One precise, recent reading of where this device is. The browser asks for permission the first time;
- * the reading only travels to the server inside the request that needs it.
+ * A new, precise reading of where this device is, never one the browser cached. The browser asks for permission
+ * the first time; the reading only travels to the server inside the request that needs it.
  */
 export function currentPosition(): Promise<Position> {
   return new Promise((resolve, reject) => {
