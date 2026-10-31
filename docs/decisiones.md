@@ -82,7 +82,7 @@ El chat necesita sockets abiertos, que Vercel no mantiene. Se eligió un Worker 
 
 - **La app no habla con el Worker.** Firma tokens cortos (HMAC con `CHAT_SECRET`) que el navegador presenta al abrir el socket, y recibe un único pedido del Worker: el aviso firmado cuando la visita escribe y ningún residente lee. Así el Worker no necesita la base ni la sesión.
 - **Una sala por visita y por origen** (`chatRoomName`): un preview y producción nunca comparten sala aunque usen el mismo Worker. El token lleva el origen que lo emitió, y el Worker solo acepta sockets desde ese origen y solo avisa a ese origen.
-- **El chat reemplaza a la nota** cuando está configurado, con la misma ventana de 15 minutos. Sin configurar, todo sigue como antes.
+- **El chat reemplaza a la nota** cuando está configurado, con la misma ventana de 15 minutos. Sin configurar, todo sigue como antes. Al cerrarse la ventana con la página abierta, la visita vuelve al formulario del timbre, igual que sin chat; la conversación cerrada la leen solo los residentes. «El chat de esta visita terminó» le aparece a la visita si el Worker cierra la sala antes que su reloj.
 - **Presencia sin estado propio.** «Algún residente está leyendo» son los sockets de residentes abiertos en la sala. Una pestaña oculta cierra el suyo, para que un panel olvidado en la compu no apague las notificaciones de los celulares.
 - **Retención.** El Durable Object borra su SQLite con una alarma a los 30 días del cierre. Riesgo residual: eliminar una casa no borra en el momento los chats de sus visitas; desaparecen con esa alarma.
 

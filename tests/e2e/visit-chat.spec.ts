@@ -173,7 +173,7 @@ test('lo que se escribe mientras se corta la conexión sale al reconectar, una s
   } finally { await fixture.close(); }
 });
 
-test('el chat se cierra al terminar su ventana: la visita deja de escribir y el residente solo lo lee', async ({ browser }) => {
+test('el chat se cierra al terminar su ventana: la visita vuelve al timbre y el residente solo lo lee', async ({ browser }) => {
   const fixture = await startFixture();
   try {
     const page = await browser.newPage();
@@ -185,8 +185,9 @@ test('el chat se cierra al terminar su ventana: la visita deja de escribir y el 
     await expect(chat.getByRole('log')).toContainText('Te espero en la puerta');
     await expect(chat.getByText('Enviando…')).toHaveCount(0);
     await page.clock.fastForward(CHAT.windowSeconds * 1000);
-    await expect(chat.getByText('El chat de esta visita terminó', { exact: false })).toBeVisible();
-    await expect(chat.getByLabel('Mensaje', { exact: true })).toHaveCount(0);
+    // The ring's window closed with the page open: the doorbell comes back, as without the chat.
+    await expect(page.getByRole('button', { name: 'Tocar timbre', exact: true })).toBeVisible();
+    await expect(chat).toHaveCount(0);
 
     // Once the window passed on the server too, a resident reads the conversation without a composer.
     const [visit] = (await snapshot(fixture.database, HOME)).visits;
