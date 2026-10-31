@@ -291,6 +291,40 @@ describe('aviso del mensaje de la visita', () => {
     });
   });
 
+  test.each(STRANDED_NOTES)('si %s y la visita retoma su timbrazo, la página ve el mensaje dejado y la relectura lo avisa una sola vez cuando vence el reclamo', async (_failure, note) => {
+    const home = await getHome(database, HOME);
+    const id = await unansweredVisit(home.token);
+    await withProvider(async () => {
+      const notices = phoneNotices();
+      await note(home.token, id);
+      // A resumed page shows a stored note as left and never retries it: its read is what sends it.
+      await expect(followVisit(database, home.token, id)).resolves.toMatchObject({ id, noted: true });
+      expect(notices).toEqual([]);
+      await elapse(PUSH.claimSeconds);
+      await expect(followVisit(database, home.token, id)).resolves.toMatchObject({ id, noted: true });
+      await expect(followVisit(database, home.token, id)).resolves.toMatchObject({ id, noted: true });
+      const sent = [{ kind: 'note', title: `${home.name}: te dejaron un mensaje`, body: NOTE, visitId: id }];
+      expect(notices).toEqual(sent);
+      // Neither a later read nor a retry after the claim's time sends it again.
+      await elapse(PUSH.claimSeconds);
+      await expect(followVisit(database, home.token, id)).resolves.toMatchObject({ id, noted: true });
+      await expect(leaveNoteAndNotify(database, home.token, id, 'Otro mensaje')).resolves.toMatchObject({ id, noted: true });
+      expect(notices).toEqual(sent);
+    });
+  });
+
+  test('si el mensaje quedó guardado y su envío falló antes del proveedor, la relectura de la visita lo avisa enseguida', async () => {
+    const home = await getHome(database, HOME);
+    const id = await unansweredVisit(home.token);
+    await withProvider(async () => {
+      const notices = phoneNotices();
+      // Reading the phones fails and the claim is released, so the next read can send it right away.
+      await expect(leaveNoteAndNotify(breakingAfter(noteStored(home.token, id), 1), home.token, id, NOTE)).rejects.toSatisfy(connectionBroke);
+      await expect(followVisit(database, home.token, id)).resolves.toMatchObject({ id, noted: true });
+      expect(notices).toEqual([{ kind: 'note', title: `${home.name}: te dejaron un mensaje`, body: NOTE, visitId: id }]);
+    });
+  });
+
   test('un reintento que llega mientras se envía el mensaje original pide volver a intentar y después lo confirma sin repetirlo', async () => {
     const { token } = await getHome(database, HOME);
     const id = await unansweredVisit(token);

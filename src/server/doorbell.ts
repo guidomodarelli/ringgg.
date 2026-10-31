@@ -195,20 +195,32 @@ export async function ringAndNotify(database: Database, token: string, ring: Rin
   return notice.state === 'claimed' ? sendRing(database, visit.id, notice) : visit;
 }
 
+/** Sends a note this request claimed and keeps its claim: nothing else records that the note went out. */
+async function sendNote(database: Database, visitId: string, notice: ClaimedNotice) {
+  await sendNotice(database, { kind: 'note', homeId: notice.home.id, title: `${notice.home.name}: te dejaron un mensaje`, body: notice.text, visitId });
+  await keepNoteNotice(database, visitId);
+}
+
 /**
- * The visitor's poll while they wait for an answer, the only request their page sends after a successful
- * ring. A ring left without a delivery (its request failed after storing it, while holding the notice) is
- * sent here once that claim expires. A failed send is logged and left to the next poll, which still answers
- * with the visit as read.
+ * The visitor's poll while they wait for an answer, and the read that resumes their visit after a reload
+ * or a new scan of the QR. A ring left without a delivery, or a note left without its notice (its request
+ * failed after storing it, while holding the notice), is sent here once that claim expires: a resumed page
+ * shows a stored note as left, so it never retries it. A noted visit can no longer ring: a note needs the
+ * answer window closed or a «No estoy». A failed send is logged and left to the next read, which still
+ * answers with the visit as read.
  */
 export async function followVisit(database: Database, token: string, id: string): Promise<PublicVisit> {
   const visit = await readVisit(database, token, id);
-  if (visit.delivery !== 'registered' || visit.answered_at) return visit;
-  const notice = await claimNotice(database, 'ring', id);
+  const kind: NoticeKind = visit.noted ? 'note' : 'ring';
+  if (kind === 'ring' && (visit.delivery !== 'registered' || visit.answered_at)) return visit;
+  const notice = await claimNotice(database, kind, id);
   if (notice.state !== 'claimed') return visit;
-  try { return await sendRing(database, id, notice); }
-  catch (error) {
-    logError('doorbell.followVisit', error, { visitId: id });
+  try {
+    if (kind === 'ring') return await sendRing(database, id, notice);
+    await sendNote(database, id, notice);
+    return visit;
+  } catch (error) {
+    logError('doorbell.followVisit', error, { visitId: id, kind });
     return visit;
   }
 }
@@ -280,8 +292,7 @@ export async function leaveNoteAndNotify(database: Database, token: string, id: 
   const { visit, notice } = await leaveNote(database, token, id, note);
   if (notice.state === 'held') throw new AppError(HTTP.conflict, 'NOTE_NOTICE_PENDING', 'Guardamos tu mensaje, pero todavía no confirmamos el aviso a la casa. Volvé a tocar «Dejar mensaje» en unos segundos.');
   if (notice.state === 'none') return visit;
-  await sendNotice(database, { kind: 'note', homeId: notice.home.id, title: `${notice.home.name}: te dejaron un mensaje`, body: notice.text, visitId: id });
-  await keepNoteNotice(database, id);
+  await sendNote(database, id, notice);
   return visit;
 }
 
