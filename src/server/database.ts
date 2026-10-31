@@ -23,7 +23,9 @@ function nestedTransaction(): never {
 
 /**
  * Adapts a `pg` pool. A failed ROLLBACK never hides the original error, and the client it ran on is
- * discarded instead of returning a broken connection to the pool.
+ * discarded instead of returning a broken connection to the pool. A checked-out client has no pool
+ * listener for its `error` event, so the transaction listens: a connection the server closes mid-transaction
+ * (a Neon restart) fails the transaction instead of crashing the process with an unhandled event.
  */
 export function poolDatabase(pool: Pool): Database {
   return {
@@ -32,6 +34,8 @@ export function poolDatabase(pool: Pool): Database {
     async transaction<T>(work: (database: Database) => Promise<T>) {
       const client = await pool.connect();
       let brokenConnection: Error | undefined;
+      const onConnectionError = (error: Error) => { brokenConnection = error; };
+      client.on('error', onConnectionError);
       try {
         await client.query('BEGIN');
         const result = await work({
@@ -47,7 +51,10 @@ export function poolDatabase(pool: Pool): Database {
           logError('database.transaction.rollback', rollbackError);
         }
         throw error;
-      } finally { client.release(brokenConnection); }
+      } finally {
+        client.off('error', onConnectionError);
+        client.release(brokenConnection);
+      }
     },
   };
 }

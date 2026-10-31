@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { beforeAll, describe, expect, test } from 'vitest';
 import { initialize, MIGRATIONS, poolDatabase, type Database } from '../../src/server/database';
-import { TEST_POSTGRES_URL, openRun, spread, type PostgresRun } from '../support/postgres-run';
+import { TEST_POSTGRES_URL, backendPid, openRun, spread, type PostgresRun } from '../support/postgres-run';
 
 const WORK_FAILURE = 'Doorbell:sendRing failed: the provider rejected the push';
 const UNIQUE_VIOLATION = '23505';
@@ -39,6 +39,24 @@ describe.skipIf(!TEST_POSTGRES_URL)('el adaptador de pg y las migraciones contra
       await expect(failed).rejects.toMatchObject(expected);
       expect(pool.totalCount).toBe(1);
       // The same connection answers next: without the ROLLBACK it would still be inside the failed transaction.
+      await expect(countRows(database, id)).resolves.toEqual({ rows: [{ count: 0 }] });
+      expect(pool.totalCount).toBe(1);
+    });
+
+    test('si el servidor corta la conexión en medio de una transacción, sale el error del trabajo, la conexión se descarta y el pool sigue atendiendo', async () => {
+      const pool = run.pool();
+      const database = poolDatabase(pool);
+      const id = randomUUID();
+
+      // As when Neon restarts the compute: the backend dies between two statements, and then the work fails.
+      const failed = database.transaction(async (transaction) => {
+        await transaction.query(`INSERT INTO ${rows} (id) VALUES ($1)`, [id]);
+        await run.terminate(await backendPid(transaction));
+        throw new Error(WORK_FAILURE);
+      });
+
+      await expect(failed).rejects.toThrow(WORK_FAILURE);
+      expect(pool.totalCount).toBe(0);
       await expect(countRows(database, id)).resolves.toEqual({ rows: [{ count: 0 }] });
       expect(pool.totalCount).toBe(1);
     });
