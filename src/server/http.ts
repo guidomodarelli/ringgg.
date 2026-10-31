@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { HTTP } from '@/constants/doorbell';
 import { requireOrigin } from './auth';
 import { AppError, errorResponse } from './errors';
+import { forwardSetCookies, withRouteSession } from './session-cookies';
 
 const BODY_LIMIT = 8192;
 
@@ -19,18 +20,22 @@ type Handler<Params> = (request: NextRequest, params: Params) => Promise<Respons
 /**
  * Shared envelope for every API route: Origin check on mutations, no-store responses and
  * safe error bodies. Each route still authenticates on its own before opening private data.
+ * Session cookies renewed while it does go out with the response, also when the route then fails.
  */
 export function apiRoute<Params = Record<string, never>>(operation: string, handler: Handler<Params>) {
   return async (request: NextRequest, context: { params: Promise<Params> }) => {
+    const session = { requestHeaders: request.headers, responseCookies: new Headers() };
     let response: Response;
     try {
       if (request.method !== 'GET' && request.method !== 'HEAD') requireOrigin(request);
-      response = await handler(request, await context.params);
+      const params = await context.params;
+      response = await withRouteSession(session, () => handler(request, params));
     } catch (error) {
       response = error instanceof z.ZodError
         ? Response.json({ error: 'Revisá los datos ingresados.', code: 'INVALID_INPUT' }, { status: HTTP.badRequest })
         : errorResponse(error, `${request.method} api.${operation}`);
     }
+    forwardSetCookies(session.responseCookies, response.headers);
     response.headers.set('Cache-Control', 'no-store');
     return response;
   };
