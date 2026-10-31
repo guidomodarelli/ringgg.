@@ -16,9 +16,13 @@ const ringSchema = z.object({ id: z.uuid(), message: z.string().trim().max(DOORB
 /** Public capability: reading the doorbell never exposes private home data. */
 export const GET = apiRoute<Params>('door', async (_request, { token }) => Response.json(await publicHome(await getDatabase(), token)));
 
-/** Retries with the same operation id return the stored visit and notify only if no request did. */
+/**
+ * Retries with the same operation id return the stored visit and notify only if no request did. The clock
+ * starts before anything else, so the stored ring time includes a cold database connection.
+ */
 export const POST = apiRoute<Params>('door', async (request, { token }) => {
+  const receivedAt = performance.now();
   const input = await readJson(request, ringSchema);
   const ring = { id: input.id, message: input.message, client: ringClientKey(request.headers), position: input.position };
-  return Response.json(await ringAndNotify(await getDatabase(), token, ring));
+  return Response.json(await ringAndNotify(await getDatabase(), token, ring, receivedAt));
 });

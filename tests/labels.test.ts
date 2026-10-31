@@ -1,8 +1,10 @@
 import { describe, expect, test } from 'vitest';
 import { deviceNameProblem, freeDeviceName, isGenericDeviceName, suggestedDeviceName } from '../src/lib/device-name';
 import { isPaused, pauseEnd, pauseEndLabel } from '../src/lib/pause';
-import { deviceHealth } from '../src/lib/device-health';
+import { deviceHealth, removedDeviceNotice } from '../src/lib/device-health';
+import { rejectedRingsSummary } from '../src/lib/ring-rejections';
 import { receiptLabel } from '../src/lib/visit-format';
+import type { RingRejection } from '../src/types/doorbell';
 
 const IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
 const ANDROID = 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36';
@@ -47,10 +49,38 @@ describe('estado de los avisos de cada celular', () => {
     expect(deviceHealth({ ...empty, last_failure_at: '2026-10-30T17:00:00Z', last_failure_status: 500, last_success_at: '2026-10-30T18:00:00Z' }).tone).toBe('ok');
   });
 
+  test('un celular dado de baja dice cuál era, desde qué día en la hora de la casa y cómo volver a conectarlo', () => {
+    // 01:30 UTC on Nov 1st is still Oct 31st in Buenos Aires.
+    const notice = removedDeviceNotice({ name: 'iPhone de Ana', owner: 'Ana', status: 410, removed_at: '2026-11-01T01:30:00.000Z' });
+    expect(notice).toEqual({
+      lead: '«iPhone de Ana» dejó de recibir avisos el 31/10',
+      detail: 'su navegador dio de baja la suscripción. Abrí Ringgg en ese celular para volver a conectarlo.',
+      meta: 'De Ana · código 410',
+    });
+    expect(removedDeviceNotice({ name: 'Compu', owner: null, status: 404, removed_at: '2026-10-30T15:00:00Z' }).meta).toBe('Sin dueño asignado · código 404');
+  });
+
   test('el historial cuenta los celulares que confirmaron el timbrazo', () => {
     expect(receiptLabel(0)).toBeNull();
     expect(receiptLabel(1)).toBe('Lo recibió 1 celular');
     expect(receiptLabel(3)).toBe('Lo recibieron 3 celulares');
+  });
+});
+
+describe('timbrazos que no sonaron hoy', () => {
+  test('una línea suma los timbrazos y dice por qué no sonaron, o no dice nada si sonaron todos', () => {
+    expect(rejectedRingsSummary([])).toBeNull();
+    expect(rejectedRingsSummary([{ code: 'TOO_FAR', count: 1 }])).toBe('Hoy no sonó 1 timbrazo desde lejos de la puerta.');
+    expect(rejectedRingsSummary([{ code: 'PAUSED', count: 3 }])).toBe('Hoy no sonaron 3 timbrazos con el timbre en pausa.');
+    expect(rejectedRingsSummary([{ code: 'TOO_FAR', count: 1 }, { code: 'LOCATION_IMPRECISE', count: 1 }])).toBe('Hoy no sonaron 2 timbrazos: 1 desde lejos de la puerta y 1 con ubicación imprecisa.');
+    expect(rejectedRingsSummary([{ code: 'COOLDOWN', count: 2 }, { code: 'LOCATION_REQUIRED', count: 1 }, { code: 'BUSY', count: 1 }]))
+      .toBe('Hoy no sonaron 4 timbrazos: 2 de alguien que acababa de tocar, 1 sin la ubicación de la visita y 1 con el timbre saturado de avisos.');
+  });
+
+  test('un motivo que esta versión no conoce no se muestra', () => {
+    const fromNewerVersion = { code: 'SOMETHING_NEW', count: 5 } as unknown as RingRejection;
+    expect(rejectedRingsSummary([fromNewerVersion, { code: 'QUIET_HOURS', count: 1 }])).toBe('Hoy no sonó 1 timbrazo en horario de descanso.');
+    expect(rejectedRingsSummary([fromNewerVersion])).toBeNull();
   });
 });
 

@@ -6,7 +6,7 @@ import { HOMES } from '@/constants/homes';
 import { PUSH, PUSH_HOSTS, PUSH_KEY_PATTERN, PUSH_POLICIES, type PushKind } from '@/constants/push';
 import { cleanName, nameKey } from '@/lib/names';
 import { GENERIC_DEVICE_NAME_MESSAGE, deviceNameTakenMessage, isGenericDeviceName } from '@/lib/device-name';
-import type { DeliveryStatus } from '@/types/doorbell';
+import type { DeliveryStatus, DeviceDeliveryOutcome } from '@/types/doorbell';
 import type { HomeMember } from '@/types/residents';
 import type { Database } from './database';
 import { getConfig, pushConfigured } from './config';
@@ -62,6 +62,14 @@ async function upsertDevice(database: Database, subscription: webpush.PushSubscr
 }
 
 /**
+ * A device connecting to a home (`$1`) clears the trace of the device the provider removed there that it
+ * replaces: the one whose name (`$3`, its key) it takes, or the only one its owner (`$2`) had removed in this
+ * home, reconnected under another name. With several removed and none of that name, it cannot tell which.
+ */
+const CLEAR_REPLACED_REMOVALS = `DELETE FROM device_removals r WHERE r.home_id = $1 AND (r.name_key = $3 OR (r.resident_email = $2
+  AND NOT EXISTS (SELECT 1 FROM device_removals other WHERE other.home_id = r.home_id AND other.resident_email = r.resident_email AND other.device_id <> r.device_id)))`;
+
+/**
  * Registers this browser for one home, under the home lock and within its device limit, and returns
  * the device id so the panel can mark "this device" without another request. The same browser can
  * ring for several homes, with a name of its own in each, unique in that home.
@@ -83,6 +91,7 @@ export async function saveDevice(database: Database, registration: DeviceRegistr
       if (count.rows[0].count >= DEVICES.max) throw new AppError(HTTP.conflict, 'DEVICE_LIMIT', `Llegaste al límite de ${DEVICES.max} celulares en esta casa. Eliminá uno para agregar otro.`);
       if ((await takenDeviceNames(transaction, homeId)).some((taken) => nameKey(taken) === nameKey(name))) throw deviceNameTaken(name);
       await transaction.query('INSERT INTO device_homes (device_id, home_id, name, name_key) VALUES ($1, $2, $3, $4)', [deviceId, homeId, name, nameKey(name)]);
+      await transaction.query(CLEAR_REPLACED_REMOVALS, [homeId, email, nameKey(name)]);
       return { deviceId };
     });
   } catch (error) {
@@ -197,7 +206,8 @@ export function pushPayload(request: PushRequest) {
   };
 }
 
-interface SendOutcome { id: string; accepted: boolean; status: number | null }
+/** What the provider answered for one device: `status` is its HTTP status, `null` when it never answered. */
+interface SendOutcome { id: string; outcome: DeviceDeliveryOutcome; status: number | null }
 
 /** Every device took the push, only some of them, or none. */
 function deliveryStatus(accepted: number, total: number): DeliveryStatus {
@@ -205,17 +215,32 @@ function deliveryStatus(accepted: number, total: number): DeliveryStatus {
   return accepted ? 'partial' : 'unavailable';
 }
 
-/** One statement stores what the provider answered for every device of this send. */
-async function recordDeliveryHealth(database: Database, outcomes: SendOutcome[]) {
-  const tracked = outcomes.filter((outcome) => outcome.accepted || !PUSH.goneStatuses.includes(outcome.status ?? 0));
-  if (!tracked.length) return;
+/**
+ * One statement stores everything the provider answered in this send, so a ring makes no extra round trip
+ * for it: the health of each device still subscribed; for a visit's notice, one row per device with its
+ * outcome and status (`visit_deliveries`, gone with the visit); and the devices whose subscription no longer
+ * exists, removed from every home with a trace in each one (`device_removals`). Every sub-statement reads the
+ * rows as they were before it, so the trace keeps each home's name for the device it removes.
+ */
+async function recordDeliveryOutcomes(database: Database, request: PushRequest, outcomes: SendOutcome[]) {
   await database.query(
-    `UPDATE devices AS d SET
-       last_success_at = CASE WHEN r.accepted THEN NOW() ELSE d.last_success_at END,
-       last_failure_at = CASE WHEN r.accepted THEN d.last_failure_at ELSE NOW() END,
-       last_failure_status = CASE WHEN r.accepted THEN d.last_failure_status ELSE r.status END
-     FROM unnest($1::text[], $2::boolean[], $3::int[]) AS r(id, accepted, status) WHERE d.id = r.id`,
-    [tracked.map((outcome) => outcome.id), tracked.map((outcome) => outcome.accepted), tracked.map((outcome) => outcome.status)],
+    `WITH sent AS (SELECT * FROM unnest($1::text[], $2::text[], $3::int[]) AS s(device_id, outcome, status)),
+     health AS (
+       UPDATE devices AS d SET
+         last_success_at = CASE WHEN s.outcome = 'accepted' THEN NOW() ELSE d.last_success_at END,
+         last_failure_at = CASE WHEN s.outcome = 'accepted' THEN d.last_failure_at ELSE NOW() END,
+         last_failure_status = CASE WHEN s.outcome = 'accepted' THEN d.last_failure_status ELSE s.status END
+       FROM sent s WHERE d.id = s.device_id AND s.outcome <> 'gone'),
+     delivery AS (
+       INSERT INTO visit_deliveries (visit_id, device_id, kind, outcome, status) SELECT v.id, s.device_id, $5::text, s.outcome, s.status FROM sent s JOIN visits v ON v.id = $4
+       ON CONFLICT (visit_id, device_id, kind) DO UPDATE SET outcome = EXCLUDED.outcome, status = EXCLUDED.status, sent_at = NOW()),
+     removal AS (
+       INSERT INTO device_removals (home_id, device_id, name, name_key, resident_email, owner_name, status)
+       SELECT dh.home_id, d.id, dh.name, dh.name_key, d.resident_email, d.owner_name, s.status FROM sent s JOIN devices d ON d.id = s.device_id JOIN device_homes dh ON dh.device_id = d.id
+       WHERE s.outcome = 'gone'
+       ON CONFLICT (home_id, device_id) DO UPDATE SET status = EXCLUDED.status, removed_at = NOW())
+     DELETE FROM devices d USING sent s WHERE d.id = s.device_id AND s.outcome = 'gone'`,
+    [outcomes.map((sent) => sent.id), outcomes.map((sent) => sent.outcome), outcomes.map((sent) => sent.status), request.visitId ?? null, request.kind],
   );
 }
 
@@ -234,9 +259,10 @@ async function homeDevices(database: Database, request: PushRequest) {
 }
 
 /**
- * Each provider send is awaited with the policy of its kind; expired endpoints are removed, every
- * other outcome is stored as device health, and mixed results stay explicit. It only rejects before
- * reaching the provider (configuration or reading the devices): once it sends, failures are outcomes.
+ * Each provider send is awaited with the policy of its kind; every outcome (health, the visit's per-device
+ * delivery, expired endpoints removed with a trace) is stored afterwards in one statement, and mixed results
+ * stay explicit. It only rejects before reaching the provider (configuration or reading the devices): once it
+ * sends, failures are outcomes.
  */
 export async function sendPush(database: Database, request: PushRequest): Promise<{ delivery: DeliveryStatus; accepted: number; total: number }> {
   const config = getConfig();
@@ -246,23 +272,20 @@ export async function sendPush(database: Database, request: PushRequest): Promis
   const policy = PUSH_POLICIES[request.kind];
   const outcomes = await Promise.all(devices.map(async (device): Promise<SendOutcome> => {
     try {
-      await webpush.sendNotification(device.subscription, payload, {
+      const sent = await webpush.sendNotification(device.subscription, payload, {
         vapidDetails: { subject: config.subject, publicKey: config.publicKey, privateKey: config.privateKey },
         TTL: policy.ttlSeconds, urgency: policy.urgency, timeout: PUSH.timeoutMs,
       });
-      return { id: device.id, accepted: true, status: null };
+      return { id: device.id, outcome: 'accepted', status: sent.statusCode };
     } catch (error) {
       const status = error instanceof webpush.WebPushError ? error.statusCode : null;
       logError('push.send', error, { deviceId: device.id, status, kind: request.kind, visitId: request.visitId, homeId: request.homeId });
-      if (PUSH.goneStatuses.includes(status ?? 0)) {
-        await database.query('DELETE FROM devices WHERE id = $1', [device.id])
-          .catch((cleanupError: unknown) => { logError('push.removeExpiredDevice', cleanupError, { deviceId: device.id }); });
-      }
-      return { id: device.id, accepted: false, status };
+      return { id: device.id, outcome: PUSH.goneStatuses.includes(status ?? 0) ? 'gone' : 'failed', status };
     }
   }));
-  // Health is informative: failing to store it must not turn a delivered ring into an error.
-  await recordDeliveryHealth(database, outcomes).catch((healthError: unknown) => { logError('push.recordDeliveryHealth', healthError, { kind: request.kind, visitId: request.visitId }); });
-  const accepted = outcomes.filter((outcome) => outcome.accepted).length;
+  // Informative: failing to store it must not turn a delivered ring into an error. A device left behind
+  // because it failed answers 404/410 again on the next send, which removes it then.
+  await recordDeliveryOutcomes(database, request, outcomes).catch((recordError: unknown) => { logError('push.recordDeliveryOutcomes', recordError, { kind: request.kind, visitId: request.visitId, homeId: request.homeId }); });
+  const accepted = outcomes.filter((sent) => sent.outcome === 'accepted').length;
   return { delivery: deliveryStatus(accepted, outcomes.length), accepted, total: outcomes.length };
 }

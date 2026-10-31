@@ -15,7 +15,19 @@ export interface Visit { id: string; message: string; created_at: string; answer
  * delivery health of the browser subscription (shared by every home it rings for).
  */
 export interface Device { id: string; name: string; created_at: string; owner: string | null; last_success_at: string | null; last_failure_at: string | null; last_failure_status: number | null; last_received_at: string | null }
-export interface DashboardSnapshot { home: HomeState; visits: Visit[]; devices: Device[] }
+/** What the provider answered for one device in one send: it took the push, it failed, or the subscription no longer exists. */
+export type DeviceDeliveryOutcome = 'accepted' | 'failed' | 'gone';
+/** Why a visitor's ring did not go through; the server's `code` for it (see `RING_REJECTION_CODES`). */
+export type RingRejectionCode = 'PAUSED' | 'QUIET_HOURS' | 'LOCATION_REQUIRED' | 'LOCATION_IMPRECISE' | 'TOO_FAR' | 'COOLDOWN' | 'RATE_LIMITED' | 'BUSY';
+/** How many rings of one home did not go through today for one reason; nothing about the visitors. */
+export interface RingRejection { code: RingRejectionCode; count: number }
+/**
+ * A device the provider gave up on (its subscription answered 404 or 410), as this home called it: the
+ * device is gone, this trace says which one, whose it was and when, until it connects again or expires.
+ */
+export interface RemovedDevice { id: string; name: string; owner: string | null; status: number; removed_at: string }
+/** `rejectedRings` counts today's, in the home's time zone; `removedDevices` lists the newest first. */
+export interface DashboardSnapshot { home: HomeState; visits: Visit[]; devices: Device[]; rejectedRings: RingRejection[]; removedDevices: RemovedDevice[] }
 /**
  * The signed-in resident: `name` is how this home calls them (`null` until they choose it), and
  * `suggestedName` prefills that choice from their other homes or their account.

@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { HTTP, RING_LIMITS } from '@/constants/doorbell';
+import { ERROR_CODES } from '@/constants/error-codes';
 import type { Database } from './database';
 import { AppError } from './errors';
 import type { Environment } from '@/types/environment';
@@ -37,9 +38,9 @@ export async function enforceRingLimits(transaction: Database, homeId: number, c
             (SELECT COUNT(*) FROM visits WHERE home_id = $4 AND created_at > NOW() - $3 * INTERVAL '1 second')::int AS recent`,
     [cooldownKey, windowKey, RING_LIMITS.homeWindowSeconds, homeId],
   )).rows[0];
-  if (counters.cooling) throw new AppError(HTTP.tooMany, 'COOLDOWN', `Ya tocaste el timbre hace poco. Esperá ${RING_LIMITS.clientCooldownSeconds} segundos.`);
-  if (counters.attempts >= RING_LIMITS.clientMaxPerWindow) throw new AppError(HTTP.tooMany, 'RATE_LIMITED', 'Tocaste el timbre varias veces seguidas. Probá de nuevo en unos minutos.');
-  if (counters.recent >= RING_LIMITS.homeMaxPerWindow) throw new AppError(HTTP.tooMany, 'BUSY', 'Este timbre recibió muchos avisos seguidos. Esperá unos minutos.');
+  if (counters.cooling) throw new AppError(HTTP.tooMany, ERROR_CODES.cooldown, `Ya tocaste el timbre hace poco. Esperá ${RING_LIMITS.clientCooldownSeconds} segundos.`);
+  if (counters.attempts >= RING_LIMITS.clientMaxPerWindow) throw new AppError(HTTP.tooMany, ERROR_CODES.rateLimited, 'Tocaste el timbre varias veces seguidas. Probá de nuevo en unos minutos.');
+  if (counters.recent >= RING_LIMITS.homeMaxPerWindow) throw new AppError(HTTP.tooMany, ERROR_CODES.busy, 'Este timbre recibió muchos avisos seguidos. Esperá unos minutos.');
   // The cooldown row cannot exist here (checked above under the home lock), so only the window row upserts.
   await transaction.query(
     `INSERT INTO rate_limits (key, attempts, expires_at) VALUES ($1, 1, NOW() + $3 * INTERVAL '1 second'), ($2, 1, NOW() + $4 * INTERVAL '1 second')

@@ -145,6 +145,8 @@ export async function removeResident(database: Database, user: ResidentIdentity,
     if (roster.length <= 1) throw new AppError(HTTP.conflict, 'LAST_RESIDENT', 'La vivienda necesita al menos un residente autorizado.');
     await transaction.query('DELETE FROM device_homes WHERE home_id = $1 AND device_id IN (SELECT id FROM devices WHERE resident_email = $2)', [homeId, email]);
     await transaction.query('DELETE FROM devices d WHERE d.resident_email = $1 AND NOT EXISTS (SELECT 1 FROM device_homes dh WHERE dh.device_id = d.id)', [email]);
+    // A removed resident cannot connect again the devices the provider dropped here, so their traces go too.
+    await transaction.query('DELETE FROM device_removals WHERE home_id = $1 AND resident_email = $2', [homeId, email]);
     await transaction.query('DELETE FROM home_members WHERE home_id = $1 AND email = $2', [homeId, email]);
     await transaction.query('INSERT INTO home_revocations (home_id, email) VALUES ($1, $2) ON CONFLICT (home_id, email) DO NOTHING', [homeId, email]);
     await mirrorLegacyRevocation(transaction, { homeId, email });

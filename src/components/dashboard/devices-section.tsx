@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Bell, BellRing, Laptop, Pencil, Smartphone, Trash2 } from 'lucide-react';
+import { Bell, BellOff, BellRing, Laptop, Pencil, Smartphone, Trash2 } from 'lucide-react';
 import { DEVICES } from '@/constants/devices';
-import type { DashboardSnapshot, Device } from '@/types/doorbell';
+import type { DashboardSnapshot, Device, RemovedDevice } from '@/types/doorbell';
 import { api } from '@/lib/api';
-import { deviceHealth } from '@/lib/device-health';
+import { deviceHealth, removedDeviceNotice } from '@/lib/device-health';
 import { deviceNameProblem } from '@/lib/device-name';
 import { ConnectDeviceForm } from '../connect-device-form';
 import { DoNotDisturbHelp } from './do-not-disturb-help';
@@ -99,9 +99,23 @@ function RenameForm({ device, homeId, otherNames, pending, run, error, onClearEr
   </form>;
 }
 
+/**
+ * Devices the provider removed: they left the list without anyone touching them (Safari on iPhone does not
+ * tell the app), so each one says which it was, since when and how to bring it back.
+ */
+function RemovedDevices({ devices }: { devices: RemovedDevice[] }) {
+  if (devices.length === 0) return null;
+  return <ul className="device-removals" aria-label="Celulares que dejaron de recibir avisos">{devices.map((device) => {
+    const notice = removedDeviceNotice(device);
+    return <li key={device.id} className="device-removal"><BellOff size={18} aria-hidden="true" /><p><strong>{notice.lead}:</strong> {notice.detail}<span>{notice.meta}</span></p></li>;
+  })}</ul>;
+}
+
 interface DevicesSectionProps {
   homeId: number;
   devices: Device[];
+  /** Devices the provider removed in the retention window, newest first. */
+  removedDevices: RemovedDevice[];
   thisDeviceId: string | null;
   notifications: NotificationState;
   /** How this home calls the resident, for the suggested name of this device. */
@@ -115,13 +129,14 @@ interface DevicesSectionProps {
   onActivate: (name: string) => void;
 }
 
-export function DevicesSection({ homeId, devices, thisDeviceId, notifications, residentName, pending, run, error, failedAction, onClearError, onActivate }: DevicesSectionProps) {
+export function DevicesSection({ homeId, devices, removedDevices, thisDeviceId, notifications, residentName, pending, run, error, failedAction, onClearError, onActivate }: DevicesSectionProps) {
   const [confirmRemoval, setConfirmRemoval] = useState('');
   const [renaming, setRenaming] = useState('');
   const busy = Boolean(pending);
   return <section id="devices" className="section-block lower-section">
     <div className="section-title"><div><span className="eyebrow">QUE NO SE TE ESCAPE UN DING</span><h2>Los celulares de tu casa</h2><p>Todos reciben el aviso. Cualquiera puede responder.</p></div><Laptop size={25} /></div>
     <ThisDeviceCallout notifications={notifications} residentName={residentName} otherNames={devices.map((item) => item.name)} pending={busy} onActivate={onActivate} />
+    <RemovedDevices devices={removedDevices} />
     {devices.length === 0
       ? <p className="section-footnote">Todavía no hay dispositivos conectados. El historial funciona; para recibir avisos con la app cerrada, conectá tu celular.</p>
       : <button type="button" className="button outline small device-test-mine" disabled={busy} onClick={() => run('test-mine', () => api('test-my-devices', { home: homeId }), testOutcome, 'none')}><Bell size={16} /> {pending === 'test-mine' ? 'Enviando prueba…' : 'Probar mis celulares'}</button>}

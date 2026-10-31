@@ -1,6 +1,8 @@
 import { DOORBELL, HTTP, PAUSE, VISIT_REPLIES, type PauseMode, type VisitReply } from '@/constants/doorbell';
+import { ERROR_CODES, RING_REJECTION_CODES } from '@/constants/error-codes';
 import { PUSH, type PushKind } from '@/constants/push';
-import type { Home, HomeState, Visit, Device, PublicVisit, PublicHome, DeliveryStatus, DashboardSnapshot, RingRequest } from '@/types/doorbell';
+import { TIME } from '@/constants/time';
+import type { Home, HomeState, Visit, Device, PublicVisit, PublicHome, DeliveryStatus, DashboardSnapshot, RingRequest, RingRejection, RingRejectionCode, RemovedDevice } from '@/types/doorbell';
 import type { HomeMember } from '@/types/residents';
 import { isQuietTime } from '@/lib/quiet-hours';
 import { isPaused, pauseEnd, pauseEndLabel } from '@/lib/pause';
@@ -24,9 +26,13 @@ const HOME_DEVICES = `SELECT d.id, dh.name, dh.created_at, COALESCE(m.display_na
 
 const INVALID_DOORBELL_MESSAGE = 'Este timbre ya no está disponible. Pedí el QR actualizado.';
 
+function homeNotFound() {
+  return new AppError(HTTP.notFound, 'HOME_NOT_FOUND', 'Esa casa ya no existe.');
+}
+
 export async function getHome(database: Database, homeId: number): Promise<Home> {
   const [home] = (await database.query<Home>(`SELECT ${HOME_COLUMNS} FROM homes WHERE id = $1`, [homeId])).rows;
-  if (!home) throw new AppError(HTTP.notFound, 'HOME_NOT_FOUND', 'Esa casa ya no existe.');
+  if (!home) throw homeNotFound();
   return home;
 }
 
@@ -50,14 +56,32 @@ function toJsonSnapshot(snapshotRows: DashboardSnapshot): DashboardSnapshot {
   return JSON.parse(json) as DashboardSnapshot;
 }
 
+/**
+ * The home with what the panel tells about it besides visits and devices, so the snapshot keeps three
+ * queries: today's rejected rings by reason (`$2`, the home's time zone, decides the day) and the devices the
+ * provider removed inside the retention window (`$3` days), named and owned as this home calls them.
+ */
+const SNAPSHOT_HOME = `SELECT ${HOME_COLUMNS},
+  (SELECT COALESCE(json_agg(json_build_object('code', r.code, 'count', r.count) ORDER BY r.count DESC, r.code), '[]') FROM ring_rejections r
+    WHERE r.home_id = homes.id AND r.day = (NOW() AT TIME ZONE $2)::date) AS rejected_rings,
+  (SELECT COALESCE(json_agg(json_build_object('id', g.device_id, 'name', g.name, 'owner', COALESCE(m.display_name, g.owner_name, split_part(g.resident_email, '@', 1)), 'status', g.status, 'removed_at', g.removed_at) ORDER BY g.removed_at DESC), '[]')
+    FROM device_removals g LEFT JOIN home_members m ON m.home_id = g.home_id AND m.email = g.resident_email
+    WHERE g.home_id = homes.id AND g.removed_at > NOW() - $3 * INTERVAL '1 day') AS removed_devices
+  FROM homes WHERE id = $1`;
+
+type SnapshotHome = Home & { rejected_rings: RingRejection[]; removed_devices: RemovedDevice[] };
+
 /** Only visits inside the retention window are shown, even when nobody rang to trigger a purge. */
 export async function snapshot(database: Database, homeId: number): Promise<DashboardSnapshot> {
-  const [home, visits, devices] = await Promise.all([
-    getHome(database, homeId),
+  const [homes, visits, devices] = await Promise.all([
+    database.query<SnapshotHome>(SNAPSHOT_HOME, [homeId, DOORBELL.timeZone, DOORBELL.retentionDays]),
     database.query<Visit>(`SELECT ${VISIT_COLUMNS} FROM visits WHERE home_id = $3 AND created_at > NOW() - $2 * INTERVAL '1 day' ORDER BY created_at DESC LIMIT $1`, [DOORBELL.historyLimit, DOORBELL.retentionDays, homeId]),
     database.query<Device>(HOME_DEVICES, [homeId]),
   ]);
-  return toJsonSnapshot({ home: homeState(home), visits: visits.rows, devices: devices.rows });
+  const [found] = homes.rows;
+  if (!found) throw homeNotFound();
+  const { rejected_rings: rejectedRings, removed_devices: removedDevices, ...home } = found;
+  return toJsonSnapshot({ home: homeState(home), visits: visits.rows, devices: devices.rows, rejectedRings, removedDevices });
 }
 
 export async function publicHome(database: Database, token: string): Promise<PublicHome> {
@@ -169,8 +193,8 @@ export async function registerVisit(database: Database, token: string, ring: Rin
       const { home_id: _homeId, ...visit } = existing;
       return { visit, created: false, notice: visit.delivery === 'registered' ? await claimNotice(transaction, 'ring', ring.id) : NO_NOTICE };
     }
-    if (isPaused(home)) throw new AppError(HTTP.conflict, 'PAUSED', pausedMessage(home));
-    if (isQuietTime(home)) throw new AppError(HTTP.conflict, 'QUIET_HOURS', `Ahora es horario de descanso en esta casa. Probá después de las ${home.quiet_end}.`);
+    if (isPaused(home)) throw new AppError(HTTP.conflict, ERROR_CODES.paused, pausedMessage(home));
+    if (isQuietTime(home)) throw new AppError(HTTP.conflict, ERROR_CODES.quietHours, `Ahora es horario de descanso en esta casa. Probá después de las ${home.quiet_end}.`);
     requireNearby(home, ring.position);
     await enforceRingLimits(transaction, home.id, ring.client);
     await transaction.query(`DELETE FROM visits WHERE home_id = $2 AND created_at < NOW() - $1 * INTERVAL '1 day'`, [DOORBELL.retentionDays, home.id]);
@@ -179,20 +203,53 @@ export async function registerVisit(database: Database, token: string, ring: Rin
   });
 }
 
-/** Sends a ring this request claimed and stores its delivery. The title names the home: a resident of several homes knows which door rang. */
-async function sendRing(database: Database, visitId: string, notice: ClaimedNotice): Promise<PublicVisit> {
+/** Milliseconds since `receivedAt`, a reading of `performance.now()`. */
+function elapsedMs(receivedAt: number) {
+  return Math.round(performance.now() - receivedAt);
+}
+
+/**
+ * Sends a ring this request claimed and stores its delivery with how long the ring took: since `receivedAt`
+ * when this request stored the visit, otherwise (`null`: a retry or the visitor's poll sends what an earlier
+ * request left unsent) since the visit was stored. The title names the home: a resident of several homes
+ * knows which door rang.
+ */
+async function sendRing(database: Database, visitId: string, notice: ClaimedNotice, receivedAt: number | null): Promise<PublicVisit> {
   const outcome = await sendNotice(database, { kind: 'ring', homeId: notice.home.id, title: `${notice.home.name}: hay alguien en la puerta`, body: notice.text || 'Tocaron el timbre. Abrí Ringgg para responder.', visitId, answerable: true });
-  return setDelivery(database, visitId, outcome.delivery);
+  return setDelivery(database, visitId, outcome.delivery, receivedAt === null ? null : elapsedMs(receivedAt));
+}
+
+function isRingRejection(code: string): code is RingRejectionCode {
+  return RING_REJECTION_CODES.some((rejection) => rejection === code);
+}
+
+/**
+ * Counts a ring that did not go through for the home of `token`, in a statement of its own after the ring's
+ * transaction rolled back. Only the day and the reason are kept: never who rang, from where or what they
+ * wrote. Best effort: a failure is logged and the visitor still gets the original answer.
+ */
+async function countRejection(database: Database, token: string, visitId: string, error: unknown) {
+  if (!(error instanceof AppError) || !isRingRejection(error.code)) return;
+  await database.query(
+    `INSERT INTO ring_rejections (home_id, day, code, count) SELECT id, (NOW() AT TIME ZONE $3)::date, $2, 1 FROM homes WHERE token = $1
+     ON CONFLICT (home_id, day, code) DO UPDATE SET count = ring_rejections.count + 1`,
+    [token, error.code, DOORBELL.timeZone],
+  ).catch((countError: unknown) => { logError('doorbell.countRejection', countError, { code: error.code, visitId }); });
 }
 
 /**
  * Registers a visitor's ring and notifies the home once: only the request holding its notice sends it and
  * stores the delivery. A retry after a failure before sending rings the residents then; one that finds the
  * notice still held answers with the stored visit, and the visitor's poll ({@link followVisit}) sends it.
+ * A ring that does not go through is counted for the panel and fails with the same answer. `receivedAt`, the
+ * `performance.now()` of the request's arrival, times the ring until its delivery is stored.
  */
-export async function ringAndNotify(database: Database, token: string, ring: RingRequest): Promise<PublicVisit> {
-  const { visit, notice } = await registerVisit(database, token, ring);
-  return notice.state === 'claimed' ? sendRing(database, visit.id, notice) : visit;
+export async function ringAndNotify(database: Database, token: string, ring: RingRequest, receivedAt = performance.now()): Promise<PublicVisit> {
+  const { visit, created, notice } = await registerVisit(database, token, ring).catch(async (error: unknown) => {
+    await countRejection(database, token, ring.id, error);
+    throw error;
+  });
+  return notice.state === 'claimed' ? sendRing(database, visit.id, notice, created ? receivedAt : null) : visit;
 }
 
 /** Sends a note this request claimed and keeps its claim: nothing else records that the note went out. */
@@ -216,7 +273,7 @@ export async function followVisit(database: Database, token: string, id: string)
   const notice = await claimNotice(database, kind, id);
   if (notice.state !== 'claimed') return visit;
   try {
-    if (kind === 'ring') return await sendRing(database, id, notice);
+    if (kind === 'ring') return await sendRing(database, id, notice, null);
     await sendNote(database, id, notice);
     return visit;
   } catch (error) {
@@ -296,9 +353,17 @@ export async function leaveNoteAndNotify(database: Database, token: string, id: 
   return visit;
 }
 
-/** Returns the visitor-facing visit so the ring response needs no extra read. */
-export async function setDelivery(database: Database, id: string, delivery: DeliveryStatus): Promise<PublicVisit> {
-  return (await database.query<PublicVisit>(`UPDATE visits SET delivery = $2 WHERE id = $1 RETURNING ${PUBLIC_VISIT_COLUMNS}`, [id, delivery])).rows[0];
+/**
+ * Stores a ring's delivery and how long the ring took in one statement, and returns the visitor-facing visit
+ * so the ring response needs no extra read. Without `ringMs` the time counts since the visit was stored, on
+ * the database's clock; a delivery stored again keeps the first time.
+ */
+export async function setDelivery(database: Database, id: string, delivery: DeliveryStatus, ringMs: number | null = null): Promise<PublicVisit> {
+  const result = await database.query<PublicVisit>(
+    `UPDATE visits SET delivery = $2, ring_ms = COALESCE(ring_ms, $3::int, (EXTRACT(EPOCH FROM clock_timestamp() - created_at) * $4)::int) WHERE id = $1 RETURNING ${PUBLIC_VISIT_COLUMNS}`,
+    [id, delivery, ringMs, TIME.secondMs],
+  );
+  return result.rows[0];
 }
 
 /**
@@ -345,12 +410,24 @@ export async function rotateToken(database: Database, homeId: number) {
   await database.query('UPDATE homes SET token = $1 WHERE id = $2', [crypto.randomUUID(), homeId]);
 }
 
+/** What the daily cleanup deleted, by kind. */
+export interface PurgedData { visits: number; rateLimits: number; rejectedRings: number; removedDevices: number }
+
 /**
- * Daily cleanup that keeps the retention promise when nobody rings: visits (with their messages,
- * notes and receipts) older than the retention window and expired visitor rate limits, in every home.
+ * Daily cleanup that keeps the retention promise when nobody rings, in every home and one statement: visits
+ * (with their messages, notes, receipts and per-device deliveries) older than the retention window, expired
+ * visitor rate limits, and the rejected-ring counts (by day in the home's time zone) and traces of removed
+ * devices older than that window.
  */
-export async function purgeExpiredData(database: Database): Promise<{ visits: number; rateLimits: number }> {
-  const visits = await database.query<{ count: number }>(`WITH gone AS (DELETE FROM visits WHERE created_at < NOW() - $1 * INTERVAL '1 day' RETURNING 1) SELECT COUNT(*)::int AS count FROM gone`, [DOORBELL.retentionDays]);
-  const rateLimits = await database.query<{ count: number }>('WITH gone AS (DELETE FROM rate_limits WHERE expires_at <= NOW() RETURNING 1) SELECT COUNT(*)::int AS count FROM gone');
-  return { visits: visits.rows[0].count, rateLimits: rateLimits.rows[0].count };
+export async function purgeExpiredData(database: Database): Promise<PurgedData> {
+  const result = await database.query<PurgedData>(
+    `WITH visits_gone AS (DELETE FROM visits WHERE created_at < NOW() - $1 * INTERVAL '1 day' RETURNING 1),
+     limits_gone AS (DELETE FROM rate_limits WHERE expires_at <= NOW() RETURNING 1),
+     rejections_gone AS (DELETE FROM ring_rejections WHERE day < ((NOW() AT TIME ZONE $2) - $1 * INTERVAL '1 day')::date RETURNING 1),
+     removals_gone AS (DELETE FROM device_removals WHERE removed_at < NOW() - $1 * INTERVAL '1 day' RETURNING 1)
+     SELECT (SELECT COUNT(*)::int FROM visits_gone) AS visits, (SELECT COUNT(*)::int FROM limits_gone) AS "rateLimits",
+       (SELECT COUNT(*)::int FROM rejections_gone) AS "rejectedRings", (SELECT COUNT(*)::int FROM removals_gone) AS "removedDevices"`,
+    [DOORBELL.retentionDays, DOORBELL.timeZone],
+  );
+  return result.rows[0];
 }
