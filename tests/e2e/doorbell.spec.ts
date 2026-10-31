@@ -117,7 +117,7 @@ test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el no
   await expect(page.locator('.qr-home')).toHaveText('Casa del patio');
 });
 
-test('la API privada exige sesión y bloquea mutaciones de otro origen', async ({ request }) => {
+test('la API privada exige sesión y bloquea mutaciones de otro origen', async ({ request, page }) => {
   const unauthenticated = await request.get('/api/dashboard');
   expect([401, 503]).toContain(unauthenticated.status());
   for (const path of ['/api/settings', '/api/pause', '/api/rename-device', '/api/subscribe', '/api/push-receipt', '/api/homes', '/api/delete-home', '/api/renew-subscription', '/api/residents']) {
@@ -126,9 +126,11 @@ test('la API privada exige sesión y bloquea mutaciones de otro origen', async (
   }
   const cron = await request.get('/api/cron/purge');
   expect([401, 503]).toContain(cron.status());
-  const poster = await request.get('/cartel', { maxRedirects: 0 });
-  expect(poster.status()).toBe(307);
-  expect(poster.headers().location).toContain('/sign-in');
+  // With auth configured the proxy answers 307; without it (Dependabot and forks get no secrets) the page
+  // redirects while streaming. Either way the poster is never shown without a session.
+  await page.goto('/cartel');
+  await expect(page).toHaveURL(/\/sign-in/);
+  await expect(page.locator('.qr-home')).toHaveCount(0);
   // The privacy policy is public: no session and no redirect, as the OAuth consent screen requires.
   const privacy = await request.get('/privacidad', { maxRedirects: 0 });
   expect(privacy.status()).toBe(200);
