@@ -235,7 +235,8 @@ async function homeDevices(database: Database, request: PushRequest) {
 
 /**
  * Each provider send is awaited with the policy of its kind; expired endpoints are removed, every
- * other outcome is stored as device health, and mixed results stay explicit.
+ * other outcome is stored as device health, and mixed results stay explicit. It only rejects before
+ * reaching the provider (configuration or reading the devices): once it sends, failures are outcomes.
  */
 export async function sendPush(database: Database, request: PushRequest): Promise<{ delivery: DeliveryStatus; accepted: number; total: number }> {
   const config = getConfig();
