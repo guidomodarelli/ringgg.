@@ -25,6 +25,7 @@
     "typecheck:build": "tsc --noEmit && tsc --noEmit -p src/service-worker",
     "lint": "golfo-lint lint",
     "test": "vitest run",
+    "test:postgres": "vitest run --config vitest.postgres.config.ts",
     "test:e2e": "playwright test",
     "test:neon": "playwright test --config playwright.neon.config.ts",
     "db:check": "node --env-file-if-exists=.env --env-file-if-exists=.env.local --import=tsx scripts/check-database.ts",
