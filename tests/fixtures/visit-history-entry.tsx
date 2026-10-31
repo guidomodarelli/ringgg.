@@ -20,6 +20,6 @@ function Fixture() {
     catch (error) { setFeedback(error instanceof Error ? error.message : 'Error'); return false; }
     finally { setPending(''); lock.current = false; }
   }
-  return <><p role="status">{feedback}</p><VisitHistory visits={visits} now={loadedAt} url="/t/token" pending={pending} run={run} focusVisitId={visits[0]?.id ?? ''} /></>;
+  return <><p role="status">{feedback}</p><VisitHistory visits={visits} rejectedRings={[]} now={loadedAt} url="/t/token" pending={pending} run={run} focusVisitId={visits[0]?.id ?? ''} /></>;
 }
 createRoot(document.getElementById('root')!).render(<Fixture />);
