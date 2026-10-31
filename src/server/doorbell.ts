@@ -1,10 +1,12 @@
 import { DOORBELL, HTTP, PAUSE, VISIT_REPLIES, type PauseMode, type VisitReply } from '@/constants/doorbell';
+import { PUSH, type PushKind } from '@/constants/push';
 import type { Home, HomeState, Visit, Device, PublicVisit, PublicHome, DeliveryStatus, DashboardSnapshot, RingRequest } from '@/types/doorbell';
 import type { HomeMember } from '@/types/residents';
 import { isQuietTime } from '@/lib/quiet-hours';
 import { isPaused, pauseEnd, pauseEndLabel } from '@/lib/pause';
 import type { Database } from './database';
-import { AppError } from './errors';
+import { AppError, logError } from './errors';
+import { sendPush, type PushRequest } from './push';
 import { enforceRingLimits } from './rate-limit';
 import { homeNameSchema, requireFreeHomeName } from './homes';
 import { listResidentHomes, residentSettings } from './residents';
@@ -69,8 +71,95 @@ function pausedMessage(home: Home) {
   return end ? `El timbre está en pausa ${pauseEndLabel(end)}. Intentá más tarde.` : 'El timbre está en pausa. Intentá más tarde.';
 }
 
-/** The home row lock makes rate limits and idempotency atomic across every server instance. */
-export async function registerVisit(database: Database, token: string, ring: RingRequest): Promise<{ visit: PublicVisit; created: boolean; home: Pick<Home, 'id' | 'name'> }> {
+/** A notice this request claimed: the stored text it announces and the home it goes to. */
+interface ClaimedNotice { state: 'claimed'; text: string; home: Pick<Home, 'id' | 'name'> }
+
+/**
+ * A visit's notice as one request finds it: claimed by this request; `held` by another request that may
+ * still be sending it; or `none` to send (not due, or a note that already went out).
+ */
+export type NoticeClaim = ClaimedNotice | { state: 'held' } | { state: 'none' };
+
+/** What a visitor's request stored and the state of the notice it announces. */
+export interface VisitorSubmission { visit: PublicVisit; created: boolean; notice: NoticeClaim }
+
+/** The notices a visit sends to its home: the ring and the visitor's note. */
+type NoticeKind = Extract<PushKind, 'ring' | 'note'>;
+type NoticeRequest = PushRequest & { kind: NoticeKind; visitId: string };
+
+const NO_NOTICE: NoticeClaim = { state: 'none' };
+
+function noticeKey(kind: NoticeKind, visitId: string) {
+  return `notice-${kind}:${visitId}`;
+}
+
+/**
+ * When a visit's notice is still due, with the stored text it announces and its home: a ring nobody answered
+ * that never got a delivery, while it can still be answered (later it would be useless), or a stored note.
+ * The visit id is `$3`.
+ */
+const DUE_NOTICES: Record<NoticeKind, [string, unknown[]]> = {
+  ring: [
+    `SELECT v.message AS text, h.id AS home_id, h.name AS home_name FROM visits v JOIN homes h ON h.id = v.home_id
+     WHERE v.id = $3 AND v.delivery = 'registered' AND v.answered_at IS NULL AND v.created_at > NOW() - $4 * INTERVAL '1 second'`,
+    [DOORBELL.responseWindowSeconds],
+  ],
+  note: ['SELECT v.note AS text, h.id AS home_id, h.name AS home_name FROM visits v JOIN homes h ON h.id = v.home_id WHERE v.id = $3 AND v.note IS NOT NULL', []],
+};
+
+/**
+ * Claims a due notice for this request in one statement, unless another request holds it. A claim is a
+ * limit of one notice per visit, so it lives in `rate_limits`: it expires after `PUSH.claimSeconds`, and a
+ * sent note keeps it while the visit is kept, so a claim that outlives a send means the note went out. The
+ * last subquery reads the claim as it was before this statement; one claimed at that same moment by a
+ * concurrent request reads as `none`.
+ */
+async function claimNotice(database: Database, kind: NoticeKind, visitId: string): Promise<NoticeClaim> {
+  const [due, dueParameters] = DUE_NOTICES[kind];
+  const result = await database.query<{ text: string; home_id: number; home_name: string; claimed: boolean; held: boolean }>(
+    `WITH due AS (${due}),
+     claim AS (INSERT INTO rate_limits (key, attempts, expires_at) SELECT $1, 1, NOW() + $2 * INTERVAL '1 second' FROM due
+       ON CONFLICT (key) DO UPDATE SET attempts = rate_limits.attempts + 1, expires_at = EXCLUDED.expires_at WHERE rate_limits.expires_at <= NOW() RETURNING key)
+     SELECT due.text, due.home_id, due.home_name, EXISTS (SELECT 1 FROM claim) AS claimed,
+       EXISTS (SELECT 1 FROM rate_limits WHERE key = $1 AND expires_at > NOW() AND expires_at <= NOW() + $2 * INTERVAL '1 second') AS held
+     FROM due`,
+    [noticeKey(kind, visitId), PUSH.claimSeconds, visitId, ...dueParameters],
+  );
+  const [row] = result.rows;
+  if (row?.claimed) return { state: 'claimed', text: row.text, home: { id: row.home_id, name: row.home_name } };
+  return row?.held ? { state: 'held' } : NO_NOTICE;
+}
+
+/**
+ * Sends a claimed notice. `sendPush` only rejects before it reaches the provider, so the claim is released
+ * and the visitor's next request sends it; the request still fails with the original cause. When releasing
+ * fails too, the claim expires on its own after `PUSH.claimSeconds`.
+ */
+async function sendNotice(database: Database, request: NoticeRequest) {
+  try { return await sendPush(database, request); }
+  catch (error) {
+    await database.query('DELETE FROM rate_limits WHERE key = $1', [noticeKey(request.kind, request.visitId)])
+      .catch((releaseError: unknown) => { logError('doorbell.releaseNotice', releaseError, { kind: request.kind, visitId: request.visitId }); });
+    throw new Error(`Doorbell:sendNotice failed: the ${request.kind} notice of visit ${request.visitId} was not sent`, { cause: error });
+  }
+}
+
+/**
+ * Nothing else records that a note was sent, so its claim stays while the visit is kept. Failing to keep
+ * it does not fail a note that already went out: the visitor stops after this success, and only a retry
+ * after the claim expires (one whose answer to this request was lost too) would send it again.
+ */
+async function keepNoteNotice(database: Database, visitId: string) {
+  await database.query(`UPDATE rate_limits SET expires_at = NOW() + $2 * INTERVAL '1 day' WHERE key = $1`, [noticeKey('note', visitId), DOORBELL.retentionDays])
+    .catch((keepError: unknown) => { logError('doorbell.keepNoteNotice', keepError, { visitId }); });
+}
+
+/**
+ * The home row lock makes rate limits and idempotency atomic across every server instance. A new visit is
+ * stored with its notice claimed; a retry claims it only if no request sent it, so one that failed before
+ * sending is announced now.
+ */
+export async function registerVisit(database: Database, token: string, ring: RingRequest): Promise<VisitorSubmission> {
   return database.transaction(async (transaction) => {
     const home = await homeByToken(transaction, token, true);
     const [existing] = (await transaction.query<PublicVisit & { home_id: number }>(`SELECT home_id, ${PUBLIC_VISIT_COLUMNS} FROM visits WHERE id = $1`, [ring.id])).rows;
@@ -78,7 +167,7 @@ export async function registerVisit(database: Database, token: string, ring: Rin
       // A retry of this ring returns it; an id taken by another home's visit is never disclosed.
       if (existing.home_id !== home.id) throw new AppError(HTTP.conflict, 'RING_ID_TAKEN', 'No pudimos registrar el timbrazo. Volvé a tocar el timbre.');
       const { home_id: _homeId, ...visit } = existing;
-      return { visit, created: false, home: { id: home.id, name: home.name } };
+      return { visit, created: false, notice: visit.delivery === 'registered' ? await claimNotice(transaction, 'ring', ring.id) : NO_NOTICE };
     }
     if (isPaused(home)) throw new AppError(HTTP.conflict, 'PAUSED', pausedMessage(home));
     if (isQuietTime(home)) throw new AppError(HTTP.conflict, 'QUIET_HOURS', `Ahora es horario de descanso en esta casa. Probá después de las ${home.quiet_end}.`);
@@ -86,8 +175,54 @@ export async function registerVisit(database: Database, token: string, ring: Rin
     await enforceRingLimits(transaction, home.id, ring.client);
     await transaction.query(`DELETE FROM visits WHERE home_id = $2 AND created_at < NOW() - $1 * INTERVAL '1 day'`, [DOORBELL.retentionDays, home.id]);
     const result = await transaction.query<PublicVisit>(`INSERT INTO visits (id, home_id, message) VALUES ($1, $2, $3) RETURNING ${PUBLIC_VISIT_COLUMNS}`, [ring.id, home.id, ring.message]);
-    return { visit: result.rows[0], created: true, home: { id: home.id, name: home.name } };
+    return { visit: result.rows[0], created: true, notice: await claimNotice(transaction, 'ring', ring.id) };
   });
+}
+
+/** Sends a ring this request claimed and stores its delivery. The title names the home: a resident of several homes knows which door rang. */
+async function sendRing(database: Database, visitId: string, notice: ClaimedNotice): Promise<PublicVisit> {
+  const outcome = await sendNotice(database, { kind: 'ring', homeId: notice.home.id, title: `${notice.home.name}: hay alguien en la puerta`, body: notice.text || 'Tocaron el timbre. Abrí Ringgg para responder.', visitId, answerable: true });
+  return setDelivery(database, visitId, outcome.delivery);
+}
+
+/**
+ * Registers a visitor's ring and notifies the home once: only the request holding its notice sends it and
+ * stores the delivery. A retry after a failure before sending rings the residents then; one that finds the
+ * notice still held answers with the stored visit, and the visitor's poll ({@link followVisit}) sends it.
+ */
+export async function ringAndNotify(database: Database, token: string, ring: RingRequest): Promise<PublicVisit> {
+  const { visit, notice } = await registerVisit(database, token, ring);
+  return notice.state === 'claimed' ? sendRing(database, visit.id, notice) : visit;
+}
+
+/** Sends a note this request claimed and keeps its claim: nothing else records that the note went out. */
+async function sendNote(database: Database, visitId: string, notice: ClaimedNotice) {
+  await sendNotice(database, { kind: 'note', homeId: notice.home.id, title: `${notice.home.name}: te dejaron un mensaje`, body: notice.text, visitId });
+  await keepNoteNotice(database, visitId);
+}
+
+/**
+ * The visitor's poll while they wait for an answer, and the read that resumes their visit after a reload
+ * or a new scan of the QR. A ring left without a delivery, or a note left without its notice (its request
+ * failed after storing it, while holding the notice), is sent here once that claim expires: a resumed page
+ * shows a stored note as left, so it never retries it. A noted visit can no longer ring: a note needs the
+ * answer window closed or a «No estoy». A failed send is logged and left to the next read, which still
+ * answers with the visit as read.
+ */
+export async function followVisit(database: Database, token: string, id: string): Promise<PublicVisit> {
+  const visit = await readVisit(database, token, id);
+  const kind: NoticeKind = visit.noted ? 'note' : 'ring';
+  if (kind === 'ring' && (visit.delivery !== 'registered' || visit.answered_at)) return visit;
+  const notice = await claimNotice(database, kind, id);
+  if (notice.state !== 'claimed') return visit;
+  try {
+    if (kind === 'ring') return await sendRing(database, id, notice);
+    await sendNote(database, id, notice);
+    return visit;
+  } catch (error) {
+    logError('doorbell.followVisit', error, { visitId: id, kind });
+    return visit;
+  }
 }
 
 /** One round trip: the token check and the visit of that home come from the same query. */
@@ -128,21 +263,37 @@ export async function answerVisit(database: Database, visit: VisitKey, reply: Vi
 
 /**
  * A visitor can leave one note when nobody answered in time or the residents said they are away.
- * Retrying after a lost response returns the stored state instead of sending a second notification.
+ * Retrying returns the stored note; it claims the notice only if no request sent it, like a ring. The note
+ * and its claim commit together, so a stored note always has its notice claimed, sent or claimable.
  */
-export async function leaveNote(database: Database, token: string, id: string, note: string): Promise<{ visit: PublicVisit; created: boolean; home: Pick<Home, 'id' | 'name'> }> {
-  const home = await homeByToken(database, token);
-  const updated = await database.query<PublicVisit>(
-    `UPDATE visits SET note = $2, noted_at = NOW()
-     WHERE id = $1 AND home_id = $5 AND note IS NULL AND created_at > NOW() - $3 * INTERVAL '1 second'
-       AND ((answered_at IS NULL AND created_at <= NOW() - $4 * INTERVAL '1 second') OR reply = 'away')
-     RETURNING ${PUBLIC_VISIT_COLUMNS}`,
-    [id, note, DOORBELL.noteWindowSeconds, DOORBELL.responseWindowSeconds, home.id],
-  );
-  if (updated.rows[0]) return { visit: updated.rows[0], created: true, home: { id: home.id, name: home.name } };
-  const current = await readVisit(database, token, id);
-  if (current.noted) return { visit: current, created: false, home: { id: home.id, name: home.name } };
-  throw new AppError(HTTP.conflict, 'NOTE_UNAVAILABLE', 'Ya no se puede dejar un mensaje para este timbrazo.');
+export async function leaveNote(database: Database, token: string, id: string, note: string): Promise<VisitorSubmission> {
+  return database.transaction(async (transaction) => {
+    const home = await homeByToken(transaction, token);
+    const updated = await transaction.query<PublicVisit>(
+      `UPDATE visits SET note = $2, noted_at = NOW()
+       WHERE id = $1 AND home_id = $5 AND note IS NULL AND created_at > NOW() - $3 * INTERVAL '1 second'
+         AND ((answered_at IS NULL AND created_at <= NOW() - $4 * INTERVAL '1 second') OR reply = 'away')
+       RETURNING ${PUBLIC_VISIT_COLUMNS}`,
+      [id, note, DOORBELL.noteWindowSeconds, DOORBELL.responseWindowSeconds, home.id],
+    );
+    const [created] = updated.rows;
+    const visit = created ?? await readVisit(transaction, token, id);
+    if (!visit.noted) throw new AppError(HTTP.conflict, 'NOTE_UNAVAILABLE', 'Ya no se puede dejar un mensaje para este timbrazo.');
+    return { visit, created: Boolean(created), notice: await claimNotice(transaction, 'note', id) };
+  });
+}
+
+/**
+ * Stores a visitor's note and notifies the home once, like {@link ringAndNotify}; the notice carries the
+ * stored note. Nothing polls after a note, so success means it went out: while another request holds an
+ * unsent notice, the visitor is asked to retry, and the retry sends it once that claim expires.
+ */
+export async function leaveNoteAndNotify(database: Database, token: string, id: string, note: string): Promise<PublicVisit> {
+  const { visit, notice } = await leaveNote(database, token, id, note);
+  if (notice.state === 'held') throw new AppError(HTTP.conflict, 'NOTE_NOTICE_PENDING', 'Guardamos tu mensaje, pero todavía no confirmamos el aviso a la casa. Volvé a tocar «Dejar mensaje» en unos segundos.');
+  if (notice.state === 'none') return visit;
+  await sendNote(database, id, notice);
+  return visit;
 }
 
 /** Returns the visitor-facing visit so the ring response needs no extra read. */

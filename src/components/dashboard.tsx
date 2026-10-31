@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowUpRight, Check, House, LoaderCircle, LogOut, RefreshCw, ShieldCheck, Smartphone, X } from 'lucide-react';
+import { ArrowUpRight, Check, House, LoaderCircle, LogIn, LogOut, RefreshCw, ShieldCheck, Smartphone, X } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
 import { ResidentManagement } from './resident-management';
 import { NotificationOnboarding } from './notification-onboarding';
@@ -9,7 +9,7 @@ import { ResidentNameDialog } from './resident-name-dialog';
 import { DeviceNameDialog } from './device-name-dialog';
 import { HomeSwitcher } from './home-switcher';
 import { DashboardSectionLink } from './dashboard-section-link';
-import { DoorOverview } from './dashboard/door-overview';
+import { DoorOverview, DoorWaiting } from './dashboard/door-overview';
 import { VisitHistory } from './dashboard/visit-history';
 import { QrPanel } from './dashboard/qr-panel';
 import { DevicesSection, isDeviceRename } from './dashboard/devices-section';
@@ -17,13 +17,16 @@ import { SettingsSection } from './dashboard/settings-section';
 import { useDashboardState } from './dashboard/use-dashboard-state';
 import { useDashboardView, useFocusVisitId } from './dashboard/use-dashboard-view';
 import { usePushDevice } from './dashboard/use-push-device';
+import { usePublishAwaitingVisits } from './dashboard/use-awaiting-visits';
 import { useAppUpdates } from './use-app-updates';
 import { useTrackedNavigation } from './use-tracked-navigation';
 import type { DashboardData, DashboardSnapshot, HomeState } from '@/types/doorbell';
 import type { DashboardView } from '@/constants/dashboard-views';
 import { pauseEnd, pauseEndLabel } from '@/lib/pause';
+import { dashboardHref } from '@/lib/dashboard-view';
 import { api } from '@/lib/api';
 import { isGenericDeviceName } from '@/lib/device-name';
+import { visitsAwaitingAnswer } from '@/lib/visit-format';
 import type { ResidentEntry } from '@/types/residents';
 
 const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> = {
@@ -58,9 +61,12 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   const residentName = viewerName ?? initial.viewer.suggestedName;
   const device = usePushDevice({ homeId: initial.home.id, pushReady: initial.pushReady });
   // This browser rings for the home only while the confirmed snapshot lists its device.
-  const { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync } = useDashboardState(initial, device.deviceId);
+  const { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, signedOut, now, run, retrySync } = useDashboardState(initial, device.deviceId);
   const url = `${data.origin}/t/${data.home.token}`;
   const busy = Boolean(pending);
+  // Visits a quick reply still reaches: the overview lists them and «Timbrazos» counts them in the sidebar.
+  const awaiting = visitsAwaitingAnswer(data.visits, now);
+  usePublishAwaitingVisits(data.home.id, awaiting.length);
   // `next.config.ts` inlines the build's version into this bundle: it names the code this page runs.
   useAppUpdates({ busy, loadedVersion: process.env.APP_VERSION ?? '' });
 
@@ -85,7 +91,8 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
   const deviceNaming = !naming && thisDevice !== undefined && isGenericDeviceName(thisDevice.name);
   const onboarding = !naming && !deviceNaming && device.showSetup;
   // A modal step or a form that shows an error next to its field keeps it there; the page shows the rest.
-  const pageError = naming || deviceNaming || onboarding || isDeviceRename(failedAction) ? '' : error;
+  // A closed session has its own notice, with the way out, instead of repeating the action's error.
+  const pageError = signedOut || naming || deviceNaming || onboarding || isDeviceRename(failedAction) ? '' : error;
 
   return <>
     <header className="topbar">
@@ -110,10 +117,14 @@ export function Dashboard({ initial, initialView = 'overview' }: { initial: Dash
       <div className="feedback-wrap" aria-live="polite">
         {feedback && <p className="feedback success"><Check size={17} />{feedback}<button aria-label="Cerrar aviso" onClick={() => setFeedback('')}><X size={16} /></button></p>}
         {pageError && <p className="feedback error" role="alert">{pageError}<button aria-label="Cerrar error" onClick={() => setError('')}><X size={16} /></button></p>}
-        {syncError && <p className="sync-notice">{syncError} Seguimos intentando solos.<button className="text-button" onClick={retrySync}><RefreshCw size={15} /> Reintentar ahora</button></p>}
+        {/* Retrying cannot open a closed session: the panel's address goes through sign-in and comes back to this home. */}
+        {signedOut
+          ? <p className="sync-notice">Tu sesión se cerró y el panel dejó de actualizarse.<a className="text-button" href={dashboardHref(view, data.home.id)}><LogIn size={15} /> Ingresar de nuevo</a></p>
+          : syncError && <p className="sync-notice">{syncError} Seguimos intentando solos.<button className="text-button" onClick={retrySync}><RefreshCw size={15} /> Reintentar ahora</button></p>}
       </div>
       <div className="dashboard-grid"><div className="primary-column">
-        <DoorOverview url={url} data={data} />
+        {view === 'overview' && <DoorWaiting visits={awaiting} pending={pending} run={run} />}
+        <DoorOverview url={url} data={data} someoneWaiting={awaiting.length > 0} />
         <VisitHistory visits={data.visits} now={now} url={url} pending={pending} run={run} focusVisitId={focusVisitId} />
       </div><aside className="context-column">
         <QrPanel url={url} homeId={data.home.id} homeName={data.home.name} pending={pending} run={run} onFeedback={setFeedback} onError={setError} />

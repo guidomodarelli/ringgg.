@@ -5,6 +5,7 @@ import { Brand } from '@/components/brand';
 import { DOORBELL } from '@/constants/doorbell';
 import { PRIVACY_POLICY } from '@/constants/legal';
 import { NEARBY_RINGING } from '@/constants/location';
+import { TIME } from '@/constants/time';
 
 export const metadata: Metadata = {
   title: 'Política de privacidad · ringgg.',
@@ -48,6 +49,7 @@ export default function PrivacyPolicyPage() {
 
     <h2>Cookies y almacenamiento en tu navegador</h2>
     <p>Usamos una cookie de sesión para mantenerte adentro y otra que recuerda la última casa que abriste. Si elegís seguir sin avisos en un dispositivo, el navegador lo recuerda localmente. No hay cookies de terceros ni de seguimiento.</p>
+    <p>Si tocás un timbre, tu celular guarda la referencia de ese timbrazo (no tu mensaje ni tu ubicación) para mostrarte la respuesta aunque recargues la página o vuelvas a escanear el QR. Deja de usarse a los {DOORBELL.noteWindowSeconds / TIME.minuteSeconds} minutos: se borra en ese momento si tenés la página abierta y, si no, la próxima vez que abras un timbre de Ringgg en ese navegador. También se borra si tocás «Volver a tocar» o si borrás los datos del sitio en tu navegador.</p>
 
     <h2>Cuánto tiempo los guardamos</h2>
     <p>Las visitas, sus mensajes y sus notas se borran a los {DOORBELL.retentionDays} días. Tu cuenta, tus casas y tus dispositivos se guardan mientras uses Ringgg. Cuando alguien deja de ser residente de una casa, pierde el acceso y sus celulares dejan de recibir avisos de esa casa; al eliminar una casa se borran su historial, su QR y los registros de sus celulares.</p>

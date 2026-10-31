@@ -3,15 +3,16 @@
 | Módulo | Responsabilidad |
 | --- | --- |
 | `src/server/database.ts` | PostgreSQL externo (`poolDatabase`) y embebido, migraciones versionadas y transacciones |
-| `src/server/doorbell.ts` | Registro, idempotencia, respuestas, mensajes, pausa, horario de descanso y purga |
+| `src/server/doorbell.ts` | Registro, idempotencia, aviso único por visita, respuestas, mensajes, pausa, horario de descanso y purga |
 | `src/server/rate-limit.ts` | Identificación anónima del visitante y límites por cliente y por casa |
 | `src/server/push.ts` | Dispositivos (alta, renovación, nombre), envío por política, salud y recibos |
 | `src/server/environment.ts` | Variables que necesita un build de producción |
 | `src/server/config.ts` | Origen público, orígenes permitidos y credenciales de push por entorno |
 | `src/server/errors.ts` | Errores seguros para el navegador y logs con la causa |
 | `src/server/cron.ts` | Autorización de Vercel Cron |
-| `src/server/http.ts` | Envoltorio de las rutas: Origin en mutaciones, `no-store`, validación y errores |
-| `src/server/auth.ts`, `residents.ts` | Identidad de Neon, acceso por casa (`requireHome`), residentes y sus nombres |
+| `src/server/http.ts` | Envoltorio de las rutas: Origin en mutaciones, `no-store`, validación, errores y cookies de sesión renovadas |
+| `src/server/auth.ts`, `residents.ts` | Identidad (Neon Auth o Better Auth propio, que se renueva en las rutas de la API), acceso por casa (`requireHome`), residentes y sus nombres |
+| `src/server/session-cookies.ts` | Reenvío de `Set-Cookie` de auth y el contexto de la ruta (AsyncLocalStorage) donde se juntan las cookies renovadas |
 | `src/server/homes.ts`, `panel-home.ts` | Crear y eliminar casas; elegir la casa del panel (`?home=`, cookie o la primera) |
 | `src/server/device-names.ts`, `src/lib/names.ts` | Nombres únicos por casa: comparación sin mayúsculas ni tildes y sufijo numérico |
 | `src/proxy.ts` | Renovación de sesiones antes del panel y del cartel (Neon Auth y Better Auth propio) |
@@ -20,7 +21,8 @@
 | `src/app/cartel/page.tsx` | Cartel imprimible con el QR en SVG, renderizado en servidor |
 | `src/components/dashboard.tsx` y `dashboard/*` | Panel: estado y polling (`use-dashboard-state`), notificaciones de este navegador (`use-push-device`) y secciones |
 | `src/components/home-switcher.tsx`, `resident-name-dialog.tsx` | Selector de casas con «Agregar casa» y el «¿Quién sos?» obligatorio |
-| `src/components/visitor.tsx` | Tocar timbre, esperar una respuesta explícita y dejar un mensaje |
+| `src/components/visitor.tsx`, `use-stored-visit.ts`, `src/lib/visit-storage.ts` | Tocar timbre, esperar una respuesta explícita, dejar un mensaje y retomar el timbrazo después de recargar |
+| `src/components/dashboard/use-awaiting-visits.ts` | Conteo de visitas por responder que el panel publica para la marca de «Timbrazos» |
 | `src/service-worker/` | Service worker en TypeScript; `npm run build:sw` lo compila a `public/sw.js` |
 | `src/lib/push-notification.ts` | Lectura del payload, acciones y URLs del service worker, compartido con sus tests |
 
@@ -50,6 +52,19 @@ Ninguna operación es optimista: todas tienen un efecto visible para el visitant
 
 Cada acción declara cómo reconcilia (`Reconcile` en `src/components/dashboard/types.ts`). Las rutas que devuelven el snapshot (`settings`, `pause`, `quiet-hours`, `rotate`, `rename-device`) o la visita (`answer`) se aplican sin otro `GET`. Guardar el nombre ya no envía el estado de la pausa: antes un formulario viejo podía reactivar un timbre que otro residente acababa de pausar.
 
+## Sesión del acceso con Google
+
+Con `AUTH_PROVIDER=self`, Better Auth guarda la sesión 30 días y la renueva cuando pasó un día desde la última renovación (`AUTH.sessionLifetimeSeconds` y `AUTH.sessionRenewalSeconds`). Antes regían los valores por defecto (7 días) y solo renovaba el proxy, que corre en `/` y `/cartel`. Una PWA instalada que queda en memoria solo llama a la API (consultas del panel, respuestas desde la notificación, recibos y renovación de la suscripción), así que a los 7 días todo respondía 401 aunque se usara todos los días.
+
+- **Dónde se renueva**: `apiRoute` corre cada handler en un contexto propio (AsyncLocalStorage). Ahí `getIdentity` deja que Better Auth renueve la sesión y la respuesta lleva las cookies nuevas, también cuando la ruta falla: un 401 por sesión vencida borra la cookie. Si la sesión desaparece entre la lectura y la renovación (se cerró en otro dispositivo), la ruta responde 401 y no 503. Los server components no pueden escribir cookies: leen la sesión sin renovarla y la renueva el proxy antes de la página. El modo Neon administrado no cambia: su SDK ya renueva en las rutas.
+- **Por qué 30 días**: un timbre puede pasar más de una semana sin sonar, y que la sesión venza justo entonces deja sin respuesta a la visita. Quitar a un residente revoca su acceso a la casa (y desconecta sus celulares) aunque su sesión siga vigente, así que una sesión más larga no extiende el acceso a una casa. Las sesiones creadas con la duración anterior pasan a 30 días en su primer uso.
+- **Descartado**: el plugin `nextCookies` de Better Auth, porque en la carga inicial de una página un server component renovaría la sesión en la base sin poder escribir la cookie; y escribir con `cookies()` de `next/headers`, que no se puede verificar fuera de Next.
+- **En el panel**: si una consulta o una acción recibe 401 `AUTH_REQUIRED`, el aviso deja de ofrecer «Reintentar ahora» (reintentar no abre una sesión cerrada) y ofrece **Ingresar de nuevo**. El enlace es la dirección del panel (`/?home=<id>`): el proxy recuerda la casa, la página manda a `/sign-in` y después de ingresar `/` abre esa casa. Las consultas siguen, así que ingresar en otra pestaña devuelve el panel solo.
+
+## Resumen muestra la visita que espera respuesta
+
+La app instalada abre en `/` (Resumen), donde el historial está oculto, y en iPhone la notificación no ofrece botones de respuesta. Por eso Resumen lista arriba las visitas que todavía se pueden responder, con la misma fila (`VisitRow`) y la misma acción que Timbrazos: un solo `run()`, confirmado por el servidor, con el mismo aviso. Qué visita espera respuesta lo decide una sola función (`awaitsAnswer` y `visitsAwaitingAnswer` en `src/lib/visit-format.ts`: sin responder y dentro de los 120 s); sin reloj (render en servidor e hidratación) no hay ninguna, así que los dos renders coinciden. La navegación se renderiza en el servidor y no tiene las visitas: el panel publica el conteo en un store cliente (`use-awaiting-visits.ts`, con `useSyncExternalStore` y clave por casa) que lee la marca de «Timbrazos». El dibujo de la puerta solo dice «Alguien está en la puerta» mientras haya una visita por responder.
+
 ## Polling adaptativo
 
 El panel consultaba cada 5 segundos aunque no pasara nada: 720 pedidos por hora por pestaña visible, y el cómputo de Neon no llegaba a apagarse (la rama `production` estuvo activa unas 15 de sus primeras 19,5 horas). Ahora consulta cada 5 s solo mientras una visita se puede responder, porque otro residente puede contestarla. Si no, consulta cada 30 s, o cada 60 s si este navegador recibe notificaciones: el push del service worker actualiza el panel al instante y la consulta queda de respaldo por si el push falla en silencio, siempre dentro de la espera de dos minutos del visitante. Se descartó una cadencia de minutos por ese riesgo. Una consulta fallida muestra un aviso discreto que se borra solo con la siguiente exitosa, separado de los errores de las acciones.
@@ -63,6 +78,11 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 - El service worker confirma cada push recibido (`/api/push-receipt`, con la cookie del residente). Se guarda `last_received_at` por dispositivo y un recibo por visita y dispositivo (`visit_receipts`, borrado en cascada con la visita). Si la sesión del celular venció, falta el recibo pero la notificación igual se muestra.
 - Cada envío guarda la respuesta del proveedor por dispositivo (`last_success_at`, `last_failure_at`, `last_failure_status`) en un solo `UPDATE ... FROM unnest(...)`. Las suscripciones 404/410 se borran. Si falla guardar la salud, no falla el timbrazo.
 - Ante `pushsubscriptionchange`, el service worker vuelve a suscribirse y llama a `/api/renew-subscription` con `previousEndpoint`: el mismo dispositivo conserva sus casas, sus nombres y su lugar en cada límite de diez. Si la suscripción nueva ya estaba registrada, hereda las casas que le faltaban moviendo esas filas (copiarlas chocaría con el índice único de nombres del dispositivo viejo). El último endpoint se recuerda en Cache Storage, porque Chrome no informa la suscripción vieja.
+- **Un aviso por visita, aunque falle el pedido.** Registrar la visita (o guardar la nota) y avisar son pasos separados: el aviso sale después del COMMIT. Para que un fallo en el medio no deje a la casa sin enterarse, y para no avisar dos veces, cada aviso se reclama en la misma sentencia que verifica que todavía corresponde (`claimNotice`). El reclamo es una fila por visita y tipo en `rate_limits` que vence a los `PUSH.claimSeconds` (20 s, más que un envío); el timbrazo se reclama dentro de la transacción que lo registra y la nota, dentro de la que la guarda. No hay cambio de esquema: `delivery` conserva los estados que leen el panel y la visita.
+  - Si el envío falla antes de llegar al proveedor, el reclamo se libera y el pedido falla; el reintento de la visita, con el mismo `operationId`, avisa con el texto guardado.
+  - Si el reclamo queda tomado sin enviar (se perdió la respuesta del COMMIT o la función murió), el reintento responde la visita en `registered` y la consulta de la página de la visita (`followVisit`, en `GET /api/door/[token]/visits/[id]`) envía el timbrazo cuando el reclamo vence, mientras siga sin respuesta y dentro de los dos minutos.
+  - Después de dejar la nota la página no consulta nada, así que si otro pedido tiene tomado un aviso de nota sin enviar, el reintento responde 409 `NOTE_NOTICE_PENDING` y el formulario queda con el texto; el reintento posterior al vencimiento la avisa. Si la visita recarga o vuelve a escanear el QR, la página retomada muestra la nota como dejada y no ofrece reintentar, así que `followVisit` también envía la nota que quedó sin aviso una vez que vence su reclamo. Una nota enviada conserva su reclamo mientras se guarda la visita: es lo único que registra que salió.
+  - Riesgo residual: si el aviso salió y falla guardar la entrega, un pedido posterior al vencimiento lo puede repetir. Las notificaciones de una visita comparten `tag` y usan `renotify`: el costo es un sonido de más, no un aviso perdido. Se descartó que el reintento espere a que venza el reclamo (hasta 20 s con la visita viendo «Tocando timbre…»).
 - Cada dispositivo se nombra al conectarlo: el nombre es obligatorio, viene sugerido (plataforma y nombre del residente, con un número si ya existe en la casa) y no puede ser genérico ni repetido. `src/lib/device-name.ts` concentra esas reglas para el cliente, que valida antes de pedir el permiso de notificaciones, y para el servidor, que las vuelve a aplicar (`DEVICE_NAME_GENERIC`, `DEVICE_NAME_TAKEN`). Los dispositivos de antes que siguen como «Mi celular» se nombran la primera vez que abren el panel. Cualquiera puede cambiar el nombre después, y volver a activar las notificaciones no lo pisa. Si el navegador pasa a otra persona, deja de sonar en las casas de la anterior.
 
 ## Actualización de la app instalada
@@ -71,7 +91,7 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 - Cada build fija su versión (`VERCEL_DEPLOYMENT_ID`, si no el commit, si no la hora del build) y `/api/version` la devuelve. El `env` de `next.config.ts` también la deja escrita en el código del cliente, así que la página sabe qué versión corre. El panel consulta `/api/version` al abrir y cada vez que vuelve al frente, y la compara con la suya, no con la primera respuesta: si la primera lectura falla o la página abre en segundo plano y hay un deploy en el medio, igual se entera. Si cambió, se recarga.
 - Nunca recarga en medio de algo. La recarga solo pasa en el momento en que la app vuelve al frente, cuando llega la respuesta de `/api/version`, y solo si en ese momento no corre ninguna acción del panel, no hay pedidos que cambian datos sin respuesta (`api()` cuenta todas sus llamadas POST, también las de formularios con su propio estado, como residentes o crear y eliminar casa) ninguna navegación del panel sigue cargando su página (`useTrackedNavigation` corre cada `router.push`, `replace` o `refresh` del panel en una transición y la cuenta hasta que la página siguiente se muestra, porque la dirección recién cambia al final) y la dirección no cambió mientras se leía la versión. Si hay algo en curso, no se agenda nada: la actualización queda para la próxima vuelta al frente. Así nunca corta una acción ni la navegación que la sigue (el aviso, o abrir la casa recién creada): ninguna recarga queda esperando a que terminen. Antes se esperaba un tiempo fijo después del último pedido, y no alcanzaba: con una conexión lenta, la navegación a la casa nueva todavía no había terminado y la recarga la cortaba.
 - Se descartó el `deploymentId` de Next: solo detecta el cambio al navegar.
-- No se aplica a la página del visitante: recargarla le haría perder la visita que está esperando.
+- No se aplica a la página del visitante: su espera dura minutos, y aunque ahora retoma el timbrazo al recargar, una recarga en medio de un envío lo cortaría.
 
 ## Pausa temporal y retención
 
@@ -84,6 +104,18 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 - El visitante manda una lectura nueva en cada timbrazo. El servidor la compara (radio de 150 m más el error que informa el propio celular) y la descarta: no se guarda dónde estaba la visita. La página pública solo dice si la casa pide ubicación, nunca dónde está la puerta.
 - Sin permiso, o con la ubicación bloqueada, el aviso que la pide no se puede cerrar y el formulario para tocar no existe; si la visita la habilita en el navegador, la página lo nota sola. El servidor exige la lectura igual, así que saltear la interfaz no alcanza.
 - La ubicación la informa el celular de la visita: frena los timbrazos casuales a distancia (alguien con una foto del QR), no a quien la falsea. Un reintento del mismo timbrazo ya registrado no vuelve a pedirla.
+- Una lectura con más de 300 m de error no alcanza para comparar. La página lo detecta antes de mostrar el formulario y muestra los pasos para activar la ubicación precisa en iPhone y Android, con un botón que pide una lectura nueva (`maximumAge: 0`, también al tocar): antes la visita escribía, tocaba y recién ahí recibía un rechazo de una línea. Si el servidor rechaza igual (`LOCATION_IMPRECISE`, `TOO_FAR` o `LOCATION_REQUIRED`, que el cliente lee de `ApiError.code`), la página muestra la guía que corresponde. Los umbrales no cambiaron.
+
+## La visita retoma su timbrazo
+
+El navegador de la visita guarda en `localStorage` la referencia de su timbrazo en cada puerta (`ringgg:visit:<token>`: id de la visita, id de la operación y hora del timbrazo; nunca el mensaje ni la ubicación). Al volver a abrir el QR, la página relee esa visita y retoma la espera, la respuesta y la nota, en lugar de ofrecer tocar otra vez (antes eso duplicaba el aviso o daba «Ya tocaste el timbre hace poco»). Se usa `localStorage` porque volver a escanear abre otra pestaña; una cookie viajaría en cada request. La referencia deja de usarse al cerrar la ventana de la nota (15 minutos) y se borra cuando vence con la página abierta, con «Volver a tocar» o la próxima vez que se abre cualquier timbre de Ringgg en ese navegador, que barre las referencias vencidas de todas las puertas. La política de privacidad lo dice así.
+
+## Legibilidad en el celular
+
+- Los botones primarios usan `--primary-action` (#cc472a), el naranja de marca oscurecido en OKLCH con el mismo tono y croma: con texto blanco da 4,66:1 (WCAG 1.4.3 pide 4,5:1; sobre `--accent` daba 3,11:1). El hover pasa a `--accent-dark` (5,89:1) y el anillo de foco usa el mismo color (4,35:1 sobre `--paper`). `--accent` queda para lo decorativo.
+- En pantallas de hasta 700 px o táctiles (`any-pointer: coarse`), `input`, `textarea` y `select` usan 16 px: iOS Safari hace zoom al enfocar un campo más chico y no vuelve. Nunca se desactiva el zoom.
+- «Tocar timbre» conserva en el celular sus 14 px y 54 px: la regla compacta de `.button` para celular lo achicaba.
+- Estas reglas viven en un bloque al final de `globals.css` y `tests/e2e/mobile-readability.spec.ts` las verifica a 375x812.
 - No molestar: una PWA no puede saltearlo. Dispositivos muestra los pasos para agregar a Ringgg como excepción en iPhone y Android.
 
 ## Esquema versionado
@@ -104,3 +136,9 @@ Se evaluaron SSE y `LISTEN/NOTIFY`, y se descartaron: el pooler de Neon (PgBounc
 - `bun check` reemplaza a `tsc` en `npm run typecheck` (en una fracción del tiempo) y revisa por separado el service worker, que usa la librería `webworker`. No siempre da los mismos errores: dejó pasar una conversión de tipos que `next build` rechazó y el preview de Vercel falló. Por eso la CI corre además `npm run typecheck:build`, el mismo `tsc` del build (unos 7 s).
 - La CI de GitHub corre lint, tipos, tests, build y las E2E en jobs paralelos, con las E2E repartidas en dos shards (cada uno con su servidor y su base local), incluido el login real contra la rama `ci`. Un check que falla se ve por su nombre y no frena a los demás. Dependabot propone actualizaciones semanales; las dependencias fijadas por seguridad en `overrides` se actualizan juntas y validando el login.
 - En CI, una E2E que falla guarda su trace de Playwright (`retain-on-failure`) en el artefacto `playwright-results-N`: con `npx playwright show-trace` se ve en qué paso se trabó, cosa que la captura sola no muestra.
+- Las corridas de Dependabot no reciben secrets, así que corren sin auth configurado. El chequeo de `/cartel` sin sesión sigue la navegación hasta `/sign-in` en vez de exigir el 307 del proxy, que solo existe con auth: antes todos los PRs de Dependabot quedaban en rojo.
+- Los tests de integración con Better Auth usan el driver `pg` real contra un PGlite en memoria servido por el protocolo de PostgreSQL (`tests/support/pglite-server.ts`); solo se simula el reloj.
+
+## Región de las funciones
+
+Las funciones corren en `gru1` (São Paulo), junto a Neon en `aws-sa-east-1`. Sin `regions`, Vercel las corría en `iad1`: cada consulta cruzaba el continente (~113 ms), un timbrazo hacía diez antes de que saliera el aviso y en 4 de 6 timbrazos medidos además abría una conexión nueva (+0,85 s); `POST /api/door` tardaba p50 2,43 s (n=6). El servicio de avisos de Apple está en EE. UU., así que desde São Paulo el envío a un iPhone suma unos 0,3 s, mucho menos de lo que se ahorra.

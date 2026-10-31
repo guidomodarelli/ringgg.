@@ -1,5 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import { answerSummary, replyOutcomeMessage, responseTime, visitFromUrl } from '../src/lib/visit-format';
+import { DOORBELL } from '../src/constants/doorbell';
+import { TIME } from '../src/constants/time';
+import { awaitsAnswer, answerSummary, replyOutcomeMessage, responseTime, visitFromUrl, visitsAwaitingAnswer } from '../src/lib/visit-format';
 
 describe('formato del historial', () => {
   const created = '2026-10-29T20:00:00.000Z';
@@ -18,6 +20,27 @@ describe('formato del historial', () => {
     expect(replyOutcomeMessage('leave', { reply: 'leave', answered_by: 'Guido' })).toBe('Tu visita ya ve: «Dejalo en la puerta».');
     expect(replyOutcomeMessage('leave', { reply: 'away', answered_by: 'Ana' })).toBe('Ana ya había respondido: tu visita ve «No están en casa».');
     expect(replyOutcomeMessage('coming', { reply: 'soon', answered_by: null })).toBe('Ya habían respondido: tu visita ve «Salen en 5 minutos».');
+  });
+
+  test('una visita espera respuesta solo sin responder y dentro de la ventana de respuesta', () => {
+    const rangAt = new Date(created).getTime();
+    const windowMs = DOORBELL.responseWindowSeconds * TIME.secondMs;
+    const unanswered = { created_at: created, answered_at: null };
+    expect(awaitsAnswer(unanswered, rangAt + windowMs - 1)).toBe(true);
+    expect(awaitsAnswer(unanswered, rangAt + windowMs)).toBe(false);
+    expect(awaitsAnswer({ created_at: created, answered_at: '2026-10-29T20:00:05.000Z' }, rangAt + TIME.secondMs)).toBe(false);
+  });
+
+  test('lista las visitas por responder en su orden, y ninguna sin reloj (render del servidor)', () => {
+    const rangAt = new Date(created).getTime();
+    const visits = [
+      { id: 'nueva', created_at: '2026-10-29T20:01:00.000Z', answered_at: null },
+      { id: 'atendida', created_at: '2026-10-29T20:00:30.000Z', answered_at: '2026-10-29T20:00:40.000Z' },
+      { id: 'anterior', created_at: created, answered_at: null },
+      { id: 'vencida', created_at: '2026-10-29T19:50:00.000Z', answered_at: null },
+    ];
+    expect(visitsAwaitingAnswer(visits, rangAt + 90 * TIME.secondMs).map((visit) => visit.id)).toEqual(['nueva', 'anterior']);
+    expect(visitsAwaitingAnswer(visits, null)).toEqual([]);
   });
 
   test('solo un UUID en ?visit enfoca una visita', () => {

@@ -5,12 +5,22 @@ import { PGlite } from '@electric-sql/pglite';
 import { initialize } from '../../src/server/database';
 import { getHome, registerVisit, snapshot } from '../../src/server/doorbell';
 import { DASHBOARD_POLLING } from '../../src/constants/polling';
+import { ERROR_CODES } from '../../src/constants/error-codes';
 import { bundleFixture } from './support/bundle-fixture';
 import { FIXTURE_HOME, apiPath, dashboardInitial } from './support/dashboard-initial';
 import { testDatabase } from '../support/test-database';
 
+/** What every resident route answers once the session is gone, as `requireIdentity` does. */
+const SESSION_CLOSED = { error: 'Ingresá de nuevo para continuar.', code: ERROR_CODES.authRequired };
+
+interface DashboardServerOptions {
+  failNextPolls?: () => boolean;
+  /** While it returns `true`, every API request answers 401 with {@link SESSION_CLOSED}. */
+  signedOut?: () => boolean;
+}
+
 // Real Dashboard, HTTP transport and PostgreSQL; only the auth client and the Next router are stubbed.
-async function startDashboard(options: { failNextPolls?: () => boolean } = {}) {
+async function startDashboard(options: DashboardServerOptions = {}) {
   const postgres = new PGlite();
   const database = testDatabase(postgres);
   await initialize(database);
@@ -20,8 +30,9 @@ async function startDashboard(options: { failNextPolls?: () => boolean } = {}) {
   async function answer(request: IncomingMessage, response: ServerResponse) {
     const url = request.url || '/';
     if (url === '/bundle.js') { response.end(bundled); return; }
+    if (url.startsWith('/api/') && apiPath(url) === 'dashboard') polls.push(Date.now());
+    if (url.startsWith('/api/') && options.signedOut?.()) { response.statusCode = 401; response.setHeader('Content-Type', 'application/json'); response.end(JSON.stringify(SESSION_CLOSED)); return; }
     if (url.startsWith('/api/') && apiPath(url) === 'dashboard') {
-      polls.push(Date.now());
       response.setHeader('Content-Type', 'application/json');
       if (options.failNextPolls?.()) { response.statusCode = 503; response.end(JSON.stringify({ error: 'No pudimos actualizar el panel.' })); return; }
       response.end(JSON.stringify(await snapshot(database, FIXTURE_HOME))); return;
@@ -100,5 +111,43 @@ test('una actualización fallida avisa sin bloquear y el aviso se borra solo al 
     await expect(page.getByRole('alert')).toHaveCount(0);
     await page.getByRole('button', { name: 'Reintentar ahora' }).click();
     await expect(notice).toHaveCount(0);
+  } finally { await dashboard.close(); }
+});
+
+const SESSION_NOTICE = 'Tu sesión se cerró y el panel dejó de actualizarse.';
+
+test('con la sesión vencida el aviso ofrece ingresar de nuevo y no reintentar', async ({ page }) => {
+  const dashboard = await startDashboard({ signedOut: () => true });
+  try {
+    await openWithoutNotifications(page, dashboard.url);
+    await page.clock.runFor(DASHBOARD_POLLING.idleMs + 500);
+    await expect(page.getByText(SESSION_NOTICE)).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Reintentar ahora' })).toHaveCount(0);
+    await expect(page.getByText('Seguimos intentando solos', { exact: false })).toHaveCount(0);
+    // The panel's own address: without a session the server sends it to sign in, and then back to this home.
+    await page.getByRole('link', { name: 'Ingresar de nuevo' }).click();
+    await expect(page).toHaveURL(`${dashboard.url}/?home=${FIXTURE_HOME}`);
+  } finally { await dashboard.close(); }
+});
+
+test('una acción que encuentra la sesión cerrada muestra ese aviso sin repetir el error, y se va al volver a ingresar', async ({ page }) => {
+  let signedOut = true;
+  const dashboard = await startDashboard({ signedOut: () => signedOut });
+  try {
+    await openWithoutNotifications(page, `${dashboard.url}/?home=${FIXTURE_HOME}&view=settings`);
+    await page.getByLabel('Nombre de tu casa').fill('Casa nueva');
+    await page.getByRole('button', { name: 'Guardar nombre' }).click();
+    const notice = page.getByText(SESSION_NOTICE);
+    await expect(notice).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Ingresar de nuevo' })).toBeVisible();
+    await expect(page.getByRole('alert')).toHaveCount(0);
+    // The action found it, not a check: the first one is still 30 s away.
+    expect(dashboard.polls).toHaveLength(0);
+    // Signing in again elsewhere (another tab): the next check succeeds and no old error comes back.
+    signedOut = false;
+    await page.clock.runFor(DASHBOARD_POLLING.idleMs + 500);
+    await expect(notice).toHaveCount(0);
+    await expect(page.getByRole('alert')).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Guardar nombre' })).toBeEnabled();
   } finally { await dashboard.close(); }
 });

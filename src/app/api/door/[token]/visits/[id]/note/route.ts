@@ -1,20 +1,16 @@
 import { z } from 'zod';
 import { DOORBELL } from '@/constants/doorbell';
 import { getDatabase } from '@/server/database';
-import { leaveNote } from '@/server/doorbell';
+import { leaveNoteAndNotify } from '@/server/doorbell';
 import { apiRoute, readJson } from '@/server/http';
-import { sendPush } from '@/server/push';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const noteSchema = z.object({ note: z.string().trim().min(1).max(DOORBELL.noteMaxLength) });
 
-/** One note per visit; only the first accepted note notifies the residents. */
+/** One note per visit; it notifies the residents once, even when the request that stored it failed to. */
 export const POST = apiRoute<{ token: string; id: string }>('door.note', async (request, { token, id }) => {
   const input = await readJson(request, noteSchema);
-  const database = await getDatabase();
-  const result = await leaveNote(database, token, id, input.note);
-  if (result.created) await sendPush(database, { kind: 'note', homeId: result.home.id, title: `${result.home.name}: te dejaron un mensaje`, body: input.note, visitId: id });
-  return Response.json(result.visit);
+  return Response.json(await leaveNoteAndNotify(await getDatabase(), token, id, input.note));
 });

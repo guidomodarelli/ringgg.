@@ -43,6 +43,9 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await expect(page.getByAltText(/QR para tocar/)).toBeVisible();
   const visitorContext = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   const visitor = await visitorContext.newPage();
+  // The server renders the visitor page without the ring stored in the browser: hydrating it must not disagree.
+  const hydrationErrors: string[] = [];
+  visitor.on('console', (message) => { if (message.type() === 'error' && /hydrat/i.test(message.text())) hydrationErrors.push(message.text()); });
   await visitor.goto(publicUrl!);
   await visitor.getByLabel('¿Querés decir quién sos?').fill('Soy Juan, del delivery');
   await visitor.screenshot({ path: 'test-results/ringgg-visitor-mobile.png', fullPage: true });
@@ -50,7 +53,8 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await expect(visitor.getByRole('heading', { name: '¡Ding, dong!' })).toBeVisible();
   await expect(visitor.getByText('Tu timbrazo quedó registrado, pero no pudimos enviar una notificación.')).toBeVisible();
   // Without push on this browser the panel would see the ring on its next check; focusing it checks now.
-  await page.getByRole('link', { name: 'Timbrazos', exact: true }).click();
+  // A check that already saw the ring names the link «Timbrazos, 1 por responder».
+  await page.getByRole('link', { name: /^Timbrazos(, \d+ por responder)?$/ }).click();
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.getByRole('heading', { name: 'Soy Juan, del delivery' })).toBeVisible({ timeout: 15_000 });
   await visitor.clock.install();
@@ -68,8 +72,13 @@ test('un visitante toca el QR y recibe la respuesta del residente; los ajustes r
   await expect(page.getByText('Mientras el timbre esté pausado', { exact: false })).toBeVisible();
   await page.getByRole('button', { name: 'Hasta que lo reactive', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Activar timbre', exact: true })).toBeVisible();
+  // A reload keeps the visitor's answered ring; ringing again starts over and shows that the bell is paused.
+  await visitor.reload();
+  await expect(visitor.getByRole('heading', { name: '¡Ya van!' })).toBeVisible();
+  await visitor.getByRole('button', { name: 'Volver a tocar', exact: true }).click();
   await visitor.reload();
   await expect(visitor.getByRole('heading', { name: 'El timbre está en pausa' })).toBeVisible();
+  expect(hydrationErrors).toEqual([]);
   await page.getByRole('button', { name: 'Activar timbre', exact: true }).click();
   await page.getByRole('link', { name: 'Mi código QR', exact: true }).click();
   await page.getByRole('button', { name: 'Regenerar QR', exact: true }).click();
@@ -117,7 +126,7 @@ test('una respuesta vieja no pisa el nombre confirmado y el shell conserva el no
   await expect(page.locator('.qr-home')).toHaveText('Casa del patio');
 });
 
-test('la API privada exige sesión y bloquea mutaciones de otro origen', async ({ request }) => {
+test('la API privada exige sesión y bloquea mutaciones de otro origen', async ({ request, page }) => {
   const unauthenticated = await request.get('/api/dashboard');
   expect([401, 503]).toContain(unauthenticated.status());
   for (const path of ['/api/settings', '/api/pause', '/api/rename-device', '/api/subscribe', '/api/push-receipt', '/api/homes', '/api/delete-home', '/api/renew-subscription', '/api/residents']) {
@@ -126,9 +135,11 @@ test('la API privada exige sesión y bloquea mutaciones de otro origen', async (
   }
   const cron = await request.get('/api/cron/purge');
   expect([401, 503]).toContain(cron.status());
-  const poster = await request.get('/cartel', { maxRedirects: 0 });
-  expect(poster.status()).toBe(307);
-  expect(poster.headers().location).toContain('/sign-in');
+  // With auth configured the proxy answers 307; without it (Dependabot and forks get no secrets) the page
+  // redirects while streaming. Either way the poster is never shown without a session.
+  await page.goto('/cartel');
+  await expect(page).toHaveURL(/\/sign-in/);
+  await expect(page.locator('.qr-home')).toHaveCount(0);
   // The privacy policy is public: no session and no redirect, as the OAuth consent screen requires.
   const privacy = await request.get('/privacidad', { maxRedirects: 0 });
   expect(privacy.status()).toBe(200);

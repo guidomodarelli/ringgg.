@@ -2,14 +2,14 @@
 import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTrackedNavigation } from '../use-tracked-navigation';
-import { DOORBELL } from '@/constants/doorbell';
 import { DASHBOARD_POLLING } from '@/constants/polling';
 import { WORKER_MESSAGES } from '@/constants/push';
 import { DASHBOARD_VIEW_EVENT } from '@/constants/dashboard-views';
-import { TIME } from '@/constants/time';
 import { HOMES } from '@/constants/homes';
+import { ERROR_CODES } from '@/constants/error-codes';
 import type { DashboardData, DashboardSnapshot, Visit } from '@/types/doorbell';
-import { api } from '@/lib/api';
+import { ApiError, api } from '@/lib/api';
+import { awaitsAnswer } from '@/lib/visit-format';
 import type { Reconcile, RunAction } from './types';
 
 /** Snapshot address of one home. */
@@ -27,7 +27,7 @@ export function serializeSnapshot({ home, visits, devices }: DashboardSnapshot) 
  * after the window advances once and hides the reply buttons before ticks stop.
  */
 export function awaitingAnswer(visits: Visit[], renderedNow: number | null) {
-  return visits.some((visit) => !visit.answered_at && (renderedNow === null || renderedNow - new Date(visit.created_at).getTime() < DOORBELL.responseWindowSeconds * TIME.secondMs));
+  return visits.some((visit) => renderedNow === null ? !visit.answered_at : awaitsAnswer(visit, renderedNow));
 }
 
 /**
@@ -58,6 +58,27 @@ function createAnswerClock(): AnswerClock {
   };
 }
 
+/** The server found no valid session for this browser: retrying cannot fix it, signing in again does. */
+function sessionClosed(error: unknown) {
+  return error instanceof ApiError && error.code === ERROR_CODES.authRequired;
+}
+
+/** Whether the server last said the session is closed. Lives as long as the panel, like the answer clock. */
+interface SessionWatch {
+  close: () => void;
+  /** A confirmed answer arrived: the session works again (for example, after signing in in another tab). */
+  reopen: () => void;
+}
+
+/** `onReopen` clears what closing left behind, such as the error of the action that found it closed. */
+function createSessionWatch(setClosed: (closed: boolean) => void, onReopen: () => void): SessionWatch {
+  let closed = false;
+  return {
+    close: () => { if (!closed) { closed = true; setClosed(true); } },
+    reopen: () => { if (closed) { closed = false; setClosed(false); onReopen(); } },
+  };
+}
+
 /** The server and the hydration render have no clock: reply buttons appear once the browser reads it. */
 function serverClock() {
   return null;
@@ -74,7 +95,9 @@ interface PollingOptions {
   visits: RefObject<Visit[]>;
   pushActive: RefObject<boolean>;
   onSnapshot: (fresh: DashboardSnapshot) => void;
-  onSyncError: (message: string) => void;
+  /** A check got a snapshot, changed or not. */
+  onSynced: () => void;
+  onSyncFailed: (error: unknown) => void;
   /** A notification of another home opens that home instead of changing this one's URL. */
   openOtherHome: (url: string) => void;
 }
@@ -83,7 +106,7 @@ interface PollingOptions {
  * Checks the dashboard until stopped. Checks never overlap and never overwrite a running action; an
  * unchanged snapshot does not re-render. A push or a click on a notification checks right away.
  */
-function startPolling({ homeId, clock, actionLock, refreshGeneration, lastSnapshot, visits, pushActive, onSnapshot, onSyncError, openOtherHome }: PollingOptions) {
+function startPolling({ homeId, clock, actionLock, refreshGeneration, lastSnapshot, visits, pushActive, onSnapshot, onSynced, onSyncFailed, openOtherHome }: PollingOptions) {
   let controller: AbortController | undefined;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let stopped = false;
@@ -101,14 +124,14 @@ function startPolling({ homeId, clock, actionLock, refreshGeneration, lastSnapsh
     try {
       const fresh = await api<DashboardSnapshot>(dashboardPath(homeId), undefined, request.signal);
       if (stopped) return;
-      onSyncError('');
+      onSynced();
       const serialized = serializeSnapshot(fresh);
       if (actionLock.current || generation !== refreshGeneration.current || serialized === lastSnapshot.current) return;
       lastSnapshot.current = serialized;
       onSnapshot(fresh);
       tickWhileAwaiting(fresh.visits);
     } catch (refreshError) {
-      if (!request.signal.aborted && !stopped) onSyncError(refreshError instanceof Error ? refreshError.message : 'No pudimos actualizar el panel.');
+      if (!request.signal.aborted && !stopped) onSyncFailed(refreshError);
     }
   }
   async function refresh() {
@@ -166,7 +189,9 @@ const SERVER_RENDERED_KEYS = new Set(['name', 'viewer-name']);
 /**
  * Dashboard data, polling and server-confirmed actions. Refreshes never overlap and never overwrite a
  * running action; an unchanged snapshot does not re-render. A failed refresh shows a sync notice that
- * clears itself on the next successful one, separate from the error of an action.
+ * clears itself on the next successful one, separate from the error of an action. When a check or an
+ * action finds the session closed, `signedOut` holds until a request succeeds again; checks go on, so
+ * signing in in another tab brings the panel back by itself.
  *
  * `thisDeviceId` is the device this browser was registered as for the home. Push counts as active only
  * while the confirmed snapshot lists it: once it is disconnected, here or by another resident,
@@ -183,6 +208,9 @@ export function useDashboardState(initial: DashboardData, thisDeviceId: string |
   /** Key of the action whose error `error` holds, so a form can show its own error next to its field. */
   const [failedAction, setFailedAction] = useState('');
   const [syncError, setSyncError] = useState('');
+  /** The server said the session is closed: neither retrying a check nor an action helps until the resident signs in again. */
+  const [signedOut, setSignedOut] = useState(false);
+  const [session] = useState(() => createSessionWatch(setSignedOut, () => { setError(''); setFailedAction(''); }));
   const [clock] = useState(createAnswerClock);
   const now = useSyncExternalStore<number | null>(clock.subscribe, clock.read, serverClock);
   const actionLock = useRef(false);
@@ -201,12 +229,16 @@ export function useDashboardState(initial: DashboardData, thisDeviceId: string |
       clock, actionLock, refreshGeneration, lastSnapshot, visits: visitsRef, pushActive: pushActiveRef,
       // The next check is scheduled right after this one, before React renders the new visits.
       onSnapshot: (fresh) => { visitsRef.current = fresh.visits; setData((previous) => ({ ...previous, ...fresh })); },
-      onSyncError: setSyncError,
+      onSynced: () => { setSyncError(''); session.reopen(); },
+      onSyncFailed: (failure) => {
+        if (sessionClosed(failure)) { setSyncError(''); session.close(); return; }
+        setSyncError(failure instanceof Error ? failure.message : 'No pudimos actualizar el panel.');
+      },
       openOtherHome: (url) => { navigate(() => { router.push(url); }); },
     });
     refreshNowRef.current = polling.refreshNow;
     return polling.stop;
-  }, [clock, initial.home.id, router, navigate]);
+  }, [clock, session, initial.home.id, router, navigate]);
 
   function applySnapshot(snapshot: DashboardSnapshot) {
     lastSnapshot.current = serializeSnapshot(snapshot);
@@ -221,15 +253,19 @@ export function useDashboardState(initial: DashboardData, thisDeviceId: string |
     actionLock.current = true; refreshGeneration.current += 1; setPending(key); setError(''); setFailedAction(''); setFeedback('');
     try {
       const result = await work();
+      session.reopen();
       // Reconcile from the confirmed response when it already carries the new state.
       await reconcileAction(reconcile, result, { homeId: initial.home.id, applySnapshot, replaceVisit });
       setFeedback(typeof success === 'function' ? success(result) : success);
       // The sidebar is rendered on the server: names it shows come back with a refresh.
       if (SERVER_RENDERED_KEYS.has(key)) navigate(() => { router.refresh(); });
       return true;
-    } catch (actionError) { setError(actionError instanceof Error ? actionError.message : 'No pudimos completar la acción. Reintentá.'); setFailedAction(key); return false; }
-    finally { setPending(''); actionLock.current = false; }
+    } catch (actionError) {
+      // The error stays for a form or dialog that shows it in place; the page shows the session notice instead.
+      if (sessionClosed(actionError)) session.close();
+      setError(actionError instanceof Error ? actionError.message : 'No pudimos completar la acción. Reintentá.'); setFailedAction(key); return false;
+    } finally { setPending(''); actionLock.current = false; }
   };
 
-  return { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, now, run, retrySync: () => refreshNowRef.current() };
+  return { data, pushActive, pending, feedback, setFeedback, error, setError, failedAction, syncError, signedOut, now, run, retrySync: () => refreshNowRef.current() };
 }

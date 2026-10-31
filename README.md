@@ -38,6 +38,7 @@ El acceso usa **Neon Auth** (Better Auth administrado) con correo y contraseña:
 - Quitar a un residente revoca su acceso a esa casa y desconecta de ella los celulares que registró.
 - **Varias casas**: el selector de la barra superior lista tus casas y permite **Agregar casa** (solo a quien ya es residente de alguna). La casa queda en la dirección (`/?home=<id>`). Una casa se puede eliminar desde Configuración si sos su único residente y tenés otra.
 - **Nombres**: la primera vez en cada casa, **¿Quién sos?** pide tu nombre (obligatorio, hasta 40 caracteres). No se repiten nombres de residentes ni de celulares dentro de una casa, sin importar mayúsculas ni tildes.
+- **Sesión**: con el acceso con Google (`AUTH_PROVIDER=self`), la sesión dura 30 días y se renueva como mucho una vez por día mientras se usa la app. La renuevan también las rutas de la API (la consulta del panel, las respuestas desde la notificación, los recibos y la renovación de la suscripción), así que la app instalada no la pierde aunque nunca recargue. Si vence, el panel muestra «Tu sesión se cerró y el panel dejó de actualizarse.» con **Ingresar de nuevo**, que vuelve a la misma casa.
 
 Detalle en [casas, residentes y nombres](docs/residentes.md).
 
@@ -48,14 +49,15 @@ Detalle en [casas, residentes y nombres](docs/residentes.md).
 3. Ponerle nombre al dispositivo y activar las notificaciones. El nombre es obligatorio y viene sugerido (por ejemplo «iPhone de Guido», o «iPhone de Guido 2» si ya existe en la casa); no puede ser genérico («Mi celular», «Celular») ni repetir el de otro dispositivo de la casa, y se puede cambiar en **Dispositivos**. Un dispositivo que ya estaba conectado como «Mi celular» pide su nombre la primera vez que abre el panel. En otra casa, el mismo celular se conecta con **Conectar este dispositivo** y tiene un nombre propio. En una computadora se puede elegir **Seguir sin avisos en este dispositivo**.
 4. En **Dispositivos**, **Probar mis celulares** envía una prueba a tus celulares. Cada celular muestra de quién es y el estado de su último aviso: recibido (confirmado por el celular), enviado o fallido.
 5. En **Mi código QR**, **Imprimir cartel para la puerta** abre un cartel con el QR, el nombre de la casa y las instrucciones para la visita (se imprime o se guarda como PDF).
-6. Al recibir una visita, responder dentro de dos minutos con una respuesta rápida: **Ya voy**, **En 5 minutos**, **Dejalo en la puerta** o **No estoy**. El visitante ve la respuesta elegida, nunca quién respondió. En Android, **Ya voy** y **Dejalo en la puerta** aparecen como botones de la notificación.
-7. Si nadie responde a tiempo o la respuesta fue **No estoy**, el visitante puede dejar un único mensaje durante los 15 minutos siguientes al timbrazo. Llega como notificación y queda en el historial.
+6. Al recibir una visita, responder dentro de dos minutos con una respuesta rápida: **Ya voy**, **En 5 minutos**, **Dejalo en la puerta** o **No estoy**. El visitante ve la respuesta elegida, nunca quién respondió. En Android, **Ya voy** y **Dejalo en la puerta** aparecen como botones de la notificación. Mientras una visita espera respuesta, el **Resumen** la muestra arriba («Hay alguien en la puerta») con los mismos botones, así que abrir la app desde su ícono alcanza para responder, y «Timbrazos» marca cuántas esperan.
+7. Si nadie responde a tiempo o la respuesta fue **No estoy**, el visitante puede dejar un único mensaje durante los 15 minutos siguientes al timbrazo. Llega como notificación y queda en el historial. Si la visita recarga la página o vuelve a escanear el QR en ese lapso, retoma su timbrazo: ve la respuesta y puede dejar el mensaje sin volver a tocar.
 8. En **Configuración**, el timbre se puede pausar **durante 1 hora**, **hasta mañana a las 8** o **hasta que lo reactive**, y definir un **horario de descanso** diario (en hora de Buenos Aires). El visitante ve hasta cuándo dura.
 
 ## Avisos
 
 - Web Push nativo (`web-push`). El timbrazo viaja con urgencia alta y vence a los 90 segundos (responder después no sirve). La nota de la visita viaja con urgencia normal y vence a las 12 horas.
 - Las notificaciones de una misma visita se reemplazan y vuelven a sonar (`renotify`): la nota que llega después de un timbrazo sin responder no queda silenciosa.
+- Cada visita avisa una sola vez aunque falle el pedido. Si el timbrazo quedó registrado sin aviso, lo envía el reintento o la consulta de la página mientras la visita espera. Si la nota quedó guardada sin aviso, la visita ve «Guardamos tu mensaje, pero todavía no confirmamos el aviso a la casa…» y, al reintentar, se envía.
 - El service worker confirma al servidor cada aviso que recibe: el historial muestra cuántos celulares lo recibieron y cada dispositivo su último aviso recibido, enviado o fallido. Un envío aceptado por el proveedor no confirma la entrega; la confirmación del celular sí.
 - El título de cada notificación dice de qué casa es, y tocarla abre esa casa.
 - Si el navegador renueva la suscripción (`pushsubscriptionchange`), el service worker la vuelve a registrar sobre el mismo dispositivo (`/api/renew-subscription`), con sus casas y sus nombres.
@@ -65,6 +67,7 @@ Detalle en [casas, residentes y nombres](docs/residentes.md).
 
 - Panel y endpoints privados protegidos con sesiones validadas por el SDK de Neon. El proxy de Next.js renueva cookies antes de renderizar el panel y el cartel. Las mutaciones validan Origin; en un preview sin `APP_URL` se aceptan su URL de rama y la del deployment.
 - El QR es una capacidad pública revocable: permite tocar el timbre, nunca administrar.
+- Las funciones corren en `gru1` (São Paulo, `vercel.json`), junto a la base Neon de `aws-sa-east-1`: en `iad1` cada consulta cruzaba el continente (~113 ms) y un timbrazo hace diez antes de que salga el aviso.
 - Límites por visitante y por casa con bloqueo transaccional, contados por separado en cada casa: el mismo cliente espera 30 s entre timbrazos y puede tocar hasta 4 veces cada 10 minutos; la casa acepta hasta 12 timbrazos cada 10 minutos. El cliente se identifica con un hash con sal de su dirección de red (`x-forwarded-for`, que Vercel sobrescribe).
 - El panel consulta cada 5 s solo mientras una visita se puede responder; si no, cada 30 s, o cada 60 s si el navegador recibe notificaciones (el push lo actualiza al instante y la consulta queda de respaldo). No consulta oculto y refresca al recuperar el foco. La espera del visitante consulta cada 5 s y termina a los dos minutos.
 - Retención: el panel muestra hasta 50 visitas de los últimos 30 días. Un Vercel Cron diario (`/api/cron/purge`, protegido con `CRON_SECRET`) borra las visitas más viejas con sus mensajes y recibos, y los límites vencidos, aunque nadie toque el timbre.
@@ -85,10 +88,10 @@ npm run auth:check
 npm run test:neon
 ```
 
-Las pruebas usan PostgreSQL real embebido y el service worker real (Chromium recibe pushes por el protocolo de DevTools), sin mocks de servicios internos. Las E2E usan su propio directorio `.data/e2e-<pid>`. Las de acceso real necesitan `E2E_NEON_AUTH_EMAIL`, `E2E_NEON_AUTH_PASSWORD` y `E2E_NEON_AUTH_BASE_URL` de una cuenta sintética verificada de la rama `ci`; sin ellas se omiten. La CI de GitHub las recibe como secrets.
+Las pruebas usan PostgreSQL real embebido y el service worker real (Chromium recibe pushes por el protocolo de DevTools), sin mocks de servicios internos. Los tests que necesitan el driver `pg` real (por ejemplo, Better Auth) se conectan a un PGlite en memoria servido por el protocolo de PostgreSQL (`tests/support/pglite-server.ts`). Las E2E usan su propio directorio `.data/e2e-<pid>` y el puerto 3100, o el de `E2E_PORT` para correr dos checkouts a la vez. Las de acceso real necesitan `E2E_NEON_AUTH_EMAIL`, `E2E_NEON_AUTH_PASSWORD` y `E2E_NEON_AUTH_BASE_URL` de una cuenta sintética verificada de la rama `ci`; sin ellas se omiten. La CI de GitHub las recibe como secrets.
 
 `npm run test:neon` requiere la app iniciada y las variables reales: crea una cuenta sintética temporal, prueba registro, login, sesión, logout y bloqueo del panel sin verificar, y la elimina.
 
-El envío y la recepción física de Web Push deben validarse con un dispositivo real; las pruebas locales no afirman entrega por Apple, Google o Mozilla.
+El envío y la recepción física de Web Push deben validarse con un dispositivo real; las pruebas locales no afirman entrega por Apple, Google o Mozilla. Lo mismo pasa con el zoom de iOS al enfocar un campo y con la ubicación del visitante: las E2E miden en Chromium el tamaño de fuente, el contraste y la precisión simulada, pero el comportamiento de Safari se confirma en un iPhone real.
 
 Más detalle: [decisiones de implementación](docs/decisiones.md), [residentes](docs/residentes.md), [despliegue](docs/vercel.md), [Neon](docs/neon-setup.md) y [validación](docs/validacion.md).

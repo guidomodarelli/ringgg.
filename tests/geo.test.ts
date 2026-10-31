@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { checkNearby, distanceMeters } from '../src/lib/geo';
+import { checkNearby, distanceMeters, isImprecise } from '../src/lib/geo';
 import { NEARBY_RINGING } from '../src/constants/location';
 
 const DOOR = { latitude: -34.6037, longitude: -58.3816 };
@@ -24,5 +24,15 @@ describe('distancia a la puerta', () => {
     expect(distanceMeters(DOOR, justOutside)).toBeGreaterThan(NEARBY_RINGING.radiusMeters);
     expect(checkNearby(DOOR, justOutside)).toBe('near');
     expect(checkNearby(DOOR, { ...NEXT_DOOR, accuracy: NEARBY_RINGING.maxAccuracyMeters + 1 })).toBe('imprecise');
+  });
+
+  test('la página de la visita descarta antes de tocar la misma lectura que el servidor rechazaría por imprecisa', () => {
+    // An approximate location on the phone reports kilometers of error.
+    const approximate = { ...NEXT_DOOR, accuracy: 2000 };
+    const atTheLimit = { ...NEXT_DOOR, accuracy: NEARBY_RINGING.maxAccuracyMeters };
+    expect(isImprecise(approximate)).toBe(true);
+    expect(checkNearby(DOOR, approximate)).toBe('imprecise');
+    expect(isImprecise(atTheLimit)).toBe(false);
+    expect(checkNearby(DOOR, atTheLimit)).toBe('near');
   });
 });

@@ -9,9 +9,14 @@ import { TIME } from '@/constants/time';
 import { pauseEndLabel } from '@/lib/pause';
 import type { PublicHome, PublicVisit } from '@/types/doorbell';
 import { api } from '@/lib/api';
-import { currentPosition, locationFailure } from '@/lib/browser-location';
-import type { Position } from '@/lib/geo';
-import { LocationGate, useLocationGate } from './visitor-location-gate';
+import { forgetStoredVisit, saveStoredVisit, type StoredVisit } from '@/lib/visit-storage';
+import { FarFromDoorHelp, LocationGate, locationRejection, useLocationGate } from './visitor-location-gate';
+import { useStoredVisit } from './use-stored-visit';
+
+/** Whether residents can no longer answer: from then on the visitor can leave a note. */
+function answerWindowClosed(visit: PublicVisit) {
+  return Date.now() - new Date(visit.created_at).getTime() > DOORBELL.responseWindowSeconds * TIME.secondMs;
+}
 
 function waitingDetail(visit: PublicVisit) {
   if (visit.delivery === 'sent' || visit.delivery === 'partial') return 'Enviamos el aviso. Esperá acá para ver si responden.';
@@ -63,7 +68,7 @@ function useAnswerPolling({ token, visit, expired, setVisit, setExpired, setErro
         if (!stopped) { setVisit(fresh); setError(''); }
         if (fresh.answered_at) return;
         // Read the final server state even when a suspended tab resumes after the deadline.
-        if (Date.now() - new Date(fresh.created_at).getTime() > DOORBELL.responseWindowSeconds * TIME.secondMs) { if (!stopped) setExpired(true); return; }
+        if (answerWindowClosed(fresh)) { if (!stopped) setExpired(true); return; }
       }
       catch (error) { if (!controller.signal.aborted) setError(error instanceof Error ? error.message : 'Revisá tu conexión para ver la respuesta.'); }
       if (!stopped) timer = setTimeout(() => { void poll(); }, VISITOR_POLLING.answerMs);
@@ -122,7 +127,8 @@ function VisitResult({ token, visit, expired, notePending, onNotePendingChange, 
     {!expired && !visit.answered_at && <span className="waiting-indicator"><i /> Esperando respuesta</span>}
     {visit.noted && <p className="feedback success" role="status"><Check size={17} /> Le dejamos tu mensaje.</p>}
     {canLeaveNote && <NoteForm token={token} visit={visit} onPendingChange={onNotePendingChange} onSaved={onNoteSaved} />}
-    {expired && <button className="button outline full" disabled={notePending} onClick={onRingAgain}>Volver a tocar</button>}
+    {/* An answered visit offers it too: a reload no longer starts over, so this is the way to ring again. */}
+    {(expired || visit.answered_at !== null) && <button className="button outline full" disabled={notePending} onClick={onRingAgain}>Volver a tocar</button>}
   </div>;
 }
 
@@ -134,28 +140,32 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
   const [error, setError] = useState('');
   const [expired, setExpired] = useState(false);
   const [notePending, setNotePending] = useState(false);
+  const [farFromDoor, setFarFromDoor] = useState(false);
   const operationId = useRef('');
   const sending = useRef(false);
   useAnswerPolling({ token, visit, expired, setVisit, setExpired, setError });
+  // A ring this browser already made here comes back before the doorbell form shows, so it is never rung twice.
+  const restored = useStoredVisit({ token, visit, onRestore: restoreVisit, onUnreadable: keepStoredOperation, onExpire: ringAgain });
   const available = !home.paused && !home.quiet;
   // A home that only rings from its door needs this visitor's location before anything else.
-  const location = useLocationGate(home.nearbyOnly && available && visit === null);
+  const location = useLocationGate(home.nearbyOnly && available && visit === null && restored === 'ready');
   // Keep reading the home while the visitor is blocked: lifting the location requirement releases them too.
   const locationBlocked = location.state !== 'ready';
   useAvailabilityCheck({ token, waiting: visit === null && (!available || locationBlocked), setHome });
 
   async function ring() {
-    if (sending.current) return; sending.current = true; setPending(true); setError('');
+    if (sending.current) return; sending.current = true; setPending(true); setError(''); setFarFromDoor(false);
     operationId.current ||= crypto.randomUUID();
-    // A fresh reading for every ring: it is compared on the server and never stored.
-    let position: Position | null = null;
-    if (home.nearbyOnly) {
-      try { position = await currentPosition(); }
-      catch (error) { location.recordFailure(locationFailure(error)); setPending(false); sending.current = false; return; }
+    try {
+      // A new reading for every ring: it is compared on the server and never stored.
+      const position = home.nearbyOnly ? await location.read() : null;
+      // Without one that can place the visitor at the door, nothing is sent: the location gate shows why.
+      if (home.nearbyOnly && !position) return;
+      const result = await api<PublicVisit>(`door/${token}`, { id: operationId.current, message, position });
+      setVisit(result); saveStoredVisit(token, { visitId: result.id, operationId: operationId.current, createdAt: result.created_at });
     }
-    try { const result = await api<PublicVisit>(`door/${token}`, { id: operationId.current, message, position }); setVisit(result); }
     catch (error) {
-      setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.');
+      showRingFailure(error);
       // The home may have changed since the page loaded (location required, paused, quiet hours):
       // rereading it lets the page show what blocks the ring instead of repeating the same rejection.
       try { setHome(await api<PublicHome>(`door/${token}`)); }
@@ -163,18 +173,32 @@ export function Visitor({ home: initialHome, token }: { home: PublicHome; token:
     }
     finally { setPending(false); sending.current = false; }
   }
-  function ringAgain() { setVisit(null); setExpired(false); operationId.current = ''; }
+  /** A missing or vague location gets the gate and its steps; any other rejection shows here, with what to do when far. */
+  function showRingFailure(error: unknown) {
+    const rejection = locationRejection(error);
+    if (rejection === 'imprecise') { location.recordImprecise(); return; }
+    // The home started asking for the location after this page loaded: the gate asks for it right away.
+    if (rejection === 'required') { setHome((current) => ({ ...current, nearbyOnly: true })); return; }
+    setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.');
+    setFarFromDoor(rejection === 'far');
+  }
+  function ringAgain() { setVisit(null); setExpired(false); operationId.current = ''; forgetStoredVisit(token); }
+  function restoreVisit(restoredVisit: PublicVisit, reference: StoredVisit) { operationId.current = reference.operationId; setVisit(restoredVisit); setExpired(!restoredVisit.answered_at && answerWindowClosed(restoredVisit)); }
+  // Tapping again resends the stored operation id: the server returns that ring instead of ringing twice.
+  function keepStoredOperation(reference: StoredVisit) { operationId.current = reference.operationId; setError('No pudimos revisar tu timbrazo anterior. Revisá tu conexión: si volvés a tocar, no se repite el aviso.'); }
 
   const result = visit && <VisitResult token={token} visit={visit} expired={expired} notePending={notePending} onNotePendingChange={setNotePending} onNoteSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} onRingAgain={ringAgain} />;
   const ringForm = <form onSubmit={(event) => { event.preventDefault(); void ring(); }}><label htmlFor="visitor-message">¿Querés decir quién sos? <span>Opcional</span></label><textarea id="visitor-message" rows={3} placeholder="Hola, soy del delivery…" value={message} disabled={pending} maxLength={DOORBELL.messageMaxLength} onChange={(event) => setMessage(event.target.value)} /><div className="message-count">{message.length}/{DOORBELL.messageMaxLength}</div><button className="button primary ring-button" disabled={pending}><BellRing size={21} />{pending ? 'Tocando timbre…' : 'Tocar timbre'}</button>{home.nearbyOnly && <p className="visitor-location-note"><MapPin size={14} /> Usamos tu ubicación solo para confirmar que estás en la puerta. No la guardamos.</p>}</form>;
   const doorbell = locationBlocked
     ? <p className="waiting-indicator" role="status"><i /> {location.state === 'checking' ? 'Confirmando que estés en la puerta…' : 'Necesitamos tu ubicación para tocar el timbre.'}</p>
     : ringForm;
+  const restoring = restored === 'ready' ? null : <p className="waiting-indicator" role="status"><i /> {restored === 'reading' ? 'Preparando el timbre…' : 'Revisando tu timbrazo…'}</p>;
 
   return <main className="visitor-page"><Brand /><div className="visitor-content"><span className="eyebrow">ESTÁS EN LA PUERTA DE</span><h1>{home.name}<span>.</span></h1><p className="visitor-intro">Un toque y saben que llegaste.</p>
     <div className={`visitor-bell ${visit ? 'rang' : ''}`}>{visit?.answered_at && visit.reply !== 'away' ? <Check size={62} strokeWidth={1.5} /> : <BellRing size={62} strokeWidth={1.5} />}</div>
-    {result ?? (available ? doorbell : <UnavailableNotice home={home} />)}
+    {result ?? restoring ?? (available ? doorbell : <UnavailableNotice home={home} />)}
     {!result && available && locationBlocked && location.state !== 'checking' && <LocationGate homeName={home.name} state={location.state} failure={location.failure} onRequest={location.request} />}
     {error && <p role="alert" className="feedback error">{error}</p>}
+    {farFromDoor && <FarFromDoorHelp />}
     <div className="visitor-privacy"><ShieldCheck size={16} /> No compartimos tus datos con el residente.</div></div><footer>Un timbre de <Link href="/">ringgg. <ArrowUpRight size={13} /></Link></footer></main>;
 }

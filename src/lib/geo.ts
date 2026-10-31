@@ -21,11 +21,16 @@ export function distanceMeters(from: Coordinates, to: Coordinates) {
   return 2 * EARTH_RADIUS_METERS * Math.asin(Math.sqrt(halfChord));
 }
 
+/** Whether a reading is too vague to tell if someone is at the door; the visitor's page checks it before ringing. */
+export function isImprecise(position: Pick<Position, 'accuracy'>, rules = NEARBY_RINGING) {
+  return position.accuracy > rules.maxAccuracyMeters;
+}
+
 /**
  * Near when the reading could be within the radius once its own error is counted: a phone indoors is
  * often off by tens of meters. A reading less precise than the limit cannot decide either way.
  */
 export function checkNearby(door: Coordinates, position: Position, rules = NEARBY_RINGING): NearbyCheck {
-  if (position.accuracy > rules.maxAccuracyMeters) return 'imprecise';
+  if (isImprecise(position, rules)) return 'imprecise';
   return distanceMeters(door, position) <= rules.radiusMeters + position.accuracy ? 'near' : 'far';
 }
