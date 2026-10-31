@@ -25,17 +25,29 @@ function parseStoredVisit(raw: string): StoredVisit | null {
   return typeof visitId === 'string' && typeof operationId === 'string' && typeof createdAt === 'string' ? { visitId, operationId, createdAt } : null;
 }
 
+/** Whether a stored ring can still be shown: readable, inside its window (an unreadable time never is). */
+function isShowable(stored: StoredVisit | null): stored is StoredVisit {
+  return stored !== null && Date.now() < storedVisitEnd(stored.createdAt);
+}
+
+/**
+ * Forgets every door's ring that has nothing left to show, not only this door's: a door the visitor never opens again,
+ * or whose QR the home replaced, would otherwise keep its ring in this browser for good.
+ */
+function forgetClosedVisits() {
+  const keys = Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index));
+  for (const key of keys) {
+    if (key?.startsWith(VISIT_STORAGE_KEY_PREFIX) && !isShowable(parseStoredVisit(localStorage.getItem(key) ?? ''))) localStorage.removeItem(key);
+  }
+}
+
 /** Storage can be unavailable (private mode, blocked site data): that reads as no ring, and the page works as before. */
 function readStorage(token: string): StoredVisit | null {
   try {
+    forgetClosedVisits();
     const raw = localStorage.getItem(storageKey(token));
-    if (raw === null) return null;
-    const stored = parseStoredVisit(raw);
-    if (stored && Date.now() < storedVisitEnd(stored.createdAt)) return stored;
-    // Unreadable, or its window closed: there is nothing left to show for it.
-    localStorage.removeItem(storageKey(token));
-  } catch { /* Nothing stored can be read. */ }
-  return null;
+    return raw === null ? null : parseStoredVisit(raw);
+  } catch { return null; }
 }
 
 /** Each door's stored ring as this page last read or wrote it, so every render agrees on it. */

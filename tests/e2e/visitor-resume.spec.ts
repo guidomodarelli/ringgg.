@@ -1,6 +1,6 @@
 import { test, expect, type BrowserContext } from '@playwright/test';
 import { PGlite } from '@electric-sql/pglite';
-import { DOORBELL } from '../../src/constants/doorbell';
+import { DOORBELL, VISIT_STORAGE_KEY_PREFIX } from '../../src/constants/doorbell';
 import { TIME } from '../../src/constants/time';
 import { initialize, type Database } from '../../src/server/database';
 import { answerVisit, getHome, leaveNote, publicHome, readVisit, registerVisit, setDelivery, snapshot } from '../../src/server/doorbell';
@@ -101,6 +101,31 @@ test('al volver sin respuesta la visita deja su nota, y pasada la ventana del ti
     await expect(page.getByRole('heading', { name: 'Todavía no respondieron' })).toHaveCount(0);
     expect(await page.evaluate(() => localStorage.length)).toBe(0);
     expect(rings).toEqual([200]);
+  } finally { await door.close(); await postgres.close(); }
+});
+
+test('al abrir cualquier timbre, el navegador olvida los timbrazos vencidos de otras puertas y conserva los vigentes', async ({ page }) => {
+  const postgres = new PGlite();
+  const database = testDatabase(postgres);
+  await initialize(database);
+  const door = await serveDoor(database);
+  const secondsAgo = (seconds: number) => new Date(Date.now() - seconds * TIME.secondMs).toISOString();
+  const ring = (createdAt: string) => JSON.stringify({ visitId: crypto.randomUUID(), operationId: crypto.randomUUID(), createdAt });
+  // A door never opened again, a QR the home replaced and a ring from another door still in its window.
+  const entries = {
+    [`${VISIT_STORAGE_KEY_PREFIX}puerta-que-no-volvio-a-abrir`]: ring(secondsAgo(DOORBELL.noteWindowSeconds + TIME.minuteSeconds)),
+    [`${VISIT_STORAGE_KEY_PREFIX}qr-reemplazado`]: '{"visitId":',
+    [`${VISIT_STORAGE_KEY_PREFIX}otra-puerta`]: ring(secondsAgo(TIME.minuteSeconds)),
+    'otra-preferencia': 'se queda',
+  };
+  try {
+    await page.goto(door.url);
+    await expect(page.getByRole('button', { name: 'Tocar timbre', exact: true })).toBeVisible();
+    await page.evaluate((seeded) => { for (const [key, value] of Object.entries(seeded)) localStorage.setItem(key, value); }, entries);
+    await page.reload();
+    // This door has no ring of its own: the closed rings of the others go anyway, and nothing else is touched.
+    await expect(page.getByRole('button', { name: 'Tocar timbre', exact: true })).toBeVisible();
+    await expect.poll(() => page.evaluate(() => Object.keys(localStorage).sort())).toEqual(['otra-preferencia', `${VISIT_STORAGE_KEY_PREFIX}otra-puerta`]);
   } finally { await door.close(); await postgres.close(); }
 });
 
