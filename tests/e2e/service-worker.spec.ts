@@ -9,16 +9,46 @@ test.use({ channel: 'chromium' });
 
 /** Serves the real worker and an empty page that registers it, on a secure loopback origin. */
 async function startWorkerServer() {
+  /** The `Service-Worker-Navigation-Preload` header of each page request (`null` when the page came without it). */
+  const pagePreloads: Array<string | null> = [];
   const server = createServer((request, response) => {
     if (request.url === '/sw.js') { response.setHeader('Content-Type', 'text/javascript'); response.setHeader('Service-Worker-Allowed', '/'); response.end(readFileSync(WORKER_PATH)); return; }
     if (request.url === '/offline.html') { response.setHeader('Content-Type', 'text/html'); response.end(readFileSync('public/offline.html')); return; }
     if (request.url?.startsWith('/icons/')) { response.setHeader('Content-Type', 'image/png'); response.end(readFileSync('public/icons/icon-192.png')); return; }
+    if (request.url === '/') pagePreloads.push(request.headers['service-worker-navigation-preload']?.toString() ?? null);
     response.setHeader('Content-Type', 'text/html');
     response.end('<!doctype html><html lang="es"><meta charset="utf-8"><body><script>window.workerMessages = []; navigator.serviceWorker.addEventListener("message", (event) => window.workerMessages.push(event.data)); navigator.serviceWorker.register("/sw.js");</script></body></html>');
   });
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
-  return { server, origin: `http://127.0.0.1:${(server.address() as AddressInfo).port}` };
+  return { server, origin: `http://127.0.0.1:${(server.address() as AddressInfo).port}`, pagePreloads };
 }
+
+test('al abrir la app, el pedido de la página sale mientras el worker arranca (navigation preload) y sin red muestra la página sin conexión', async ({ browser }) => {
+  test.skip(!existsSync(WORKER_PATH), 'Requiere el service worker generado por npm run build:sw.');
+  const { server, origin, pagePreloads } = await startWorkerServer();
+  const context = await browser.newContext();
+  try {
+    const page = await context.newPage();
+    await page.goto(origin);
+    await page.evaluate(() => navigator.serviceWorker.ready);
+    expect(await page.evaluate(async () => (await (await navigator.serviceWorker.ready).navigationPreload.getState()).enabled)).toBe(true);
+    // The first load registered the worker; reopening goes through it, with the preloaded request.
+    await page.reload();
+    await expect.poll(() => page.evaluate(() => navigator.serviceWorker.controller !== null)).toBe(true);
+    const before = pagePreloads.length;
+    await page.reload();
+    // One request per opening: the preload is the response, not an extra fetch.
+    expect(pagePreloads.slice(before)).toEqual(['true']);
+    expect(await page.evaluate(() => typeof (window as unknown as { workerMessages?: unknown }).workerMessages)).toBe('object');
+
+    await context.setOffline(true);
+    await page.reload();
+    await expect(page.getByRole('heading', { name: 'Falta un poco de señal.' })).toBeVisible();
+  } finally {
+    await context.close();
+    await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
+  }
+});
 
 // Every read of the notifications waits for the worker's message: one that runs while Chromium is still
 // showing the notification can drop it from the list for good (the push did arrive, the list says `[]`).

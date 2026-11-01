@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import { Pwa } from '@/components/pwa';
+import { startupImages } from '@/lib/startup-images';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'ringgg. · Tu casa, a un toque',
   description: 'Tu timbre digital. Un QR en la puerta, un aviso en tu celular.',
-  appleWebApp: { capable: true, statusBarStyle: 'default', title: 'ringgg' },
+  appleWebApp: { capable: true, statusBarStyle: 'default', title: 'ringgg', startupImage: startupImages() },
   icons: { apple: '/icons/icon-192.png', icon: '/icons/icon-192.png' },
   robots: { index: false, follow: false },
 };

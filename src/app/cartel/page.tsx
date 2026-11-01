@@ -5,9 +5,8 @@ import QRCode from 'qrcode';
 import { ArrowLeft } from 'lucide-react';
 import { PrintButton } from '@/components/print-button';
 import { HOMES } from '@/constants/homes';
-import { getIdentity } from '@/server/auth';
+import { identityWithDatabase } from '@/server/page-session';
 import { getConfig } from '@/server/config';
-import { getDatabase } from '@/server/database';
 import { getHome } from '@/server/doorbell';
 import { choosePanelHome } from '@/server/panel-home';
 
@@ -21,9 +20,7 @@ const QR_OPTIONS = { type: 'svg', margin: 1, errorCorrectionLevel: 'M', color: {
  * for a visitor who has never seen Ringgg. Rendered on the server; only the print button is a client leaf.
  */
 export default async function PosterPage({ searchParams }: { searchParams: Promise<{ home?: string }> }) {
-  const user = await getIdentity();
-  if (!user) redirect('/sign-in');
-  const database = await getDatabase();
+  const [user, database] = await identityWithDatabase();
   const { homeId } = await choosePanelHome(database, user, (await searchParams).home);
   if (homeId === null) redirect('/');
   const home = await getHome(database, homeId);

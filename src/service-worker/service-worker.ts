@@ -22,14 +22,38 @@ self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(OFFLINE_CACHE).then((cache) => cache.add(OFFLINE_PAGE)).then(() => self.skipWaiting()));
 });
 
+/**
+ * Navigation preload: when the app opens after the browser stopped this worker, the page request leaves
+ * while the worker is still starting instead of after it. Browsers without it keep the plain fetch.
+ */
+async function enableNavigationPreload() {
+  // Safari before 15.4 has no `navigationPreload`, although the worker types always declare it.
+  if (!('navigationPreload' in self.registration)) return;
+  try { await self.registration.navigationPreload.enable(); } catch { /* Navigations still go through fetch. */ }
+}
+
 self.addEventListener('activate', (event) => {
-  event.waitUntil(caches.keys()
-    .then((keys) => Promise.all(keys.filter((key) => key.startsWith('ringgg-offline-') && key !== OFFLINE_CACHE).map((key) => caches.delete(key))))
-    .then(() => self.clients.claim()));
+  event.waitUntil(Promise.all([
+    enableNavigationPreload(),
+    caches.keys().then((keys) => Promise.all(keys.filter((key) => key.startsWith('ringgg-offline-') && key !== OFFLINE_CACHE).map((key) => caches.delete(key)))),
+  ]).then(() => self.clients.claim()));
 });
 
+/** The page from the preloaded request, or from the network; the offline page when neither answers. */
+async function navigationResponse(event: FetchEvent) {
+  try {
+    const preloaded = await event.preloadResponse as Response | undefined;
+    return preloaded ?? await fetch(event.request);
+  } catch {
+    return (await caches.match(OFFLINE_PAGE)) ?? Response.error();
+  }
+}
+
 self.addEventListener('fetch', (event) => {
-  if (event.request.mode === 'navigate') event.respondWith(fetch(event.request).catch(async () => (await caches.match(OFFLINE_PAGE)) ?? Response.error()));
+  if (event.request.mode !== 'navigate') return;
+  event.respondWith(navigationResponse(event));
+  // Without this the browser may cancel the preload while the response above is still waiting for it.
+  if ('preloadResponse' in event) event.waitUntil(event.preloadResponse.catch(() => undefined));
 });
 
 async function rememberEndpoint(endpoint: string) {

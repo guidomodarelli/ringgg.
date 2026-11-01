@@ -17,7 +17,7 @@ import type { HomeMember } from '@/types/residents';
  * The self-managed session of this request. In an API route Better Auth renews it once `updateAge`
  * passes and the renewed cookies go out with the route's response, so an installed app that only
  * calls the API (polling, answers and receipts from the service worker) keeps it alive. Server
- * components cannot write cookies: there it is only read, and the proxy renews it before the page.
+ * components cannot write cookies: there it is only read, and the next API call of the open panel renews it.
  */
 async function selfManagedSession() {
   const route = currentRouteSession();
