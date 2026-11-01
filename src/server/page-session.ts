@@ -10,12 +10,10 @@ import { getDatabase, type Database } from './database';
  */
 export async function identityWithDatabase(): Promise<[ResidentIdentity, Database]> {
   const database = getDatabase();
-  let user: ResidentIdentity | null;
-  try { user = await getIdentity(); }
-  catch (error) { database.catch(() => undefined); throw error; }
-  if (!user) {
-    database.catch(() => undefined);
-    redirect('/sign-in');
-  }
+  // Observed right away: a database failure while the identity is pending is not an unhandled rejection.
+  // The page still gets it below, when it awaits the database.
+  database.catch(() => undefined);
+  const user = await getIdentity();
+  if (!user) redirect('/sign-in');
   return [user, await database];
 }
