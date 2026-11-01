@@ -2,7 +2,7 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { ArrowDown, LoaderCircle, RefreshCw, SendHorizontal } from 'lucide-react';
 import { CHAT } from '@/constants/chat';
-import type { ChatAccess } from '@/lib/chat-protocol';
+import type { ChatAccess, ChatAnswer } from '@/lib/chat-protocol';
 import { chatTime } from '@/lib/visit-format';
 import { useVisitChat, type ChatStatus, type ThreadMessage } from './use-visit-chat';
 
@@ -22,6 +22,10 @@ interface VisitChatProps {
   closedText: string;
   /** `false` while the panel is mounted but out of sight (another section of the dashboard): it lets its socket go. */
   onScreen?: boolean;
+  /** The residents' answer to the ring, as the room sends it: the visitor's page shows it without polling. */
+  onAnswer?: (answer: ChatAnswer) => void;
+  /** Whether the room is live now. */
+  onLiveChange?: (live: boolean) => void;
 }
 
 const STATUS_TEXT: Partial<Record<ChatStatus, string>> = {
@@ -136,8 +140,8 @@ function ChatComposer({ onSend }: { onSend: (body: string) => boolean }) {
  * stays in its place with «Reintentar» and «Eliminar»; once the chat ends, the composer gives way to
  * the closing text and the conversation stays readable.
  */
-export function VisitChat({ title, viewerRole, homeName, requestAccess, knownClosesAt, emptyText, closedText, onScreen = true }: VisitChatProps) {
-  const chat = useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd: viewerRole === 'resident', onScreen });
+export function VisitChat({ title, viewerRole, homeName, requestAccess, knownClosesAt, emptyText, closedText, onScreen = true, onAnswer, onLiveChange }: VisitChatProps) {
+  const chat = useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd: viewerRole === 'resident', onScreen, onAnswer, onLiveChange });
   const headingId = useId();
   const closed = chat.status === 'closed';
   return <section className="visit-chat" aria-labelledby={headingId}>

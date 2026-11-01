@@ -3,11 +3,14 @@ import { createServer, type IncomingMessage, type ServerResponse } from 'node:ht
 import { PGlite } from '@electric-sql/pglite';
 import { createTestHarness, type TestHarness } from 'wrangler';
 import { CHAT, CHAT_HEADERS, CHAT_PATHS } from '../../src/constants/chat';
+import { DOORBELL, VISIT_REPLIES } from '../../src/constants/doorbell';
 import { HOMES } from '../../src/constants/homes';
+import { VISITOR_POLLING } from '../../src/constants/polling';
+import { TIME } from '../../src/constants/time';
 import { chatRoomName } from '../../src/lib/chat-protocol';
-import { notifyChatMessage, residentChatAccess, visitorChatAccess, type ChatSettings } from '../../src/server/chat';
+import { announceAnswer, notifyChatMessage, residentChatAccess, visitorChatAccess, type ChatSettings } from '../../src/server/chat';
 import { initialize, type Database } from '../../src/server/database';
-import { getHome, publicHome, readVisit, registerVisit, setDelivery, snapshot } from '../../src/server/doorbell';
+import { answerVisit, getHome, publicHome, readVisit, registerVisit, setDelivery, snapshot } from '../../src/server/doorbell';
 import { AppError } from '../../src/server/errors';
 import type { Home } from '../../src/types/doorbell';
 import { testDatabase } from '../support/test-database';
@@ -31,7 +34,10 @@ test.beforeAll(async () => {
 });
 test.afterAll(async () => { await harness.close(); });
 
-interface ChatFixtureServer { url: string; database: Database; home: Home; notifications: () => number; close: () => Promise<void> }
+interface ChatFixtureServer { url: string; database: Database; home: Home; settings: () => ChatSettings; notifications: () => number; close: () => Promise<void> }
+
+/** The visitor's check of its ring, `/api/door/<qr>/visits/<id>`, and not its chat token. */
+const VISIT_POLL = /\/api\/door\/[^/]+\/visits\/[0-9a-f-]{36}$/;
 
 function sendError(response: ServerResponse, error: unknown) {
   response.statusCode = error instanceof AppError ? error.status : 500;
@@ -101,7 +107,7 @@ async function startFixture(): Promise<ChatFixtureServer> {
   if (!address || typeof address === 'string') throw new Error('Chat fixture server did not expose a TCP port');
   origin = `http://127.0.0.1:${address.port}`;
   return {
-    url: origin, database, home, notifications: () => notified,
+    url: origin, database, home, settings, notifications: () => notified,
     close: async () => { await new Promise<void>((resolve) => server.close(() => resolve())); await postgres.close(); },
   };
 }
@@ -229,5 +235,52 @@ test('el chat se cierra al terminar su ventana: la visita vuelve al timbre y el 
     await expect(residentChat.getByRole('log')).toContainText('Te espero en la puerta');
     await expect(residentChat.getByText('El chat de esta visita terminó.')).toBeVisible();
     await expect(residentChat.getByLabel('Mensaje', { exact: true })).toHaveCount(0);
+  } finally { await fixture.close(); }
+});
+
+/** Rings from a new page and waits until the chat's socket is live: «Conectando el chat…» is gone. */
+async function ringWithLiveChat(page: Page, fixture: ChatFixtureServer) {
+  await page.goto(fixture.url);
+  await page.getByRole('button', { name: 'Tocar timbre', exact: true }).click();
+  const chat = page.getByRole('region', { name: `Chat con ${fixture.home.name}` });
+  await expect(chat.getByText('Escribiles acá', { exact: false })).toBeVisible();
+  await expect(chat.getByRole('status')).toHaveCount(0);
+  return chat;
+}
+
+test('el «Ya voy» de un residente le llega a la visita al instante por el chat, sin quién respondió', async ({ browser }) => {
+  const fixture = await startFixture();
+  try {
+    const page = await browser.newPage();
+    // The visitor's checks always see the visit unanswered: the answer can only come through the socket.
+    await page.route(VISIT_POLL, async (route) => {
+      const response = await route.fetch();
+      await route.fulfill({ response, json: { ...(await response.json()), answered_at: null, reply: null } });
+    });
+    await ringWithLiveChat(page, fixture);
+    await expect(page.getByText('Esperando respuesta')).toBeVisible();
+
+    const [visit] = (await snapshot(fixture.database, HOME)).visits;
+    await announceAnswer(await answerVisit(fixture.database, { homeId: HOME, id: visit.id }, 'coming', owner.name), { settings: fixture.settings() });
+    await expect(page.getByRole('heading', { name: VISIT_REPLIES.coming.visitorTitle })).toBeVisible();
+    await expect(page.getByText('Esperando respuesta')).toHaveCount(0);
+    await expect(page.locator('main')).not.toContainText(owner.name);
+  } finally { await fixture.close(); }
+});
+
+test('con el chat en vivo la visita revisa su timbrazo solo de respaldo, y al vencer la ventana igual ve que no respondieron', async ({ browser }) => {
+  const fixture = await startFixture();
+  try {
+    const page = await browser.newPage();
+    await page.clock.install();
+    let checks = 0;
+    page.on('request', (request) => { if (VISIT_POLL.test(request.url())) checks += 1; });
+    await ringWithLiveChat(page, fixture);
+    // Without the socket it would have checked every 5 seconds by now.
+    await page.clock.runFor(3 * VISITOR_POLLING.answerMs);
+    expect(checks).toBe(0);
+    // The window still ends on time: the backup check reads the final state right after it.
+    await page.clock.runFor(DOORBELL.responseWindowSeconds * TIME.secondMs);
+    await expect(page.getByRole('heading', { name: 'Todavía no respondieron' })).toBeVisible();
   } finally { await fixture.close(); }
 });

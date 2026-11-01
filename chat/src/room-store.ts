@@ -1,9 +1,12 @@
 import { CHAT } from '../../src/constants/chat';
 import { TIME } from '../../src/constants/time';
-import type { ChatClaims, ChatMessage, ChatRole } from '../../src/lib/chat-protocol';
+import type { ChatAnswer, ChatClaims, ChatMessage, ChatRole } from '../../src/lib/chat-protocol';
 
-/** The visit a room belongs to, set by its first socket, and when it last notified the residents. */
+/** The visit a room belongs to, set by its first socket or its answer, and when it last notified the residents. */
 export interface RoomState { visitId: string; origin: string; closesAt: number; lastNotifiedAt: number }
+
+/** What opens a room: a socket's claims or the app's answer announcement both carry it. */
+export type RoomOpening = Pick<ChatClaims, 'visitId' | 'origin' | 'closesAt'>;
 
 export type AppendOutcome = { status: 'added' | 'duplicate'; message: ChatMessage } | { status: 'full' };
 
@@ -14,10 +17,14 @@ const SCHEMA = `
   );
   CREATE TABLE IF NOT EXISTS messages (
     id TEXT PRIMARY KEY, author TEXT NOT NULL, name TEXT, body TEXT NOT NULL, sent_at INTEGER NOT NULL
+  );
+  CREATE TABLE IF NOT EXISTS answer (
+    id INTEGER PRIMARY KEY CHECK (id = 1), reply TEXT NOT NULL, answered_at TEXT NOT NULL
   );`;
 
 type RoomRow = { visit_id: string; origin: string; closes_at: number; last_notified_at: number };
 type MessageRow = { id: string; author: ChatRole; name: string | null; body: string; sent_at: number };
+type AnswerRow = { reply: ChatAnswer['reply']; answered_at: string };
 
 function toMessage(row: MessageRow): ChatMessage {
   return { id: row.id, author: row.author, name: row.name, body: row.body, sentAt: row.sent_at };
@@ -33,15 +40,30 @@ export class RoomStore {
   }
 
   /**
-   * The room of these claims: its first socket records which visit and app it belongs to. The schema
-   * is created again because an erased room can be opened by the same object that erased it.
+   * The room of this visit: whatever opens it first (a socket or the answer) records which visit and app
+   * it belongs to. The schema is created again because an erased room can be opened by the same object
+   * that erased it.
    */
-  open(claims: ChatClaims): RoomState {
+  open(opening: RoomOpening): RoomState {
     this.sql.exec(SCHEMA);
-    this.sql.exec('INSERT INTO room (id, visit_id, origin, closes_at) VALUES (1, ?, ?, ?) ON CONFLICT (id) DO NOTHING', claims.visitId, claims.origin, claims.closesAt);
+    this.sql.exec('INSERT INTO room (id, visit_id, origin, closes_at) VALUES (1, ?, ?, ?) ON CONFLICT (id) DO NOTHING', opening.visitId, opening.origin, opening.closesAt);
     const room = this.room();
-    if (!room) throw new Error(`RoomStore:open failed: room of visit ${claims.visitId} was not saved`);
+    if (!room) throw new Error(`RoomStore:open failed: room of visit ${opening.visitId} was not saved`);
     return room;
+  }
+
+  /** The residents' answer, once they gave it. */
+  answer(): ChatAnswer | null {
+    const [row] = this.sql.exec<AnswerRow>('SELECT reply, answered_at FROM answer WHERE id = 1').toArray();
+    return row ? { reply: row.reply, answeredAt: row.answered_at } : null;
+  }
+
+  /** Keeps the first answer, as the app does: a repeated announcement returns the stored one. */
+  recordAnswer(answer: ChatAnswer): ChatAnswer {
+    this.sql.exec('INSERT INTO answer (id, reply, answered_at) VALUES (1, ?, ?) ON CONFLICT (id) DO NOTHING', answer.reply, answer.answeredAt);
+    const stored = this.answer();
+    if (!stored) throw new Error(`RoomStore:recordAnswer failed: answer of visit ${this.room()?.visitId ?? 'unknown'} was not saved`);
+    return stored;
   }
 
   room(): RoomState | null {

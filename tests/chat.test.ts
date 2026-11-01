@@ -5,7 +5,7 @@ import { CHAT } from '../src/constants/chat';
 import { HOMES } from '../src/constants/homes';
 import { PUSH_POLICIES } from '../src/constants/push';
 import { TIME } from '../src/constants/time';
-import { parseClientChatMessage, signChatToken, signNotification, tokenFromProtocols, verifyChatToken, type ChatClaims } from '../src/lib/chat-protocol';
+import { chatAnswerUrl, parseAnswerAnnouncement, parseClientChatMessage, parseServerChatMessage, signAnswerAnnouncement, signChatToken, signNotification, tokenFromProtocols, verifyAnswerAnnouncement, verifyChatToken, type ChatClaims } from '../src/lib/chat-protocol';
 import { chatSettings, notifyChatMessage, residentChatAccess, visitorChatAccess, type ChatSettings } from '../src/server/chat';
 import { initialize } from '../src/server/database';
 import { getHome, registerVisit } from '../src/server/doorbell';
@@ -166,5 +166,40 @@ describe('avisos del Worker', () => {
     await expect(notifyChatMessage(database, await signed({ ...payload, visitId: crypto.randomUUID() }), { settings: SETTINGS })).rejects.toMatchObject({ code: 'VISIT_NOT_FOUND' });
     await age(visit.id, CHAT.windowSeconds + 1);
     await expect(notifyChatMessage(database, await signed(payload), { settings: SETTINGS })).rejects.toMatchObject({ code: 'CHAT_CLOSED' });
+  });
+
+  test('la firma de un anuncio de respuesta, hecha con el mismo secreto, no pasa por un aviso', async () => {
+    const visit = await ring();
+    const body = JSON.stringify({ visitId: visit.id, messageId: crypto.randomUUID(), body: 'Hola' });
+    const timestamp = Math.floor(Date.now() / TIME.secondMs);
+    const request = { body, timestamp: String(timestamp), signature: await signAnswerAnnouncement(body, timestamp, SECRET) };
+    await expect(notifyChatMessage(database, request, { settings: SETTINGS })).rejects.toMatchObject({ code: 'CHAT_SIGNATURE' });
+    expect(await verifyAnswerAnnouncement(request, SECRET)).toBe(true);
+  });
+});
+
+describe('respuesta por el socket', () => {
+  const answer = { reply: 'coming', answeredAt: '2026-10-31T12:00:00.000Z' } as const;
+
+  test('la visita lee la respuesta del historial y del aviso de la sala, y también el historial de un Worker anterior a las respuestas', () => {
+    expect(parseServerChatMessage(JSON.stringify({ type: 'history', messages: [], closesAt: 1, answer }))).toEqual({ type: 'history', messages: [], closesAt: 1, answer });
+    expect(parseServerChatMessage(JSON.stringify({ type: 'history', messages: [], closesAt: 1 }))).toEqual({ type: 'history', messages: [], closesAt: 1, answer: null });
+    expect(parseServerChatMessage(JSON.stringify({ type: 'answer', answer }))).toEqual({ type: 'answer', answer });
+    expect(parseServerChatMessage(JSON.stringify({ type: 'answer', answer: { ...answer, reply: 'abrí-la-puerta' } }))).toBeNull();
+  });
+
+  test('un anuncio necesita la visita, el origen, el cierre y una respuesta válida, y no lleva quién respondió', () => {
+    const visitId = crypto.randomUUID();
+    const announcement = { visitId, origin: SETTINGS.origin, closesAt: 1, answer: { ...answer, answeredBy: 'Guido' } };
+    expect(parseAnswerAnnouncement(JSON.stringify(announcement))).toEqual({ visitId, origin: SETTINGS.origin, closesAt: 1, answer });
+    expect(parseAnswerAnnouncement(JSON.stringify({ ...announcement, visitId: 'no-es-una-visita' }))).toBeNull();
+    expect(parseAnswerAnnouncement(JSON.stringify({ ...announcement, answer: { ...answer, answeredAt: 'ayer' } }))).toBeNull();
+    expect(parseAnswerAnnouncement('no es json')).toBeNull();
+  });
+
+  test('el anuncio va al mismo Worker por HTTP', () => {
+    const visitId = crypto.randomUUID();
+    expect(chatAnswerUrl('wss://chat.ringgg.test/', visitId)).toBe(`https://chat.ringgg.test/visits/${visitId}/answer`);
+    expect(chatAnswerUrl('ws://localhost:8787', visitId)).toBe(`http://localhost:8787/visits/${visitId}/answer`);
   });
 });

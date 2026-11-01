@@ -11,7 +11,7 @@ import { TIME } from '@/constants/time';
 import { pauseEndLabel } from '@/lib/pause';
 import type { PublicHome, PublicVisit } from '@/types/doorbell';
 import { api } from '@/lib/api';
-import type { ChatAccess } from '@/lib/chat-protocol';
+import type { ChatAccess, ChatAnswer } from '@/lib/chat-protocol';
 import { forgetStoredVisit, saveStoredVisit, type StoredVisit } from '@/lib/visit-storage';
 import { FarFromDoorHelp, LocationGate, locationRejection, useLocationGate } from './visitor-location-gate';
 import { useStoredVisit } from './use-stored-visit';
@@ -53,32 +53,52 @@ interface AnswerPollingOptions {
   token: string;
   visit: PublicVisit | null;
   expired: boolean;
+  /** The visit's chat socket is live: the answer arrives through it, and the poll only backs it up. */
+  chatLive: boolean;
   setVisit: (visit: PublicVisit) => void;
   setExpired: (expired: boolean) => void;
   setError: (message: string) => void;
 }
 
-/** Waits for an answer while the visit can still get one, reading the server's final state at the deadline. */
-function useAnswerPolling({ token, visit, expired, setVisit, setExpired, setError }: AnswerPollingOptions) {
+/**
+ * How long until the next read. With `backupOnly` it reads less often, but still right after the answer
+ * window ends, so «Todavía no respondieron» shows as soon as without the chat.
+ */
+function nextPollDelay(createdAt: string, backupOnly: boolean) {
+  if (!backupOnly) return VISITOR_POLLING.answerMs;
+  const untilDeadline = new Date(createdAt).getTime() + DOORBELL.responseWindowSeconds * TIME.secondMs - Date.now();
+  return Math.min(VISITOR_POLLING.answerWithChatMs, Math.max(untilDeadline, 0) + VISITOR_POLLING.deadlineMarginMs);
+}
+
+/**
+ * Waits for an answer while the visit can still get one, reading the server's final state at the deadline.
+ * A live chat socket brings the answer at once, so the poll slows down to a backup, except while the ring's
+ * notice is still unsent: the poll is what sends a notice its ring request left behind.
+ */
+function useAnswerPolling({ token, visit, expired, chatLive, setVisit, setExpired, setError }: AnswerPollingOptions) {
   const visitId = visit?.id;
+  const createdAt = visit?.created_at;
   const answered = Boolean(visit?.answered_at);
+  const unsent = visit?.delivery === 'registered';
   useEffect(() => {
-    if (!visitId || answered || expired) return;
+    if (!visitId || !createdAt || answered || expired) return;
     const controller = new AbortController(); let stopped = false; let timer: ReturnType<typeof setTimeout> | undefined;
     async function poll() {
+      let delay = VISITOR_POLLING.answerMs;
       try {
         const fresh = await api<PublicVisit>(`door/${token}/visits/${visitId}`, undefined, controller.signal);
         if (!stopped) { setVisit(fresh); setError(''); }
         if (fresh.answered_at) return;
         // Read the final server state even when a suspended tab resumes after the deadline.
         if (answerWindowClosed(fresh)) { if (!stopped) setExpired(true); return; }
+        delay = nextPollDelay(fresh.created_at, chatLive && fresh.delivery !== 'registered');
       }
       catch (error) { if (!controller.signal.aborted) setError(error instanceof Error ? error.message : 'Revisá tu conexión para ver la respuesta.'); }
-      if (!stopped) timer = setTimeout(() => { void poll(); }, VISITOR_POLLING.answerMs);
+      if (!stopped) timer = setTimeout(() => { void poll(); }, delay);
     }
-    timer = setTimeout(() => { void poll(); }, VISITOR_POLLING.answerMs);
+    timer = setTimeout(() => { void poll(); }, nextPollDelay(createdAt, chatLive && !unsent));
     return () => { stopped = true; clearTimeout(timer); controller.abort(); };
-  }, [visitId, answered, token, expired, setVisit, setExpired, setError]);
+  }, [visitId, createdAt, answered, unsent, chatLive, token, expired, setVisit, setExpired, setError]);
 }
 
 /**
@@ -106,13 +126,26 @@ function UnavailableNotice({ home }: { home: PublicHome }) {
   return null;
 }
 
-/** The visitor's side of the chat: open from the ring until the window ends, with the residents shown as the home. */
-function VisitorChat({ token, visit, homeName }: { token: string; visit: PublicVisit; homeName: string }) {
+interface VisitorChatProps {
+  token: string;
+  visit: PublicVisit;
+  homeName: string;
+  /** The residents' answer, as the room sends it the moment they give it. */
+  onAnswer: (answer: ChatAnswer) => void;
+  onLiveChange: (live: boolean) => void;
+}
+
+/**
+ * The visitor's side of the chat: open from the ring until the window ends, with the residents shown as
+ * the home. Its socket also brings the residents' answer to the ring.
+ */
+function VisitorChat({ token, visit, homeName, onAnswer, onLiveChange }: VisitorChatProps) {
   const requestAccess = useCallback((signal: AbortSignal) => api<ChatAccess>(`door/${token}/visits/${visit.id}/chat`, undefined, signal), [token, visit.id]);
   return <VisitChat title={`Chat con ${homeName}`} viewerRole="visitor" homeName={homeName} requestAccess={requestAccess}
     knownClosesAt={new Date(visit.created_at).getTime() + CHAT.windowSeconds * TIME.secondMs}
     emptyText="Escribiles acá: les llega al celular y te responden en este chat."
-    closedText="El chat de esta visita terminó. Si necesitás algo, volvé a tocar el timbre." />;
+    closedText="El chat de esta visita terminó. Si necesitás algo, volvé a tocar el timbre."
+    onAnswer={onAnswer} onLiveChange={onLiveChange} />;
 }
 
 interface VisitResultProps {
@@ -126,10 +159,13 @@ interface VisitResultProps {
   onNotePendingChange: (pending: boolean) => void;
   onNoteSaved: (visit: PublicVisit) => void;
   onRingAgain: () => void;
+  /** The chat's socket brought the residents' answer to this visit. */
+  onChatAnswer: (visitId: string, answer: ChatAnswer) => void;
+  onChatLiveChange: (live: boolean) => void;
 }
 
 /** The ring's progress: waiting, the residents' reply, or no answer in time, with the chat or the note form when it applies. */
-function VisitResult({ token, homeName, visit, expired, chat, notePending, onNotePendingChange, onNoteSaved, onRingAgain }: VisitResultProps) {
+function VisitResult({ token, homeName, visit, expired, chat, notePending, onNotePendingChange, onNoteSaved, onRingAgain, onChatAnswer, onChatLiveChange }: VisitResultProps) {
   const reply = visit.answered_at ? VISIT_REPLIES[visit.reply ?? 'coming'] : null;
   const canLeaveNote = !chat && !visit.noted && (expired || visit.reply === 'away');
   let title = '¡Ding, dong!';
@@ -142,10 +178,16 @@ function VisitResult({ token, homeName, visit, expired, chat, notePending, onNot
     {!expired && !visit.answered_at && <span className="waiting-indicator"><i /> Esperando respuesta</span>}
     {visit.noted && <p className="feedback success" role="status"><Check size={17} /> Le dejamos tu mensaje.</p>}
     {canLeaveNote && <NoteForm token={token} visit={visit} onPendingChange={onNotePendingChange} onSaved={onNoteSaved} />}
-    {chat && <VisitorChat token={token} visit={visit} homeName={homeName} />}
+    {chat && <VisitorChat token={token} visit={visit} homeName={homeName} onAnswer={(answer) => onChatAnswer(visit.id, answer)} onLiveChange={onChatLiveChange} />}
     {/* An answered visit offers it too: a reload no longer starts over, so this is the way to ring again. */}
     {(expired || visit.answered_at !== null) && <button className="button outline full" disabled={notePending} onClick={onRingAgain}>Volver a tocar</button>}
   </div>;
+}
+
+/** The visit on screen with the answer its chat brought: it only lands on the visit it belongs to, and never replaces one already shown. */
+function withChatAnswer(current: PublicVisit | null, visitId: string, answer: ChatAnswer): PublicVisit | null {
+  if (current?.id !== visitId || current.answered_at) return current;
+  return { ...current, answered_at: answer.answeredAt, reply: answer.reply };
 }
 
 export function Visitor({ home: initialHome, token, chat = false }: { home: PublicHome; token: string; chat?: boolean }) {
@@ -157,9 +199,11 @@ export function Visitor({ home: initialHome, token, chat = false }: { home: Publ
   const [expired, setExpired] = useState(false);
   const [notePending, setNotePending] = useState(false);
   const [farFromDoor, setFarFromDoor] = useState(false);
+  // Only the chat's socket turns it on, and the chat only shows when this deployment has it.
+  const [chatLive, setChatLive] = useState(false);
   const operationId = useRef('');
   const sending = useRef(false);
-  useAnswerPolling({ token, visit, expired, setVisit, setExpired, setError });
+  useAnswerPolling({ token, visit, expired, chatLive, setVisit, setExpired, setError });
   // A ring this browser already made here comes back before the doorbell form shows, so it is never rung twice.
   const restored = useStoredVisit({ token, visit, onRestore: restoreVisit, onUnreadable: keepStoredOperation, onExpire: ringAgain });
   const available = !home.paused && !home.quiet;
@@ -198,12 +242,15 @@ export function Visitor({ home: initialHome, token, chat = false }: { home: Publ
     setError(error instanceof Error ? error.message : 'No pudimos conectar. Reintentá; no se duplicará tu timbrazo.');
     setFarFromDoor(rejection === 'far');
   }
-  function ringAgain() { setVisit(null); setExpired(false); operationId.current = ''; forgetStoredVisit(token); }
+  function ringAgain() { setVisit(null); setExpired(false); setChatLive(false); operationId.current = ''; forgetStoredVisit(token); }
+  function applyChatAnswer(visitId: string, answer: ChatAnswer) { setVisit((current) => withChatAnswer(current, visitId, answer)); }
+  // A live socket brings the answer, so a failed poll's «Revisá tu conexión» no longer applies.
+  function changeChatLive(live: boolean) { setChatLive(live); if (live) setError(''); }
   function restoreVisit(restoredVisit: PublicVisit, reference: StoredVisit) { operationId.current = reference.operationId; setVisit(restoredVisit); setExpired(!restoredVisit.answered_at && answerWindowClosed(restoredVisit)); }
   // Tapping again resends the stored operation id: the server returns that ring instead of ringing twice.
   function keepStoredOperation(reference: StoredVisit) { operationId.current = reference.operationId; setError('No pudimos revisar tu timbrazo anterior. Revisá tu conexión: si volvés a tocar, no se repite el aviso.'); }
 
-  const result = visit && <VisitResult token={token} homeName={home.name} visit={visit} expired={expired} chat={chat} notePending={notePending} onNotePendingChange={setNotePending} onNoteSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} onRingAgain={ringAgain} />;
+  const result = visit && <VisitResult token={token} homeName={home.name} visit={visit} expired={expired} chat={chat} notePending={notePending} onNotePendingChange={setNotePending} onNoteSaved={(saved) => setVisit((current) => current?.id === saved.id ? saved : current)} onRingAgain={ringAgain} onChatAnswer={applyChatAnswer} onChatLiveChange={changeChatLive} />;
   const ringForm = <form onSubmit={(event) => { event.preventDefault(); void ring(); }}><label htmlFor="visitor-message">¿Querés decir quién sos? <span>Opcional</span></label><textarea id="visitor-message" rows={3} placeholder="Hola, soy del delivery…" value={message} disabled={pending} maxLength={DOORBELL.messageMaxLength} onChange={(event) => setMessage(event.target.value)} /><div className="message-count">{message.length}/{DOORBELL.messageMaxLength}</div><button className="button primary ring-button" disabled={pending}><BellRing size={21} />{pending ? 'Tocando timbre…' : 'Tocar timbre'}</button>{home.nearbyOnly && <p className="visitor-location-note"><MapPin size={14} /> Usamos tu ubicación solo para confirmar que estás en la puerta. No la guardamos.</p>}</form>;
   const doorbell = locationBlocked
     ? <p className="waiting-indicator" role="status"><i /> {location.state === 'checking' ? 'Confirmando que estés en la puerta…' : 'Necesitamos tu ubicación para tocar el timbre.'}</p>

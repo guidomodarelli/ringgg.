@@ -1,16 +1,16 @@
 import { z } from 'zod';
-import { CHAT, CHAT_REJECTIONS } from '@/constants/chat';
+import { CHAT, CHAT_HEADERS, CHAT_PATHS, CHAT_REJECTIONS } from '@/constants/chat';
 import { HTTP } from '@/constants/doorbell';
 import { TIME } from '@/constants/time';
-import { chatSocketUrl, isVisitId, signChatToken, verifyNotification, type ChatAccess, type ChatClaims, type ChatNotification, type SignedChatNotification } from '@/lib/chat-protocol';
+import { chatAnswerUrl, chatSocketUrl, isVisitId, signAnswerAnnouncement, signChatToken, verifyNotification, type ChatAccess, type ChatAnswerAnnouncement, type ChatClaims, type ChatNotification, type SignedChatRequest } from '@/lib/chat-protocol';
 import type { ResidentIdentity } from '@/types/auth';
-import type { DeliveryStatus } from '@/types/doorbell';
+import type { DeliveryStatus, Visit } from '@/types/doorbell';
 import type { Environment } from '@/types/environment';
 import type { ResidentSettings } from '@/types/residents';
 import { getConfig } from './config';
 import type { Database } from './database';
 import { getHome, readVisit } from './doorbell';
-import { AppError } from './errors';
+import { AppError, logError } from './errors';
 import { parseJson } from './json';
 import { sendPush } from './push';
 import { memberName, residentSettings, resolveHomeAccess } from './residents';
@@ -105,7 +105,7 @@ const notificationSchema = z.object({
  * a recent request signed with the shared secret, for a visit whose chat is still open, notifies the
  * residents' devices; the notification opens that visit in the history.
  */
-export async function notifyChatMessage(database: Database, request: SignedChatNotification, { settings = chatSettings(), now = Date.now() }: ChatContext = {}): Promise<{ delivery: DeliveryStatus }> {
+export async function notifyChatMessage(database: Database, request: SignedChatRequest,{ settings = chatSettings(), now = Date.now() }: ChatContext = {}): Promise<{ delivery: DeliveryStatus }> {
   const chat = requireChat(settings);
   if (!(await verifyNotification(request, chat.secret, now))) throw new AppError(HTTP.unauthorized, 'CHAT_SIGNATURE', 'La firma del aviso del chat no es válida.');
   const notification = parseJson(request.body, notificationSchema);
@@ -115,4 +115,33 @@ export async function notifyChatMessage(database: Database, request: SignedChatN
   const home = await getHome(database, visit.homeId);
   const outcome = await sendPush(database, { kind: 'chat', homeId: home.id, title: `${home.name}: la visita te escribió`, body: notification.body.slice(0, CHAT.notificationBodyMaxLength), visitId: notification.visitId });
   return { delivery: outcome.delivery };
+}
+
+/** The answered visit the room is told about: what the visitor's page needs and when its chat closes. */
+type AnsweredVisit = Pick<Visit, 'id' | 'created_at' | 'answered_at' | 'reply'>;
+
+/**
+ * Tells the visit's room that the residents answered, so the visitor's page shows it at once through its
+ * chat socket instead of on its next poll. The request is signed with the shared secret and its time, as
+ * an answer, so the Worker rejects forged and replayed ones. Repeating it is harmless: the room keeps the
+ * first answer, like the database. A failure is logged and dropped, because the answer is already stored
+ * and the visitor's poll still brings it.
+ */
+export async function announceAnswer(visit: AnsweredVisit, { settings = chatSettings() }: Pick<ChatContext, 'settings'> = {}) {
+  if (!settings || !visit.answered_at || !visit.reply) return;
+  const body = JSON.stringify({
+    visitId: visit.id, origin: settings.origin, closesAt: closingTime(visit.created_at),
+    answer: { reply: visit.reply, answeredAt: new Date(visit.answered_at).toISOString() },
+  } satisfies ChatAnswerAnnouncement);
+  const timestamp = Math.floor(Date.now() / TIME.secondMs);
+  const context = { visitId: visit.id, method: 'POST', path: `${CHAT_PATHS.socket}<visitId>${CHAT_PATHS.answer}` };
+  try {
+    const response = await fetch(chatAnswerUrl(settings.url, visit.id), {
+      method: 'POST', body, signal: AbortSignal.timeout(CHAT.announceTimeoutMs),
+      headers: { 'Content-Type': 'application/json', [CHAT_HEADERS.timestamp]: String(timestamp), [CHAT_HEADERS.signature]: await signAnswerAnnouncement(body, timestamp, settings.secret) },
+    });
+    if (!response.ok) logError('chat.announceAnswer', new Error(`Chat Worker rejected the answer with HTTP ${response.status}`), { ...context, status: response.status, requestId: response.headers.get('cf-ray') });
+  } catch (error) {
+    logError('chat.announceAnswer', error, context);
+  }
 }

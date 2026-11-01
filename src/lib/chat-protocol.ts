@@ -1,10 +1,11 @@
 /**
  * Chat contract shared by the app server, the browser and the Cloudflare Worker: signed tokens, signed
- * notification requests and the messages each side sends over the socket. It only uses web platform
- * APIs (Web Crypto, `TextEncoder`, `btoa`), so the three runtimes run the same code. Imports stay
- * relative for the Worker build.
+ * requests between the app and the Worker (notifications and answers) and the messages each side sends
+ * over the socket. It only uses web platform APIs (Web Crypto, `TextEncoder`, `btoa`), so the three
+ * runtimes run the same code. Imports stay relative for the Worker build.
  */
 import { CHAT, CHAT_PATHS, CHAT_REJECTIONS, type ChatRejection } from '../constants/chat';
+import { VISIT_REPLIES, type VisitReply } from '../constants/doorbell';
 import { TIME } from '../constants/time';
 
 /** Who holds a socket: the visitor who rang, or a resident of the home. */
@@ -38,9 +39,23 @@ export interface ChatMessage { id: string; author: ChatRole; name: string | null
 /** The only thing a client sends: a message with the id it chose, so a retry never posts it twice. */
 export interface ClientChatMessage { type: 'send'; id: string; body: string }
 
+/** The residents' quick reply to the ring («Ya voy», «No estoy»…), as every socket receives it: never who sent it. */
+export interface ChatAnswer { reply: VisitReply; answeredAt: string }
+
+/**
+ * What the app tells a visit's room when the residents answer the ring. It also opens the room, which may
+ * have no socket yet, so it says which app it belongs to and when it closes, like a token does.
+ */
+export interface ChatAnswerAnnouncement { visitId: string; origin: string; closesAt: number; answer: ChatAnswer }
+
+/**
+ * `history` comes first on every socket, with the answer if the residents already gave it; `answer`
+ * reaches the sockets that are open when they do.
+ */
 export type ServerChatMessage =
-  | { type: 'history'; messages: ChatMessage[]; closesAt: number }
+  | { type: 'history'; messages: ChatMessage[]; closesAt: number; answer: ChatAnswer | null }
   | { type: 'message'; message: ChatMessage }
+  | { type: 'answer'; answer: ChatAnswer }
   | { type: 'rejected'; id: string; code: ChatRejection };
 
 /**
@@ -137,20 +152,64 @@ export function chatSocketUrl(baseUrl: string, visitId: string) {
   return `${baseUrl.replace(/\/$/, '')}${CHAT_PATHS.socket}${encodeURIComponent(visitId)}`;
 }
 
+/** Where the app announces a visit's answer: the same Worker over HTTP (`https://…`, or `http://…` locally). */
+export function chatAnswerUrl(baseUrl: string, visitId: string) {
+  return `${chatSocketUrl(baseUrl, visitId).replace(/^ws/, 'http')}${CHAT_PATHS.answer}`;
+}
+
+/**
+ * Signed text of an answer announcement. Its prefix sets it apart from a notification, whose text starts
+ * with the timestamp: one request's signature never passes for the other.
+ */
+const ANSWER_SIGNATURE_PREFIX = 'answer.';
+
+/** A signed request as received: the exact body and its two headers, which may be missing. */
+export interface SignedChatRequest { body: string; timestamp: string | null; signature: string | null }
+
+/** A request signed with this prefix recently enough; an old one is rejected even with a valid signature. */
+async function verifySignedRequest(prefix: string, { body, timestamp, signature }: SignedChatRequest, secret: string, now: number) {
+  const seconds = Number(timestamp);
+  if (!timestamp || !signature || !Number.isInteger(seconds)) return false;
+  if (Math.abs(now / TIME.secondMs - seconds) > CHAT.webhookToleranceSeconds) return false;
+  return verify(`${prefix}${seconds}.${body}`, signature, secret);
+}
+
 /** Signature of a notification request: it covers the body and the time it was sent. */
 export function signNotification(body: string, timestampSeconds: number, secret: string) {
   return sign(`${timestampSeconds}.${body}`, secret);
 }
 
-/** A notification request as received: the exact body and its two headers, which may be missing. */
-export interface SignedChatNotification { body: string; timestamp: string | null; signature: string | null }
+/** A notification the Worker signed recently enough. */
+export function verifyNotification(request: SignedChatRequest, secret: string, now = Date.now()) {
+  return verifySignedRequest('', request, secret, now);
+}
 
-/** A request the Worker signed recently enough; an old one is rejected even with a valid signature. */
-export async function verifyNotification({ body, timestamp, signature }: SignedChatNotification, secret: string, now = Date.now()) {
-  const seconds = Number(timestamp);
-  if (!timestamp || !signature || !Number.isInteger(seconds)) return false;
-  if (Math.abs(now / TIME.secondMs - seconds) > CHAT.webhookToleranceSeconds) return false;
-  return verify(`${seconds}.${body}`, signature, secret);
+/** Signature of an answer announcement: it covers the body and the time it was sent, like a notification. */
+export function signAnswerAnnouncement(body: string, timestampSeconds: number, secret: string) {
+  return sign(`${ANSWER_SIGNATURE_PREFIX}${timestampSeconds}.${body}`, secret);
+}
+
+/** An answer announcement the app signed recently enough. */
+export function verifyAnswerAnnouncement(request: SignedChatRequest, secret: string, now = Date.now()) {
+  return verifySignedRequest(ANSWER_SIGNATURE_PREFIX, request, secret, now);
+}
+
+function isChatAnswer(value: unknown): value is ChatAnswer {
+  if (typeof value !== 'object' || value === null) return false;
+  const answer = value as Record<string, unknown>;
+  return typeof answer.reply === 'string' && Object.hasOwn(VISIT_REPLIES, answer.reply)
+    && typeof answer.answeredAt === 'string' && !Number.isNaN(Date.parse(answer.answeredAt));
+}
+
+/** An announcement's body, or `null` when it is not a valid one. */
+export function parseAnswerAnnouncement(raw: string): ChatAnswerAnnouncement | null {
+  let value: unknown;
+  try { value = JSON.parse(raw); } catch { return null; }
+  if (typeof value !== 'object' || value === null) return null;
+  const announcement = value as Record<string, unknown>;
+  if (!isVisitId(announcement.visitId) || typeof announcement.origin !== 'string' || typeof announcement.closesAt !== 'number' || !isChatAnswer(announcement.answer)) return null;
+  const { reply, answeredAt } = announcement.answer;
+  return { visitId: announcement.visitId, origin: announcement.origin, closesAt: announcement.closesAt, answer: { reply, answeredAt } };
 }
 
 /** A message from a socket, or `null` when it is not a valid one. The body is sent without surrounding spaces. */
@@ -178,8 +237,10 @@ export function parseServerChatMessage(raw: unknown): ServerChatMessage | null {
   try { value = JSON.parse(raw); } catch { return null; }
   if (typeof value !== 'object' || value === null) return null;
   const message = value as Record<string, unknown>;
-  if (message.type === 'history' && Array.isArray(message.messages) && message.messages.every(isChatMessage) && typeof message.closesAt === 'number') return { type: 'history', messages: message.messages, closesAt: message.closesAt };
+  // A room deployed before answers existed sends its history without one.
+  if (message.type === 'history' && Array.isArray(message.messages) && message.messages.every(isChatMessage) && typeof message.closesAt === 'number') return { type: 'history', messages: message.messages, closesAt: message.closesAt, answer: isChatAnswer(message.answer) ? message.answer : null };
   if (message.type === 'message' && isChatMessage(message.message)) return { type: 'message', message: message.message };
+  if (message.type === 'answer' && isChatAnswer(message.answer)) return { type: 'answer', answer: message.answer };
   if (message.type === 'rejected' && typeof message.id === 'string' && typeof message.code === 'string' && Object.hasOwn(CHAT_REJECTIONS, message.code)) return { type: 'rejected', id: message.id, code: message.code as ChatRejection };
   return null;
 }

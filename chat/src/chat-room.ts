@@ -2,7 +2,7 @@ import { DurableObject } from 'cloudflare:workers';
 import { CHAT } from '../../src/constants/chat';
 import { HTTP } from '../../src/constants/doorbell';
 import { TIME } from '../../src/constants/time';
-import { messageFor, parseClientChatMessage, type ChatClaims, type ChatMessage, type ChatRole, type ServerChatMessage } from '../../src/lib/chat-protocol';
+import { messageFor, parseClientChatMessage, type ChatAnswerAnnouncement, type ChatClaims, type ChatMessage, type ChatRole, type ServerChatMessage } from '../../src/lib/chat-protocol';
 import { CLAIMS_HEADER, type ChatEnv } from './env';
 import { notifyResidents } from './notify';
 import { RoomStore, type RoomState } from './room-store';
@@ -18,8 +18,9 @@ function send(socket: WebSocket, message: ServerChatMessage) {
 
 /**
  * The chat of one visit. It uses the WebSocket Hibernation API: while nobody writes, the object
- * sleeps and Cloudflare does not bill its duration. Messages live in the object's own SQLite until
- * the visit leaves the history; then an alarm closes the sockets and erases the room.
+ * sleeps and Cloudflare does not bill its duration. Messages, and the residents' answer to the ring,
+ * live in the object's own SQLite until the visit leaves the history; then an alarm closes the sockets
+ * and erases the room.
  */
 export class ChatRoom extends DurableObject<ChatEnv> {
   private readonly store: RoomStore;
@@ -37,8 +38,20 @@ export class ChatRoom extends DurableObject<ChatEnv> {
     const { 0: client, 1: server } = new WebSocketPair();
     this.ctx.acceptWebSocket(server, [claims.role]);
     server.serializeAttachment({ role: claims.role, name: claims.name } satisfies SocketIdentity);
-    send(server, { type: 'history', messages: this.store.messages().map((message) => messageFor(message, claims.role)), closesAt: room.closesAt });
+    send(server, { type: 'history', messages: this.store.messages().map((message) => messageFor(message, claims.role)), closesAt: room.closesAt, answer: this.store.answer() });
     return new Response(null, { status: HTTP.switchingProtocols, webSocket: client, headers: { 'Sec-WebSocket-Protocol': CHAT.protocol } });
+  }
+
+  /**
+   * The residents answered the ring (RPC from the Worker, after it checked the app's signature). The
+   * room keeps the first answer and sends it to every open socket, so the visitor sees it at once;
+   * a socket that opens later gets it with the history.
+   */
+  async recordAnswer(announcement: ChatAnswerAnnouncement) {
+    const room = this.store.open(announcement);
+    await this.scheduleErasure(room);
+    const answer = this.store.recordAnswer(announcement.answer);
+    for (const socket of this.ctx.getWebSockets()) send(socket, { type: 'answer', answer });
   }
 
   override async webSocketMessage(socket: WebSocket, raw: string | ArrayBuffer) {

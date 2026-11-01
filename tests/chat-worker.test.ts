@@ -3,7 +3,8 @@ import { createServer, type IncomingMessage } from 'node:http';
 import { createTestHarness, type TestHarness } from 'wrangler';
 import { CHAT, CHAT_HEADERS, CHAT_PATHS } from '../src/constants/chat';
 import { TIME } from '../src/constants/time';
-import { chatRoomName, chatSocketUrl, signChatToken, verifyNotification, type ChatClaims, type ChatMessage, type ChatRole, type ServerChatMessage } from '../src/lib/chat-protocol';
+import { chatAnswerUrl, chatRoomName, chatSocketUrl, signAnswerAnnouncement, signChatToken, signNotification, verifyNotification, type ChatAnswer, type ChatAnswerAnnouncement, type ChatClaims, type ChatMessage, type ChatRole, type ServerChatMessage } from '../src/lib/chat-protocol';
+import { announceAnswer, type ChatSettings } from '../src/server/chat';
 import { readText } from './e2e/support/read-text';
 
 // The real Worker in workerd, built from the same `wrangler.jsonc` that is deployed: Durable Objects,
@@ -220,6 +221,76 @@ describe('avisos a los residentes', () => {
     await delivered(residentChat);
     await new Promise((resolve) => setTimeout(resolve, 500));
     expect(receiver.received).toHaveLength(before);
+  });
+});
+
+describe('respuesta de los residentes', () => {
+  /** The app's chat settings for this Worker, as `announceAnswer` reads them in production. */
+  const settings = (): ChatSettings => ({ url: workerUrl, secret: SECRET, origin: receiver.origin, allowedOrigins: [receiver.origin] });
+
+  /** The visit of these claims as the database returns it once answered. */
+  function answered(claims: ChatClaims, reply: ChatAnswer['reply'], answeredAt = new Date()) {
+    return { id: claims.visitId, created_at: new Date(claims.closesAt - CHAT.windowSeconds * TIME.secondMs).toISOString(), answered_at: answeredAt.toISOString(), reply };
+  }
+
+  async function answerOf(chat: ChatSocket) {
+    const message = await chat.next();
+    if (message.type !== 'answer') throw new Error(`Expected the answer, got ${JSON.stringify(message)}`);
+    return message.answer;
+  }
+
+  /** Posts an announcement straight to the Worker, signed as the test says. */
+  function post(visitId: string, body: string, headers: Record<string, string>, method = 'POST') {
+    return harness.fetch(chatAnswerUrl(workerUrl, visitId), { method, body: method === 'POST' ? body : undefined, headers });
+  }
+
+  test('la app anuncia la respuesta y la visita y los residentes la reciben al instante, sin quién respondió', async () => {
+    const visitor = claimsFor('visitor');
+    const visitorChat = await connect(visitor);
+    const residentChat = await connect({ ...visitor, role: 'resident', name: 'Guido' });
+    expect((await history(visitorChat)).answer).toBeNull();
+    await history(residentChat);
+
+    const visit = answered(visitor, 'coming');
+    await announceAnswer(visit, { settings: settings() });
+    const expected: ChatAnswer = { reply: 'coming', answeredAt: visit.answered_at };
+    expect(await answerOf(visitorChat)).toEqual(expected);
+    expect(await answerOf(residentChat)).toEqual(expected);
+
+    // Repeating the announcement with another reply keeps the first one, as the database does.
+    await announceAnswer(answered(visitor, 'away'), { settings: settings() });
+    expect(await answerOf(visitorChat)).toEqual(expected);
+    // A page that opens later, or reconnects, gets the answer with the history.
+    expect((await history(await connect(visitor))).answer).toEqual(expected);
+  });
+
+  test('una respuesta que llega antes que cualquier socket abre la sala y viene con el historial', async () => {
+    const visitor = claimsFor('visitor');
+    const visit = answered(visitor, 'leave');
+    await announceAnswer(visit, { settings: settings() });
+    const visitorChat = await connect(visitor);
+    expect(await history(visitorChat)).toMatchObject({ messages: [], answer: { reply: 'leave', answeredAt: visit.answered_at } });
+  });
+
+  test('rechaza anuncios sin firma, con la firma de un aviso, viejos, de otra visita o mal formados', async () => {
+    const visitor = claimsFor('visitor');
+    const body = JSON.stringify({ visitId: visitor.visitId, origin: visitor.origin, closesAt: visitor.closesAt, answer: { reply: 'coming', answeredAt: new Date().toISOString() } } satisfies ChatAnswerAnnouncement);
+    const now = Math.floor(Date.now() / TIME.secondMs);
+    const headers = async (text: string, timestamp = now, signer = signAnswerAnnouncement) => ({ [CHAT_HEADERS.timestamp]: String(timestamp), [CHAT_HEADERS.signature]: await signer(text, timestamp, SECRET) });
+
+    expect((await post(visitor.visitId, body, {})).status).toBe(401);
+    // A notification's signature, made with the same secret, never passes for an answer.
+    expect((await post(visitor.visitId, body, await headers(body, now, signNotification))).status).toBe(401);
+    expect((await post(visitor.visitId, body, await headers(body, now - CHAT.webhookToleranceSeconds - 1))).status).toBe(401);
+    expect((await post(crypto.randomUUID(), body, await headers(body))).status).toBe(400);
+    const invalid = JSON.stringify({ visitId: visitor.visitId, origin: visitor.origin, closesAt: visitor.closesAt, answer: { reply: 'abrí-la-puerta', answeredAt: 'ayer' } });
+    expect((await post(visitor.visitId, invalid, await headers(invalid))).status).toBe(400);
+    expect((await post(visitor.visitId, body, {}, 'GET')).status).toBe(405);
+    expect((await history(await connect(visitor))).answer).toBeNull();
+
+    // The app only logs a rejected announcement: the answer is stored, and the visitor's poll brings it.
+    await expect(announceAnswer(answered(visitor, 'coming'), { settings: { ...settings(), secret: 'otro-secreto-que-no-es-el-del-worker' } })).resolves.toBeUndefined();
+    expect((await history(await connect(visitor))).answer).toBeNull();
   });
 });
 
