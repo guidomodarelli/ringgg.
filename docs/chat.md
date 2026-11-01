@@ -1,6 +1,6 @@
 # Chat con la visita
 
-La visita y los residentes pueden escribirse en vivo durante los 15 minutos siguientes al timbrazo. El chat corre en un Worker de Cloudflare (`chat/`) con un Durable Object por visita. Vercel no puede mantener WebSockets abiertos, así que la app solo emite los permisos y recibe los avisos. Es opcional: sin `CHAT_URL` y `CHAT_SECRET`, la visita ve la nota de siempre.
+La visita y los residentes pueden escribirse en vivo durante los 15 minutos siguientes al timbrazo, y la respuesta de los residentes al timbrazo («Ya voy», «No estoy»…) le llega a la visita por el mismo socket. El chat corre en un Worker de Cloudflare (`chat/`) con un Durable Object por visita. Vercel no puede mantener WebSockets abiertos, así que la app solo emite los permisos y recibe los avisos. Es opcional: sin `CHAT_URL` y `CHAT_SECRET`, la visita ve la nota de siempre.
 
 ## Cómo funciona
 
@@ -20,6 +20,9 @@ sequenceDiagram
   R->>A: GET /api/chat/access?visit=<id> (con sesión)
   R->>W: WebSocket con su token
   W-->>R: historial con el mensaje
+  R->>A: POST /api/answer «Ya voy» (panel o notificación)
+  A->>W: POST /visits/<id>/answer firmado (después de responder)
+  W-->>V: respuesta, al instante
 ```
 
 - **Permisos:** la app firma tokens HMAC-SHA256 con `CHAT_SECRET`. Un token sirve para una visita, un rol (visita o residente) y la página que lo pidió (uno de los orígenes de la app: un preview responde en su URL de rama y en la del deployment), y vence a los 2 minutos; cada reconexión pide otro. El Worker rechaza los tokens de otra visita, vencidos, firmados con otro secreto o usados desde otra página. La sala se nombra con el origen canónico de la app, así que todas sus páginas la comparten. El token viaja en `Sec-WebSocket-Protocol`, nunca en la URL, así que no queda en los logs.
@@ -27,6 +30,7 @@ sequenceDiagram
 - **Los residentes** obtienen el suyo con su sesión, si son residentes de la casa de esa visita. Entran con el nombre que les da la casa y pueden leer el chat mientras la visita siga en el historial (30 días).
 - **Privacidad:** la visita nunca ve quién respondió. El Worker le manda los mensajes de los residentes sin nombre y la página muestra el nombre de la casa.
 - **Avisos:** cuando la visita escribe y ningún residente tiene el chat abierto, el Worker le pide a la app que avise, como mucho una vez por minuto por visita. El pedido va firmado con el mismo secreto y con su hora: la app rechaza firmas inválidas, pedidos con más de 5 minutos de diferencia y visitas con el chat cerrado. La notificación vence a los 15 minutos y abre la visita con su chat. Una pestaña oculta cierra su socket, así un panel olvidado abierto en la compu no apaga los avisos de los celulares.
+- **Respuestas:** los botones de respuesta siguen yendo a la app por HTTP, porque la respuesta se guarda en la base con la sesión de quien respondió y los botones de la notificación corren en el service worker. Ya enviada la respuesta HTTP, la app se la anuncia a la sala con un pedido firmado como los avisos, pero con el prefijo `answer.`, así una firma no pasa por la otra. La sala guarda la primera respuesta y se la manda a todos los sockets, sin el nombre de quien respondió; un socket que abre después la recibe con el historial. Mientras el socket de la visita está conectado, su página consulta el timbrazo solo de respaldo, cada 20 s y al vencer la ventana; si el anuncio falla, la app lo loguea y esa consulta trae la respuesta.
 - **Envíos:** cada mensaje lleva un id elegido por el navegador y el Durable Object lo guarda una sola vez. Lo que se escribe sin conexión sale al reconectar, y «Reintentar» nunca lo duplica. Cada visita acepta hasta 100 mensajes de hasta 300 caracteres.
 - **Retención:** el Durable Object guarda los mensajes en su propia SQLite. Una alarma los borra a los 30 días del cierre del chat, como las visitas del historial.
 
@@ -59,12 +63,14 @@ npm run chat:deploy
 
 Un build de producción con una sola de las dos variables, con `CHAT_URL` sin `wss://` o con un secreto corto falla en `next.config.ts`.
 
+Cuando un cambio toca el Worker y la app a la vez, desplegá primero el Worker. Un Worker anterior a las respuestas por el socket rechaza el anuncio (la app lo loguea y la visita recibe la respuesta con su consulta de respaldo) y manda el historial sin respuesta, que la página nueva sigue leyendo.
+
 Los previews con Deployment Protection de Vercel rechazan el aviso del Worker (no tiene sesión de Vercel): en un preview el chat funciona, pero sin notificaciones push de los mensajes.
 
 ## Pruebas
 
-- `tests/chat-worker.test.ts` levanta el Worker real con el harness de wrangler (workerd, Durable Objects, SQLite y alarmas) y prueba accesos, mensajes, reintentos, avisos firmados y retención.
-- `tests/chat.test.ts` prueba tokens, accesos de la visita y de los residentes, y los avisos con PostgreSQL embebido y el proveedor de push simulado en la red.
-- `tests/e2e/visit-chat.spec.ts` abre la visita y el panel en Chromium contra el Worker real: chat en vivo, privacidad, reconexión sin duplicados y cierre de la ventana.
+- `tests/chat-worker.test.ts` levanta el Worker real con el harness de wrangler (workerd, Durable Objects, SQLite y alarmas) y prueba accesos, mensajes, reintentos, avisos firmados, los anuncios de respuesta de la app y retención.
+- `tests/chat.test.ts` prueba tokens, accesos de la visita y de los residentes, los avisos con PostgreSQL embebido y el proveedor de push simulado en la red, y el contrato de las respuestas.
+- `tests/e2e/visit-chat.spec.ts` abre la visita y el panel en Chromium contra el Worker real: chat en vivo, privacidad, reconexión sin duplicados, cierre de la ventana, la respuesta que llega por el socket y la consulta de respaldo.
 
 Después de cambiar `chat/wrangler.jsonc`, regenerá los tipos con `npm run chat:types`.

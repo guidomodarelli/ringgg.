@@ -19,6 +19,8 @@ export const CHAT = {
   /** A notification request signed further than this from the receiver's clock is rejected as a replay. */
   webhookToleranceSeconds: 300,
   notifyTimeoutMs: 8_000,
+  /** The app's request that tells a room the residents answered; past it, the visitor's poll still brings the answer. */
+  announceTimeoutMs: 5_000,
   /** WebSocket subprotocol. The token travels next to it in `Sec-WebSocket-Protocol`, never in the URL. */
   protocol: 'ringgg-chat',
   secretMinimumLength: 32,
@@ -34,12 +36,17 @@ export const CHAT = {
 export const CHAT_PATHS = {
   /** `wss://<worker>/visits/<visitId>` opens the room of one visit. */
   socket: '/visits/',
+  /** `POST <worker>/visits/<visitId>/answer`: the app tells the room the residents answered the ring. */
+  answer: '/answer',
   health: '/health',
   /** Route of the app that the Worker calls when the visitor writes and nobody has the chat open. */
   notify: '/api/chat/notify',
 };
 
-/** Headers of the Worker's notification request: an HMAC of `<timestamp>.<body>` and that timestamp in seconds. */
+/**
+ * Headers of the signed requests between the app and the Worker (the Worker's notification, the app's
+ * answer): an HMAC of the timestamp and the body, and that timestamp in seconds.
+ */
 export const CHAT_HEADERS = { signature: 'x-ringgg-signature', timestamp: 'x-ringgg-timestamp' };
 
 /** Reasons the room gives when it does not take a message. */

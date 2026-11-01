@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { CHAT, CHAT_REJECTIONS } from '@/constants/chat';
-import type { ChatAccess, ChatMessage, ChatRole, ServerChatMessage } from '@/lib/chat-protocol';
+import type { ChatAccess, ChatAnswer, ChatMessage, ChatRole, ServerChatMessage } from '@/lib/chat-protocol';
 import { useChatConnection } from './use-chat-connection';
 import { useChatOutbox } from './use-chat-outbox';
 
@@ -27,6 +27,10 @@ interface VisitChatOptions {
   historyAfterEnd?: boolean;
   /** `false` while the chat is mounted but out of sight; like a hidden page, it closes the socket. */
   onScreen?: boolean;
+  /** The residents answered the ring: it comes with the history, or the moment they answer while the socket is open. */
+  onAnswer?: (answer: ChatAnswer) => void;
+  /** Whether the room is live, so the page can wait for the answer on the socket instead of polling for it. */
+  onLiveChange?: (live: boolean) => void;
 }
 
 function isOwn(message: ChatMessage, viewer: ChatViewer | null) {
@@ -61,7 +65,7 @@ function chatStatus({ ended, visible, connected, retrying, loaded }: { ended: bo
  * nothing: the composer goes away, the socket closes and what was still on its way is marked as not sent.
  * A chat that ended while its socket was closed reads the history once more, so it never shows half a conversation as the whole one.
  */
-export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = true, onScreen = true }: VisitChatOptions) {
+export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = true, onScreen = true, onAnswer, onLiveChange }: VisitChatOptions) {
   const socketRef = useRef<WebSocket | null>(null);
   const { outgoing, add, retry, discard, confirm, markFailed, resendWaiting, failWaiting } = useChatOutbox(socketRef);
   const [confirmed, setConfirmed] = useState<ChatMessage[]>([]);
@@ -72,6 +76,9 @@ export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = t
   // The thread holds everything said until the end: read after it, or live through it.
   const [complete, setComplete] = useState(false);
   const connectedRef = useRef(false);
+  // Read from a ref, like the connection's callbacks, so a new render of the page never reopens the socket.
+  const listeners = useRef({ onAnswer, onLiveChange });
+  useEffect(() => { listeners.current = { onAnswer, onLiveChange }; });
   const visible = usePageVisible() && onScreen;
 
   const endChat = useCallback(() => {
@@ -86,10 +93,13 @@ export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = t
       setConfirmed(message.messages);
       setClosesAt(message.closesAt);
       confirm(new Set(message.messages.map((stored) => stored.id)));
+      if (message.answer) listeners.current.onAnswer?.(message.answer);
       if (Date.now() >= message.closesAt) { setComplete(true); endChat(); } else resendWaiting();
     } else if (message.type === 'message') {
       setConfirmed((messages) => withMessage(messages, message.message));
       confirm(new Set([message.message.id]));
+    } else if (message.type === 'answer') {
+      listeners.current.onAnswer?.(message.answer);
     } else {
       if (message.id) markFailed([message.id], CHAT_REJECTIONS[message.code]);
       if (message.code === 'CHAT_CLOSED') endChat();
@@ -99,7 +109,10 @@ export function useVisitChat({ requestAccess, knownClosesAt, historyAfterEnd = t
   const onAccess = useCallback((access: ChatAccess) => { setViewer({ role: access.role, name: access.name }); setClosesAt(access.closesAt); }, []);
   // An ended chat only connects to read what was said, and lets the socket go once it has all of it.
   const connection = useChatConnection({ socketRef, requestAccess, active: visible && (!ended || (historyAfterEnd && !complete)), onAccess, onMessage: receive });
-  useEffect(() => { connectedRef.current = connection.connected; }, [connection.connected]);
+  useEffect(() => {
+    connectedRef.current = connection.connected;
+    listeners.current.onLiveChange?.(connection.connected);
+  }, [connection.connected]);
 
   useEffect(() => {
     if (closesAt === null || ended) return;
