@@ -1,5 +1,611 @@
 {
-  "latest": null,
+  "latest": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": "feat/resident-account-status",
+      "commit": "01a34d7f8e8e32bc29102a298550030e4f9b7bad",
+      "files": {
+        "src/components/resident-management.tsx": "e355767f6e4903ae",
+        "src/server/residents.ts": "332b9b8ba7b21fcf",
+        "src/app/api/residents/route.ts": "21329af1a1330cb1",
+        "src/types/residents.ts": "2330f327f86f8f7b",
+        "src/constants/homes.ts": "564484a011173893",
+        "src/lib/names.ts": "5fefc809b3ce8988",
+        "src/constants/residents.ts": "9c43f4fc81ec3dd1",
+        "src/lib/resident-account.ts": "28f1f5f30e66a877",
+        "src/components/use-tracked-navigation.ts": "c1af4e1ffa007184",
+        "src/lib/api.ts": "f2df255bc079a869",
+        "src/lib/invitation.ts": "a1c74d9d55e29e10",
+        "src/server/resident-access.ts": "24da31381b0b4774",
+        "src/server/errors.ts": "45863b0b5c1144b1",
+        "src/constants/doorbell.ts": "f6d5dc23a16deac1",
+        "src/server/device-names.ts": "b0d6ae41bdabbcc2",
+        "src/server/homes.ts": "305f738a47a4fb67",
+        "src/server/http.ts": "d16401cd295e865e",
+        "src/server/database.ts": "14aea3d6d2f332ff",
+        "src/server/resident-accounts.ts": "ca2f3b78164d6632",
+        "src/server/auth.ts": "5e01359858296674",
+        "src/lib/pending-navigations.ts": "9571a9bdfd5d28ab",
+        "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/constants/devices.ts": "e0d711d90ce4ec41",
+        "src/lib/device-name.ts": "0d65ee7d835d0117"
+      },
+      "fingerprint": "sha256:d93f49068d4e2174ff2e133acd6974666fd1ebf8a0438434f718af1fe5229a74",
+      "inputs": {
+        "src/components/resident-management.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/resident-management.tsx#ResidentManagementProps": "5c6a50f3b374d536",
+        "src/components/resident-management.tsx#ResidentChange": "36c4b072658d0e06",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES.add": "2358cdcfe6bc7cad",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES.remove": "21f6c9c8cccc142b",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES.rename": "45a75cf5154025db",
+        "src/components/resident-management.tsx#CHANGE_MESSAGES~frame": "9b2a0d4e5e82992b",
+        "src/components/resident-management.tsx#ResidentNameForm": "ba71ace0f576445c",
+        "pkg:react": "f4529719455f2af2",
+        "src/components/resident-management.tsx#ResidentManagement/applyConfirmed": "83951efdfa222bb4",
+        "src/components/resident-management.tsx#ResidentManagement/update": "0c5f34dfd419b97f",
+        "src/components/resident-management.tsx#ResidentManagement~shell": "0b9449d9c28b2cf5",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "pkg:next": "530097ba2f134bc2",
+        "src/components/resident-management.tsx#ResidentManagement/share": "653531d19d598ba0",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#UNIQUE_VIOLATION": "aacb92a1e0601964",
+        "src/server/residents.ts#residentEmailSchema": "09ec7d4390f4e1f7",
+        "pkg:zod": "31d0566281954af7",
+        "src/server/residents.ts#residentNameSchema": "5e33be9bff4e827b",
+        "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
+        "src/server/residents.ts#emailList": "0021888d1f4f53a8",
+        "src/server/residents.ts#residentSettings": "090458f99e66a86c",
+        "src/server/residents.ts#accountName": "c65c89aa4218f369",
+        "src/server/residents.ts#memberName": "97a7e1ea9be44fdb",
+        "src/server/residents.ts#ResidentTarget": "c28b79f219ae2eb4",
+        "src/server/residents.ts#isBootstrap": "ed2221aada2e1745",
+        "src/server/residents.ts#resolveHomeAccess": "3c000f04ba186a83",
+        "src/server/residents.ts#listResidentHomes": "c0031e94c1144249",
+        "src/server/residents.ts#suggestedResidentName": "5d900c13971d6e7c",
+        "src/server/residents.ts#listResidents": "5539a3b8fa42d210",
+        "src/server/residents.ts#lockHome": "4a8f047cd6157626",
+        "src/server/residents.ts#mirrorLegacyRevocation": "27d58b70ad5b3c97",
+        "src/server/residents.ts#mirrorLegacyAuthorization": "f7932f3f8218ea1e",
+        "src/server/residents.ts#addResident": "8c827cdc40eec72f",
+        "src/server/residents.ts#removeResident": "1cc554dc60e07dfd",
+        "src/server/residents.ts#nameTaken": "f029d3233457fb2f",
+        "src/server/residents.ts#renameResident": "9ab9cfbd322428de",
+        "src/app/api/residents/route.ts#<module>": "2da3ec2294295eb1",
+        "src/app/api/residents/route.ts#runtime": "46ca4b1b24f285fc",
+        "src/app/api/residents/route.ts#dynamic": "a45532c1af88ffc5",
+        "src/app/api/residents/route.ts#residentSchema": "614ed59fb8c630b9",
+        "src/app/api/residents/route.ts#GET": "dda4c275e9a2685f",
+        "src/app/api/residents/route.ts#POST": "eaada81ac0d04cb7",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#ResidentRosterEntry": "412f9f0d92dda298",
+        "src/types/residents.ts#ResidentAccount": "b79dd552e0c32614",
+        "src/types/residents.ts#ResidentEntry": "0a51e80494d05d20",
+        "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/homes.ts#RESIDENT_NAMES~frame": "d4a29720352a5f20",
+        "src/constants/homes.ts#RESIDENT_NAMES.maxLength": "eb1bec02d30f5cbb",
+        "src/lib/names.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/names.ts#cleanName": "49186c6b44b377fb",
+        "src/constants/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/residents.ts#RESIDENTS~frame": "402dfa054fe31525",
+        "src/constants/residents.ts#RESIDENTS.emailMaxLength": "538b1228808d4155",
+        "src/lib/resident-account.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/resident-account.ts#residentAccountNotice": "fea7204bf95d79ea",
+        "src/lib/resident-account.ts#ACCOUNT_NOTICES.verified": "9f80588549cbfcd7",
+        "src/lib/resident-account.ts#ACCOUNT_NOTICES.unverified": "37791a0e7492a693",
+        "src/lib/resident-account.ts#ACCOUNT_NOTICES.missing": "7b0c918703f1dcee",
+        "src/lib/resident-account.ts#ACCOUNT_NOTICES~frame": "2a63356bf8bd3cbf",
+        "src/lib/resident-account.ts#ResidentAccountTone": "a06c01719dd41374",
+        "src/components/use-tracked-navigation.ts#<module>": "80e0e5af9bb4622c",
+        "src/components/use-tracked-navigation.ts#useTrackedNavigation": "e5ee9a4f42fd18e9",
+        "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
+        "src/constants/homes.ts#HOMES.queryParameter": "583ace4721823c56",
+        "src/lib/api.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/api.ts#api": "cc02c09740313f78",
+        "src/lib/api.ts#mutationsInFlight": "803da898ef95cd5d",
+        "src/lib/api.ts#request": "64d1a0732b56435f",
+        "src/lib/api.ts#ApiError": "d12dacefecfecceb",
+        "src/lib/api.ts#bodyField": "486cd45361fd0035",
+        "src/lib/invitation.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/invitation.ts#invitationMessage": "ab661f2f0a2bcf69",
+        "src/lib/invitation.ts#shareInvitation": "dd24dbafa85e8407",
+        "src/lib/invitation.ts#ShareOutcome": "1ae0142d0dccc3b3",
+        "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/constants/homes.ts#HOMES.originalId": "d9d7b64a16cba029",
+        "src/types/residents.ts#HomeMember": "59f972b5b8eb78e4",
+        "src/server/resident-access.ts#<module>": "2da3ec2294295eb1",
+        "src/server/resident-access.ts#authorizeResident": "99bb37372ca3d83e",
+        "src/types/residents.ts#HomeSummary": "7565b2ddb5d5d58e",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.conflict": "a87220a4c91a5d39",
+        "src/constants/residents.ts#RESIDENTS.maximumInvitations": "cc843c9c6b46cb99",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
+        "src/server/device-names.ts#<module>": "2da3ec2294295eb1",
+        "src/server/device-names.ts#renameDefaultDevices": "43f1b067e205d2db",
+        "src/server/device-names.ts#firstName": "5bf3cbcf405e441c",
+        "src/server/device-names.ts#takenDeviceNames": "516f8c2b99b8d5ae",
+        "src/server/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/server/homes.ts#homeIdSchema": "a21a4ce96c2a2a80",
+        "src/server/http.ts#<module>": "2da3ec2294295eb1",
+        "src/server/http.ts#apiRoute": "b5ed738277b6ba17",
+        "src/server/http.ts#ApiRouteOptions": "f82fd78b23d86a0c",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
+        "src/server/database.ts#Database": "578aba9512306538",
+        "src/server/database.ts#QueryResult": "2278ab1e0e7ca928",
+        "src/server/database.ts#connect": "a16b98c82ece5ce6",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#nestedTransaction": "097720328480446e",
+        "src/server/database.ts#poolDatabase": "2b6cc29518384a31",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "b63e6fa612388f19",
+        "src/server/database.ts#MIGRATIONS": "a19b0a1253b37e29",
+        "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
+        "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
+        "src/server/database.ts#runStep": "b8d318e23891085b",
+        "src/server/database.ts#schemaVersion": "ee39be18bae8076a",
+        "src/server/resident-accounts.ts#<module>": "2da3ec2294295eb1",
+        "src/server/resident-accounts.ts#listResidentRoster": "c2012e9f0575257e",
+        "src/server/resident-accounts.ts#accountOf": "90b7c7f76458e715",
+        "src/server/resident-accounts.ts#providerAccounts": "302ee1cacbb13501",
+        "src/server/resident-accounts.ts#AccountLookup": "3fe031e6d90bebcc",
+        "src/server/resident-accounts.ts#AccountVerification": "787ed7d975a05ff4",
+        "src/server/resident-accounts.ts#managedAccounts": "5311589f6e8ed95a",
+        "src/server/resident-accounts.ts#selfManagedAccounts": "1a55efd3e0278a73",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#requireHome": "c1db142c515f3cc3",
+        "src/server/auth.ts#requireIdentity": "9bd60f234a41ae48",
+        "src/server/auth.ts#getIdentity": "3cf08db27ea61fad",
+        "src/server/auth.ts#selfManagedSession": "f173ade0eb8c91b3",
+        "pkg:better-auth": "a969211ec564af4d",
+        "src/server/http.ts#readJson": "bf50e393c276631b",
+        "src/server/http.ts#readText": "c65a2982df00bef0",
+        "src/server/http.ts#BODY_LIMIT": "5e5df78db11b83f6",
+        "src/lib/pending-navigations.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/pending-navigations.ts#holdNavigation": "6d44a8b3f7f6d80c",
+        "src/lib/pending-navigations.ts#navigationsInFlight": "b4116232198ba8d7",
+        "src/constants/doorbell.ts#HTTP.noContent": "13b3642d3050d8ec",
+        "src/types/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/constants/doorbell.ts#HTTP.forbidden": "a039a95fe8ed7443",
+        "src/constants/devices.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/devices.ts#DEVICES~frame": "eb8f63763177928a",
+        "src/constants/devices.ts#DEVICES.defaultName": "52ad5da0efc5311f",
+        "src/constants/devices.ts#DEVICES.nameMaxLength": "1310c99c650e5157",
+        "src/lib/device-name.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/device-name.ts#isGenericDeviceName": "165464617731ac0d",
+        "src/lib/device-name.ts#COPY_SUFFIX": "9f8ca74dc14e355c",
+        "src/lib/device-name.ts#GENERIC_KEYS": "6e17877d589b0ab4",
+        "src/lib/names.ts#uniqueName": "57ac10b978c09992",
+        "src/constants/homes.ts#LEGACY_DEVICE_NAMES": "f1e4e5e9a32df184"
+      },
+      "uncommittedFiles": [
+        "src/app/api/residents/route.ts",
+        "src/components/resident-management.tsx",
+        "src/lib/resident-account.ts",
+        "src/server/database.ts",
+        "src/server/resident-accounts.ts",
+        "src/types/residents.ts"
+      ]
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-11-03T21:08:28.371Z",
+        "source": "attested",
+        "summary": "Checklist liviano sobre el estado de cuenta por residente: el estado llega con la lista (sin carga propia); si el proveedor de cuentas falla o no existe, la fila no muestra estado y el fallo se registra con homeId; sin acciones nuevas; el estado es texto (verde/rojo solo refuerza) y se actualiza con «Actualizar residentes» o tras cada cambio; se quitó «Requiere correo verificado», que se leía como pendiente."
+      },
+      {
+        "command": "node node_modules/vitest/vitest.mjs run tests/resident-accounts.test.ts tests/resident-accounts-self.test.ts tests/residents.test.ts",
+        "durationMs": 7887,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "be8b5e7c087f691017d22184d075af20c0454dbb3304817280ddb568bb0b0c5a",
+        "recordedAt": "2026-11-03T21:08:37.014Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "command": "node node_modules/@playwright/test/cli.js test tests/e2e/residents.spec.ts tests/e2e/homes.spec.ts --reporter=line",
+        "durationMs": 19421,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "b359ec7d516bcf48690d823bc666d1e17f140a623256c53c8331b9ded44be390",
+        "recordedAt": "2026-11-03T21:08:56.906Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      }
+    ],
+    "limitations": [
+      "Sin recorrido en la app real con sesión: el panel necesita un residente con sesión y no hay credenciales de prueba para la rama dev; los estados se recorrieron en Playwright con el componente, el transporte HTTP y PostgreSQL reales."
+    ],
+    "mode": "incremental",
+    "pendingChecks": [
+      "Revisar en modo full los cambios de commits anteriores que check lista para esta unidad (src/lib/api.ts, use-tracked-navigation, better-auth) y que esta corrida no cubrió.",
+      "Ver la lista de residentes en el preview con un residente que no creó su cuenta."
+    ],
+    "recordedAt": "2026-11-03T21:09:26.722Z",
+    "result": "partial",
+    "runId": "20261103T210816Z-bf12b3",
+    "scope": {
+      "decision": "incremental",
+      "reasons": [
+        "58 relevant change(s) since the verified run"
+      ],
+      "relevantChangesAtBegin": [
+        {
+          "change": "added",
+          "key": "pkg:better-auth",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/api/residents/route.ts#GET",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/api/residents/route.ts#POST",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagement/applyConfirmed",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagement/update",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/components/resident-management.tsx#ResidentManagementProps",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-tracked-navigation.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/use-tracked-navigation.ts#useTrackedNavigation",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/lib/api.ts#api",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#ApiError",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#bodyField",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#mutationsInFlight",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/api.ts#request",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "removed",
+          "key": "src/lib/api.ts#serverErrorMessage",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/device-name.ts#GENERIC_KEYS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/device-name.ts#isGenericDeviceName",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pending-navigations.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pending-navigations.ts#holdNavigation",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pending-navigations.ts#navigationsInFlight",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/resident-account.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.missing",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.unverified",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.verified",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/resident-account.ts#residentAccountNotice",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/resident-account.ts#ResidentAccountTone",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#getIdentity",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#requireIdentity",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth.ts#selfManagedSession",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#MIGRATIONS",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#poolDatabase",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#schemaVersion",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/database.ts#UNDEFINED_TABLE",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/device-names.ts#isDefaultName",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "removed",
+          "key": "src/server/device-names.ts#LEGACY_KEYS",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/device-names.ts#renameDefaultDevices",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/http.ts#apiRoute",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#ApiRouteOptions",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/http.ts#readJson",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/http.ts#readText",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#AccountLookup",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#accountOf",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#AccountVerification",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#listResidentRoster",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#managedAccounts",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#providerAccounts",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/resident-accounts.ts#selfManagedAccounts",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#addResident",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#listResidentHomes",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#mirrorLegacyAuthorization",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/residents.ts#mirrorLegacyRevocation",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#removeResident",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#renameResident",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#resolveHomeAccess",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentAccount",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/residents.ts#ResidentRosterEntry",
+          "reason": "new visible or interactive code"
+        }
+      ],
+      "suggestedScope": [
+        "package better-auth — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+        "src/app/api/residents/route.ts › GET — behavior of this code in every state of the unit that uses it",
+        "src/app/api/residents/route.ts › POST — behavior of this code in every state of the unit that uses it",
+        "src/components/resident-management.tsx › ResidentManagement › applyConfirmed — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/resident-management.tsx › ResidentManagement › update — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/resident-management.tsx › ResidentManagementProps — behavior of this code in every state of the unit that uses it",
+        "src/components/use-tracked-navigation.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/use-tracked-navigation.ts › useTrackedNavigation — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › api — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › ApiError — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › bodyField — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › mutationsInFlight — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › request — behavior of this code in every state of the unit that uses it",
+        "src/lib/api.ts › serverErrorMessage — behavior of this code in every state of the unit that uses it",
+        "src/lib/device-name.ts › GENERIC_KEYS — behavior of this code in every state of the unit that uses it",
+        "src/lib/device-name.ts › isGenericDeviceName — behavior of this code in every state of the unit that uses it",
+        "src/lib/pending-navigations.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/pending-navigations.ts › holdNavigation — behavior of this code in every state of the unit that uses it",
+        "src/lib/pending-navigations.ts › navigationsInFlight — behavior of this code in every state of the unit that uses it",
+        "src/lib/resident-account.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/resident-account.ts › ACCOUNT_NOTICES.missing — copy or configuration read from this member, in every state that shows it",
+        "src/lib/resident-account.ts › ACCOUNT_NOTICES.unverified — copy or configuration read from this member, in every state that shows it",
+        "src/lib/resident-account.ts › ACCOUNT_NOTICES.verified — copy or configuration read from this member, in every state that shows it",
+        "src/lib/resident-account.ts › ACCOUNT_NOTICES (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/lib/resident-account.ts › residentAccountNotice — behavior of this code in every state of the unit that uses it",
+        "src/lib/resident-account.ts › ResidentAccountTone — behavior of this code in every state of the unit that uses it",
+        "src/server/auth.ts › getIdentity — behavior of this code in every state of the unit that uses it",
+        "src/server/auth.ts › requireIdentity — behavior of this code in every state of the unit that uses it",
+        "src/server/auth.ts › selfManagedSession — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › MIGRATIONS — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › poolDatabase — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › schemaVersion — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › UNDEFINED_TABLE — behavior of this code in every state of the unit that uses it",
+        "src/server/device-names.ts › isDefaultName — behavior of this code in every state of the unit that uses it",
+        "src/server/device-names.ts › LEGACY_KEYS — behavior of this code in every state of the unit that uses it",
+        "src/server/device-names.ts › renameDefaultDevices — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › apiRoute — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › ApiRouteOptions — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › readJson — behavior of this code in every state of the unit that uses it",
+        "src/server/http.ts › readText — behavior of this code in every state of the unit that uses it",
+        "src/server/resident-accounts.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/server/resident-accounts.ts › AccountLookup — behavior of this code in every state of the unit that uses it",
+        "src/server/resident-accounts.ts › accountOf — behavior of this code in every state of the unit that uses it",
+        "src/server/resident-accounts.ts › AccountVerification — behavior of this code in every state of the unit that uses it",
+        "src/server/resident-accounts.ts › listResidentRoster — behavior of this code in every state of the unit that uses it",
+        "src/server/resident-accounts.ts › managedAccounts — behavior of this code in every state of the unit that uses it",
+        "src/server/resident-accounts.ts › providerAccounts — behavior of this code in every state of the unit that uses it",
+        "src/server/resident-accounts.ts › selfManagedAccounts — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › addResident — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › listResidentHomes — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › mirrorLegacyAuthorization — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › mirrorLegacyRevocation — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › removeResident — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › renameResident — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › resolveHomeAccess — behavior of this code in every state of the unit that uses it",
+        "src/types/residents.ts › ResidentAccount — behavior of this code in every state of the unit that uses it",
+        "src/types/residents.ts › ResidentRosterEntry — behavior of this code in every state of the unit that uses it"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "9fc5ee4bb0e2e4e9",
+        "references/feedback-channels.md": "aa0394882f505308",
+        "references/flow-catalog.md": "77527b8062d13243",
+        "references/sources.md": "018203bece1d2e8a",
+        "references/state-matrix.md": "026b6005f6fa0cae",
+        "references/validation-feedback.md": "3e4fb5d227cacfbd"
+      },
+      "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+      "name": "ui-ux-flow-patterns",
+      "version": "1.5.0"
+    },
+    "report": "runs/20261103T210816Z-bf12b3.json"
+  },
   "schemaVersion": 1,
   "skill": "ui-ux-flow-patterns",
   "unitId": "ringgg.residents.manage",

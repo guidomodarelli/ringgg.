@@ -6,6 +6,10 @@ import type { ResidentIdentity } from './auth';
  * deployment configuration of the original home; `invitation` entries were added from the panel.
  */
 export interface ResidentEntry { email: string; name: string | null; source: 'environment' | 'invitation'; canRemove: boolean }
+/** Whether the email of a resident has an account in the active auth provider, and whether it is verified. */
+export type ResidentAccount = 'verified' | 'unverified' | 'missing';
+/** A resident as the panel lists them: `account` is `null` when this server cannot read the provider's accounts. */
+export interface ResidentRosterEntry extends ResidentEntry { account: ResidentAccount | null }
 /** Bootstrap emails from `RESIDENT_ADMIN_EMAILS` and `RESIDENT_EMAILS`; both grant the same shared access to the original home. */
 export interface ResidentSettings { bootstrapEmails: string[] }
 /** A verified identity with access to one home, and the name it uses there (`null` until chosen). */

@@ -1,0 +1,170 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feat/resident-account-status",
+    "commit": "01a34d7f8e8e32bc29102a298550030e4f9b7bad",
+    "fingerprint": "sha256:5636f46776344ce8d2ad78cbf037f1a2399dfdbb966a74daf33e9df628b1890d",
+    "uncommittedFiles": [
+      "src/components/dashboard.tsx",
+      "src/components/resident-management.tsx",
+      "src/lib/resident-account.ts",
+      "src/server/database.ts",
+      "src/types/doorbell.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 92,
+    "inputCount": 690
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-11-03T21:08:28.742Z",
+      "source": "attested",
+      "summary": "Checklist liviano sobre el estado de cuenta por residente: el estado llega con la lista (sin carga propia); si el proveedor de cuentas falla o no existe, la fila no muestra estado y el fallo se registra con homeId; sin acciones nuevas; el estado es texto (verde/rojo solo refuerza) y se actualiza con «Actualizar residentes» o tras cada cambio; se quitó «Requiere correo verificado», que se leía como pendiente."
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/residents.spec.ts tests/e2e/dashboard-navigation.spec.ts --reporter=line",
+      "durationMs": 19222,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "75ab035ece4c565d03aace436ac503aab05086aa75968f221f6397808eda43bf",
+      "recordedAt": "2026-11-03T21:09:25.174Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Sin recorrido en la app real con sesión: el panel necesita un residente con sesión y no hay credenciales de prueba para la rama dev; los estados se recorrieron en Playwright con el componente, el transporte HTTP y PostgreSQL reales."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [
+    "Ver la lista de residentes en el preview con un residente que no creó su cuenta."
+  ],
+  "recordedAt": "2026-11-03T21:09:28.089Z",
+  "result": "partial",
+  "runId": "20261103T210817Z-96eb13",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "16 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "modified",
+        "key": "src/components/dashboard.tsx#rosterKey",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagementProps",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.missing",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.unverified",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.verified",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#residentAccountNotice",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ResidentAccountTone",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/types/doorbell.ts#DashboardData",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentAccount",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentRosterEntry",
+        "reason": "new visible or interactive code"
+      }
+    ],
+    "suggestedScope": [
+      "src/components/dashboard.tsx › rosterKey — behavior of this code in every state of the unit that uses it",
+      "src/components/resident-management.tsx › ResidentManagement › update — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+      "src/components/resident-management.tsx › ResidentManagementProps — behavior of this code in every state of the unit that uses it",
+      "src/lib/resident-account.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES.missing — copy or configuration read from this member, in every state that shows it",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES.unverified — copy or configuration read from this member, in every state that shows it",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES.verified — copy or configuration read from this member, in every state that shows it",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/lib/resident-account.ts › residentAccountNotice — behavior of this code in every state of the unit that uses it",
+      "src/lib/resident-account.ts › ResidentAccountTone — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › schemaVersion — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › UNDEFINED_TABLE — behavior of this code in every state of the unit that uses it",
+      "src/types/doorbell.ts › DashboardData — behavior of this code in every state of the unit that uses it",
+      "src/types/residents.ts › ResidentAccount — behavior of this code in every state of the unit that uses it",
+      "src/types/residents.ts › ResidentRosterEntry — behavior of this code in every state of the unit that uses it"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T21:08:17.845Z",
+  "unitId": "ringgg.resident"
+}

@@ -2,18 +2,23 @@ import { test, expect } from '@playwright/test';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { PGlite } from '@electric-sql/pglite';
 import { initialize } from '../../src/server/database';
-import { addResident, listResidents, removeResident, renameResident } from '../../src/server/residents';
+import { addResident, removeResident, renameResident } from '../../src/server/residents';
+import { listResidentRoster, managedAccounts } from '../../src/server/resident-accounts';
 import { AppError } from '../../src/server/errors';
 import { bundleFixture } from './support/bundle-fixture';
 import { FIXTURE_HOME, apiPath } from './support/dashboard-initial';
 import { readText } from './support/read-text';
 import { testDatabase } from '../support/test-database';
 
-test('un residente autoriza, comparte la invitación, renombra sin repetir, confirma una revocación y recupera errores sin perder el correo', async ({ page, context }) => {
-  // Real React component, HTTP transport and PostgreSQL. Only the authenticated identity boundary is supplied.
+test('un residente autoriza, comparte la invitación, ve si la otra persona ya tiene cuenta, renombra sin repetir, confirma una revocación y recupera errores sin perder el correo', async ({ page, context }) => {
+  // Real React component, HTTP transport and PostgreSQL, with the accounts where Neon Auth keeps them. Only the authenticated identity boundary is supplied.
   const postgres = new PGlite();
   const database = testDatabase(postgres);
   await initialize(database);
+  await database.query('CREATE SCHEMA neon_auth');
+  await database.query(`CREATE TABLE neon_auth."user" (id UUID PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE, "emailVerified" BOOLEAN NOT NULL, "createdAt" TIMESTAMPTZ NOT NULL, "updatedAt" TIMESTAMPTZ NOT NULL)`);
+  const createAccount = (email: string, emailVerified: boolean) => database.query(`INSERT INTO neon_auth."user" (id, name, email, "emailVerified", "createdAt", "updatedAt") VALUES ($1, 'Residente', $2, $3, NOW(), NOW())`, [crypto.randomUUID(), email, emailVerified]);
+  await createAccount('owner@example.com', true);
   const owner = { id: 'component-owner', email: 'owner@example.com', emailVerified: true };
   const outsider = { id: 'component-outsider', email: 'outsider@example.com', emailVerified: true };
   const settings = { bootstrapEmails: [owner.email] };
@@ -36,7 +41,7 @@ test('un residente autoriza, comparte la invitación, renombra sin repetir, conf
     try {
       if (request.method === 'POST') await changeResidents(request);
       else sentHomes.add(Number(new URL(request.url, 'http://127.0.0.1').searchParams.get('home')));
-      response.end(JSON.stringify({ residents: await listResidents(database, FIXTURE_HOME, settings) }));
+      response.end(JSON.stringify({ residents: await listResidentRoster(database, FIXTURE_HOME, settings, managedAccounts(database)) }));
     } catch (error) { response.statusCode = error instanceof AppError ? error.status : 500; response.end(JSON.stringify({ error: error instanceof AppError ? error.message : 'No se pudo completar la prueba.' })); }
   }
   const server = createServer((request, response) => { void answer(request, response); });
@@ -48,6 +53,8 @@ test('un residente autoriza, comparte la invitación, renombra sin repetir, conf
     const origin = `http://127.0.0.1:${address.port}`;
     await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin });
     await page.goto(origin);
+    await expect(page.getByText('Último residente · Acceso protegido')).toBeVisible();
+    await expect(page.getByText('Correo verificado', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Quitar acceso a owner@example.com' })).toHaveCount(0);
     await expect(page.getByRole('button', { name: 'Compartir invitación' })).toHaveCount(0);
     await page.getByLabel('Correo del nuevo residente').fill('new@example.com');
@@ -60,6 +67,18 @@ test('un residente autoriza, comparte la invitación, renombra sin repetir, conf
     await page.getByRole('button', { name: 'Compartir invitación' }).click();
     await expect(page.getByText('Invitación copiada', { exact: false })).toBeVisible();
     expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('Te sumé al timbre de Casa de prueba en Ringgg. Creá tu cuenta con new@example.com en https://ringgg.example/sign-in y verificá tu correo para entrar.');
+
+    // Each row says where that person is: no account yet, an account without the verified email, or ready to enter.
+    const newResident = page.locator('.resident-row', { hasText: 'new@example.com' });
+    await expect(newResident).toContainText('Residente autorizado');
+    await expect(newResident).toContainText('Todavía no creó su cuenta con este correo');
+    await expect(page.getByText('Requiere correo verificado')).toHaveCount(0);
+    await createAccount('new@example.com', false);
+    await page.getByRole('button', { name: 'Actualizar residentes' }).click();
+    await expect(newResident).toContainText('Creó su cuenta, pero falta que verifique el correo');
+    await database.query(`UPDATE neon_auth."user" SET "emailVerified" = TRUE WHERE email = 'new@example.com'`);
+    await page.getByRole('button', { name: 'Actualizar residentes' }).click();
+    await expect(newResident).toContainText('Correo verificado');
 
     // Any resident names the others; a name already used in the home is rejected next to the field.
     await page.getByRole('button', { name: 'Editar el nombre de new@example.com' }).click();

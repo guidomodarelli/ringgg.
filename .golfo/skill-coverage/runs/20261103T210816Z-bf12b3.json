@@ -1,0 +1,434 @@
+{
+  "baseline": {
+    "analyzer": "babel-tokens/1",
+    "branch": "feat/resident-account-status",
+    "commit": "01a34d7f8e8e32bc29102a298550030e4f9b7bad",
+    "fingerprint": "sha256:d93f49068d4e2174ff2e133acd6974666fd1ebf8a0438434f718af1fe5229a74",
+    "uncommittedFiles": [
+      "src/app/api/residents/route.ts",
+      "src/components/resident-management.tsx",
+      "src/lib/resident-account.ts",
+      "src/server/database.ts",
+      "src/server/resident-accounts.ts",
+      "src/types/residents.ts"
+    ],
+    "fileCount": 24,
+    "inputCount": 149
+  },
+  "evidence": [
+    {
+      "kind": "review",
+      "outcome": "pass",
+      "recordedAt": "2026-11-03T21:08:28.371Z",
+      "source": "attested",
+      "summary": "Checklist liviano sobre el estado de cuenta por residente: el estado llega con la lista (sin carga propia); si el proveedor de cuentas falla o no existe, la fila no muestra estado y el fallo se registra con homeId; sin acciones nuevas; el estado es texto (verde/rojo solo refuerza) y se actualiza con «Actualizar residentes» o tras cada cambio; se quitó «Requiere correo verificado», que se leía como pendiente."
+    },
+    {
+      "command": "node node_modules/vitest/vitest.mjs run tests/resident-accounts.test.ts tests/resident-accounts-self.test.ts tests/residents.test.ts",
+      "durationMs": 7887,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "be8b5e7c087f691017d22184d075af20c0454dbb3304817280ddb568bb0b0c5a",
+      "recordedAt": "2026-11-03T21:08:37.014Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/residents.spec.ts tests/e2e/homes.spec.ts --reporter=line",
+      "durationMs": 19421,
+      "exitCode": 0,
+      "kind": "test",
+      "outcome": "pass",
+      "outputSha256": "b359ec7d516bcf48690d823bc666d1e17f140a623256c53c8331b9ded44be390",
+      "recordedAt": "2026-11-03T21:08:56.906Z",
+      "source": "witnessed",
+      "summary": "exit code 0"
+    }
+  ],
+  "limitations": [
+    "Sin recorrido en la app real con sesión: el panel necesita un residente con sesión y no hay credenciales de prueba para la rama dev; los estados se recorrieron en Playwright con el componente, el transporte HTTP y PostgreSQL reales."
+  ],
+  "mode": "incremental",
+  "pendingChecks": [
+    "Revisar en modo full los cambios de commits anteriores que check lista para esta unidad (src/lib/api.ts, use-tracked-navigation, better-auth) y que esta corrida no cubrió.",
+    "Ver la lista de residentes en el preview con un residente que no creó su cuenta."
+  ],
+  "recordedAt": "2026-11-03T21:09:26.722Z",
+  "result": "partial",
+  "runId": "20261103T210816Z-bf12b3",
+  "scope": {
+    "decision": "incremental",
+    "reasons": [
+      "58 relevant change(s) since the verified run"
+    ],
+    "relevantChangesAtBegin": [
+      {
+        "change": "added",
+        "key": "pkg:better-auth",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/residents/route.ts#GET",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/app/api/residents/route.ts#POST",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/applyConfirmed",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement/update",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagement~shell",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/components/resident-management.tsx#ResidentManagementProps",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-tracked-navigation.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/components/use-tracked-navigation.ts#useTrackedNavigation",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/lib/api.ts#api",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#ApiError",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#bodyField",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#mutationsInFlight",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/api.ts#request",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "removed",
+        "key": "src/lib/api.ts#serverErrorMessage",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#GENERIC_KEYS",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/device-name.ts#isGenericDeviceName",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pending-navigations.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pending-navigations.ts#holdNavigation",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/pending-navigations.ts#navigationsInFlight",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.missing",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.unverified",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES.verified",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ACCOUNT_NOTICES~frame",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#residentAccountNotice",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/lib/resident-account.ts#ResidentAccountTone",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#getIdentity",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/auth.ts#requireIdentity",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/auth.ts#selfManagedSession",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#MIGRATIONS",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#poolDatabase",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/database.ts#schemaVersion",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/database.ts#UNDEFINED_TABLE",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/device-names.ts#isDefaultName",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "removed",
+        "key": "src/server/device-names.ts#LEGACY_KEYS",
+        "reason": "code no longer reached by the unit: check that no state lost its feedback"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/device-names.ts#renameDefaultDevices",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#apiRoute",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#ApiRouteOptions",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/http.ts#readJson",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/http.ts#readText",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#<module>",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#AccountLookup",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#accountOf",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#AccountVerification",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#listResidentRoster",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#managedAccounts",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#providerAccounts",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/resident-accounts.ts#selfManagedAccounts",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#addResident",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#listResidentHomes",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#mirrorLegacyAuthorization",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/server/residents.ts#mirrorLegacyRevocation",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#removeResident",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#renameResident",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "modified",
+        "key": "src/server/residents.ts#resolveHomeAccess",
+        "reason": "visible or interactive code changed"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentAccount",
+        "reason": "new visible or interactive code"
+      },
+      {
+        "change": "added",
+        "key": "src/types/residents.ts#ResidentRosterEntry",
+        "reason": "new visible or interactive code"
+      }
+    ],
+    "suggestedScope": [
+      "package better-auth — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+      "src/app/api/residents/route.ts › GET — behavior of this code in every state of the unit that uses it",
+      "src/app/api/residents/route.ts › POST — behavior of this code in every state of the unit that uses it",
+      "src/components/resident-management.tsx › ResidentManagement › applyConfirmed — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/resident-management.tsx › ResidentManagement › update — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+      "src/components/resident-management.tsx › ResidentManagement (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+      "src/components/resident-management.tsx › ResidentManagementProps — behavior of this code in every state of the unit that uses it",
+      "src/components/use-tracked-navigation.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/components/use-tracked-navigation.ts › useTrackedNavigation — behavior of this code in every state of the unit that uses it",
+      "src/lib/api.ts › api — behavior of this code in every state of the unit that uses it",
+      "src/lib/api.ts › ApiError — behavior of this code in every state of the unit that uses it",
+      "src/lib/api.ts › bodyField — behavior of this code in every state of the unit that uses it",
+      "src/lib/api.ts › mutationsInFlight — behavior of this code in every state of the unit that uses it",
+      "src/lib/api.ts › request — behavior of this code in every state of the unit that uses it",
+      "src/lib/api.ts › serverErrorMessage — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › GENERIC_KEYS — behavior of this code in every state of the unit that uses it",
+      "src/lib/device-name.ts › isGenericDeviceName — behavior of this code in every state of the unit that uses it",
+      "src/lib/pending-navigations.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/lib/pending-navigations.ts › holdNavigation — behavior of this code in every state of the unit that uses it",
+      "src/lib/pending-navigations.ts › navigationsInFlight — behavior of this code in every state of the unit that uses it",
+      "src/lib/resident-account.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES.missing — copy or configuration read from this member, in every state that shows it",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES.unverified — copy or configuration read from this member, in every state that shows it",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES.verified — copy or configuration read from this member, in every state that shows it",
+      "src/lib/resident-account.ts › ACCOUNT_NOTICES (object structure) — behavior of this code in every state of the unit that uses it",
+      "src/lib/resident-account.ts › residentAccountNotice — behavior of this code in every state of the unit that uses it",
+      "src/lib/resident-account.ts › ResidentAccountTone — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › getIdentity — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › requireIdentity — behavior of this code in every state of the unit that uses it",
+      "src/server/auth.ts › selfManagedSession — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › MIGRATIONS — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › poolDatabase — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › schemaVersion — behavior of this code in every state of the unit that uses it",
+      "src/server/database.ts › UNDEFINED_TABLE — behavior of this code in every state of the unit that uses it",
+      "src/server/device-names.ts › isDefaultName — behavior of this code in every state of the unit that uses it",
+      "src/server/device-names.ts › LEGACY_KEYS — behavior of this code in every state of the unit that uses it",
+      "src/server/device-names.ts › renameDefaultDevices — behavior of this code in every state of the unit that uses it",
+      "src/server/http.ts › apiRoute — behavior of this code in every state of the unit that uses it",
+      "src/server/http.ts › ApiRouteOptions — behavior of this code in every state of the unit that uses it",
+      "src/server/http.ts › readJson — behavior of this code in every state of the unit that uses it",
+      "src/server/http.ts › readText — behavior of this code in every state of the unit that uses it",
+      "src/server/resident-accounts.ts (module directives and side effects) — client/server boundary and side effects of the module",
+      "src/server/resident-accounts.ts › AccountLookup — behavior of this code in every state of the unit that uses it",
+      "src/server/resident-accounts.ts › accountOf — behavior of this code in every state of the unit that uses it",
+      "src/server/resident-accounts.ts › AccountVerification — behavior of this code in every state of the unit that uses it",
+      "src/server/resident-accounts.ts › listResidentRoster — behavior of this code in every state of the unit that uses it",
+      "src/server/resident-accounts.ts › managedAccounts — behavior of this code in every state of the unit that uses it",
+      "src/server/resident-accounts.ts › providerAccounts — behavior of this code in every state of the unit that uses it",
+      "src/server/resident-accounts.ts › selfManagedAccounts — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › addResident — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › listResidentHomes — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › mirrorLegacyAuthorization — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › mirrorLegacyRevocation — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › removeResident — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › renameResident — behavior of this code in every state of the unit that uses it",
+      "src/server/residents.ts › resolveHomeAccess — behavior of this code in every state of the unit that uses it",
+      "src/types/residents.ts › ResidentAccount — behavior of this code in every state of the unit that uses it",
+      "src/types/residents.ts › ResidentRosterEntry — behavior of this code in every state of the unit that uses it"
+    ]
+  },
+  "skill": {
+    "definitionFiles": {
+      "SKILL.md": "9fc5ee4bb0e2e4e9",
+      "references/feedback-channels.md": "aa0394882f505308",
+      "references/flow-catalog.md": "77527b8062d13243",
+      "references/sources.md": "018203bece1d2e8a",
+      "references/state-matrix.md": "026b6005f6fa0cae",
+      "references/validation-feedback.md": "3e4fb5d227cacfbd"
+    },
+    "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+    "name": "ui-ux-flow-patterns",
+    "version": "1.5.0"
+  },
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T21:08:16.776Z",
+  "unitId": "ringgg.residents.manage"
+}
