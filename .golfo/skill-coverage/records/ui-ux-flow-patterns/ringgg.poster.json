@@ -1,5 +1,1317 @@
 {
-  "latest": null,
+  "latest": {
+    "baseline": {
+      "analyzer": "babel-tokens/1",
+      "branch": "main",
+      "commit": "d571f6b78a68d467abda1382dc08af74f122d179",
+      "files": {
+        "src/app/cartel/page.tsx": "5b022d6f9d1d0838",
+        "src/app/cartel/loading.tsx": "c2213aa4b85573e6",
+        "src/components/poster-view.tsx": "4a36a68dcea70799",
+        "src/server/panel-home.ts": "14d90b13fe69a935",
+        "src/server/config.ts": "24322283cee795e4",
+        "src/server/doorbell.ts": "0a1c2518787c071d",
+        "src/server/page-session.ts": "9e507764c7679dc2",
+        "src/lib/poster-qr.ts": "a230fccd875ab81d",
+        "src/lib/poster-layout.ts": "407f08f680118a44",
+        "src/constants/homes.ts": "564484a011173893",
+        "src/constants/poster.ts": "b9b3e2793165b02f",
+        "src/components/print-button.tsx": "1c98aea21efd7569",
+        "src/types/residents.ts": "b7a6c448a73bacc3",
+        "src/server/residents.ts": "332b9b8ba7b21fcf",
+        "src/server/homes.ts": "305f738a47a4fb67",
+        "src/constants/environment.ts": "56dcab8047d696a2",
+        "src/types/doorbell.ts": "96ca994bf724fdb1",
+        "src/server/errors.ts": "45863b0b5c1144b1",
+        "src/constants/doorbell.ts": "f6d5dc23a16deac1",
+        "src/server/database.ts": "7779a5e475e14d38",
+        "src/types/auth.ts": "f3635cf0c001ea99",
+        "src/server/auth.ts": "5e01359858296674",
+        "src/lib/share-sheet.ts": "d9a25c8ad9aca939",
+        "src/lib/poster-pdf.ts": "f88b9007a1473c03",
+        "src/server/postgres.ts": "2355b8fc585ab8e4",
+        "src/constants/devices.ts": "e0d711d90ce4ec41",
+        "src/lib/names.ts": "5fefc809b3ce8988",
+        "src/server/neon-auth.ts": "0853ae91019a62c7",
+        "src/server/auth-mode.ts": "55ab5ff52eeb427d",
+        "src/server/session-cookies.ts": "cfe2efcc37be09a7",
+        "src/server/self-auth.ts": "0fb2409c14ca254f",
+        "src/types/poster.ts": "e957a5486815dbed",
+        "src/lib/pdf.ts": "627279d392cecd44",
+        "src/config/database.ts": "cfab3a8bb039650a",
+        "src/constants/auth.ts": "ca47b2c2e8f85956",
+        "src/constants/database.ts": "4f990a98f504bf0b",
+        "src/constants/time.ts": "199df09277e5fcba"
+      },
+      "fingerprint": "sha256:ccc700fd06e1fde1587fee827d8bd0a8d00e95217c609bc203abfc8c59808d53",
+      "inputs": {
+        "src/app/cartel/page.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/cartel/page.tsx#dynamic": "a45532c1af88ffc5",
+        "src/app/cartel/page.tsx#PosterPage": "4c34dc0beefd6c1d",
+        "pkg:next": "530097ba2f134bc2",
+        "src/app/cartel/loading.tsx#<module>": "2da3ec2294295eb1",
+        "src/app/cartel/loading.tsx#PosterLoading": "f782f678f923e00c",
+        "src/components/poster-view.tsx#<module>": "2da3ec2294295eb1",
+        "src/components/poster-view.tsx#PosterView": "2c04f13033acbbfb",
+        "pkg:lucide-react": "ac00db3dc7bc5934",
+        "src/components/poster-view.tsx#MM_PER_CM": "fd4fff3252f1ca04",
+        "src/components/poster-view.tsx#PRINT_PAGE_RULE": "759420d18939b046",
+        "src/server/panel-home.ts#<module>": "2da3ec2294295eb1",
+        "src/server/panel-home.ts#choosePanelHome": "d8238b0da97c01db",
+        "src/server/panel-home.ts#pickPanelHome": "c0e53da91182dc31",
+        "src/server/panel-home.ts#parseHomeId": "6d15babf882b9d45",
+        "src/server/config.ts#<module>": "2da3ec2294295eb1",
+        "src/server/config.ts#getConfig": "22f06e9ffdb6f3e7",
+        "src/server/config.ts#configGlobal": "8c3f8f27d80fa745",
+        "src/server/config.ts#LocalSecrets": "7ce09b4a87f9a37e",
+        "src/server/config.ts#httpsOrigin": "fd5040a991eedb92",
+        "pkg:web-push": "6ab2287300696f64",
+        "src/server/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/server/doorbell.ts#getHome": "8549ba32d508cca2",
+        "src/server/doorbell.ts#HOME_COLUMNS": "04b06ee54ed0c7b5",
+        "src/server/doorbell.ts#homeNotFound": "28cc68c1485c1177",
+        "src/server/page-session.ts#<module>": "2da3ec2294295eb1",
+        "src/server/page-session.ts#identityWithDatabase": "71fbee40de6122b0",
+        "src/lib/poster-qr.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/poster-qr.ts#posterQrSvg": "1ec4906a847c91d3",
+        "pkg:qrcode": "eae5e9f465245e84",
+        "src/lib/poster-qr.ts#QR_OPTIONS.type": "572033de01ab7d90",
+        "src/lib/poster-qr.ts#QR_OPTIONS.margin": "cd70e0c70d7d7401",
+        "src/lib/poster-qr.ts#QR_OPTIONS.errorCorrectionLevel": "4496b7f80871839d",
+        "src/lib/poster-qr.ts#QR_OPTIONS.color": "dd56fe5e280499d0",
+        "src/lib/poster-qr.ts#QR_OPTIONS~frame": "9aa7d9dc64b175f1",
+        "src/lib/poster-layout.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/poster-layout.ts#posterStyle/cqw": "8395c52e4153b949",
+        "src/lib/poster-layout.ts#posterStyle/text": "1d5377bf9495891a",
+        "src/lib/poster-layout.ts#posterStyle~shell": "b1c516f21e2d4987",
+        "src/lib/poster-layout.ts#posterTitleSize": "550ee48827f72b62",
+        "src/constants/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/homes.ts#HOMES~frame": "49d8c66f5f0efd76",
+        "src/constants/homes.ts#HOMES.queryParameter": "583ace4721823c56",
+        "src/constants/poster.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/poster.ts#POSTER_COPY~frame": "f4ef97272db9a3c9",
+        "src/constants/poster.ts#POSTER_COPY.brand": "7e1010e3ffe0d27d",
+        "src/constants/poster.ts#POSTER_COPY.eyebrow": "63c81235ac6e839e",
+        "src/constants/poster.ts#POSTER_COPY.note": "a5d9d744eede6fa2",
+        "src/constants/poster.ts#POSTER_COPY.steps": "137ed1b9c14dfeed",
+        "src/constants/poster.ts#POSTER_COPY.titleEnd": "f6d691e68f08e3c7",
+        "src/constants/poster.ts#POSTER_SHEET~frame": "ea0b8658e9e73347",
+        "src/constants/poster.ts#POSTER_SHEET.heightMm": "ea3ed7646fdb7dca",
+        "src/constants/poster.ts#POSTER_SHEET.widthMm": "bd75cd282f6a3bda",
+        "src/components/print-button.tsx#<module>": "80e0e5af9bb4622c",
+        "src/components/print-button.tsx#PrintButton/print": "d26ab43919f1d797",
+        "src/components/print-button.tsx#PrintButton/retry": "d83317848a635de2",
+        "src/components/print-button.tsx#PrintButton~shell": "124c12f474edc9ff",
+        "src/components/print-button.tsx#PosterPdf": "54ca66e5b777e4bb",
+        "pkg:react": "f4529719455f2af2",
+        "src/components/print-button.tsx#useInstalledAppleApp": "a0a1929de9f4350e",
+        "src/components/print-button.tsx#noSubscription": "c79d275f5e7c25d8",
+        "src/constants/homes.ts#HOMES.cookieName": "1d07543d0cf97d30",
+        "src/types/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/types/residents.ts#HomeSummary": "7565b2ddb5d5d58e",
+        "src/server/residents.ts#<module>": "2da3ec2294295eb1",
+        "src/server/residents.ts#listResidentHomes": "c0031e94c1144249",
+        "src/server/residents.ts#normalizedEmail": "0e392532bd054922",
+        "src/server/residents.ts#residentSettings": "090458f99e66a86c",
+        "src/server/residents.ts#emailList": "0021888d1f4f53a8",
+        "src/server/homes.ts#<module>": "2da3ec2294295eb1",
+        "src/server/homes.ts#homeIdSchema": "a21a4ce96c2a2a80",
+        "pkg:zod": "31d0566281954af7",
+        "src/constants/environment.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/environment.ts#LOCAL_DEFAULTS~frame": "5a1c7b91211fc6c8",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.origin": "060e2d02b491e60f",
+        "src/constants/environment.ts#LOCAL_DEFAULTS.vapidSubject": "bcf01163df3d1130",
+        "src/types/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/types/doorbell.ts#Home": "32c5fccda153f366",
+        "src/server/errors.ts#<module>": "2da3ec2294295eb1",
+        "src/server/errors.ts#AppError": "dbe25eff04f6331e",
+        "src/constants/doorbell.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/doorbell.ts#HTTP~frame": "2c201a7dc6888868",
+        "src/constants/doorbell.ts#HTTP.notFound": "36cab050cbd08c54",
+        "src/server/database.ts#<module>": "2da3ec2294295eb1",
+        "src/server/database.ts#Database": "578aba9512306538",
+        "src/server/database.ts#QueryResult": "2278ab1e0e7ca928",
+        "src/types/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/types/auth.ts#ResidentIdentity": "f4c82f8c1cdc5a86",
+        "src/server/database.ts#getDatabase": "c0b8cfecf476ebd0",
+        "src/server/database.ts#connect": "a16b98c82ece5ce6",
+        "pkg:@electric-sql/pglite": "2fe8d42c39aae495",
+        "src/server/database.ts#nestedTransaction": "097720328480446e",
+        "src/server/database.ts#poolDatabase": "2b6cc29518384a31",
+        "src/server/database.ts#databaseGlobal": "ae611d5c806f4210",
+        "src/server/database.ts#initialize": "b63e6fa612388f19",
+        "src/server/database.ts#MIGRATIONS": "a19b0a1253b37e29",
+        "src/server/database.ts#assignDevicesToOriginalHome": "02da2f764ed68401",
+        "src/server/database.ts#MIGRATION_LOCK": "a636c989eae24b5b",
+        "src/server/database.ts#runStep": "b8d318e23891085b",
+        "src/server/database.ts#schemaVersion": "65d0240dc3c92d18",
+        "src/server/database.ts#UNDEFINED_TABLE": "a9b3b89004d76df1",
+        "src/server/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth.ts#getIdentity": "3cf08db27ea61fad",
+        "src/server/auth.ts#selfManagedSession": "f173ade0eb8c91b3",
+        "pkg:better-auth": "a969211ec564af4d",
+        "src/constants/poster.ts#POSTER_QR~frame": "ed76c10c154daef2",
+        "src/constants/poster.ts#POSTER_QR.margin": "54d3fa398e6cce56",
+        "src/constants/poster.ts#POSTER_QR.errorCorrectionLevel": "91cbbd52e3847d0f",
+        "src/constants/poster.ts#POSTER_QR.dark": "b602e06e6a55af61",
+        "src/constants/poster.ts#POSTER_QR.light": "ac25f7959886893b",
+        "src/constants/poster.ts#POSTER_LAYOUT~frame": "57bb51b01e3cbed1",
+        "src/constants/poster.ts#POSTER_LAYOUT.brand": "90c2a5a16b367d99",
+        "src/constants/poster.ts#POSTER_LAYOUT.eyebrow": "c500ed8df9c175e3",
+        "src/constants/poster.ts#POSTER_LAYOUT.gap": "ea7214977c3ebc97",
+        "src/constants/poster.ts#POSTER_LAYOUT.note": "3539aa273056f00b",
+        "src/constants/poster.ts#POSTER_LAYOUT.paddingX": "50e5a1273d344614",
+        "src/constants/poster.ts#POSTER_LAYOUT.paddingY": "52004c818cefdd41",
+        "src/constants/poster.ts#POSTER_LAYOUT.qrMaxSize": "fdf1901180956d2a",
+        "src/constants/poster.ts#POSTER_LAYOUT.steps": "fc75645b12f92624",
+        "src/constants/poster.ts#POSTER_LAYOUT.title": "b2304da6b9443e66",
+        "src/constants/poster.ts#POSTER_TITLE_SIZES": "03af38327b0b830f",
+        "src/lib/share-sheet.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/share-sheet.ts#isShareCancelled": "ae93d64752a2bd75",
+        "src/lib/share-sheet.ts#needsShareToSave": "84e3cafb97198e73",
+        "src/lib/share-sheet.ts#isInstalledAppleApp": "6d0368cf4da90e22",
+        "src/lib/poster-pdf.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/poster-pdf.ts#INK_TOKENS.ink": "04ff7da0eb42fc96",
+        "src/lib/poster-pdf.ts#INK_TOKENS.accent": "e1cc2e9874aea522",
+        "src/lib/poster-pdf.ts#INK_TOKENS.accentDark": "83fee14781bfd463",
+        "src/lib/poster-pdf.ts#INK_TOKENS.muted": "51b36b7a2c862eaa",
+        "src/lib/poster-pdf.ts#INK_TOKENS~frame": "61842ca1d18d5f96",
+        "src/lib/poster-pdf.ts#TYPEFACE_TOKENS.heading": "67521a6830e9a78e",
+        "src/lib/poster-pdf.ts#TYPEFACE_TOKENS.body": "568c0cba2cde90b4",
+        "src/lib/poster-pdf.ts#TYPEFACE_TOKENS~frame": "9c83af8232d04d81",
+        "src/lib/poster-pdf.ts#MM_PER_INCH": "d47070a565495b9e",
+        "src/lib/poster-pdf.ts#cssFont": "d4b65b9154e4ae60",
+        "src/lib/poster-pdf.ts#setTracking": "fb8cd661d97a1691",
+        "src/lib/poster-pdf.ts#lineStart": "a4be1a5047289d2b",
+        "src/lib/poster-pdf.ts#drawLine": "9aea378c38612dfa",
+        "src/lib/poster-pdf.ts#drawQr/edge": "3e68dad95ded12fb",
+        "src/lib/poster-pdf.ts#drawQr~shell": "f2cb13c61b7369ea",
+        "src/lib/poster-pdf.ts#canvasJpeg": "ef183ac40c330a6b",
+        "src/lib/poster-pdf.ts#buildPosterPdf/token": "2fdc9e7297fcaf07",
+        "src/lib/poster-pdf.ts#buildPosterPdf/measure": "7f650a313a89281e",
+        "src/lib/poster-pdf.ts#buildPosterPdf~shell": "104d41ebe8eff70d",
+        "src/constants/homes.ts#HOMES.originalId": "d9d7b64a16cba029",
+        "src/types/residents.ts#ResidentSettings": "2bc0c5ea52a68158",
+        "src/server/postgres.ts#<module>": "2da3ec2294295eb1",
+        "src/server/postgres.ts#createPostgresPool": "c3f88729989ad244",
+        "pkg:pg": "bba8fb4b856406c4",
+        "pkg:@vercel/functions": "e43505af744bef19",
+        "src/server/errors.ts#logError": "da59c8b8659e20b8",
+        "src/server/errors.ts#describeError": "f13cd6ca5b673395",
+        "src/server/errors.ts#LOG_LIMITS~frame": "9dc641c7148f46ea",
+        "src/server/errors.ts#LOG_LIMITS.causeDepth": "87444f7090799dc0",
+        "src/server/errors.ts#LOG_LIMITS.messageLength": "5a19ccff12e87686",
+        "src/server/errors.ts#LOG_LIMITS.stackLines": "bd18d006a53c3083",
+        "src/constants/devices.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/devices.ts#DEVICES~frame": "eb8f63763177928a",
+        "src/constants/devices.ts#DEVICES.defaultName": "52ad5da0efc5311f",
+        "src/constants/devices.ts#DEVICES.nameMaxLength": "1310c99c650e5157",
+        "src/lib/names.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/names.ts#nameKey": "d7c5727b60d82c6a",
+        "src/lib/names.ts#cleanName": "49186c6b44b377fb",
+        "src/lib/names.ts#uniqueName": "57ac10b978c09992",
+        "src/constants/doorbell.ts#HTTP.unavailable": "ce3be2fdfd88adde",
+        "src/server/neon-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/neon-auth.ts#authConfigured": "4233244a1f43a905",
+        "src/server/neon-auth.ts#neonAuthSettings": "fd2fb55bae8e5e6e",
+        "src/server/neon-auth.ts#NeonAuthSettings": "f85a65ea9a977c5e",
+        "src/server/neon-auth.ts#getNeonAuth": "0dca5d26a6e67b14",
+        "src/server/neon-auth.ts#auth": "481bf2ed7f076452",
+        "pkg:@neondatabase/auth": "cb0784c3ee32091d",
+        "src/server/auth-mode.ts#<module>": "2da3ec2294295eb1",
+        "src/server/auth-mode.ts#isSelfManagedAuth": "0ac5810e58f9e520",
+        "src/constants/doorbell.ts#HTTP.unauthorized": "df53736a73814ebb",
+        "src/server/session-cookies.ts#<module>": "2da3ec2294295eb1",
+        "src/server/session-cookies.ts#currentRouteSession": "a6c1e7c0889cf631",
+        "src/server/session-cookies.ts#RouteSession": "bb39daf69885ed5c",
+        "src/server/session-cookies.ts#routeSessions": "c7d250752ff05a95",
+        "src/server/session-cookies.ts#forwardSetCookies": "496f1b037e414fec",
+        "src/server/self-auth.ts#<module>": "2da3ec2294295eb1",
+        "src/server/self-auth.ts#getSelfAuth": "a5aad296fd80c2bc",
+        "src/server/self-auth.ts#auth": "ea23585755bb513f",
+        "src/server/self-auth.ts#createSelfAuth": "f016199add111cb2",
+        "pkg:kysely": "62d68445b49f5341",
+        "src/server/self-auth.ts#selfAuthSettings": "d9827dce9c1cf518",
+        "src/server/self-auth.ts#SelfAuthSettings": "e0de8a1f5539a91d",
+        "src/types/poster.ts#<module>": "2da3ec2294295eb1",
+        "src/types/poster.ts#PosterLayoutRules": "127f11882a4deb45",
+        "src/types/poster.ts#PosterTextStyle": "18af92f2b47d3e81",
+        "src/types/poster.ts#PosterInk": "d1e81c8d2d0d0077",
+        "src/types/poster.ts#PosterTypeface": "a93018acf553bca1",
+        "src/constants/homes.ts#HOMES.nameMaxLength": "1310c99c650e5157",
+        "src/types/poster.ts#PosterTitleSize": "685d92374cb94f52",
+        "src/constants/poster.ts#POSTER_PDF~frame": "29c115cb76007fbb",
+        "src/constants/poster.ts#POSTER_PDF.jpegQuality": "974068bfa04bbaf3",
+        "src/constants/poster.ts#POSTER_PDF.dotsPerInch": "4d3e123f2458d9a8",
+        "src/constants/poster.ts#POSTER_PDF.fileName": "7f8ab0c9fa379adf",
+        "src/lib/pdf.ts#<module>": "2da3ec2294295eb1",
+        "src/lib/pdf.ts#jpegPagePdf/write": "fce8249397dbe101",
+        "src/lib/pdf.ts#jpegPagePdf/object": "59ee35b88f6162bc",
+        "src/lib/pdf.ts#jpegPagePdf~shell": "e9ba0586c5c76848",
+        "src/lib/pdf.ts#OBJECTS~frame": "4f495cd0b49f2927",
+        "src/lib/pdf.ts#OBJECTS.catalog": "a0e57b1ac362f054",
+        "src/lib/pdf.ts#OBJECTS.content": "e62e974f7d0fc530",
+        "src/lib/pdf.ts#OBJECTS.image": "b1854bc12a1f8f13",
+        "src/lib/pdf.ts#OBJECTS.page": "157c3b1059e28542",
+        "src/lib/pdf.ts#OBJECTS.pages": "fb35efc8eb1173ad",
+        "src/lib/pdf.ts#OFFSET_DIGITS": "1887a6cc6d210dac",
+        "src/lib/pdf.ts#points": "21e003aed5743f7b",
+        "src/lib/pdf.ts#MM_PER_INCH": "d47070a565495b9e",
+        "src/lib/pdf.ts#POINTS_PER_INCH": "701e9e4eb0f165e3",
+        "src/lib/pdf.ts#POINT_PRECISION": "7f5cc0313151c82b",
+        "src/lib/pdf.ts#reference": "a168b4de22226b81",
+        "src/lib/poster-layout.ts#layoutPoster/fontOf": "4485249d4b3fa76b",
+        "src/lib/poster-layout.ts#layoutPoster/centered": "78d70bb3e45b80e1",
+        "src/lib/poster-layout.ts#layoutPoster~shell": "c792eac9bcb7aad2",
+        "src/lib/poster-layout.ts#MeasureText": "c921985cc6e31e34",
+        "src/lib/poster-layout.ts#SHEET_WIDTH_PERCENT": "108840f054f4867a",
+        "src/lib/poster-layout.ts#TextBlock": "aa31ffe410c709c1",
+        "src/lib/poster-layout.ts#wrapBalanced": "63f8c00c33078e36",
+        "src/lib/poster-layout.ts#BALANCE_STEPS": "6b24f166c5fd03e8",
+        "src/lib/poster-layout.ts#wrapText": "7cc52b611c20f463",
+        "src/lib/poster-layout.ts#splitToFit": "070f6898987590b3",
+        "src/lib/poster-layout.ts#graphemes": "231b917eebd890fe",
+        "src/lib/poster-layout.ts#layoutPoster/steps": "8184b51ea6dcdaba",
+        "src/config/database.ts#<module>": "2da3ec2294295eb1",
+        "src/config/database.ts#getPostgresConfig": "e725ce883346fa3a",
+        "src/constants/auth.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/auth.ts#AUTH~frame": "8a55dd3da28e27fb",
+        "src/constants/auth.ts#AUTH.cookieSecretMinimumLength": "b12a31ba6d31fa17",
+        "src/server/self-auth.ts#selfAuthConfigured": "c3a318e0d6dcd17d",
+        "src/constants/auth.ts#AUTH.sessionCacheSeconds": "ef81d1b9a8f15285",
+        "src/constants/auth.ts#AUTH.selfManagedSessionCacheSeconds": "60018e53ed35acb6",
+        "src/constants/auth.ts#SELF_MANAGED_SESSION_CACHE_MINUTES": "bdefd96fa61d78da",
+        "src/constants/auth.ts#AUTH.sessionLifetimeSeconds": "f984275ce09710a9",
+        "src/constants/auth.ts#DAY_SECONDS": "c1dd79be1af8285e",
+        "src/constants/auth.ts#SESSION_LIFETIME_DAYS": "e8687da95481b827",
+        "src/constants/auth.ts#AUTH.sessionRenewalSeconds": "3d0b36e57aa810d9",
+        "src/constants/auth.ts#AUTH.reservedSchemas": "96aeee1bb4d6e114",
+        "src/constants/auth.ts#AUTH.schemaNamePattern": "878deab4ea5349ed",
+        "src/constants/auth.ts#AUTH.selfManagedDefaultSchema": "58a9dc0d7a985811",
+        "src/types/poster.ts#PosterFont": "a201be86525fcf35",
+        "src/types/poster.ts#PosterLayout": "7525ec2a37d4164e",
+        "src/types/poster.ts#PosterLine": "5a520018f6881243",
+        "src/types/poster.ts#PosterRun": "3181b1d11a7bb902",
+        "src/constants/database.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/database.ts#DATABASE~frame": "80e3de505091b6f6",
+        "src/constants/database.ts#DATABASE.applicationName": "864bc1f3cbdc260a",
+        "src/constants/database.ts#DATABASE.connectionTimeoutMs": "35e63deccca71478",
+        "src/constants/database.ts#DATABASE.idleTimeoutMs": "ad27bd0d0701150b",
+        "src/constants/database.ts#DATABASE.maxLifetimeSeconds": "632c610d6668d21c",
+        "src/constants/database.ts#DATABASE.neonSuffix": "75cb86c463bc046e",
+        "src/constants/database.ts#DATABASE.poolMax": "6435fe8d5244d63c",
+        "src/constants/database.ts#DATABASE.verifiedSslMode": "f2f9e918421d0a3f",
+        "src/constants/time.ts#<module>": "2da3ec2294295eb1",
+        "src/constants/time.ts#TIME~frame": "dff112b0e68b04c8",
+        "src/constants/time.ts#TIME.minuteSeconds": "f1911953e4c3484f",
+        "src/constants/time.ts#MINUTE_SECONDS": "1733b09f11b4bf52",
+        "src/constants/time.ts#TIME.dayMs": "37ae9005a8aab213",
+        "src/constants/time.ts#DAY_HOURS": "52466170f34b039d",
+        "src/constants/time.ts#HOUR_MINUTES": "9385af560c3e57e3",
+        "src/constants/time.ts#SECOND_MS": "9d40a159170b5dbc",
+        "src/constants/time.ts#TIME.secondMs": "3fbb41a7bfbb9a23"
+      },
+      "uncommittedFiles": [
+        "src/app/cartel/loading.tsx",
+        "src/app/cartel/page.tsx",
+        "src/components/poster-view.tsx",
+        "src/components/print-button.tsx",
+        "src/constants/poster.ts",
+        "src/lib/pdf.ts",
+        "src/lib/poster-layout.ts",
+        "src/lib/poster-pdf.ts",
+        "src/lib/poster-qr.ts",
+        "src/lib/share-sheet.ts",
+        "src/types/poster.ts"
+      ]
+    },
+    "evidence": [
+      {
+        "kind": "review",
+        "outcome": "pass",
+        "recordedAt": "2026-11-03T17:28:32.775Z",
+        "source": "attested",
+        "summary": "Checklist liviano sobre el botón de imprimir y la hoja 10x15: pending con spinner sin cambiar ancho y deshabilitado mientras se arma el PDF; error de armado inline con Reintentar; share cancelado no es error; share fallido y sin soporte de archivos con mensaje inline role=alert y salida (Safari); esqueleto con la forma de la barra y la hoja"
+      },
+      {
+        "command": "node node_modules/vitest/vitest.mjs run tests/poster-layout.test.ts tests/pdf.test.ts tests/share-sheet.test.ts tests/qr-download.test.ts",
+        "durationMs": 1283,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "0b88c8a8de317d3fb8637e2cbf8bd0098ee195efb75bb14103732d238665c307",
+        "recordedAt": "2026-11-03T17:28:34.427Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "command": "node node_modules/@playwright/test/cli.js test tests/e2e/poster.spec.ts --reporter=line",
+        "durationMs": 12923,
+        "exitCode": 0,
+        "kind": "test",
+        "outcome": "pass",
+        "outputSha256": "b6f5b11eeb5bde8f506ccb6eebc72ddbe5a4694d70704f82c5c81498e4b46ac4",
+        "recordedAt": "2026-11-03T17:28:47.735Z",
+        "source": "witnessed",
+        "summary": "exit code 0"
+      },
+      {
+        "kind": "browser",
+        "outcome": "pass",
+        "recordedAt": "2026-11-03T17:28:48.135Z",
+        "source": "attested",
+        "summary": "Recorrido: vista previa en 390px y 1440px sin scroll horizontal, nombre de 50 caracteres, esqueleto de carga, impresión emulada (una hoja 100x150 mm llena), app instalada simulada (pending, listo, share con PDF) e iPhone sin share de archivos (mensaje)",
+        "tool": "Playwright Chromium headless"
+      }
+    ],
+    "limitations": [
+      "Sin iPhone real: el modo standalone de WebKit y la hoja de compartir de iOS se simularon en Chromium",
+      "Sin lector de pantalla: solo se verificaron roles y role=alert en el árbol de accesibilidad"
+    ],
+    "mode": "incremental",
+    "pendingChecks": [
+      "Probar en un iPhone con la app instalada que la hoja de compartir del PDF ofrece Imprimir y Guardar en Archivos"
+    ],
+    "recordedAt": "2026-11-03T17:28:57.193Z",
+    "result": "partial",
+    "runId": "20261103T172820Z-2b89d6",
+    "scope": {
+      "decision": "incremental",
+      "reasons": [
+        "152 relevant change(s) since the verified run"
+      ],
+      "relevantChangesAtBegin": [
+        {
+          "change": "added",
+          "key": "pkg:react",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/cartel/loading.tsx#PosterLoading",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/app/cartel/page.tsx#PosterPage",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "removed",
+          "key": "src/app/cartel/page.tsx#QR_OPTIONS.color",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "removed",
+          "key": "src/app/cartel/page.tsx#QR_OPTIONS.errorCorrectionLevel",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "removed",
+          "key": "src/app/cartel/page.tsx#QR_OPTIONS.margin",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "added",
+          "key": "src/components/poster-view.tsx#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/poster-view.tsx#MM_PER_CM",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/poster-view.tsx#PosterView",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/poster-view.tsx#PRINT_PAGE_RULE",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/print-button.tsx#noSubscription",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/print-button.tsx#PosterPdf",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "removed",
+          "key": "src/components/print-button.tsx#PrintButton",
+          "reason": "code no longer reached by the unit: check that no state lost its feedback"
+        },
+        {
+          "change": "added",
+          "key": "src/components/print-button.tsx#PrintButton/print",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/print-button.tsx#PrintButton/retry",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/print-button.tsx#PrintButton~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/components/print-button.tsx#useInstalledAppleApp",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH.selfManagedSessionCacheSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH.sessionLifetimeSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#AUTH.sessionRenewalSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#DAY_SECONDS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#SELF_MANAGED_SESSION_CACHE_MINUTES",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/auth.ts#SESSION_LIFETIME_DAYS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/doorbell.ts#HTTP.unauthorized",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/homes.ts#HOMES.nameMaxLength",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_COPY.brand",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_COPY.eyebrow",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_COPY.note",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_COPY.steps",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_COPY.titleEnd",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_COPY~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.brand",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.eyebrow",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.gap",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.note",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.paddingX",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.paddingY",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.qrMaxSize",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.steps",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT.title",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_LAYOUT~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_PDF.dotsPerInch",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_PDF.fileName",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_PDF.jpegQuality",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_PDF~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_QR.dark",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_QR.errorCorrectionLevel",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_QR.light",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_QR.margin",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_QR~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_SHEET.heightMm",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_SHEET.widthMm",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_SHEET~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/poster.ts#POSTER_TITLE_SIZES",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#DAY_HOURS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#HOUR_MINUTES",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#MINUTE_SECONDS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#SECOND_MS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME.dayMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME.minuteSeconds",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME.secondMs",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/constants/time.ts#TIME~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#jpegPagePdf/object",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#jpegPagePdf/write",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#jpegPagePdf~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#MM_PER_INCH",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#OBJECTS.catalog",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#OBJECTS.content",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#OBJECTS.image",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#OBJECTS.page",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#OBJECTS.pages",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#OBJECTS~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#OFFSET_DIGITS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#POINT_PRECISION",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#points",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#POINTS_PER_INCH",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/pdf.ts#reference",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#BALANCE_STEPS",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#graphemes",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#layoutPoster/centered",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#layoutPoster/fontOf",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#layoutPoster/steps",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#layoutPoster~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#MeasureText",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#posterStyle/cqw",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#posterStyle/text",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#posterStyle~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#posterTitleSize",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#SHEET_WIDTH_PERCENT",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#splitToFit",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#TextBlock",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#wrapBalanced",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-layout.ts#wrapText",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#buildPosterPdf/measure",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#buildPosterPdf/token",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#buildPosterPdf~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#canvasJpeg",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#cssFont",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#drawLine",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#drawQr/edge",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#drawQr~shell",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#INK_TOKENS.accent",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#INK_TOKENS.accentDark",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#INK_TOKENS.ink",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#INK_TOKENS.muted",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#INK_TOKENS~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#lineStart",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#MM_PER_INCH",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#setTracking",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#TYPEFACE_TOKENS.body",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#TYPEFACE_TOKENS.heading",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-pdf.ts#TYPEFACE_TOKENS~frame",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-qr.ts#posterQrSvg",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-qr.ts#QR_OPTIONS.color",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-qr.ts#QR_OPTIONS.errorCorrectionLevel",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/poster-qr.ts#QR_OPTIONS.margin",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/share-sheet.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/share-sheet.ts#isInstalledAppleApp",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/share-sheet.ts#isShareCancelled",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/lib/share-sheet.ts#needsShareToSave",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/auth.ts#getIdentity",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/auth.ts#selfManagedSession",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#MIGRATIONS",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/database.ts#poolDatabase",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#getHome",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/doorbell.ts#HOME_COLUMNS",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/doorbell.ts#homeNotFound",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/page-session.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/page-session.ts#identityWithDatabase",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/residents.ts#listResidentHomes",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "modified",
+          "key": "src/server/self-auth.ts#createSelfAuth",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/server/session-cookies.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/session-cookies.ts#currentRouteSession",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/session-cookies.ts#forwardSetCookies",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/session-cookies.ts#RouteSession",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/server/session-cookies.ts#routeSessions",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "modified",
+          "key": "src/types/doorbell.ts#Home",
+          "reason": "visible or interactive code changed"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#<module>",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterFont",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterInk",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterLayout",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterLayoutRules",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterLine",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterRun",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterTextStyle",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterTitleSize",
+          "reason": "new visible or interactive code"
+        },
+        {
+          "change": "added",
+          "key": "src/types/poster.ts#PosterTypeface",
+          "reason": "new visible or interactive code"
+        }
+      ],
+      "suggestedScope": [
+        "package react — components and hooks used from this package: states, feedback and accessibility after the upgrade",
+        "src/app/cartel/loading.tsx › PosterLoading — behavior of this code in every state of the unit that uses it",
+        "src/app/cartel/page.tsx › PosterPage — behavior of this code in every state of the unit that uses it",
+        "src/app/cartel/page.tsx › QR_OPTIONS.color — copy or configuration read from this member, in every state that shows it",
+        "src/app/cartel/page.tsx › QR_OPTIONS.errorCorrectionLevel — copy or configuration read from this member, in every state that shows it",
+        "src/app/cartel/page.tsx › QR_OPTIONS.margin — copy or configuration read from this member, in every state that shows it",
+        "src/components/poster-view.tsx (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/components/poster-view.tsx › MM_PER_CM — behavior of this code in every state of the unit that uses it",
+        "src/components/poster-view.tsx › PosterView — behavior of this code in every state of the unit that uses it",
+        "src/components/poster-view.tsx › PRINT_PAGE_RULE — behavior of this code in every state of the unit that uses it",
+        "src/components/print-button.tsx › noSubscription — behavior of this code in every state of the unit that uses it",
+        "src/components/print-button.tsx › PosterPdf — behavior of this code in every state of the unit that uses it",
+        "src/components/print-button.tsx › PrintButton — behavior of this code in every state of the unit that uses it",
+        "src/components/print-button.tsx › PrintButton › print — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/print-button.tsx › PrintButton › retry — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/components/print-button.tsx › PrintButton (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/components/print-button.tsx › useInstalledAppleApp — behavior of this code in every state of the unit that uses it",
+        "src/constants/auth.ts › AUTH.selfManagedSessionCacheSeconds — copy or configuration read from this member, in every state that shows it",
+        "src/constants/auth.ts › AUTH.sessionLifetimeSeconds — copy or configuration read from this member, in every state that shows it",
+        "src/constants/auth.ts › AUTH.sessionRenewalSeconds — copy or configuration read from this member, in every state that shows it",
+        "src/constants/auth.ts › DAY_SECONDS — behavior of this code in every state of the unit that uses it",
+        "src/constants/auth.ts › SELF_MANAGED_SESSION_CACHE_MINUTES — behavior of this code in every state of the unit that uses it",
+        "src/constants/auth.ts › SESSION_LIFETIME_DAYS — behavior of this code in every state of the unit that uses it",
+        "src/constants/doorbell.ts › HTTP.unauthorized — copy or configuration read from this member, in every state that shows it",
+        "src/constants/homes.ts › HOMES.nameMaxLength — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/constants/poster.ts › POSTER_COPY.brand — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_COPY.eyebrow — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_COPY.note — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_COPY.steps — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_COPY.titleEnd — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_COPY (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/constants/poster.ts › POSTER_LAYOUT.brand — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.eyebrow — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.gap — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.note — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.paddingX — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.paddingY — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.qrMaxSize — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.steps — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT.title — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_LAYOUT (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/constants/poster.ts › POSTER_PDF.dotsPerInch — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_PDF.fileName — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_PDF.jpegQuality — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_PDF (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/constants/poster.ts › POSTER_QR.dark — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_QR.errorCorrectionLevel — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_QR.light — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_QR.margin — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_QR (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/constants/poster.ts › POSTER_SHEET.heightMm — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_SHEET.widthMm — copy or configuration read from this member, in every state that shows it",
+        "src/constants/poster.ts › POSTER_SHEET (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/constants/poster.ts › POSTER_TITLE_SIZES — behavior of this code in every state of the unit that uses it",
+        "src/constants/time.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/constants/time.ts › DAY_HOURS — behavior of this code in every state of the unit that uses it",
+        "src/constants/time.ts › HOUR_MINUTES — behavior of this code in every state of the unit that uses it",
+        "src/constants/time.ts › MINUTE_SECONDS — behavior of this code in every state of the unit that uses it",
+        "src/constants/time.ts › SECOND_MS — behavior of this code in every state of the unit that uses it",
+        "src/constants/time.ts › TIME.dayMs — copy or configuration read from this member, in every state that shows it",
+        "src/constants/time.ts › TIME.minuteSeconds — copy or configuration read from this member, in every state that shows it",
+        "src/constants/time.ts › TIME.secondMs — copy or configuration read from this member, in every state that shows it",
+        "src/constants/time.ts › TIME (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/lib/pdf.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/pdf.ts › jpegPagePdf › object — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/pdf.ts › jpegPagePdf › write — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/pdf.ts › jpegPagePdf (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/lib/pdf.ts › MM_PER_INCH — behavior of this code in every state of the unit that uses it",
+        "src/lib/pdf.ts › OBJECTS.catalog — copy or configuration read from this member, in every state that shows it",
+        "src/lib/pdf.ts › OBJECTS.content — copy or configuration read from this member, in every state that shows it",
+        "src/lib/pdf.ts › OBJECTS.image — copy or configuration read from this member, in every state that shows it",
+        "src/lib/pdf.ts › OBJECTS.page — copy or configuration read from this member, in every state that shows it",
+        "src/lib/pdf.ts › OBJECTS.pages — copy or configuration read from this member, in every state that shows it",
+        "src/lib/pdf.ts › OBJECTS (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/lib/pdf.ts › OFFSET_DIGITS — behavior of this code in every state of the unit that uses it",
+        "src/lib/pdf.ts › POINT_PRECISION — behavior of this code in every state of the unit that uses it",
+        "src/lib/pdf.ts › points — behavior of this code in every state of the unit that uses it",
+        "src/lib/pdf.ts › POINTS_PER_INCH — behavior of this code in every state of the unit that uses it",
+        "src/lib/pdf.ts › reference — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/poster-layout.ts › BALANCE_STEPS — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › graphemes — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › layoutPoster › centered — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-layout.ts › layoutPoster › fontOf — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-layout.ts › layoutPoster › steps — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-layout.ts › layoutPoster (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/lib/poster-layout.ts › MeasureText — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › posterStyle › cqw — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-layout.ts › posterStyle › text — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-layout.ts › posterStyle (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/lib/poster-layout.ts › posterTitleSize — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › SHEET_WIDTH_PERCENT — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › splitToFit — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › TextBlock — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › wrapBalanced — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-layout.ts › wrapText — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/poster-pdf.ts › buildPosterPdf › measure — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-pdf.ts › buildPosterPdf › token — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-pdf.ts › buildPosterPdf (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/lib/poster-pdf.ts › canvasJpeg — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts › cssFont — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts › drawLine — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts › drawQr › edge — the action of this handler: pending state, double submit, feedback channel, error recovery and stale errors, with its component states as context",
+        "src/lib/poster-pdf.ts › drawQr (component body outside its handlers) — the states this component renders (loading, empty, data, error, partial, no permission) and their copy",
+        "src/lib/poster-pdf.ts › INK_TOKENS.accent — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-pdf.ts › INK_TOKENS.accentDark — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-pdf.ts › INK_TOKENS.ink — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-pdf.ts › INK_TOKENS.muted — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-pdf.ts › INK_TOKENS (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts › lineStart — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts › MM_PER_INCH — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts › setTracking — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-pdf.ts › TYPEFACE_TOKENS.body — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-pdf.ts › TYPEFACE_TOKENS.heading — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-pdf.ts › TYPEFACE_TOKENS (object structure) — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-qr.ts › posterQrSvg — behavior of this code in every state of the unit that uses it",
+        "src/lib/poster-qr.ts › QR_OPTIONS.color — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-qr.ts › QR_OPTIONS.errorCorrectionLevel — copy or configuration read from this member, in every state that shows it",
+        "src/lib/poster-qr.ts › QR_OPTIONS.margin — copy or configuration read from this member, in every state that shows it",
+        "src/lib/share-sheet.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/lib/share-sheet.ts › isInstalledAppleApp — behavior of this code in every state of the unit that uses it",
+        "src/lib/share-sheet.ts › isShareCancelled — behavior of this code in every state of the unit that uses it",
+        "src/lib/share-sheet.ts › needsShareToSave — behavior of this code in every state of the unit that uses it",
+        "src/server/auth.ts › getIdentity — behavior of this code in every state of the unit that uses it",
+        "src/server/auth.ts › selfManagedSession — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › MIGRATIONS — behavior of this code in every state of the unit that uses it",
+        "src/server/database.ts › poolDatabase — behavior of this code in every state of the unit that uses it",
+        "src/server/doorbell.ts › getHome — behavior of this code in every state of the unit that uses it",
+        "src/server/doorbell.ts › HOME_COLUMNS — behavior of this code in every state of the unit that uses it",
+        "src/server/doorbell.ts › homeNotFound — behavior of this code in every state of the unit that uses it",
+        "src/server/page-session.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/server/page-session.ts › identityWithDatabase — behavior of this code in every state of the unit that uses it",
+        "src/server/residents.ts › listResidentHomes — behavior of this code in every state of the unit that uses it",
+        "src/server/self-auth.ts › createSelfAuth — behavior of this code in every state of the unit that uses it",
+        "src/server/session-cookies.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/server/session-cookies.ts › currentRouteSession — behavior of this code in every state of the unit that uses it",
+        "src/server/session-cookies.ts › forwardSetCookies — behavior of this code in every state of the unit that uses it",
+        "src/server/session-cookies.ts › RouteSession — behavior of this code in every state of the unit that uses it",
+        "src/server/session-cookies.ts › routeSessions — behavior of this code in every state of the unit that uses it",
+        "src/types/doorbell.ts › Home — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts (module directives and side effects) — client/server boundary and side effects of the module",
+        "src/types/poster.ts › PosterFont — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterInk — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterLayout — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterLayoutRules — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterLine — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterRun — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterTextStyle — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterTitleSize — behavior of this code in every state of the unit that uses it",
+        "src/types/poster.ts › PosterTypeface — behavior of this code in every state of the unit that uses it"
+      ]
+    },
+    "skill": {
+      "definitionFiles": {
+        "SKILL.md": "9fc5ee4bb0e2e4e9",
+        "references/feedback-channels.md": "aa0394882f505308",
+        "references/flow-catalog.md": "77527b8062d13243",
+        "references/sources.md": "018203bece1d2e8a",
+        "references/state-matrix.md": "026b6005f6fa0cae",
+        "references/validation-feedback.md": "3e4fb5d227cacfbd"
+      },
+      "definitionHash": "sha256:77f14b3b1fafda15212339d5dc37d93e06d4f1812e8975d14d9a2caa22765afc",
+      "name": "ui-ux-flow-patterns",
+      "version": "1.5.0"
+    },
+    "report": "runs/20261103T172820Z-2b89d6.json"
+  },
   "schemaVersion": 1,
   "skill": "ui-ux-flow-patterns",
   "unitId": "ringgg.poster",
