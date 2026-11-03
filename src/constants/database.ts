@@ -7,4 +7,6 @@ export const DATABASE = {
   applicationName: 'ringgg',
   neonSuffix: '.neon.tech',
   verifiedSslMode: 'verify-full',
+  /** PostgreSQL `undefined_table`: also what a query gets when the table's schema does not exist. */
+  undefinedTableCode: '42P01',
 };

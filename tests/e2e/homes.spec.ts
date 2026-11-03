@@ -5,6 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 import { initialize } from '../../src/server/database';
 import { snapshot } from '../../src/server/doorbell';
 import { addResident, listResidentHomes, listResidents, renameResident } from '../../src/server/residents';
+import { listResidentRoster, managedAccounts } from '../../src/server/resident-accounts';
 import { createHome } from '../../src/server/homes';
 import { AppError } from '../../src/server/errors';
 import { bundleFixture } from './support/bundle-fixture';
@@ -35,7 +36,7 @@ test('la primera vez en una casa pide un nombre obligatorio y único, y desde el
       if (input.home !== FIXTURE_HOME || input.action !== 'rename') throw new AppError(400, 'UNEXPECTED', 'Pedido inesperado.');
       renames += 1;
       await renameResident(database, resident, { homeId: FIXTURE_HOME, email: input.email, name: input.name }, settings);
-      return { residents: await listResidents(database, FIXTURE_HOME, settings) };
+      return { residents: await listResidentRoster(database, FIXTURE_HOME, settings, managedAccounts(database)) };
     }
     if (path === 'homes') return createHome(database, resident, (await readJson(request)).name, settings);
     return null;
@@ -55,7 +56,7 @@ test('la primera vez en una casa pide un nombre obligatorio y único, y desde el
     if (url === '/sw.js') { response.statusCode = 404; response.end(''); return; }
     const initial = await dashboardInitial(database, {
       viewer: { name: null, suggestedName: 'Guido', email: resident.email },
-      residents: await listResidents(database, FIXTURE_HOME, settings),
+      residents: await listResidentRoster(database, FIXTURE_HOME, settings, managedAccounts(database)),
     });
     response.setHeader('Content-Type', 'text/html');
     response.end(`<!doctype html><html lang="es"><meta charset="utf-8"><style>${css}</style><body><div id="root"></div><script>window.__INITIAL__=${JSON.stringify(initial)}</script><script src="/bundle.js"></script></body></html>`);

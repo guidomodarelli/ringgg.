@@ -1,6 +1,6 @@
 import type { Position } from '@/lib/geo';
 import type { VisitReply } from '@/constants/doorbell';
-import type { HomeSummary, ResidentEntry } from './residents';
+import type { HomeSummary, ResidentRosterEntry } from './residents';
 
 export type DeliveryStatus = 'registered' | 'sent' | 'partial' | 'unavailable';
 /** `enabled = false` pauses the bell until someone resumes it; `paused_until` pauses it until that moment. */
@@ -34,7 +34,7 @@ export interface DashboardSnapshot { home: HomeState; visits: Visit[]; devices: 
  */
 export interface Viewer { name: string | null; suggestedName: string; email: string }
 /** `chatEnabled`: this deployment runs the visit chat (it has `CHAT_URL` and `CHAT_SECRET`). */
-export interface DashboardData extends DashboardSnapshot { pushReady: boolean; origin: string; viewer: Viewer; homes: HomeSummary[]; residents: ResidentEntry[]; focusVisitId?: string; chatEnabled?: boolean }
+export interface DashboardData extends DashboardSnapshot { pushReady: boolean; origin: string; viewer: Viewer; homes: HomeSummary[]; residents: ResidentRosterEntry[]; focusVisitId?: string; chatEnabled?: boolean }
 /** A visitor's ring: `id` makes retries idempotent and `client` is the salted key its rate limits count. */
 export interface RingRequest { id: string; message: string; client: string; /** Where the visitor is; only checked, never stored. */ position?: Position | null }
 /** Visitor-facing visit: never includes the message, the note, or who answered. */

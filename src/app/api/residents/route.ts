@@ -4,7 +4,8 @@ import { requireHome, requireIdentity } from '@/server/auth';
 import { getDatabase } from '@/server/database';
 import { homeIdSchema } from '@/server/homes';
 import { apiRoute, readJson } from '@/server/http';
-import { addResident, listResidents, removeResident, renameResident } from '@/server/residents';
+import { addResident, removeResident, renameResident } from '@/server/residents';
+import { listResidentRoster } from '@/server/resident-accounts';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -15,11 +16,11 @@ const residentSchema = z.discriminatedUnion('action', [
   z.object({ home: homeIdSchema, action: z.literal('rename'), email: z.string(), name: z.string() }),
 ]);
 
-/** `?home=<id>`: the residents of one home, with the names that home uses for them. */
+/** `?home=<id>`: the residents of one home, with the names that home uses for them and the state of their accounts. */
 export const GET = apiRoute('residents', async (request) => {
   const user = await requireIdentity();
   const member = await requireHome(user, homeIdSchema.parse(request.nextUrl.searchParams.get(HOMES.queryParameter)));
-  return Response.json({ residents: await listResidents(await getDatabase(), member.homeId) });
+  return Response.json({ residents: await listResidentRoster(await getDatabase(), member.homeId) });
 });
 
 /** Shared management inside one home: any resident adds, removes or renames residents of that home. */
@@ -35,5 +36,5 @@ export const POST = apiRoute('residents', async (request) => {
     await removeResident(database, member, target);
     if (input.email.trim().toLowerCase() === member.email.trim().toLowerCase()) return Response.json({ removedSelf: true });
   }
-  return Response.json({ residents: await listResidents(database, member.homeId) });
+  return Response.json({ residents: await listResidentRoster(database, member.homeId) });
 });

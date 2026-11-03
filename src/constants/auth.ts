@@ -8,6 +8,8 @@ const DAY_SECONDS = TIME.dayMs / TIME.secondMs;
 const SESSION_LIFETIME_DAYS = 30;
 /** How long a self-managed session is trusted from its signed cookie before the database is checked again. */
 const SELF_MANAGED_SESSION_CACHE_MINUTES = 5;
+/** Neon Auth keeps its accounts in this schema of the app database. */
+const MANAGED_SCHEMA = 'neon_auth';
 
 export const AUTH = {
   /** A self-managed session lasts this long and is renewed at most once a day (`updateAge`) while it is used. */
@@ -26,8 +28,9 @@ export const AUTH = {
   verificationCodeLength: 6,
   requestTimeoutMs: 15_000,
   selfManagedDefaultSchema: 'ringgg_auth',
+  managedSchema: MANAGED_SCHEMA,
   schemaNamePattern: /^[a-z_][a-z0-9_]*$/,
-  reservedSchemas: ['neon_auth', 'public', 'pg_catalog', 'information_schema'],
+  reservedSchemas: [MANAGED_SCHEMA, 'public', 'pg_catalog', 'information_schema'],
 };
 
 export type AuthFormMode = 'sign-in' | 'sign-up' | 'verify' | 'forgot' | 'reset';

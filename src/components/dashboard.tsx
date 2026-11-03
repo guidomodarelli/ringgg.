@@ -27,7 +27,7 @@ import { dashboardHref } from '@/lib/dashboard-view';
 import { api } from '@/lib/api';
 import { isGenericDeviceName } from '@/lib/device-name';
 import { visitsAwaitingAnswer } from '@/lib/visit-format';
-import type { ResidentEntry } from '@/types/residents';
+import type { ResidentRosterEntry } from '@/types/residents';
 
 const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> = {
   overview: { title: 'Tu casa te llama', detail: 'Todo lo que pasa en tu puerta, estés donde estés.' },
@@ -39,8 +39,8 @@ const SECTION_TITLES: Record<DashboardView, { title: string; detail: string }> =
 };
 
 /** Changes when the server-rendered roster changes (for example after a refresh), so the list starts from it again. */
-function rosterKey(residents: ResidentEntry[]) {
-  return residents.map((resident) => `${resident.email}:${resident.name ?? ''}`).join('|');
+function rosterKey(residents: ResidentRosterEntry[]) {
+  return residents.map((resident) => `${resident.email}:${resident.name ?? ''}:${resident.account ?? ''}`).join('|');
 }
 
 function statusLabel(home: HomeState) {

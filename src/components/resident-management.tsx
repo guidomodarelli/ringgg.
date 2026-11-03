@@ -6,13 +6,14 @@ import { Pencil, Plus, RefreshCw, Share2, ShieldCheck, Trash2, Users } from 'luc
 import { api } from '@/lib/api';
 import { invitationMessage, shareInvitation } from '@/lib/invitation';
 import { cleanName } from '@/lib/names';
+import { residentAccountNotice } from '@/lib/resident-account';
 import { RESIDENTS } from '@/constants/residents';
 import { HOMES, RESIDENT_NAMES } from '@/constants/homes';
-import type { ResidentEntry } from '@/types/residents';
+import type { ResidentEntry, ResidentRosterEntry } from '@/types/residents';
 
 interface ResidentManagementProps {
   homeId: number;
-  initial: ResidentEntry[];
+  initial: ResidentRosterEntry[];
   homeName: string;
   origin: string;
   viewerEmail: string;
@@ -70,7 +71,7 @@ export function ResidentManagement({ homeId, initial, homeName, origin, viewerEm
     if (lock.current) return;
     lock.current = true; setPending(true); setError(''); setRenameError(''); setMessage('');
     try {
-      const result = await api<{ residents?: ResidentEntry[]; removedSelf?: boolean }>(change ? 'residents' : `residents?${HOMES.queryParameter}=${homeId}`, change ? { home: homeId, ...change } : undefined);
+      const result = await api<{ residents?: ResidentRosterEntry[]; removedSelf?: boolean }>(change ? 'residents' : `residents?${HOMES.queryParameter}=${homeId}`, change ? { home: homeId, ...change } : undefined);
       // Leaving a home reopens the panel on another one, or the screen that explains there is none.
       if (result.removedSelf) { navigate(() => { router.replace('/'); router.refresh(); }); return; }
       if (!result.residents) throw new Error('No pudimos actualizar los residentes. Volvé a intentar.');
@@ -105,14 +106,15 @@ export function ResidentManagement({ homeId, initial, homeName, origin, viewerEm
       {invited && <button type="button" className="button outline small resident-share" onClick={() => { void share(); }}><Share2 size={16} /> Compartir invitación</button>}
       {error && <p className="feedback error" role="alert">{error}</p>}
     </div>
-    {residents.map((resident) => <div className="device-row resident-row" key={resident.email}>
+    {residents.map((resident) => { const notice = residentAccountNotice(resident.account); return <div className="device-row resident-row" key={resident.email}>
       <ShieldCheck size={21} />
       {renaming === resident.email
         ? <ResidentNameForm resident={resident} pending={pending} error={renameError} onSave={(name) => { void update({ action: 'rename', email: resident.email, name }); }} onCancel={() => { setRenaming(''); setRenameError(''); }} onEdit={() => setRenameError('')} />
         : <div className="device-info">
           <strong>{resident.name ?? 'Todavía sin nombre'}{resident.email === viewerEmail.toLowerCase() && <span className="device-badge">Vos</span>}</strong>
           <span>{resident.email}</span>
-          <span>{resident.canRemove ? 'Residente autorizado · Requiere correo verificado' : 'Último residente · Acceso protegido'}</span>
+          <span>{resident.canRemove ? 'Residente autorizado' : 'Último residente · Acceso protegido'}</span>
+          {notice && <span className={`device-health ${notice.tone}`}>{notice.text}</span>}
         </div>}
       {renaming !== resident.email && <div className="device-actions">
         <button type="button" className="text-button" disabled={pending} aria-label={`Editar el nombre de ${resident.email}`} onClick={() => { setRenaming(resident.email); setRemoving(''); setRenameError(''); }}><Pencil size={15} /> Editar nombre</button>
@@ -120,7 +122,7 @@ export function ResidentManagement({ homeId, initial, homeName, origin, viewerEm
           ? <div className="resident-confirm"><p>¿Quitar el acceso y desconectar sus dispositivos de esta casa?</p><button type="button" className="text-button danger" disabled={pending} onClick={() => { void update({ action: 'remove', email: resident.email }); }}>Sí, quitar acceso</button><button type="button" className="text-button" disabled={pending} onClick={() => setRemoving('')}>Cancelar</button></div>
           : <button type="button" className="icon-button" aria-label={`Quitar acceso a ${resident.email}`} disabled={pending} onClick={() => { setRemoving(resident.email); setError(''); }}><Trash2 size={17} /></button>)}
       </div>}
-    </div>)}
+    </div>; })}
     <button type="button" className="text-button" disabled={pending} onClick={() => { void update(); }}><RefreshCw size={15} />Actualizar residentes</button>
   </section>;
 }

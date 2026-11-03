@@ -7,7 +7,8 @@ import { isSelfManagedAuth } from '@/server/auth-mode';
 import { getDashboardView } from '@/lib/dashboard-view';
 import { visitFromUrl } from '@/lib/visit-format';
 import { identityWithDatabase } from '@/server/page-session';
-import { listResidents, resolveHomeAccess, suggestedResidentName } from '@/server/residents';
+import { resolveHomeAccess, suggestedResidentName } from '@/server/residents';
+import { listResidentRoster } from '@/server/resident-accounts';
 import { AppError } from '@/server/errors';
 import { chatSettings } from '@/server/chat';
 import { getConfig, pushConfigured } from '@/server/config';
@@ -31,7 +32,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ v
   if (!member) return isSelfManagedAuth()
     ? <GoogleLogin configured signedIn initialMessage={accessError} clientId={process.env.GOOGLE_CLIENT_ID || ''} />
     : <Login configured initialMessage={accessError} signedIn={user.emailVerified} initialEmail={user.email} initialMode={user.emailVerified ? undefined : 'verify'} />;
-  const [data, residents, suggestedName] = await Promise.all([snapshot(database, member.homeId), listResidents(database, member.homeId), suggestedResidentName(database, user)]);
+  const [data, residents, suggestedName] = await Promise.all([snapshot(database, member.homeId), listResidentRoster(database, member.homeId), suggestedResidentName(database, user)]);
   const viewer = { name: member.displayName, suggestedName, email: user.email };
   return <div className="app-shell">
     <a className="skip-link" href="#main">Ir al contenido</a>

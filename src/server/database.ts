@@ -4,6 +4,7 @@ import { createPostgresPool } from './postgres';
 import { logError } from './errors';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { DATABASE } from '../constants/database';
 import { DEVICES } from '../constants/devices';
 import { HOMES } from '../constants/homes';
 import { nameKey, uniqueName } from '../lib/names';
@@ -175,14 +176,13 @@ async function runStep(database: Database, step: MigrationStep) {
 }
 
 const MIGRATION_LOCK = 72_840_311;
-const UNDEFINED_TABLE = '42P01';
 
 async function schemaVersion(database: Database): Promise<number> {
   try {
     const result = await database.query<{ version: number | null }>('SELECT MAX(version) AS version FROM schema_migrations');
     return result.rows[0]?.version ?? 0;
   } catch (error) {
-    if ((error as { code?: string }).code === UNDEFINED_TABLE) return 0;
+    if ((error as { code?: string }).code === DATABASE.undefinedTableCode) return 0;
     throw error;
   }
 }
