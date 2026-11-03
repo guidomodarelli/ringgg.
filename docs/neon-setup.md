@@ -125,17 +125,21 @@ La cobertura quedó registrada mediante el CLI de golfo-kit, sin editar sus reco
 
 Se respondió la consulta: se puede agregar un canal de SMS o llamada con mensaje grabado/sintetizado mediante un proveedor de telefonía. Esta integración no lo implementa ni contrata servicios telefónicos; mantiene Web Push. El canal de avisos del timbre y la identidad de los residentes son decisiones separadas.
 
-## Ramas por entorno (2026-10-30)
+## Ramas por entorno (2026-11-03)
 
 | Rama | ID | Uso |
 | --- | --- | --- |
 | `production` | `br-icy-poetry-b6hyxe9j` | La casa real: Vercel Production. |
-| `preview` | `br-old-water-b61xdjwr` | Previews de PR: variables del entorno Preview de Vercel, con claves VAPID y secreto de cookies propios. |
-| `dev` | `br-restless-cake-b6ju3lrw` | Desarrollo local: `.env.local`, con claves VAPID propias para que los celulares de producción no reciban avisos de prueba. |
-| `ci` | `br-frosty-scene-b6je0zm8` | Solo Neon Auth para los E2E de la CI: una cuenta sintética verificada (`E2E_NEON_AUTH_*` en los secrets de GitHub). |
+| `preview` | `br-purple-bar-b69byzjh` | Previews de PR: variables del entorno Preview de Vercel, con claves VAPID y secreto de cookies propios. |
+| `dev` | `br-frosty-forest-b6en4b3w` | Desarrollo local: `.env.local`, con claves VAPID propias para que los celulares de producción no reciban avisos de prueba. |
+| `ci` | `br-shiny-darkness-b6sudl7j` | Solo Neon Auth para los E2E de la CI: una cuenta sintética verificada (`E2E_NEON_AUTH_*` en los secrets de GitHub y en `.env.local`). |
 
-Cada rama tiene su propia instancia de Neon Auth (`NEON_AUTH_BASE_URL` distinto) con los usuarios copiados al crearla. `preview`, `dev` y `ci` son copias de `production` del 2026-10-30 y no vencen; para refrescar una, se recrea desde `production` y se actualizan sus variables.
+Cada rama tiene su propia instancia de Neon Auth (`NEON_AUTH_BASE_URL` distinto) con los usuarios copiados al crearla. `preview`, `dev` y `ci` son copias de `production` del 2026-11-03 y no vencen; para refrescar una, se recrea desde `production` y se actualizan sus variables.
 
-Neon Auth solo acepta el comodín como subdominio de más a la izquierda (`*.vercel.app` confiaría en cualquier app de Vercel), así que cada URL de preview que necesite login se agrega a los dominios confiables de la rama `preview`: en la consola de Neon (Auth → dominios confiables de esa rama) o con la herramienta `add_auth_trusted_domain` del MCP de Neon. La URL de rama tiene la forma `https://ringgg-git-<rama>-guidos-projects-bd2c4e61.vercel.app`; ya está agregada la de `feature/mejoras-revision`.
+Las ramas del 2026-10-30 se borraron el 2026-11-01, y los E2E que inician sesión empezaron a fallar con 404 en Neon Auth (`AUTH_UPSTREAM`). Si vuelve a pasar, revisar con `list_branches` del MCP de Neon que sigan existiendo. Crearlas desde la consola o con `create_branch` del MCP: `neon checkout` aplica la política de `neon.ts`, que a las ramas nuevas les pone `ttl: "7d"`.
+
+La cuenta sintética de `ci` se crea con `POST <NEON_AUTH_BASE_URL>/sign-up/email` (con `Origin: http://localhost:3100`) y una contraseña generada, y se marca como verificada con `update neon_auth."user" set "emailVerified" = true` en esa rama. La app solo deja entrar a residentes con el correo verificado.
+
+Neon Auth solo acepta el comodín como subdominio de más a la izquierda (`*.vercel.app` confiaría en cualquier app de Vercel), así que cada URL de preview que necesite login se agrega a los dominios confiables de la rama `preview`: en la consola de Neon (Auth → dominios confiables de esa rama) o con la herramienta `add_auth_trusted_domain` del MCP de Neon. La URL de rama tiene la forma `https://ringgg-git-<rama>-guidos-projects-bd2c4e61.vercel.app`; en la rama `preview` del 2026-11-03 está agregada la de `fix/poster-sticker-sheet`.
 
 La conexión usa hasta tres clientes por instancia, timeout de 15 segundos, rotación de conexiones y TLS `verify-full` para endpoints Neon; en Vercel, `attachDatabasePool` libera las conexiones ociosas antes de que Fluid Compute suspenda la instancia. Localmente las variables viven en `.env` (producción, heredado de `neon deploy`) y `.env.local` (rama `dev`), que tiene prioridad.

@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link, { useLinkStatus } from 'next/link';
 import { ArrowDownToLine, Copy, LoaderCircle, Printer, QrCode, RefreshCw } from 'lucide-react';
 import { api } from '@/lib/api';
-import { QR_FILE_NAME, dataUrlToFile, isShareCancelled, needsShareToSave } from '@/lib/qr-download';
+import { QR_FILE_NAME, dataUrlToFile } from '@/lib/qr-download';
+import { isShareCancelled, needsShareToSave } from '@/lib/share-sheet';
 import type { RunAction } from './types';
 
 /**
